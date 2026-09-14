@@ -63,13 +63,7 @@ function renderPerkembanganAdmin() {
         <div>
           <h2>Perkembangan Anak</h2>
 
-          <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
-          >
+          <div class="section-subtitle">
             Satu kartu mewakili satu anak agar tetap nyaman saat jumlah siswa bertambah.
           </div>
         </div>
@@ -374,12 +368,7 @@ function renderPerkembanganAdminCards() {
           </button>
 
 
-          <span
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-            "
-          >
+          <span class="perk-page-label">
 
             Halaman
             ${perkembanganAdminPage}
