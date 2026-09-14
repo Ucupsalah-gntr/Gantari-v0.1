@@ -283,3 +283,52 @@ function updateTodayChip() {
     }
   );
 }
+
+// ============================================================
+// APPLICATION FEEDBACK
+// Centralized user feedback for all feature modules.
+// ============================================================
+
+function appNotify(message, type = "info") {
+  const text = String(message || "").trim();
+  if (!text) return;
+
+  const existing = document.getElementById("gantarikuToast");
+  if (existing) existing.remove();
+
+  const toast = document.createElement("div");
+  toast.id = "gantarikuToast";
+  toast.className = "app-toast app-toast-" + type;
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
+  toast.textContent = text;
+
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+  window.setTimeout(() => {
+    toast.classList.remove("is-visible");
+    window.setTimeout(() => toast.remove(), 220);
+  }, 3600);
+}
+
+function setButtonBusy(button, busy, busyText = "Memproses...") {
+  if (!button) return;
+
+  if (busy) {
+    if (!button.dataset.originalText) {
+      button.dataset.originalText = button.innerHTML;
+    }
+    button.disabled = true;
+    button.classList.add("is-busy");
+    button.textContent = busyText;
+    return;
+  }
+
+  button.disabled = false;
+  button.classList.remove("is-busy");
+  if (button.dataset.originalText) {
+    button.innerHTML = button.dataset.originalText;
+    delete button.dataset.originalText;
+  }
+}
