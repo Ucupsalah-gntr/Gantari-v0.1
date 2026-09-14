@@ -3815,3 +3815,18 @@ textarea:focus {
   }
 
 }
+
+/* ============================================================
+   APP SHELL UTILITIES
+   Shared layout helpers previously defined inline in app.js.
+   ============================================================ */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.is-hidden {
+  display: none !important;
+}
