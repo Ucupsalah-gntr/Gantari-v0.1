@@ -3904,3 +3904,39 @@ textarea:focus {
     flex: 1 1 160px;
   }
 }
+
+/* ============================================================
+   GLOBAL APPLICATION FEEDBACK
+   ============================================================ */
+.app-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  max-width: min(420px, calc(100vw - 40px));
+  padding: 14px 18px;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.16);
+  background: #202020;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.app-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.app-toast-success { background: #166534; }
+.app-toast-warning { background: #92400e; }
+.app-toast-error { background: #b91c1c; }
+
+.btn.is-busy,
+button.is-busy {
+  cursor: wait;
+  opacity: .72;
+}
