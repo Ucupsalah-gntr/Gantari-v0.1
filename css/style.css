@@ -3940,3 +3940,37 @@ button.is-busy {
   cursor: wait;
   opacity: .72;
 }
+
+/* ============================================================
+   FEATURE PRESENTATION CLEANUP
+   ============================================================ */
+.section-subtitle {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.perk-page-label {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.ortu-child-selector {
+  margin-bottom: 16px;
+}
+
+.ortu-child-selector-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: 7px;
+}
+
+.ortu-child-select {
+  width: 100%;
+  max-width: 420px;
+}
+
+.ortu-summary-title {
+  margin: 0;
+}
