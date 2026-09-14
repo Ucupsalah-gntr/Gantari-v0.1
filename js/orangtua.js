@@ -205,31 +205,16 @@ function renderPilihAnakHtml() {
       .join("");
 
   return `
-    <div
-      class="ortu-child-selector"
-      style="
-        margin-bottom:16px;
-      "
-    >
+    <div class="ortu-child-selector">
 
-      <div
-        style="
-          font-size:12px;
-          font-weight:700;
-          color:var(--ink-soft);
-          margin-bottom:7px;
-        "
-      >
+      <div class="ortu-child-selector-label">
         Pilih Anak
       </div>
 
       <select
         id="pilihAnak"
         onchange="window.__app.gantiAnak(this.value)"
-        style="
-          width:100%;
-          max-width:420px;
-        "
+        class="ortu-child-select"
       >
         ${opsi}
       </select>
@@ -451,11 +436,7 @@ async function loadRingkasanAnak() {
 
           <div>
 
-            <h2
-              style="
-                margin:0;
-              "
-            >
+            <h2 class="ortu-summary-title">
               ${anak.nama}
             </h2>
 
@@ -731,9 +712,7 @@ async function loadRingkasanAnak() {
 
       <div
         class="empty"
-        style="
-          color:#E11D48;
-        "
+        class="text-danger"
       >
         Gagal memuat ringkasan anak.
       </div>
@@ -777,11 +756,7 @@ function renderAbsenAnak() {
           <h2>Kehadiran Anak</h2>
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
+            class="section-subtitle"
           >
             Riwayat kehadiran anak
           </div>
@@ -869,9 +844,7 @@ function renderAbsenAnak() {
 
                 <td
                   colspan="3"
-                  style="
-                    text-align:center;
-                  "
+                  class="table-state"
                 >
                   Memuat data...
                 </td>
@@ -954,9 +927,7 @@ async function loadAbsenAnak() {
       <tr>
         <td
           colspan="3"
-          style="
-            text-align:center;
-          "
+          class="table-state"
         >
           ${emptyHtml}
         </td>
@@ -1037,9 +1008,7 @@ async function loadAbsenAnak() {
 
           <td
             colspan="3"
-            style="
-              text-align:center;
-            "
+            class="table-state"
           >
             Tidak ada data absensi
             pada rentang ini.
@@ -1203,9 +1172,7 @@ async function loadAbsenAnak() {
     mobileList.innerHTML = `
       <div
         class="empty"
-        style="
-          color:#E11D48;
-        "
+        class="text-danger"
       >
         Gagal memuat data absensi.
       </div>
@@ -1266,11 +1233,7 @@ function renderSppAnak() {
           <h2>Status SPP</h2>
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
+            class="section-subtitle"
           >
             Riwayat pembayaran SPP
           </div>
@@ -1350,9 +1313,7 @@ function renderSppAnak() {
 
                 <td
                   colspan="6"
-                  style="
-                    text-align:center;
-                  "
+                  class="table-state"
                 >
                   Memuat data...
                 </td>
@@ -1436,9 +1397,7 @@ async function loadSppAnak() {
       <tr>
         <td
           colspan="6"
-          style="
-            text-align:center;
-          "
+          class="table-state"
         >
           ${message}
         </td>
@@ -1524,9 +1483,7 @@ async function loadSppAnak() {
 
           <td
             colspan="6"
-            style="
-              text-align:center;
-            "
+            class="table-state"
           >
             Belum ada data SPP.
           </td>
@@ -1765,9 +1722,7 @@ async function loadSppAnak() {
     mobileList.innerHTML = `
       <div
         class="empty"
-        style="
-          color:#E11D48;
-        "
+        class="text-danger"
       >
         Gagal memuat data SPP.
       </div>
@@ -1961,7 +1916,7 @@ async function uploadBuktiSpp(
 
   if (!supabase) {
 
-    alert(
+    appNotify(
       "Supabase belum terhubung."
     );
 
@@ -1980,7 +1935,7 @@ async function uploadBuktiSpp(
     maxSize
   ) {
 
-    alert(
+    appNotify(
       "Ukuran file maksimal 5 MB."
     );
 
@@ -2005,7 +1960,7 @@ async function uploadBuktiSpp(
     )
   ) {
 
-    alert(
+    appNotify(
       "File harus berupa JPG, PNG, atau PDF."
     );
 
@@ -2049,7 +2004,7 @@ async function uploadBuktiSpp(
         "Belum Bayar"
     ) {
 
-      alert(
+      appNotify(
         "Tagihan ini tidak dapat menerima bukti pembayaran."
       );
 
@@ -2072,7 +2027,7 @@ async function uploadBuktiSpp(
 
     if (!anak) {
 
-      alert(
+      appNotify(
         "Anda tidak memiliki akses ke tagihan ini."
       );
 
@@ -2175,7 +2130,7 @@ async function uploadBuktiSpp(
     }
 
 
-    alert(
+    appNotify(
       "✅ Bukti pembayaran berhasil dikirim.\n\n" +
       "Status SPP sekarang: Menunggu Verifikasi."
     );
@@ -2190,7 +2145,7 @@ async function uploadBuktiSpp(
       error
     );
 
-    alert(
+    appNotify(
       "Gagal mengirim bukti pembayaran:\n\n" +
       (
         error?.message ||
@@ -2227,7 +2182,7 @@ async function debugAksesPembayaran() {
 
     if (!user) {
 
-      alert(
+      appNotify(
         "Session login tidak ditemukan."
       );
 
@@ -2292,7 +2247,7 @@ async function debugAksesPembayaran() {
     );
 
 
-    alert(
+    appNotify(
 
       "HASIL DEBUG\n\n" +
 
@@ -2331,7 +2286,7 @@ async function debugAksesPembayaran() {
       error
     );
 
-    alert(
+    appNotify(
 
       "DEBUG GAGAL:\n\n" +
 

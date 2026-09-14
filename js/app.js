@@ -39,12 +39,7 @@
   </div>
 
   <div
-    style="
-      display:flex;
-      align-items:center;
-      gap:10px;
-      position:relative;
-    "
+    class="topbar-actions"
   >
 
     <button
@@ -56,9 +51,7 @@
       🔔
       <span id="notifLabel">Notifikasi</span>
       <span
-        id="notifCount"
-        class="notif-count"
-        style="display:none;"
+        id="notifCount" class="notif-count is-hidden"
       >
         0
       </span>
@@ -300,8 +293,14 @@
 
         if (currentNav === "perkembangan") {
           loadPerkembanganAdmin();
+
           const cariPerk = document.getElementById("perkembanganAdminCari");
-          if (cariPerk) cariPerk.addEventListener("input", () => { perkembanganAdminPage = 1; renderPerkembanganAdminCards(); });
+          if (cariPerk) {
+            cariPerk.addEventListener("input", function () {
+              perkembanganAdminPage = 1;
+              renderPerkembanganAdminCards();
+            });
+          }
         }
 
         if (currentNav === "perkembangan-input") {
@@ -427,7 +426,6 @@
   stopRealtimeNotifications,
   dashOpenSpp,
   bukaPembayaranDariNotifikasi,
-  bukaPembayaranDariNotifikasi,
  
 
   loadFormInputAbsen,
@@ -441,7 +439,11 @@
   loadSppAnak,
 
   tampilkanRiwayatPerkembangan:
-    renderRiwayatPerkembanganDipilih
+    renderRiwayatPerkembanganDipilih,
+
+  // Compatibility aliases for legacy inline handlers.
+  exportRekapAbsensiCsv,
+  exportAbsensiGuruCsv
 };
 
       // Start app setelah koneksi Supabase siap.

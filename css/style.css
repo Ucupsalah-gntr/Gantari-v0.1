@@ -2958,3 +2958,1118 @@ textarea:focus {
   }
 
 }
+
+/* ============================================================
+   RESPONSIVE UI
+   Centralized from legacy inline patches in index.html.
+   Keep page-specific mobile behavior here so HTML remains markup-only.
+   ============================================================ */
+/* ==========================================================
+     MOBILE FOUNDATION
+     ========================================================== */
+
+  @media (max-width: 760px) {
+
+    .view,
+    .topbar,
+    .section,
+    .section-body {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .section {
+      overflow: hidden;
+    }
+
+    .section-head {
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .section-head .controls {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 9px !important;
+    }
+
+    .section-head .controls input,
+    .section-head .controls select,
+    .section-head .controls button {
+      width: 100% !important;
+      min-height: 44px;
+      box-sizing: border-box;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      min-height: 44px;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      min-height: 44px;
+    }
+
+
+    /* ==========================================================
+       GURU — PERKEMBANGAN ANAK
+       ========================================================== */
+
+    /*
+      Form awalnya:
+      Kelas | Siswa | Tanggal
+      Teknik | Hafalan | Ekspresi | Disiplin | Percaya Diri
+
+      Di HP dibuat 1 kolom agar tidak sempit.
+    */
+
+    #formPerkembangan > div:nth-child(1) {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 11px !important;
+    }
+
+    #formPerkembangan > div:nth-child(2) {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 11px !important;
+      margin-top: 12px !important;
+    }
+
+    #formPerkembangan > div:nth-child(3) {
+      margin-top: 12px !important;
+    }
+
+    #formPerkembangan .form-group,
+    #formPerkembangan .form-group input,
+    #formPerkembangan .form-group select,
+    #formPerkembangan .form-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #formPerkembangan label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #formPerkembangan select,
+    #formPerkembangan input,
+    #formPerkembangan textarea {
+      width: 100%;
+      min-height: 46px;
+    }
+
+    #btnSimpanPerkembangan {
+      width: 100%;
+      min-height: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 12px;
+    }
+
+
+    /* ==========================================================
+       GURU — PENILAIAN TERAKHIR
+       Ubah tabel menjadi kartu
+       ========================================================== */
+
+    #daftarPerkembanganGuru {
+      display: block !important;
+      width: 100%;
+    }
+
+    #daftarPerkembanganGuru tr {
+      display: block !important;
+      width: 100%;
+      box-sizing: border-box;
+
+      margin: 0 0 12px;
+      padding: 13px 14px;
+
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 14px;
+
+      background: #fff;
+
+      box-shadow: 0 4px 14px rgba(0,0,0,.05);
+    }
+
+    #daftarPerkembanganGuru td {
+      display: flex !important;
+      align-items: flex-start;
+
+      gap: 8px;
+
+      padding: 7px 0 !important;
+
+      border: 0 !important;
+
+      text-align: left !important;
+
+      white-space: normal !important;
+      word-break: break-word;
+    }
+
+    #daftarPerkembanganGuru td::before {
+
+      flex: 0 0 82px;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      color: var(--ink-soft, #6b7280);
+
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    #daftarPerkembanganGuru td:nth-child(1)::before {
+      content: "Tanggal";
+    }
+
+    #daftarPerkembanganGuru td:nth-child(2)::before {
+      content: "Siswa";
+    }
+
+    #daftarPerkembanganGuru td:nth-child(3)::before {
+      content: "Nilai";
+    }
+
+    #daftarPerkembanganGuru td:nth-child(4)::before {
+      content: "Catatan";
+    }
+
+    #daftarPerkembanganGuru td[colspan] {
+      display: block !important;
+      text-align: center !important;
+    }
+
+    #daftarPerkembanganGuru td[colspan]::before {
+      display: none;
+    }
+
+
+    /* ==========================================================
+       ORANG TUA — PILIH ANAK
+       ========================================================== */
+
+    #pilihAnakWrap {
+      margin-bottom: 12px;
+    }
+
+    #pilihAnakWrap select,
+    #pilihAnakWrap button {
+      width: 100% !important;
+      min-height: 46px;
+      box-sizing: border-box;
+    }
+
+
+    /* ==========================================================
+       ORANG TUA — KEHADIRAN
+       ========================================================== */
+
+    #daftarAbsenAnak {
+      display: block !important;
+      width: 100%;
+    }
+
+    #daftarAbsenAnak tr {
+
+      display: block !important;
+
+      width: 100%;
+      box-sizing: border-box;
+
+      margin: 0 0 10px;
+      padding: 12px 13px;
+
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 13px;
+
+      background: #fff;
+
+      box-shadow: 0 3px 12px rgba(0,0,0,.045);
+    }
+
+    #daftarAbsenAnak td {
+
+      display: flex !important;
+
+      align-items: flex-start;
+
+      gap: 8px;
+
+      padding: 6px 0 !important;
+
+      border: 0 !important;
+
+      text-align: left !important;
+
+      white-space: normal !important;
+      word-break: break-word;
+    }
+
+    #daftarAbsenAnak td::before {
+
+      flex: 0 0 78px;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      color: var(--ink-soft, #6b7280);
+
+      text-transform: uppercase;
+    }
+
+    #daftarAbsenAnak td:nth-child(1)::before {
+      content: "Tanggal";
+    }
+
+    #daftarAbsenAnak td:nth-child(2)::before {
+      content: "Status";
+    }
+
+    #daftarAbsenAnak td:nth-child(3)::before {
+      content: "Catatan";
+    }
+
+    #daftarAbsenAnak td[colspan] {
+
+      display: block !important;
+
+      text-align: center !important;
+    }
+
+    #daftarAbsenAnak td[colspan]::before {
+      display: none;
+    }
+
+
+    /* ==========================================================
+       ORANG TUA — SPP
+       ========================================================== */
+
+    #daftarSppAnak {
+      display: block !important;
+      width: 100%;
+    }
+
+    #daftarSppAnak tr {
+
+      display: block !important;
+
+      width: 100%;
+      box-sizing: border-box;
+
+      margin: 0 0 12px;
+      padding: 13px 14px;
+
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 14px;
+
+      background: #fff;
+
+      box-shadow: 0 4px 14px rgba(0,0,0,.05);
+    }
+
+    #daftarSppAnak td {
+
+      display: flex !important;
+
+      align-items: flex-start;
+
+      gap: 8px;
+
+      padding: 6px 0 !important;
+
+      border: 0 !important;
+
+      text-align: left !important;
+
+      white-space: normal !important;
+
+      word-break: break-word;
+    }
+
+    #daftarSppAnak td::before {
+
+      flex: 0 0 82px;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      color: var(--ink-soft, #6b7280);
+
+      text-transform: uppercase;
+    }
+
+    #daftarSppAnak td:nth-child(1)::before {
+      content: "Bulan";
+    }
+
+    #daftarSppAnak td:nth-child(2)::before {
+      content: "Tahun";
+    }
+
+    #daftarSppAnak td:nth-child(3)::before {
+      content: "Nominal";
+    }
+
+    #daftarSppAnak td:nth-child(4)::before {
+      content: "Status";
+    }
+
+    #daftarSppAnak td:nth-child(5)::before {
+      content: "Dibayar";
+    }
+
+    #daftarSppAnak td:nth-child(6)::before {
+      content: "Aksi";
+    }
+
+    /*
+      Bagian aksi dibuat seperti footer kartu
+    */
+
+    #daftarSppAnak td:nth-child(6) {
+
+      display: block !important;
+
+      padding-top: 10px !important;
+
+      margin-top: 5px;
+
+      border-top: 1px solid rgba(0,0,0,.06) !important;
+    }
+
+    #daftarSppAnak td:nth-child(6)::before {
+
+      display: block;
+
+      margin-bottom: 7px;
+    }
+
+    #daftarSppAnak td:nth-child(6) .btn {
+
+      width: 100%;
+
+      min-height: 46px;
+    }
+
+    #daftarSppAnak td[colspan] {
+
+      display: block !important;
+
+      text-align: center !important;
+    }
+
+    #daftarSppAnak td[colspan]::before {
+      display: none;
+    }
+
+
+    /* ==========================================================
+       ORANG TUA — PERKEMBANGAN
+       ========================================================== */
+
+    #ringkasanPerkembangan {
+      width: 100%;
+    }
+
+    /*
+      Aspek perkembangan dibuat vertikal
+      sehingga cocok untuk layar HP.
+    */
+
+    .perk-history-grid {
+
+      grid-template-columns: 1fr !important;
+
+      gap: 8px !important;
+    }
+
+    .perk-history-cell {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 12px;
+
+      min-height: 48px;
+
+      padding: 10px 12px;
+
+      border-radius: 12px;
+
+      box-sizing: border-box;
+    }
+
+    .perk-history-cell .name {
+
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .perk-history-cell .score {
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      white-space: nowrap;
+    }
+
+    .perk-history-meta {
+
+      line-height: 1.5;
+
+      font-size: 12px;
+    }
+
+    .perk-history-note {
+
+      line-height: 1.55;
+
+      font-size: 13px;
+    }
+
+
+    /* ==========================================================
+       ORANG TUA — RINGKASAN
+       ========================================================== */
+
+    #ringkasanAnakBody {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+
+    /* ==========================================================
+       HILANGKAN RISIKO SCROLL KE SAMPING
+       ========================================================== */
+
+    .section-body {
+      overflow-x: hidden;
+    }
+
+    .section-body table {
+
+      width: 100%;
+
+      min-width: 0 !important;
+
+      border-collapse: separate;
+
+      border-spacing: 0;
+    }
+
+
+    /* ==========================================================
+       TOUCH TARGET
+       ========================================================== */
+
+    #ringkasanPerkembangan button,
+    #ringkasanPerkembangan a,
+    #ringkasanPerkembangan .btn,
+
+    #daftarAbsenAnak .btn,
+
+    #daftarSppAnak .btn {
+
+      min-height: 44px;
+    }
+
+  }
+
+/* ============================================================
+   RESPONSIVE REFINEMENTS
+   Consolidated from legacy inline style blocks.
+   ============================================================ */
+@media (max-width: 760px) {
+
+  /* =========================================================
+     GURU — HASIL PENILAIAN LEBIH RINGKAS
+     ========================================================= */
+
+  #daftarPerkembanganGuru tr {
+    display: grid !important;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 4px 14px;
+
+    margin-bottom: 10px;
+
+    padding: 10px 12px;
+  }
+
+  #daftarPerkembanganGuru td {
+    display: block !important;
+
+    padding: 3px 0 !important;
+
+    font-size: 12px;
+
+    min-width: 0;
+  }
+
+  /* Label kecil di atas isi */
+  #daftarPerkembanganGuru td::before {
+    display: block;
+
+    margin-bottom: 2px;
+
+    font-size: 9px;
+
+    line-height: 1.2;
+
+    color: var(--ink-soft, #6b7280);
+  }
+
+  #daftarPerkembanganGuru td:nth-child(1)::before {
+    content: "Tanggal";
+  }
+
+  #daftarPerkembanganGuru td:nth-child(2)::before {
+    content: "Siswa";
+  }
+
+  #daftarPerkembanganGuru td:nth-child(3)::before {
+    content: "Nilai";
+  }
+
+  #daftarPerkembanganGuru td:nth-child(4)::before {
+    content: "Catatan";
+  }
+
+  /* Tanggal + siswa */
+  #daftarPerkembanganGuru td:nth-child(1),
+  #daftarPerkembanganGuru td:nth-child(2) {
+    align-self: start;
+  }
+
+  /* Nilai dibuat sedikit lebih menonjol */
+  #daftarPerkembanganGuru td:nth-child(3) {
+    font-weight: 700;
+  }
+
+  /* Catatan memenuhi lebar kartu */
+  #daftarPerkembanganGuru td:nth-child(4) {
+    grid-column: 1 / -1;
+
+    padding-top: 6px !important;
+
+    margin-top: 3px;
+
+    border-top: 1px solid rgba(0,0,0,.06) !important;
+
+    line-height: 1.4;
+
+    color: var(--ink, #374151);
+  }
+
+  /* Baris kosong / pesan loading */
+  #daftarPerkembanganGuru td[colspan] {
+    grid-column: 1 / -1;
+
+    display: block !important;
+
+    padding: 8px !important;
+
+    text-align: center !important;
+  }
+
+  #daftarPerkembanganGuru td[colspan]::before {
+    display: none;
+  }
+
+}
+
+/* =========================================================
+   FIX FINAL MOBILE
+   HASIL PENILAIAN GURU
+   TABEL -> KARTU LEBAR PENUH
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+  /* =======================================================
+     Sembunyikan header tabel pada HP
+     ======================================================= */
+
+  #daftarPerkembanganGuru {
+    display: block !important;
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  /*
+    Paksa tabel pembungkus agar tidak mempertahankan
+    lebar kolom desktop.
+  */
+
+  #daftarPerkembanganGuru {
+    table-layout: auto !important;
+  }
+
+
+  /* =======================================================
+     SETIAP HASIL = SATU KARTU FULL WIDTH
+     ======================================================= */
+
+  #daftarPerkembanganGuru tr {
+
+    display: grid !important;
+
+    grid-template-columns: 1fr 1fr !important;
+
+    width: 100% !important;
+    min-width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    gap: 8px 14px !important;
+
+    margin: 0 0 12px 0 !important;
+
+    padding: 14px !important;
+
+    border: 1px solid rgba(0,0,0,.09) !important;
+
+    border-radius: 16px !important;
+
+    background: #ffffff !important;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,.05) !important;
+
+  }
+
+
+  /* =======================================================
+     CELL
+     ======================================================= */
+
+  #daftarPerkembanganGuru td {
+
+    display: block !important;
+
+    width: auto !important;
+    min-width: 0 !important;
+
+    padding: 0 !important;
+
+    border: none !important;
+
+    white-space: normal !important;
+
+    word-break: normal !important;
+
+    overflow-wrap: anywhere !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.45 !important;
+
+    box-sizing: border-box !important;
+
+  }
+
+
+  /* =======================================================
+     LABEL
+     ======================================================= */
+
+  #daftarPerkembanganGuru td::before {
+
+    display: block !important;
+
+    margin-bottom: 3px !important;
+
+    font-size: 9px !important;
+
+    font-weight: 800 !important;
+
+    color: #8a8178 !important;
+
+    text-transform: uppercase !important;
+
+    letter-spacing: .05em !important;
+
+  }
+
+
+  #daftarPerkembanganGuru td:nth-child(1)::before {
+    content: "Tanggal" !important;
+  }
+
+  #daftarPerkembanganGuru td:nth-child(2)::before {
+    content: "Siswa" !important;
+  }
+
+  #daftarPerkembanganGuru td:nth-child(3)::before {
+    content: "Ringkasan Nilai" !important;
+  }
+
+  #daftarPerkembanganGuru td:nth-child(4)::before {
+    content: "Catatan" !important;
+  }
+
+
+  /* =======================================================
+     TANGGAL + SISWA
+     ======================================================= */
+
+  #daftarPerkembanganGuru td:nth-child(1),
+  #daftarPerkembanganGuru td:nth-child(2) {
+
+    padding-bottom: 4px !important;
+
+  }
+
+
+  /* =======================================================
+     RINGKASAN NILAI FULL WIDTH
+     ======================================================= */
+
+  #daftarPerkembanganGuru td:nth-child(3) {
+
+    grid-column: 1 / -1 !important;
+
+    width: 100% !important;
+
+    padding-top: 9px !important;
+
+    border-top: 1px solid rgba(0,0,0,.07) !important;
+
+    font-size: 12px !important;
+
+    line-height: 1.55 !important;
+
+    color: #4b4742 !important;
+
+  }
+
+
+  /* =======================================================
+     CATATAN FULL WIDTH
+     ======================================================= */
+
+  #daftarPerkembanganGuru td:nth-child(4) {
+
+    grid-column: 1 / -1 !important;
+
+    width: 100% !important;
+
+    padding-top: 8px !important;
+
+    border-top: 1px solid rgba(0,0,0,.07) !important;
+
+    line-height: 1.55 !important;
+
+  }
+
+
+  /* =======================================================
+     PESAN KOSONG
+     ======================================================= */
+
+  #daftarPerkembanganGuru td[colspan] {
+
+    grid-column: 1 / -1 !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+
+    padding: 10px !important;
+
+  }
+
+  #daftarPerkembanganGuru td[colspan]::before {
+    display: none !important;
+  }
+
+
+  /* =======================================================
+     PERBAIKAN PARENT TABLE
+     ======================================================= */
+
+  .table-wrap {
+
+    width: 100% !important;
+
+    overflow-x: hidden !important;
+
+  }
+
+}
+
+/* ============================================================
+   APP SHELL UTILITIES
+   Shared layout helpers previously defined inline in app.js.
+   ============================================================ */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+/* ============================================================
+   SISWA MODULE
+   Semantic styles moved out of inline markup.
+   ============================================================ */
+.siswa-form-panel {
+  display: none;
+  padding: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.siswa-form-title {
+  margin-top: 0;
+}
+
+.siswa-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.form-help {
+  color: var(--ink-soft);
+}
+
+.access-code-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.access-code-input {
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+}
+
+.siswa-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.table-state {
+  text-align: center;
+}
+
+.table-state-error {
+  color: #E11D48;
+}
+
+.gtr-import-error {
+  padding: 12px;
+  border-radius: 10px;
+  background: #fcebe7;
+  color: #b84242;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .siswa-form-panel {
+    padding: 16px;
+  }
+
+  .siswa-form-actions .btn {
+    flex: 1 1 160px;
+  }
+}
+
+/* ============================================================
+   GLOBAL APPLICATION FEEDBACK
+   ============================================================ */
+.app-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  max-width: min(420px, calc(100vw - 40px));
+  padding: 14px 18px;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.16);
+  background: #202020;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.app-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.app-toast-success { background: #166534; }
+.app-toast-warning { background: #92400e; }
+.app-toast-error { background: #b91c1c; }
+
+.btn.is-busy,
+button.is-busy {
+  cursor: wait;
+  opacity: .72;
+}
+
+/* ============================================================
+   FEATURE PRESENTATION CLEANUP
+   ============================================================ */
+.section-subtitle {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.perk-page-label {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.ortu-child-selector {
+  margin-bottom: 16px;
+}
+
+.ortu-child-selector-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: 7px;
+}
+
+.ortu-child-select {
+  width: 100%;
+  max-width: 420px;
+}
+
+.ortu-summary-title {
+  margin: 0;
+}
+
+/* ============================================================
+   GURU & ABSENSI MODULE CLEANUP
+   ============================================================ */
+.guru-list-mobile { display: none; }
+
+.guru-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.guru-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 15px;
+  background: #fff;
+}
+
+.guru-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.guru-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.guru-card-email {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  word-break: break-word;
+}
+
+.guru-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.section-description {
+  margin-top: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.form-actions-spaced { margin-top: 16px; }
+
+.form-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.form-actions-row {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.muted-xs {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.text-danger { color: #E11D48; }
+
+@media (max-width: 760px) {
+  .guru-table-desktop { display: none; }
+  .guru-list-mobile { display: block; }
+  .guru-card-grid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 761px) {
+  .guru-list-mobile { display: none; }
+}
+
+/* ============================================================
+   SPP DETAIL CLEANUP
+   ============================================================ */
+.spp-detail-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.spp-detail-section { margin-top: 16px; }
+.spp-detail-section-lg { margin-top: 18px; }
+.spp-detail-title { margin: 3px 0 0; }
+.spp-proof-link { margin-top: 6px; display: inline-block; }
+.spp-note { margin-top: 4px; line-height: 1.5; }

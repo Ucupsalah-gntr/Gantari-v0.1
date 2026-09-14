@@ -6,98 +6,6 @@ function renderGuru() {
 
   return `
 
-    <style>
-
-      .guru-list-mobile {
-        display:none;
-      }
-
-
-      .guru-card-grid {
-        display:grid;
-        grid-template-columns:
-          repeat(
-            2,
-            minmax(0, 1fr)
-          );
-        gap:14px;
-      }
-
-
-      .guru-card {
-        border:1px solid var(--line);
-        border-radius:16px;
-        padding:15px;
-        background:#fff;
-      }
-
-
-      .guru-card-top {
-        display:flex;
-        justify-content:space-between;
-        align-items:flex-start;
-        gap:12px;
-      }
-
-
-      .guru-card-name {
-        font-size:15px;
-        font-weight:700;
-        line-height:1.35;
-      }
-
-
-      .guru-card-email {
-        margin-top:5px;
-        font-size:12px;
-        color:var(--ink-soft);
-        word-break:break-word;
-      }
-
-
-      .guru-card-meta {
-        display:flex;
-        flex-wrap:wrap;
-        gap:8px;
-        margin-top:14px;
-      }
-
-
-      @media (
-        max-width:760px
-      ) {
-
-        .guru-table-desktop {
-          display:none;
-        }
-
-
-        .guru-list-mobile {
-          display:block;
-        }
-
-
-        .guru-card-grid {
-          grid-template-columns:
-            1fr;
-        }
-
-      }
-
-
-      @media (
-        min-width:761px
-      ) {
-
-        .guru-list-mobile {
-          display:none;
-        }
-
-      }
-
-    </style>
-
-
     <div class="section">
 
       <div class="section-head">
@@ -109,11 +17,7 @@ function renderGuru() {
           </h2>
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
+            class="section-subtitle"
           >
             Daftar akun guru dan pelatih yang sudah terdaftar.
           </div>
@@ -147,11 +51,7 @@ function renderGuru() {
       <div class="section-body">
 
         <p
-          style="
-            margin-top:0;
-            color:var(--ink-soft);
-            font-size:13px;
-          "
+          class="section-description"
         >
 
           Akun guru/pelatih dikelola melalui autentikasi Supabase.
@@ -207,9 +107,7 @@ function renderGuru() {
 
                 <td
                   colspan="4"
-                  style="
-                    text-align:center;
-                  "
+                  class="table-state"
                 >
                   Memuat data guru...
                 </td>
@@ -289,9 +187,7 @@ async function loadGuru() {
 
         <td
           colspan="4"
-          style="
-            text-align:center;
-          "
+          class="table-state"
         >
           Memuat data guru...
         </td>
@@ -400,9 +296,7 @@ async function loadGuru() {
 
             <td
               colspan="4"
-              style="
-                text-align:center;
-              "
+              class="table-state"
             >
               Belum ada akun guru/pelatih.
             </td>
@@ -658,9 +552,7 @@ async function loadGuru() {
           class="
             perk-empty
           "
-          style="
-            color:#E11D48;
-          "
+          class="text-danger"
         >
           ${pesan}
         </div>

@@ -52,7 +52,7 @@ function renderSpp() {
       <div class="section-head">
         <div>
           <h2>Monitoring SPP Tahunan</h2>
-          <div style="font-size:12px;color:var(--ink-soft);margin-top:4px;">
+          <div class="section-subtitle">
             Pantau pembayaran seluruh siswa dalam satu tahun.
           </div>
         </div>
@@ -661,7 +661,7 @@ async function simpanSpp(event) {
   event.preventDefault();
 
   if (!supabase) {
-    alert("Supabase belum terhubung.");
+    appNotify("Supabase belum terhubung.");
     return;
   }
 
@@ -674,7 +674,7 @@ async function simpanSpp(event) {
   const status = document.getElementById("sppStatus")?.value;
 
   if (!siswaId || !nominal || nominal <= 0) {
-    alert("Siswa dan nominal wajib diisi dengan benar.");
+    appNotify("Siswa dan nominal wajib diisi dengan benar.");
     return;
   }
 
@@ -699,18 +699,18 @@ async function simpanSpp(event) {
 
     if (error) throw error;
 
-    alert("Tagihan SPP berhasil ditambahkan!");
+    appNotify("Tagihan SPP berhasil ditambahkan!");
     tutupFormSpp();
     await loadSpp();
   } catch (error) {
     console.error("Error simpan SPP:", error);
 
     if (error?.code === "23505") {
-      alert(
+      appNotify(
         "Tagihan untuk siswa, bulan, dan tahun tersebut sudah ada."
       );
     } else {
-      alert(
+      appNotify(
         "Gagal menyimpan tagihan SPP:\n\n" +
           (error?.message || "Terjadi kesalahan.")
       );
@@ -729,7 +729,7 @@ async function simpanSpp(event) {
 
 async function buatTagihanBulanan() {
   if (!supabase) {
-    alert("Supabase belum terhubung.");
+    appNotify("Supabase belum terhubung.");
     return;
   }
 
@@ -753,7 +753,7 @@ async function buatTagihanBulanan() {
     bulanPilihan < 1 ||
     bulanPilihan > 12
   ) {
-    alert("Bulan tidak valid.");
+    appNotify("Bulan tidak valid.");
     return;
   }
 
@@ -769,12 +769,12 @@ async function buatTagihanBulanan() {
   );
 
   if (!nominal || nominal <= 0) {
-    alert("Nominal tidak valid.");
+    appNotify("Nominal tidak valid.");
     return;
   }
 
   if (
-    !confirm(
+    !confirmSpp(
       `Buat tagihan ${namaBulan(bulanPilihan)} ${tahun} ` +
         `sebesar ${formatRupiah(nominal)} untuk semua siswa ` +
         `yang belum memiliki tagihan pada periode tersebut?`
@@ -800,7 +800,7 @@ async function buatTagihanBulanan() {
     );
 
     if (belumAda.length === 0) {
-      alert(
+      appNotify(
         `Semua siswa sudah memiliki tagihan ${namaBulan(
           bulanPilihan
         )} ${tahun}.`
@@ -824,7 +824,7 @@ async function buatTagihanBulanan() {
 
     if (error) throw error;
 
-    alert(
+    appNotify(
       `Berhasil membuat ${payload.length} tagihan SPP ${namaBulan(
         bulanPilihan
       )} ${tahun}.`
@@ -833,7 +833,7 @@ async function buatTagihanBulanan() {
     await loadSpp();
   } catch (error) {
     console.error("Error buat tagihan bulanan:", error);
-    alert(
+    appNotify(
       "Gagal membuat tagihan bulanan:\n\n" +
         (error?.message || "Terjadi kesalahan.")
     );
@@ -893,7 +893,7 @@ async function bukaDetailSpp(id) {
     .single();
 
   if (error) {
-    alert("Gagal membuka detail SPP:\n\n" + error.message);
+    appNotify("Gagal membuka detail SPP:\n\n" + error.message);
     return;
   }
 
@@ -936,7 +936,7 @@ async function bukaDetailSpp(id) {
     `;
   } else {
     aksi = `
-      <div style="margin-top:16px;">
+      <div class="spp-detail-section">
         <button
           class="btn ghost"
           onclick="window.__app.hapusSpp('${data.id}');window.__app.tutupDetailSpp();"
@@ -950,10 +950,10 @@ async function bukaDetailSpp(id) {
 
       <div class="spp-modal-head">
         <div>
-          <div style="font-size:12px;color:var(--ink-soft);">
+          <div class="form-help">
             SPP ${namaBulan(data.bulan)} ${data.tahun}
           </div>
-          <h3 style="margin:3px 0 0;">
+          <h3 class="spp-detail-title">
             ${data.siswa?.nama || "Siswa"}
           </h3>
         </div>
@@ -1005,14 +1005,14 @@ async function bukaDetailSpp(id) {
       ${
         buktiSignedUrl
           ? `
-            <div style="margin-top:18px;">
+            <div class="spp-detail-section spp-detail-section-lg">
               <div class="spp-detail-label">Bukti Pembayaran</div>
               <a
                 href="${buktiSignedUrl}"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn secondary small"
-                style="margin-top:6px;display:inline-block;"
+                class="spp-proof-link"
               >
                 🔎 Buka Bukti
               </a>
@@ -1024,9 +1024,9 @@ async function bukaDetailSpp(id) {
       ${
         data.catatan
           ? `
-            <div style="margin-top:16px;">
+            <div class="spp-detail-section">
               <div class="spp-detail-label">Catatan</div>
-              <div style="margin-top:4px;line-height:1.5;">
+              <div class="spp-note">
                 ${data.catatan}
               </div>
             </div>
@@ -1054,7 +1054,7 @@ function tutupDetailSpp() {
 async function terimaPembayaranSpp(id) {
   if (!supabase) return;
 
-  if (!confirm("Terima pembayaran ini dan ubah status menjadi Lunas?")) {
+  if (!confirmSpp("Terima pembayaran ini dan ubah status menjadi Lunas?")) {
     return;
   }
 
@@ -1071,11 +1071,11 @@ async function terimaPembayaranSpp(id) {
 
     if (error) throw error;
 
-    alert("Pembayaran berhasil diverifikasi.");
+    appNotify("Pembayaran berhasil diverifikasi.");
     await loadSpp();
   } catch (error) {
     console.error("Terima pembayaran:", error);
-    alert("Gagal memverifikasi pembayaran:\n\n" + error.message);
+    appNotify("Gagal memverifikasi pembayaran:\n\n" + error.message);
   }
 }
 
@@ -1083,7 +1083,7 @@ async function tolakPembayaranSpp(id) {
   if (!supabase) return;
 
   if (
-    !confirm(
+    !confirmSpp(
       "Tolak bukti pembayaran ini? Status akan kembali menjadi Belum Bayar."
     )
   ) {
@@ -1104,18 +1104,18 @@ async function tolakPembayaranSpp(id) {
 
     if (error) throw error;
 
-    alert("Bukti pembayaran ditolak.");
+    appNotify("Bukti pembayaran ditolak.");
     await loadSpp();
   } catch (error) {
     console.error("Tolak pembayaran:", error);
-    alert("Gagal menolak pembayaran:\n\n" + error.message);
+    appNotify("Gagal menolak pembayaran:\n\n" + error.message);
   }
 }
 
 async function tandaiLunas(id) {
   if (!supabase) return;
 
-  if (!confirm("Tandai tagihan ini sebagai Lunas?")) return;
+  if (!confirmSpp("Tandai tagihan ini sebagai Lunas?")) return;
 
   try {
     const { error } = await supabase
@@ -1133,14 +1133,14 @@ async function tandaiLunas(id) {
     await loadSpp();
   } catch (error) {
     console.error("Tandai lunas:", error);
-    alert("Gagal menandai lunas:\n\n" + error.message);
+    appNotify("Gagal menandai lunas:\n\n" + error.message);
   }
 }
 
 async function hapusSpp(id) {
   if (!supabase) return;
 
-  if (!confirm("Yakin ingin menghapus tagihan SPP ini?")) return;
+  if (!confirmSpp("Yakin ingin menghapus tagihan SPP ini?")) return;
 
   try {
     const { error } = await supabase
@@ -1153,7 +1153,7 @@ async function hapusSpp(id) {
     await loadSpp();
   } catch (error) {
     console.error("Hapus SPP:", error);
-    alert("Gagal menghapus tagihan:\n\n" + error.message);
+    appNotify("Gagal menghapus tagihan:\n\n" + error.message);
   }
 }
 
