@@ -98,7 +98,7 @@
 
       async function simpanAbsensiMassal() {
         if (!supabase) {
-          alert("Supabase belum terhubung.");
+          appNotify("Supabase belum terhubung.");
           return;
         }
 
@@ -107,7 +107,7 @@
         const baris = document.querySelectorAll("#daftarInputAbsen tr[data-siswa-id]");
 
         if (!tanggal || baris.length === 0) {
-          alert("Tidak ada data untuk disimpan.");
+          appNotify("Tidak ada data untuk disimpan.");
           return;
         }
 
@@ -148,11 +148,11 @@
             if (error) throw error;
           }
 
-          alert("Absensi berhasil disimpan!");
+          appNotify("Absensi berhasil disimpan!");
           await loadFormInputAbsen();
         } catch (error) {
           console.error("Error simpan absensi:", error);
-          alert("Gagal menyimpan absensi:\n\n" + error.message);
+          appNotify("Gagal menyimpan absensi:\n\n" + error.message);
         } finally {
           if (btnSimpan) {
             btnSimpan.disabled = false;
