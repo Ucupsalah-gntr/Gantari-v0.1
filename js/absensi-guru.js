@@ -24,7 +24,7 @@
             <div class="section-body">
               <table>
                 <thead><tr><th>Tanggal</th><th>Guru / Pelatih</th><th>Status</th><th>Keterangan</th></tr></thead>
-                <tbody id="daftarAbsensiGuru"><tr><td colspan="4" style="text-align:center;">Memuat data...</td></tr></tbody>
+                <tbody id="daftarAbsensiGuru"><tr><td colspan="4" class="table-state">Memuat data...</td></tr></tbody>
               </table>
             </div>
           </div>
@@ -37,7 +37,7 @@
         const dari = document.getElementById("guruAbsenTanggalDari")?.value;
         const sampai = document.getElementById("guruAbsenTanggalSampai")?.value;
         const status = document.getElementById("guruAbsenStatus")?.value;
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Memuat data...</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" class="table-state">Memuat data...</td></tr>`;
         try {
           let query = supabase
             .from("absensi_guru")
@@ -49,20 +49,20 @@
           const { data, error } = await query;
           if (error) throw error;
           if (!data?.length) {
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Belum ada absensi guru pada periode ini.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="4" class="table-state">Belum ada absensi guru pada periode ini.</td></tr>`;
             return;
           }
           tbody.innerHTML = data.map(a => `
             <tr>
               <td>${a.tanggal || "-"}</td>
-              <td>${a.guru?.nama || "-"}<br><span style="font-size:11px;color:var(--ink-soft);">${a.guru?.email || ""}</span></td>
+              <td>${a.guru?.nama || "-"}<br><span class="muted-xs">${a.guru?.email || ""}</span></td>
               <td><span class="badge ${statusBadgeAbsensi(a.status)}">${labelStatusAbsensi(a.status)}</span></td>
               <td>${a.keterangan || "-"}</td>
             </tr>
           `).join("");
         } catch (error) {
           console.error("Error load absensi guru admin:", error);
-          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#E11D48;">Gagal memuat absensi guru. Pastikan tabel <strong>absensi_guru</strong> sudah dibuat di Supabase.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="4" class="table-state table-state-error">Gagal memuat absensi guru. Pastikan tabel <strong>absensi_guru</strong> sudah dibuat di Supabase.</td></tr>`;
         }
       }
 
@@ -76,14 +76,14 @@
             </div>
             <div class="section-body">
               <form id="formAbsensiSaya" onsubmit="event.preventDefault(); window.__app.simpanAbsensiSaya(event); return false;">
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;">
+                <div class="form-grid-auto">
                   <div class="form-group"><label>Tanggal</label><input type="date" id="guruSayaTanggal" value="${todayStr}" required></div>
                   <div class="form-group"><label>Status</label><select id="guruSayaStatus"><option value="H">Hadir</option><option value="I">Izin</option><option value="S">Sakit</option><option value="A">Alpa</option></select></div>
                   <div class="form-group"><label>Keterangan</label><input type="text" id="guruSayaKeterangan" placeholder="Opsional"></div>
                 </div>
-                <div style="margin-top:18px;display:flex;gap:10px;align-items:center;">
+                <div class="form-actions-row">
                   <button type="submit" class="btn" id="btnSimpanAbsensiSaya">Simpan Kehadiran</button>
-                  <span style="font-size:12px;color:var(--ink-soft);">Satu catatan per tanggal.</span>
+                  <span class="form-help">Satu catatan per tanggal.</span>
                 </div>
               </form>
             </div>
@@ -93,7 +93,7 @@
             <div class="section-body">
               <table>
                 <thead><tr><th>Tanggal</th><th>Status</th><th>Keterangan</th></tr></thead>
-                <tbody id="riwayatAbsensiSaya"><tr><td colspan="3" style="text-align:center;">Memuat data...</td></tr></tbody>
+                <tbody id="riwayatAbsensiSaya"><tr><td colspan="3" class="table-state">Memuat data...</td></tr></tbody>
               </table>
             </div>
           </div>
@@ -112,7 +112,7 @@
             .limit(30);
           if (error) throw error;
           if (!data?.length) {
-            tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Belum ada riwayat kehadiran.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="3" class="table-state">Belum ada riwayat kehadiran.</td></tr>`;
             return;
           }
           tbody.innerHTML = data.map(a => `
@@ -120,7 +120,7 @@
           `).join("");
         } catch (error) {
           console.error("Error load riwayat absensi saya:", error);
-          tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:#E11D48;">Gagal memuat riwayat. Pastikan tabel <strong>absensi_guru</strong> sudah dibuat.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="3" class="table-state table-state-error">Gagal memuat riwayat. Pastikan tabel <strong>absensi_guru</strong> sudah dibuat.</td></tr>`;
         }
 
       }
