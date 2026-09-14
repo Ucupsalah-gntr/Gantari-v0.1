@@ -1516,7 +1516,7 @@ async function simpanPerkembangan(e) {
     if (error) throw error;
 
 
-    alert(
+    appNotify(
       "Penilaian lengkap untuk anak berhasil disimpan."
     );
 
@@ -1534,7 +1534,7 @@ async function simpanPerkembangan(e) {
 
   catch (e) {
 
-    alert(
+    appNotify(
       "Gagal menyimpan: "
       +
       e.message
@@ -2364,7 +2364,7 @@ async function exportPerkembanganCsv() {
 
   if (error) {
 
-    alert(
+    appNotify(
       "Gagal export perkembangan: "
       +
       error.message
