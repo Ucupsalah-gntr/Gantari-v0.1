@@ -4057,3 +4057,19 @@ button.is-busy {
 @media (min-width: 761px) {
   .guru-list-mobile { display: none; }
 }
+
+/* ============================================================
+   SPP DETAIL CLEANUP
+   ============================================================ */
+.spp-detail-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.spp-detail-section { margin-top: 16px; }
+.spp-detail-section-lg { margin-top: 18px; }
+.spp-detail-title { margin: 3px 0 0; }
+.spp-proof-link { margin-top: 6px; display: inline-block; }
+.spp-note { margin-top: 4px; line-height: 1.5; }
