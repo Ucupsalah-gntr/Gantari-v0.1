@@ -44,7 +44,7 @@ function downloadCsv(filename, rows) {
 // EXPORT SPP TAHUNAN
 // ============================================================
 async function exportSppCsv() {
-  if (!supabase) return alert("Supabase belum terhubung.");
+  if (!supabase) return appNotify("Supabase belum terhubung.");
 
   const tahun = Number(
     document.getElementById("filterTahunSpp")?.value ||
@@ -119,7 +119,7 @@ async function exportSppCsv() {
     downloadCsv(`gantariku-spp-tahunan-${tahun}.csv`, rows);
   } catch (error) {
     console.error("Export SPP tahunan:", error);
-    alert("Gagal export SPP tahunan:\n\n" + (error?.message || "Terjadi kesalahan."));
+    appNotify("Gagal export SPP tahunan:\n\n" + (error?.message || "Terjadi kesalahan."));
   }
 }
 
@@ -130,7 +130,7 @@ async function exportSppCsv() {
 
 async function exportAbsensiGuruCsv() {
   if (!supabase) {
-    return alert(
+    return appNotify(
       "Supabase belum terhubung."
     );
   }
@@ -185,7 +185,7 @@ async function exportAbsensiGuruCsv() {
   } = await query;
 
   if (error) {
-    return alert(
+    return appNotify(
       "Gagal export absensi guru: " +
         error.message
     );
@@ -225,7 +225,7 @@ async function exportAbsensiGuruCsv() {
 
 async function exportRekapAbsensiCsv() {
   if (!supabase) {
-    return alert(
+    return appNotify(
       "Supabase belum terhubung."
     );
   }
@@ -270,7 +270,7 @@ async function exportRekapAbsensiCsv() {
       );
 
   if (error) {
-    return alert(
+    return appNotify(
       "Gagal export rekap absensi: " +
         error.message
     );
