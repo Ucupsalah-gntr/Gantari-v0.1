@@ -737,7 +737,7 @@ async function loadPerkembanganAdmin() {
     grid.innerHTML = `
       <div
         class="perk-empty"
-        style="color:#E11D48;"
+        class="text-danger"
       >
         Tabel perkembangan belum tersedia
         atau gagal dimuat.
@@ -999,11 +999,7 @@ function renderPerkembanganInput() {
           </h2>
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
+            class="section-subtitle"
           >
             Pilih satu anak lalu isi semua aspek sekaligus.
           </div>
@@ -1183,7 +1179,7 @@ function renderPerkembanganInput() {
 
 
           <div
-            style="margin-top:18px;"
+            class="spp-detail-section spp-detail-section-lg"
           >
 
             <button
@@ -1216,11 +1212,7 @@ function renderPerkembanganInput() {
           </h2>
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
+            class="section-subtitle"
           >
             Riwayat penilaian ditampilkan dalam bentuk kartu agar nyaman dibaca di HP.
           </div>
@@ -1904,9 +1896,7 @@ async function loadPerkembanganGuru() {
     container.innerHTML = `
       <div
         class="perk-empty"
-        style="
-          color:#E11D48;
-        "
+        class="text-danger"
       >
         Tabel perkembangan belum tersedia.
       </div>
@@ -1941,11 +1931,7 @@ function renderPerkembanganAnak() {
           </h2>
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
+            class="section-subtitle"
           >
             Ringkasan dibuat per anak agar mudah dibaca.
           </div>
@@ -2839,10 +2825,7 @@ async function loadPerkembanganAnak() {
         : `
 
           <span
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-            "
+            class="form-help"
           >
             Belum ada riwayat
           </span>
@@ -2874,10 +2857,7 @@ async function loadPerkembanganAnak() {
 
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-            "
+            class="form-help"
           >
 
             ${
@@ -3094,7 +3074,7 @@ async function loadPerkembanganAnak() {
           const panel = document.getElementById("perkembanganRiwayatPanel");
           if (panel) {
             panel.innerHTML = `
-              <div class="empty" style="color:#E11D48;">
+              <div class="empty" class="text-danger">
                 Gagal memuat penilaian sebelumnya.
                 ${retryButtonHtml("window.__app.loadPerkembanganAnak()")}
               </div>
@@ -3115,9 +3095,7 @@ async function loadPerkembanganAnak() {
     body.innerHTML = `
       <div
         class="empty"
-        style="
-          color:#E11D48;
-        "
+        class="text-danger"
       >
         Tabel perkembangan belum tersedia.
       </div>
