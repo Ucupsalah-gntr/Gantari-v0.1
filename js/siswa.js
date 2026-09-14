@@ -52,13 +52,12 @@ async function loadOrangTuaUntukForm(selectedId = "") {
 // ============================================================
 
 function notifySiswa(message, type = "info") {
-  if (typeof showToast === "function") {
-    showToast({ message, type });
+  if (typeof appNotify === "function") {
+    appNotify(message, type);
     return;
   }
 
   console[type === "error" ? "error" : "log"](message);
-  alert(message);
 }
 
 // ============================================================
@@ -765,13 +764,7 @@ async function simpanSiswa(event) {
       error
     );
 
-    alert(
-      "Gagal menyimpan siswa:\n\n" +
-        (
-          error?.message ||
-          "Terjadi kesalahan."
-        )
-    );
+    notifySiswa("Gagal menyimpan siswa: " + (error?.message || "Terjadi kesalahan."), "error");
   } finally {
     if (btn) {
       btn.disabled = false;
@@ -1268,25 +1261,19 @@ async function importSekarang() {
     currentUserRole !==
     "admin"
   ) {
-    alert(
-      "Hanya admin yang dapat melakukan import data siswa."
-    );
+    notifySiswa("Hanya admin yang dapat melakukan import data siswa.", "warning");
     return;
   }
 
   if (!supabase) {
-    alert(
-      "Supabase belum terhubung."
-    );
+    notifySiswa("Supabase belum terhubung.", "error");
     return;
   }
 
   if (
     !importValidRows.length
   ) {
-    alert(
-      "Tidak ada data valid untuk diimport."
-    );
+    notifySiswa("Tidak ada data valid untuk diimport.", "warning");
     return;
   }
 
@@ -1393,9 +1380,7 @@ async function importSekarang() {
       }
     }
 
-    alert(
-      `Berhasil mengimport ${berhasil} data siswa.`
-    );
+    notifySiswa(`Berhasil mengimport ${berhasil} data siswa.`, "success");
 
     tutupImportSiswa();
 
@@ -1408,13 +1393,7 @@ async function importSekarang() {
       error
     );
 
-    alert(
-      "Import berhenti.\n\n" +
-        (
-          error?.message ||
-          "Terjadi kesalahan."
-        )
-    );
+    notifySiswa("Import berhenti: " + (error?.message || "Terjadi kesalahan."), "error");
 
     if (btn) {
 
