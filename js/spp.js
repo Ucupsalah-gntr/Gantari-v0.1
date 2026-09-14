@@ -774,7 +774,7 @@ async function buatTagihanBulanan() {
   }
 
   if (
-    !confirm(
+    !confirmSpp(
       `Buat tagihan ${namaBulan(bulanPilihan)} ${tahun} ` +
         `sebesar ${formatRupiah(nominal)} untuk semua siswa ` +
         `yang belum memiliki tagihan pada periode tersebut?`
@@ -1054,7 +1054,7 @@ function tutupDetailSpp() {
 async function terimaPembayaranSpp(id) {
   if (!supabase) return;
 
-  if (!confirm("Terima pembayaran ini dan ubah status menjadi Lunas?")) {
+  if (!confirmSpp("Terima pembayaran ini dan ubah status menjadi Lunas?")) {
     return;
   }
 
@@ -1083,7 +1083,7 @@ async function tolakPembayaranSpp(id) {
   if (!supabase) return;
 
   if (
-    !confirm(
+    !confirmSpp(
       "Tolak bukti pembayaran ini? Status akan kembali menjadi Belum Bayar."
     )
   ) {
@@ -1115,7 +1115,7 @@ async function tolakPembayaranSpp(id) {
 async function tandaiLunas(id) {
   if (!supabase) return;
 
-  if (!confirm("Tandai tagihan ini sebagai Lunas?")) return;
+  if (!confirmSpp("Tandai tagihan ini sebagai Lunas?")) return;
 
   try {
     const { error } = await supabase
@@ -1140,7 +1140,7 @@ async function tandaiLunas(id) {
 async function hapusSpp(id) {
   if (!supabase) return;
 
-  if (!confirm("Yakin ingin menghapus tagihan SPP ini?")) return;
+  if (!confirmSpp("Yakin ingin menghapus tagihan SPP ini?")) return;
 
   try {
     const { error } = await supabase
