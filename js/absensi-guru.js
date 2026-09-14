@@ -130,7 +130,7 @@
         if (!supabase || !currentUser) return;
 
         if (currentUserRole !== "guru") {
-          alert("Hanya akun guru/pelatih yang dapat mengisi kehadiran sendiri.");
+          appNotify("Hanya akun guru/pelatih yang dapat mengisi kehadiran sendiri.");
           return;
         }
 
@@ -156,13 +156,13 @@
 
           if (error) throw error;
 
-          alert("✅ Kehadiran berhasil disimpan.");
+          appNotify("✅ Kehadiran berhasil disimpan.");
           const ketEl = document.getElementById("guruSayaKeterangan");
           if (ketEl) ketEl.value = "";
           await loadAbsensiSaya();
         } catch (error) {
           console.error("Error simpan absensi guru:", error);
-          alert("Gagal menyimpan kehadiran:\n\n" + (error?.message || "Terjadi kesalahan."));
+          appNotify("Gagal menyimpan kehadiran:\n\n" + (error?.message || "Terjadi kesalahan."));
         } finally {
           btn.disabled = false;
           btn.textContent = "Simpan Kehadiran";
