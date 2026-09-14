@@ -1596,6 +1596,52 @@ function escapeJs(
 }
 
 // ============================================================
+// DELETE SISWA
+// ============================================================
+
+async function hapusSiswa(id) {
+  if (!id) return;
+  if (!supabase) {
+    notifySiswa("Supabase belum terhubung.", "error");
+    return;
+  }
+
+  if (!confirm("Hapus data siswa ini? Tindakan ini tidak dapat dibatalkan.")) {
+    return;
+  }
+
+  try {
+    const { error } = await supabase
+      .from("siswa")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+
+    notifySiswa("Data siswa berhasil dihapus.", "success");
+    await loadSiswa();
+  } catch (error) {
+    console.error("Gagal menghapus siswa:", error);
+    notifySiswa(
+      "Gagal menghapus siswa: " +
+        (error?.message || "Terjadi kesalahan."),
+      "error"
+    );
+  }
+}
+
+// ============================================================
+// IMPORT SISWA
+// ============================================================
+
+function bukaImportSiswa() {
+  notifySiswa(
+    "Fitur import sedang dipulihkan. Silakan gunakan tambah siswa sementara waktu.",
+    "info"
+  );
+}
+
+// ============================================================
 // GLOBAL
 // ============================================================
 
