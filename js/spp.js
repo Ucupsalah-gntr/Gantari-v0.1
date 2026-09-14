@@ -52,7 +52,7 @@ function renderSpp() {
       <div class="section-head">
         <div>
           <h2>Monitoring SPP Tahunan</h2>
-          <div style="font-size:12px;color:var(--ink-soft);margin-top:4px;">
+          <div class="section-subtitle">
             Pantau pembayaran seluruh siswa dalam satu tahun.
           </div>
         </div>
@@ -936,7 +936,7 @@ async function bukaDetailSpp(id) {
     `;
   } else {
     aksi = `
-      <div style="margin-top:16px;">
+      <div class="spp-detail-section">
         <button
           class="btn ghost"
           onclick="window.__app.hapusSpp('${data.id}');window.__app.tutupDetailSpp();"
@@ -950,10 +950,10 @@ async function bukaDetailSpp(id) {
 
       <div class="spp-modal-head">
         <div>
-          <div style="font-size:12px;color:var(--ink-soft);">
+          <div class="form-help">
             SPP ${namaBulan(data.bulan)} ${data.tahun}
           </div>
-          <h3 style="margin:3px 0 0;">
+          <h3 class="spp-detail-title">
             ${data.siswa?.nama || "Siswa"}
           </h3>
         </div>
@@ -1005,14 +1005,14 @@ async function bukaDetailSpp(id) {
       ${
         buktiSignedUrl
           ? `
-            <div style="margin-top:18px;">
+            <div class="spp-detail-section spp-detail-section-lg">
               <div class="spp-detail-label">Bukti Pembayaran</div>
               <a
                 href="${buktiSignedUrl}"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn secondary small"
-                style="margin-top:6px;display:inline-block;"
+                class="spp-proof-link"
               >
                 🔎 Buka Bukti
               </a>
@@ -1024,9 +1024,9 @@ async function bukaDetailSpp(id) {
       ${
         data.catatan
           ? `
-            <div style="margin-top:16px;">
+            <div class="spp-detail-section">
               <div class="spp-detail-label">Catatan</div>
-              <div style="margin-top:4px;line-height:1.5;">
+              <div class="spp-note">
                 ${data.catatan}
               </div>
             </div>
