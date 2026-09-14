@@ -2098,8 +2098,20 @@ async function uploadBuktiSpp(
       )}-${Date.now()}.${extension}`;
 
 
+    const {
+      data: {
+        user: authUser
+      },
+      error: authUserError
+    } = await supabase.auth.getUser();
+
+    if (authUserError || !authUser?.id) {
+      throw authUserError || new Error("Sesi login tidak valid.");
+    }
+
+    // Storage RLS memakai auth.uid(), bukan id profile pada public.pengguna.
     const folder =
-      currentUser.id;
+      authUser.id;
 
 
     const filePath =
