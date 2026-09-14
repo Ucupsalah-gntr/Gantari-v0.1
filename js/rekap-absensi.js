@@ -19,7 +19,7 @@
               <table>
                 <thead><tr><th>Tanggal</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Keterangan</th></tr></thead>
                 <tbody id="daftarRekapAbsensi">
-                  <tr><td colspan="5" style="text-align:center;">Pilih rentang tanggal, lalu klik Tampilkan.</td></tr>
+                  <tr><td colspan="5" class="table-state">Pilih rentang tanggal, lalu klik Tampilkan.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -44,7 +44,7 @@
               <table>
                 <thead><tr><th>Tanggal</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Keterangan</th></tr></thead>
                 <tbody id="daftarRiwayatAbsensi">
-                  <tr><td colspan="5" style="text-align:center;">Pilih rentang tanggal, lalu klik Tampilkan.</td></tr>
+                  <tr><td colspan="5" class="table-state">Pilih rentang tanggal, lalu klik Tampilkan.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -61,11 +61,11 @@
         const sampai = document.getElementById(sampaiId)?.value;
 
         if (!dari || !sampai) {
-          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Pilih rentang tanggal terlebih dahulu.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="5" class="table-state">Pilih rentang tanggal terlebih dahulu.</td></tr>`;
           return;
         }
 
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Memuat data...</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="table-state">Memuat data...</td></tr>`;
 
         try {
           const { data, error } = await supabase
@@ -80,7 +80,7 @@
           if (kelas) hasil = hasil.filter((a) => a.siswa?.kelas === kelas);
 
           if (hasil.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Tidak ada data absensi pada rentang ini.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="table-state">Tidak ada data absensi pada rentang ini.</td></tr>`;
             return;
           }
 
@@ -99,7 +99,7 @@
             .join("");
         } catch (error) {
           console.error("Error load absensi range:", error);
-          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#E11D48;">Gagal memuat data.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="5" class="table-state table-state-error">Gagal memuat data.</td></tr>`;
         }
       }
 
