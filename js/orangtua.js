@@ -1961,7 +1961,7 @@ async function uploadBuktiSpp(
 
   if (!supabase) {
 
-    alert(
+    appNotify(
       "Supabase belum terhubung."
     );
 
@@ -1980,7 +1980,7 @@ async function uploadBuktiSpp(
     maxSize
   ) {
 
-    alert(
+    appNotify(
       "Ukuran file maksimal 5 MB."
     );
 
@@ -2005,7 +2005,7 @@ async function uploadBuktiSpp(
     )
   ) {
 
-    alert(
+    appNotify(
       "File harus berupa JPG, PNG, atau PDF."
     );
 
@@ -2049,7 +2049,7 @@ async function uploadBuktiSpp(
         "Belum Bayar"
     ) {
 
-      alert(
+      appNotify(
         "Tagihan ini tidak dapat menerima bukti pembayaran."
       );
 
@@ -2072,7 +2072,7 @@ async function uploadBuktiSpp(
 
     if (!anak) {
 
-      alert(
+      appNotify(
         "Anda tidak memiliki akses ke tagihan ini."
       );
 
@@ -2175,7 +2175,7 @@ async function uploadBuktiSpp(
     }
 
 
-    alert(
+    appNotify(
       "✅ Bukti pembayaran berhasil dikirim.\n\n" +
       "Status SPP sekarang: Menunggu Verifikasi."
     );
@@ -2190,7 +2190,7 @@ async function uploadBuktiSpp(
       error
     );
 
-    alert(
+    appNotify(
       "Gagal mengirim bukti pembayaran:\n\n" +
       (
         error?.message ||
@@ -2227,7 +2227,7 @@ async function debugAksesPembayaran() {
 
     if (!user) {
 
-      alert(
+      appNotify(
         "Session login tidak ditemukan."
       );
 
@@ -2292,7 +2292,7 @@ async function debugAksesPembayaran() {
     );
 
 
-    alert(
+    appNotify(
 
       "HASIL DEBUG\n\n" +
 
@@ -2331,7 +2331,7 @@ async function debugAksesPembayaran() {
       error
     );
 
-    alert(
+    appNotify(
 
       "DEBUG GAGAL:\n\n" +
 
