@@ -17,11 +17,11 @@
               <table>
                 <thead><tr><th>Nama</th><th>NIS</th><th>Status</th><th>Keterangan</th></tr></thead>
                 <tbody id="daftarInputAbsen">
-                  <tr><td colspan="4" style="text-align:center;">Pilih kelas dan tanggal, lalu klik Tampilkan.</td></tr>
+                  <tr><td colspan="4" class="table-state">Pilih kelas dan tanggal, lalu klik Tampilkan.</td></tr>
                 </tbody>
               </table>
-              <div style="margin-top:16px;">
-                <button class="btn" id="btnSimpanAbsen" onclick="window.__app.simpanAbsensiMassal()" style="display:none;">Simpan Absensi</button>
+              <div class="form-actions-spaced">
+                <button class="btn" id="btnSimpanAbsen" onclick="window.__app.simpanAbsensiMassal()" class="is-hidden">Simpan Absensi</button>
               </div>
             </div>
           </div>
@@ -36,12 +36,12 @@
         if (!tbody) return;
 
         if (!kelas || !tanggal) {
-          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Pilih kelas dan tanggal terlebih dahulu.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="4" class="table-state">Pilih kelas dan tanggal terlebih dahulu.</td></tr>`;
           if (btnSimpan) btnSimpan.style.display = "none";
           return;
         }
 
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Memuat siswa...</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" class="table-state">Memuat siswa...</td></tr>`;
 
         try {
           const { data: daftarSiswa, error: siswaError } = await supabase
@@ -52,7 +52,7 @@
           if (siswaError) throw siswaError;
 
           if (!daftarSiswa || daftarSiswa.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Tidak ada siswa di kelas ini.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="4" class="table-state">Tidak ada siswa di kelas ini.</td></tr>`;
             if (btnSimpan) btnSimpan.style.display = "none";
             return;
           }
@@ -92,7 +92,7 @@
           if (btnSimpan) btnSimpan.style.display = "inline-block";
         } catch (error) {
           console.error("Error load form absensi:", error);
-          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#E11D48;">Gagal memuat data siswa.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="4" class="table-state table-state-error">Gagal memuat data siswa.</td></tr>`;
         }
       }
 
