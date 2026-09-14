@@ -983,16 +983,16 @@ function renderDaftarSiswa(
               </td>
 
               <td>
-
-                <div class="gtr-import-error">
-          ❌ ${escapeHtml(
-            error?.message ||
-              "Gagal membaca file."
-          )}
-        </div>
-      `;
-    }
-  }
+                <div class="table-actions">
+                  <button class="btn secondary small" type="button" onclick="window.__app.bukaFormSiswa('${escapeJs(siswa.id)}')">Edit</button>
+                  <button class="btn danger small" type="button" onclick="window.__app.hapusSiswa('${escapeJs(siswa.id)}')">Hapus</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }
+      )
+      .join("");
 }
 
 // ============================================================
