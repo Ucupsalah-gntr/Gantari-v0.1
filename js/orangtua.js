@@ -712,9 +712,7 @@ async function loadRingkasanAnak() {
 
       <div
         class="empty"
-        style="
-          color:#E11D48;
-        "
+        class="text-danger"
       >
         Gagal memuat ringkasan anak.
       </div>
@@ -758,11 +756,7 @@ function renderAbsenAnak() {
           <h2>Kehadiran Anak</h2>
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
+            class="section-subtitle"
           >
             Riwayat kehadiran anak
           </div>
@@ -850,9 +844,7 @@ function renderAbsenAnak() {
 
                 <td
                   colspan="3"
-                  style="
-                    text-align:center;
-                  "
+                  class="table-state"
                 >
                   Memuat data...
                 </td>
@@ -935,9 +927,7 @@ async function loadAbsenAnak() {
       <tr>
         <td
           colspan="3"
-          style="
-            text-align:center;
-          "
+          class="table-state"
         >
           ${emptyHtml}
         </td>
@@ -1018,9 +1008,7 @@ async function loadAbsenAnak() {
 
           <td
             colspan="3"
-            style="
-              text-align:center;
-            "
+            class="table-state"
           >
             Tidak ada data absensi
             pada rentang ini.
@@ -1184,9 +1172,7 @@ async function loadAbsenAnak() {
     mobileList.innerHTML = `
       <div
         class="empty"
-        style="
-          color:#E11D48;
-        "
+        class="text-danger"
       >
         Gagal memuat data absensi.
       </div>
@@ -1247,11 +1233,7 @@ function renderSppAnak() {
           <h2>Status SPP</h2>
 
           <div
-            style="
-              font-size:12px;
-              color:var(--ink-soft);
-              margin-top:4px;
-            "
+            class="section-subtitle"
           >
             Riwayat pembayaran SPP
           </div>
@@ -1331,9 +1313,7 @@ function renderSppAnak() {
 
                 <td
                   colspan="6"
-                  style="
-                    text-align:center;
-                  "
+                  class="table-state"
                 >
                   Memuat data...
                 </td>
@@ -1417,9 +1397,7 @@ async function loadSppAnak() {
       <tr>
         <td
           colspan="6"
-          style="
-            text-align:center;
-          "
+          class="table-state"
         >
           ${message}
         </td>
@@ -1505,9 +1483,7 @@ async function loadSppAnak() {
 
           <td
             colspan="6"
-            style="
-              text-align:center;
-            "
+            class="table-state"
           >
             Belum ada data SPP.
           </td>
@@ -1746,9 +1722,7 @@ async function loadSppAnak() {
     mobileList.innerHTML = `
       <div
         class="empty"
-        style="
-          color:#E11D48;
-        "
+        class="text-danger"
       >
         Gagal memuat data SPP.
       </div>
