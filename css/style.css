@@ -3974,3 +3974,86 @@ button.is-busy {
 .ortu-summary-title {
   margin: 0;
 }
+
+/* ============================================================
+   GURU & ABSENSI MODULE CLEANUP
+   ============================================================ */
+.guru-list-mobile { display: none; }
+
+.guru-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.guru-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 15px;
+  background: #fff;
+}
+
+.guru-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.guru-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.guru-card-email {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  word-break: break-word;
+}
+
+.guru-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.section-description {
+  margin-top: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.form-actions-spaced { margin-top: 16px; }
+
+.form-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.form-actions-row {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.muted-xs {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.text-danger { color: #E11D48; }
+
+@media (max-width: 760px) {
+  .guru-table-desktop { display: none; }
+  .guru-list-mobile { display: block; }
+  .guru-card-grid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 761px) {
+  .guru-list-mobile { display: none; }
+}
