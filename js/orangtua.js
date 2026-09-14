@@ -205,31 +205,16 @@ function renderPilihAnakHtml() {
       .join("");
 
   return `
-    <div
-      class="ortu-child-selector"
-      style="
-        margin-bottom:16px;
-      "
-    >
+    <div class="ortu-child-selector">
 
-      <div
-        style="
-          font-size:12px;
-          font-weight:700;
-          color:var(--ink-soft);
-          margin-bottom:7px;
-        "
-      >
+      <div class="ortu-child-selector-label">
         Pilih Anak
       </div>
 
       <select
         id="pilihAnak"
         onchange="window.__app.gantiAnak(this.value)"
-        style="
-          width:100%;
-          max-width:420px;
-        "
+        class="ortu-child-select"
       >
         ${opsi}
       </select>
@@ -451,11 +436,7 @@ async function loadRingkasanAnak() {
 
           <div>
 
-            <h2
-              style="
-                margin:0;
-              "
-            >
+            <h2 class="ortu-summary-title">
               ${anak.nama}
             </h2>
 
