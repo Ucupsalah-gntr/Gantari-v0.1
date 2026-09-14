@@ -3830,3 +3830,77 @@ textarea:focus {
 .is-hidden {
   display: none !important;
 }
+
+/* ============================================================
+   SISWA MODULE
+   Semantic styles moved out of inline markup.
+   ============================================================ */
+.siswa-form-panel {
+  display: none;
+  padding: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.siswa-form-title {
+  margin-top: 0;
+}
+
+.siswa-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.form-help {
+  color: var(--ink-soft);
+}
+
+.access-code-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.access-code-input {
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+}
+
+.siswa-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.table-state {
+  text-align: center;
+}
+
+.table-state-error {
+  color: #E11D48;
+}
+
+.gtr-import-error {
+  padding: 12px;
+  border-radius: 10px;
+  background: #fcebe7;
+  color: #b84242;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .siswa-form-panel {
+    padding: 16px;
+  }
+
+  .siswa-form-actions .btn {
+    flex: 1 1 160px;
+  }
+}
