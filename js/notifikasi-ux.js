@@ -1,6 +1,6 @@
 // ============================================================
 // GANTARIKU — NOTIFIKASI UX PATCH
-// Menyempurnakan badge, auto-close, click-outside, dan Escape.
+// Badge, auto-close, click-outside, Escape, and action close.
 // ============================================================
 
 (function () {
@@ -59,7 +59,10 @@
     const { button, panel } = getNotifEls();
 
     if (button) {
-      button.setAttribute("aria-expanded", panel?.classList.contains("show") ? "true" : "false");
+      button.setAttribute(
+        "aria-expanded",
+        panel?.classList.contains("show") ? "true" : "false"
+      );
     }
 
     if (!outsideHandlerBound) {
@@ -80,9 +83,11 @@
 
     if (panel && !panelHandlerBound) {
       panel.addEventListener("click", (event) => {
-        const action = event.target.closest("button, a, [data-notif-action]");
+        const action = event.target.closest(
+          "button, a, [data-notif-action], .notif-payment"
+        );
         if (!action) return;
-        setTimeout(closeNotifikasi, 0);
+        setTimeout(closeNotifikasi, 120);
       });
       panelHandlerBound = true;
     }
