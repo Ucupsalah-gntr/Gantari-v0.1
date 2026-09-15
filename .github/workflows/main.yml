@@ -1,139 +1,173 @@
 name: Test Gantariku
 
 on:
-  push:
-    branches:
-      - main
+push:
+branches:
+- main
 
-  pull_request:
-    branches:
-      - main
+pull_request:
+branches:
+- main
 
 permissions:
-  contents: read
+contents: read
 
 jobs:
-  test:
-    name: Test & Validate Gantariku
-    runs-on: ubuntu-latest
+test:
+name: Test & Validate Gantariku
+runs-on: ubuntu-latest
 
-    steps:
-      # ==========================================================
-      # 1. Ambil source code
-      # ==========================================================
-      - name: Checkout repository
-        uses: actions/checkout@v4
+```
+steps:
+  # ==========================================================
+  # 1. Checkout source code
+  # ==========================================================
+  - name: Checkout repository
+    uses: actions/checkout@v5
 
-      # ==========================================================
-      # 2. Setup Node.js
-      # ==========================================================
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+  # ==========================================================
+  # 2. Setup Node.js
+  # ==========================================================
+  - name: Setup Node.js
+    uses: actions/setup-node@v5
+    with:
+      node-version: 22
+      cache: npm
 
-      # ==========================================================
-      # 3. Cek struktur project
-      # ==========================================================
-      - name: Check project files
-        run: |
-          echo "=== ROOT PROJECT ==="
-          ls -la
+  # ==========================================================
+  # 3. Check project structure
+  # ==========================================================
+  - name: Check project structure
+    shell: bash
+    run: |
+      set -e
 
-          echo ""
-          echo "=== JAVASCRIPT FILES ==="
-          find js -type f -name "*.js" | sort || true
+      echo "======================================"
+      echo "   CHECK PROJECT STRUCTURE"
+      echo "======================================"
 
-      # ==========================================================
-      # 4. Install dependencies jika package.json tersedia
-      # ==========================================================
-      - name: Install dependencies
-        if: ${{ hashFiles('package-lock.json') != '' }}
-        run: npm ci
+      required_paths=(
+        "index.html"
+        "css"
+        "js"
+      )
 
-      - name: Install dependencies without lockfile
-        if: ${{ hashFiles('package-lock.json') == '' && hashFiles('package.json') != '' }}
-        run: npm install
+      for path in "${required_paths[@]}"; do
+        if [ ! -e "$path" ]; then
+          echo "❌ Tidak ditemukan: $path"
+          exit 1
+        fi
 
-      # ==========================================================
-      # 5. Jalankan npm test jika package.json tersedia
-      # ==========================================================
-      - name: Run npm test
-        if: ${{ hashFiles('package.json') != '' }}
-        run: npm test
+        echo "✅ Ditemukan: $path"
+      done
 
-      # ==========================================================
-      # 6. Validasi syntax seluruh file JavaScript
-      # ==========================================================
-      - name: Check JavaScript syntax
-        shell: bash
-        run: |
-          set -e
+      echo ""
+      echo "Struktur utama project OK."
 
-          echo "Memeriksa syntax JavaScript..."
+  # ==========================================================
+  # 4. Tampilkan file JavaScript
+  # ==========================================================
+  - name: List JavaScript files
+    shell: bash
+    run: |
+      echo "======================================"
+      echo "   JAVASCRIPT FILES"
+      echo "======================================"
 
-          files=$(find js -type f -name "*.js" | sort)
+      if [ -d "js" ]; then
+        find js -type f -name "*.js" | sort
+      else
+        echo "Folder js/ tidak ditemukan."
+        exit 1
+      fi
 
-          if [ -z "$files" ]; then
-            echo "Tidak ada file JavaScript di folder js/"
-            exit 0
-          fi
+  # ==========================================================
+  # 5. Install dependencies
+  # ==========================================================
+  - name: Install dependencies with npm ci
+    if: ${{ hashFiles('package-lock.json') != '' }}
+    run: npm ci
 
-          for file in $files; do
-            echo "Checking: $file"
-            node --check "$file"
-          done
+  - name: Install dependencies with npm install
+    if: ${{ hashFiles('package-lock.json') == '' && hashFiles('package.json') != '' }}
+    run: npm install
 
-          echo ""
-          echo "✅ Semua file JavaScript lolos pemeriksaan syntax."
+  # ==========================================================
+  # 6. Run npm test jika package.json tersedia
+  # ==========================================================
+  - name: Run npm test
+    if: ${{ hashFiles('package.json') != '' }}
+    run: npm test
 
-      # ==========================================================
-      # 7. Pastikan index.html ada
-      # ==========================================================
-      - name: Validate main HTML
-        shell: bash
-        run: |
-          if [ ! -f "index.html" ]; then
-            echo "❌ index.html tidak ditemukan."
-            exit 1
-          fi
+  # ==========================================================
+  # 7. Check JavaScript syntax
+  # ==========================================================
+  - name: Check JavaScript syntax
+    shell: bash
+    run: |
+      set -e
 
-          echo "✅ index.html ditemukan."
+      echo "======================================"
+      echo "   JAVASCRIPT SYNTAX CHECK"
+      echo "======================================"
 
-      # ==========================================================
-      # 8. Pastikan folder utama aplikasi tersedia
-      # ==========================================================
-      - name: Validate project structure
-        shell: bash
-        run: |
-          required_paths=(
-            "index.html"
-            "css"
-            "js"
-          )
+      files=$(find js -type f -name "*.js" | sort)
 
-          for path in "${required_paths[@]}"; do
-            if [ ! -e "$path" ]; then
-              echo "❌ Tidak ditemukan: $path"
-              exit 1
-            fi
+      if [ -z "$files" ]; then
+        echo "Tidak ada file JavaScript."
+        exit 0
+      fi
 
-            echo "✅ Ditemukan: $path"
-          done
+      for file in $files; do
+        echo "Checking: $file"
+        node --check "$file"
+      done
 
-      # ==========================================================
-      # 9. Ringkasan hasil
-      # ==========================================================
-      - name: Test summary
-        run: |
-          echo "======================================"
-          echo "   GANTARIKU TEST SELESAI"
-          echo "======================================"
-          echo "Repository berhasil melewati:"
-          echo "- Checkout source"
-          echo "- Node.js validation"
-          echo "- JavaScript syntax check"
-          echo "- Struktur project check"
-          echo "- npm test (jika tersedia)"
-          echo "======================================"
+      echo ""
+      echo "✅ Semua file JavaScript lolos syntax check."
+
+  # ==========================================================
+  # 8. Validate index.html
+  # ==========================================================
+  - name: Validate index.html
+    shell: bash
+    run: |
+      set -e
+
+      echo "======================================"
+      echo "   HTML CHECK"
+      echo "======================================"
+
+      if [ ! -f "index.html" ]; then
+        echo "❌ index.html tidak ditemukan."
+        exit 1
+      fi
+
+      if [ ! -s "index.html" ]; then
+        echo "❌ index.html kosong."
+        exit 1
+      fi
+
+      echo "✅ index.html tersedia dan tidak kosong."
+
+  # ==========================================================
+  # 9. Final summary
+  # ==========================================================
+  - name: Test summary
+    run: |
+      echo ""
+      echo "======================================"
+      echo "      GANTARIKU TEST PASSED"
+      echo "======================================"
+      echo ""
+      echo "✅ Repository berhasil di-check"
+      echo "✅ Node.js 22 tersedia"
+      echo "✅ JavaScript syntax OK"
+      echo "✅ index.html OK"
+      echo "✅ Struktur project OK"
+      echo "✅ npm test dijalankan jika package.json tersedia"
+      echo ""
+      echo "======================================"
+      echo "       SIAP UNTUK DEPLOYMENT"
+      echo "======================================"
+```
