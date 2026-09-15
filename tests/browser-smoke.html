@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Gantariku Browser Smoke Test</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 24px; }
+    .pass { color: #167c2f; }
+    .fail { color: #b42318; }
+    li { margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <h1>Gantariku Browser Smoke Test</h1>
+  <p id="summary">Menjalankan...</p>
+  <ul id="results"></ul>
+
+  <script>
+    const results = [];
+    const resultsEl = document.getElementById("results");
+    const summaryEl = document.getElementById("summary");
+
+    function check(name, condition) {
+      const pass = Boolean(condition);
+      results.push({ name, pass });
+      const li = document.createElement("li");
+      li.className = pass ? "pass" : "fail";
+      li.textContent = `${pass ? "PASS" : "FAIL"} — ${name}`;
+      resultsEl.appendChild(li);
+      if (!pass) throw new Error(name);
+    }
+
+    window.addEventListener("error", (event) => {
+      document.body.dataset.testError = event.message || "runtime error";
+    });
+
+    window.addEventListener("load", () => {
+      try {
+        check("Halaman memiliki #app", !!document.getElementById("app"));
+        check("Supabase client tersedia", typeof window.supabase !== "undefined");
+        check("NAV_CONFIG tersedia", typeof window.NAV_CONFIG === "object");
+        check("Role admin tersedia", Array.isArray(window.NAV_CONFIG?.admin));
+        check("Role guru tersedia", Array.isArray(window.NAV_CONFIG?.guru));
+        check("Role ortu tersedia", Array.isArray(window.NAV_CONFIG?.ortu));
+        check("State aplikasi tersedia", typeof window.AppState === "object");
+        check("Bootstrap app tersedia", typeof window.__app === "object");
+
+        [
+          "js/supabase.js",
+          "js/state.js",
+          "js/config.js",
+          "js/auth.js",
+          "js/utils.js",
+          "js/app.js"
+        ].forEach((src) => {
+          check(`Script ${src} terdaftar`, !!document.querySelector(`script[src="${src}"]`));
+        });
+
+        check("Tidak ada JavaScript runtime error saat halaman dimuat", !document.body.dataset.testError);
+
+        const passed = results.filter((item) => item.pass).length;
+        summaryEl.textContent = `Browser smoke test selesai: ${passed}/${results.length} PASS`;
+        document.body.dataset.testStatus = passed === results.length ? "passed" : "failed";
+      } catch (error) {
+        summaryEl.textContent = `Browser smoke test GAGAL: ${error.message}`;
+        document.body.dataset.testStatus = "failed";
+      }
+    });
+  </script>
+</body>
+</html>
