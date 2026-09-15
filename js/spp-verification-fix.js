@@ -1,8 +1,8 @@
 // ============================================================
 // GANTARIKU — SPP VERIFICATION FIX
 // ============================================================
-// Override verification actions with explicit row confirmation.
-// Prevents silent success when RLS/filter matches zero rows.
+// Admin verification uses a protected Supabase RPC so the action
+// is not blocked by client-side RLS/update-return behaviour.
 
 async function terimaPembayaranSpp(id) {
   if (!supabase) {
@@ -20,37 +20,20 @@ async function terimaPembayaranSpp(id) {
   }
 
   try {
-    const tanggalBayar = getTodayWIBString();
-    const dicatatOleh = currentUser?.id || null;
-
-    const { data, error } = await supabase
-      .from("spp")
-      .update({
-        status: "Lunas",
-        tanggal_bayar: tanggalBayar,
-        dicatat_oleh: dicatatOleh
-      })
-      .eq("id", id)
-      .eq("status", "Menunggu Verifikasi")
-      .select("id,status,tanggal_bayar,dicatat_oleh")
-      .maybeSingle();
+    const { data, error } = await supabase.rpc(
+      "verifikasi_pembayaran_spp",
+      { p_spp_id: id }
+    );
 
     if (error) {
-      console.error("SPP verification update error:", error);
+      console.error("SPP verification RPC error:", error);
       throw error;
     }
 
-    // Supabase can return no row when the filter matched nothing.
-    if (!data) {
-      appNotify(
-        "Verifikasi tidak dilakukan. Data SPP mungkin sudah berubah atau statusnya bukan lagi Menunggu Verifikasi."
-      );
-      await loadSpp();
-      return false;
-    }
+    const row = Array.isArray(data) ? data[0] : data;
 
-    if (data.status !== "Lunas") {
-      appNotify("Verifikasi gagal: status pembayaran belum berubah menjadi Lunas.");
+    if (!row || row.status !== "Lunas") {
+      appNotify("Verifikasi gagal: pembayaran belum berubah menjadi Lunas.");
       await loadSpp();
       return false;
     }
@@ -61,10 +44,16 @@ async function terimaPembayaranSpp(id) {
     return true;
   } catch (error) {
     console.error("Terima pembayaran:", error);
-    appNotify(
-      "Gagal memverifikasi pembayaran:\n\n" +
-      (error?.message || "Terjadi kesalahan.")
-    );
+
+    let message = error?.message || "Terjadi kesalahan.";
+
+    if (error?.code === "42501") {
+      message = "Akun yang digunakan bukan admin atau profil admin tidak ditemukan.";
+    } else if (error?.code === "P0002") {
+      message = "Pembayaran sudah berubah atau tidak lagi berstatus Menunggu Verifikasi.";
+    }
+
+    appNotify("Gagal memverifikasi pembayaran:\n\n" + message);
     return false;
   }
 }
@@ -105,9 +94,7 @@ async function tolakPembayaranSpp(id) {
     if (error) throw error;
 
     if (!data) {
-      appNotify(
-        "Penolakan tidak dilakukan. Data SPP mungkin sudah berubah."
-      );
+      appNotify("Penolakan tidak dilakukan. Data SPP mungkin sudah berubah.");
       await loadSpp();
       return false;
     }
