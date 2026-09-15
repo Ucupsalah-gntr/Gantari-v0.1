@@ -16,7 +16,6 @@ test:
 name: Test and Validate Gantariku
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Checkout repository
     uses: actions/checkout@v5
