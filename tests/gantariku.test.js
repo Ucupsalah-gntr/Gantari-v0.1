@@ -25,6 +25,30 @@ const ABSEN_STATUS_LABELS = {
 
 const VALID_ROLES = ["admin", "guru", "ortu"];
 
+const NAV_CONFIG = {
+  admin: [
+    "dasbor",
+    "siswa",
+    "spp",
+    "guru",
+    "absen-guru",
+    "rekap",
+    "perkembangan"
+  ],
+  guru: [
+    "input-absen",
+    "absen-saya",
+    "riwayat-absen",
+    "perkembangan-input"
+  ],
+  ortu: [
+    "ringkasan",
+    "absen-anak",
+    "spp-anak",
+    "perkembangan-anak"
+  ]
+};
+
 function formatRupiah(angka) {
   const n = Number(angka) || 0;
   return "Rp " + n.toLocaleString("id-ID");
@@ -51,6 +75,39 @@ function isValidDateString(value) {
     date.getUTCMonth() === month - 1 &&
     date.getUTCDate() === day
   );
+}
+
+function getPaymentMethod(row) {
+  const value = String(row?.metode_pembayaran || "").trim().toLowerCase();
+  return value === "cash" || value === "transfer" ? value : "";
+}
+
+function getStudentStatus(tanggalKeluar) {
+  return String(tanggalKeluar || "").trim() ? "Keluar" : "Aktif";
+}
+
+function getWIBParts(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(date);
+
+  return Object.fromEntries(
+    parts
+      .filter((part) => part.type !== "literal")
+      .map((part) => [part.type, part.value])
+  );
+}
+
+function getTodayWIBString(date = new Date()) {
+  const p = getWIBParts(date);
+  return `${p.year}-${p.month}-${p.day}`;
 }
 
 test("formatRupiah memformat nominal rupiah", () => {
@@ -81,9 +138,60 @@ test("role aplikasi hanya menerima admin, guru, dan ortu", () => {
   assert.equal(isValidRole(""), false);
 });
 
+test("setiap role memiliki navigasi yang sesuai", () => {
+  assert.deepEqual(NAV_CONFIG.admin, [
+    "dasbor",
+    "siswa",
+    "spp",
+    "guru",
+    "absen-guru",
+    "rekap",
+    "perkembangan"
+  ]);
+  assert.deepEqual(NAV_CONFIG.guru, [
+    "input-absen",
+    "absen-saya",
+    "riwayat-absen",
+    "perkembangan-input"
+  ]);
+  assert.deepEqual(NAV_CONFIG.ortu, [
+    "ringkasan",
+    "absen-anak",
+    "spp-anak",
+    "perkembangan-anak"
+  ]);
+});
+
+test("metode pembayaran SPP hanya mengenali cash dan transfer", () => {
+  assert.equal(getPaymentMethod({ metode_pembayaran: "cash" }), "cash");
+  assert.equal(getPaymentMethod({ metode_pembayaran: " CASH " }), "cash");
+  assert.equal(getPaymentMethod({ metode_pembayaran: "transfer" }), "transfer");
+  assert.equal(getPaymentMethod({ metode_pembayaran: "TRANSFER" }), "transfer");
+  assert.equal(getPaymentMethod({ metode_pembayaran: null }), "");
+  assert.equal(getPaymentMethod({ metode_pembayaran: "" }), "");
+  assert.equal(getPaymentMethod({ metode_pembayaran: "qris" }), "");
+});
+
+test("status siswa mengikuti field tanggal_keluar", () => {
+  assert.equal(getStudentStatus(null), "Aktif");
+  assert.equal(getStudentStatus(""), "Aktif");
+  assert.equal(getStudentStatus("2026-09-15"), "Keluar");
+  assert.equal(getStudentStatus(" 2026-09-15 "), "Keluar");
+});
+
 test("validasi tanggal menerima tanggal kalender yang valid", () => {
   assert.equal(isValidDateString("2026-09-15"), true);
   assert.equal(isValidDateString("2026-02-28"), true);
   assert.equal(isValidDateString("2026-02-30"), false);
   assert.equal(isValidDateString("15-09-2026"), false);
+});
+
+test("tanggal aplikasi dapat dihitung dalam zona waktu WIB", () => {
+  // 31 Agustus 2026 17:30 UTC = 1 September 2026 00:30 WIB.
+  const instant = new Date("2026-08-31T17:30:00Z");
+  assert.equal(getTodayWIBString(instant), "2026-09-01");
+
+  // 15 September 2026 05:00 UTC = 15 September 2026 12:00 WIB.
+  const midday = new Date("2026-09-15T05:00:00Z");
+  assert.equal(getTodayWIBString(midday), "2026-09-15");
 });
