@@ -1,6 +1,6 @@
 // ============================================================
 // GANTARIKU — ORANG TUA RELATION FIX
-// Sumber anak selalu melalui tabel orang_tua_siswa.
+// Sumber anak mengikuti relasi yang benar di tabel siswa.orang_tua_id.
 // ============================================================
 
 async function pastikanAnakOrangTuaDimuat() {
@@ -11,25 +11,16 @@ async function pastikanAnakOrangTuaDimuat() {
   try {
     const { data, error } = await withRequestTimeout(
       supabase
-        .from("orang_tua_siswa")
-        .select(`
-          siswa:siswa_id(
-            id,
-            nama,
-            nis,
-            kelas,
-            tahun_ajaran,
-            tanggal_keluar
-          )
-        `)
-        .eq("orang_tua_id", currentUser.id),
+        .from("siswa")
+        .select("id,nama,nis,kelas,tahun_ajaran,tanggal_keluar,orang_tua_id")
+        .eq("orang_tua_id", currentUser.id)
+        .order("nama", { ascending: true }),
       "daftar anak"
     );
 
     if (error) throw error;
 
     anakOrangTuaList = (data || [])
-      .map((row) => row.siswa)
       .filter(Boolean)
       .sort((a, b) => String(a.nama || "").localeCompare(String(b.nama || ""), "id"));
 
