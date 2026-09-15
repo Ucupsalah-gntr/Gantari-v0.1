@@ -1,6 +1,5 @@
-// GANTARIKU — IMPORT SISWA EXCEL FIX
-// Dukungan .xlsx/.xls menggunakan SheetJS. Hanya membaca file saat preview;
-// database baru ditulis setelah tombol Import ditekan.
+// GANTARIKU — IMPORT SISWA EXCEL FIX v2
+// Membaca Excel secara aman di browser. Database TIDAK disentuh saat preview.
 (function () {
   let excelCandidates = [];
   let excelMode = false;
@@ -19,7 +18,27 @@
   }
 
   function headerKey(v) {
-    return String(v ?? "").replace(/^\uFEFF/, "").trim().toLowerCase().replace(/[\s\-\/]+/g, "_");
+    return String(v ?? "")
+      .replace(/^\uFEFF/, "")
+      .trim()
+      .toLowerCase()
+      .replace(/[\r\n]+/g, " ")
+      .replace(/[\(\)\[\]\{\}:]+/g, " ")
+      .replace(/[\s\-\/]+/g, "_");
+  }
+
+  function isHeaderRow(row) {
+    const keys = (row || []).map(headerKey).filter(Boolean);
+    const aliases = new Set([
+      "nama","nama_siswa","nama_anak","nama_murid","nama_siswa_murid",
+      "nis","nomor_induk","nomor_induk_siswa","nomor_induk_murid",
+      "kelas","class","tahun_ajaran","tahunajaran",
+      "tempat_lahir","tempatlahir","tanggal_lahir","tanggallahir","tgl_lahir",
+      "jenis_kelamin","jeniskelamin","gender","jk","nama_wali","wali",
+      "nama_orang_tua","nama_ortu","nomor_hp_ortu","no_hp_ortu","nomor_hp","no_hp","hp_ortu",
+      "mulai_bergabung","mulai_bulan","bergabung","tanggal_keluar","tgl_keluar","alamat","kode_akses","kode_akses_anak"
+    ]);
+    return keys.filter(k => aliases.has(k)).length >= 2;
   }
 
   function normalizeDate(v) {
@@ -55,14 +74,23 @@
   }
 
   function makeRows(matrix) {
-    const nonEmpty = matrix.filter(r => Array.isArray(r) && r.some(v => String(v ?? "").trim() !== ""));
-    if (nonEmpty.length < 2) throw new Error("File Excel harus memiliki judul kolom dan minimal satu data siswa.");
-    const headers = nonEmpty[0].map(headerKey);
-    return nonEmpty.slice(1).map((values, i) => {
-      const row = { __row: i + 2 };
+    const source = (matrix || []).filter(r => Array.isArray(r) && r.some(v => String(v ?? "").trim() !== ""));
+    if (source.length < 2) throw new Error("File Excel harus memiliki judul kolom dan minimal satu data siswa.");
+
+    // Jangan menganggap baris pertama sebagai header. Banyak file Excel punya
+    // judul seperti "DATA SISWA 2026" sebelum header sebenarnya.
+    let headerIndex = source.findIndex(isHeaderRow);
+    if (headerIndex < 0) {
+      throw new Error("Kolom Excel tidak dikenali. Pastikan ada kolom Nama, NIS, dan Kelas.");
+    }
+
+    const headers = source[headerIndex].map(headerKey);
+    const dataRows = source.slice(headerIndex + 1);
+    return dataRows.map((values, i) => {
+      const row = { __row: headerIndex + i + 2 };
       headers.forEach((h,j) => { if (h) row[h] = String(values[j] ?? "").trim(); });
       return row;
-    });
+    }).filter(row => Object.keys(row).some(k => k !== "__row" && row[k]));
   }
 
   function candidatesFrom(rows, existing) {
@@ -91,8 +119,7 @@
       if (gabungRaw && !gabung) errors.push("Mulai bergabung tidak valid");
 
       return {
-        row: row.__row,
-        nama, nis, kelas,
+        row: row.__row, nama, nis, kelas,
         tahun_ajaran: pick(row,["tahun_ajaran","tahunajaran"]),
         tempat_lahir: pick(row,["tempat_lahir","tempatlahir"]),
         tanggal_lahir: lahir,
@@ -103,49 +130,25 @@
         mulai_tahun: gabung ? Number(gabung.slice(0,4)) : null,
         tanggal_keluar: keluar,
         alamat: pick(row,["alamat"]),
-        kode_akses: pick(row,["kode_akses","kode_akses_anak"]),
-        errors
+        kode_akses: pick(row,["kode_akses","kode_akses_anak"]), errors
       };
     });
   }
 
   function render(preview, list) {
-    const valid = list.filter(x => !x.errors.length);
-    const invalid = list.filter(x => x.errors.length);
+    const valid = list.filter(x => !x.errors.length), invalid = list.filter(x => x.errors.length);
     preview.classList.remove("gtr-import-preview-empty");
-    preview.innerHTML = `
-      <div class="gtr-import-summary">
-        <div class="gtr-import-stat"><strong>${list.length}</strong><span>Total baris</span></div>
-        <div class="gtr-import-stat is-good"><strong>${valid.length}</strong><span>Siap diimport</span></div>
-        <div class="gtr-import-stat ${invalid.length ? "is-bad" : ""}"><strong>${invalid.length}</strong><span>Perlu diperiksa</span></div>
-      </div>
-      <div class="gtr-import-preview-head"><div><strong>Preview Data Siswa</strong><small>Periksa data sebelum disimpan ke sistem.</small></div></div>
-      <div class="gtr-import-table-wrap"><table class="gtr-import-table"><thead><tr>
-        <th>#</th><th>Nama</th><th>NIS</th><th>Kelas</th><th>Tahun Ajaran</th><th>Jenis Kelamin</th><th>Nama Wali</th><th>HP Orang Tua</th><th>Tgl. Keluar</th><th>Status</th>
-      </tr></thead><tbody>
-        ${list.slice(0,100).map(x => `<tr class="${x.errors.length ? "is-invalid" : ""}">
-          <td>${x.row}</td><td class="name-cell">${esc(x.nama || "—")}</td><td>${esc(x.nis || "—")}</td><td>${esc(x.kelas || "—")}</td>
-          <td>${esc(x.tahun_ajaran || "—")}</td><td>${x.jenis_kelamin === "L" ? "Laki-laki" : x.jenis_kelamin === "P" ? "Perempuan" : "—"}</td>
-          <td>${esc(x.nama_wali || "—")}</td><td>${esc(x.nomor_hp_ortu || "—")}</td><td>${esc(x.tanggal_keluar || "—")}</td>
-          <td>${x.errors.length ? `<span class="gtr-import-badge bad" title="${esc(x.errors.join(", "))}">⚠ ${esc(x.errors[0])}</span>` : `<span class="gtr-import-badge good">✓ Siap</span>`}</td>
-        </tr>`).join("")}
-      </tbody></table></div>
-      <div class="gtr-import-note">Data dengan tanda ⚠ tidak akan diimport. Data lama tidak diubah.</div>`;
+    preview.innerHTML = `<div class="gtr-import-summary"><div class="gtr-import-stat"><strong>${list.length}</strong><span>Total baris</span></div><div class="gtr-import-stat is-good"><strong>${valid.length}</strong><span>Siap diimport</span></div><div class="gtr-import-stat ${invalid.length ? "is-bad" : ""}"><strong>${invalid.length}</strong><span>Perlu diperiksa</span></div></div><div class="gtr-import-preview-head"><div><strong>Preview Data Siswa</strong><small>Periksa data sebelum disimpan ke sistem.</small></div></div><div class="gtr-import-table-wrap"><table class="gtr-import-table"><thead><tr><th>#</th><th>Nama</th><th>NIS</th><th>Kelas</th><th>Tahun Ajaran</th><th>Jenis Kelamin</th><th>Nama Wali</th><th>HP Orang Tua</th><th>Tgl. Keluar</th><th>Status</th></tr></thead><tbody>${list.slice(0,100).map(x => `<tr class="${x.errors.length ? "is-invalid" : ""}"><td>${x.row}</td><td class="name-cell">${esc(x.nama || "—")}</td><td>${esc(x.nis || "—")}</td><td>${esc(x.kelas || "—")}</td><td>${esc(x.tahun_ajaran || "—")}</td><td>${x.jenis_kelamin === "L" ? "Laki-laki" : x.jenis_kelamin === "P" ? "Perempuan" : "—"}</td><td>${esc(x.nama_wali || "—")}</td><td>${esc(x.nomor_hp_ortu || "—")}</td><td>${esc(x.tanggal_keluar || "—")}</td><td>${x.errors.length ? `<span class="gtr-import-badge bad" title="${esc(x.errors.join(", "))}">⚠ ${esc(x.errors[0])}</span>` : `<span class="gtr-import-badge good">✓ Siap</span>`}</td></tr>`).join("")}</tbody></table></div><div class="gtr-import-note">Data dengan tanda ⚠ tidak akan diimport. Data lama tidak diubah.</div>`;
     return {valid, invalid};
   }
 
   async function handleExcel(fileInput) {
-    const file = fileInput.files?.[0];
-    const modal = document.getElementById("gtrImportSiswaModal");
+    const file = fileInput.files?.[0], modal = document.getElementById("gtrImportSiswaModal");
     if (!file || !modal || !window.XLSX) return;
-    const preview = modal.querySelector("#gtrImportPreview");
-    const button = modal.querySelector("#gtrImportRun");
-    const ready = modal.querySelector("#gtrImportReadyText");
-    const name = modal.querySelector("#gtrImportFileName");
-    name.textContent = `${file.name} · ${Math.max(1, Math.round(file.size / 1024))} KB`;
+    const preview = modal.querySelector("#gtrImportPreview"), button = modal.querySelector("#gtrImportRun"), ready = modal.querySelector("#gtrImportReadyText"), name = modal.querySelector("#gtrImportFileName");
+    if (name) name.textContent = `${file.name} · ${Math.max(1, Math.round(file.size / 1024))} KB`;
     preview.innerHTML = `<div class="gtr-import-loading">Membaca file Excel...</div>`;
-    button.disabled = true;
-    ready.textContent = "Membaca file Excel...";
+    button.disabled = true; ready.textContent = "Membaca file Excel...";
     try {
       const buffer = await file.arrayBuffer();
       const workbook = XLSX.read(buffer, {type:"array", cellDates:true});
@@ -159,12 +162,9 @@
       excelCandidates = candidatesFrom(rows, existingNis);
       const result = render(preview, excelCandidates);
       button.disabled = result.valid.length === 0;
-      ready.textContent = result.valid.length
-        ? `${result.valid.length} siswa siap diimport${result.invalid.length ? ` · ${result.invalid.length} perlu diperiksa` : ""}.`
-        : "Belum ada data yang siap diimport.";
+      ready.textContent = result.valid.length ? `${result.valid.length} siswa siap diimport${result.invalid.length ? ` · ${result.invalid.length} perlu diperiksa` : ""}.` : "Belum ada data yang siap diimport.";
     } catch (error) {
-      console.error("Preview Excel siswa:", error);
-      excelCandidates = [];
+      console.error("Preview Excel siswa:", error); excelCandidates = []; button.disabled = true;
       preview.innerHTML = `<div class="gtr-import-error">⚠ ${esc(error?.message || "File Excel tidak dapat dibaca.")}</div>`;
       ready.textContent = "File belum siap diimport.";
     }
@@ -178,42 +178,16 @@
     const button = document.getElementById("gtrImportRun");
     if (button) { button.disabled = true; button.textContent = "Mengimport..."; }
     try {
-      const rows = valid.map(x => ({
-        nama:x.nama, nis:x.nis, kelas:x.kelas, tahun_ajaran:x.tahun_ajaran || null,
-        tempat_lahir:x.tempat_lahir || null, tanggal_lahir:x.tanggal_lahir, jenis_kelamin:x.jenis_kelamin,
-        nama_wali:x.nama_wali || null, nomor_hp_ortu:x.nomor_hp_ortu || null,
-        mulai_bulan:x.mulai_bulan, mulai_tahun:x.mulai_tahun, tanggal_keluar:x.tanggal_keluar,
-        alamat:x.alamat || null, kode_akses:x.kode_akses || (typeof generateKodeAkses === "function" ? generateKodeAkses() : null)
-      }));
-      const {error} = await supabase.from("siswa").insert(rows);
-      if (error) throw error;
-      if (typeof appNotify === "function") appNotify(`${rows.length} siswa berhasil diimport.`, "success");
-      document.getElementById("gtrImportSiswaModal")?.remove();
-      if (typeof loadSiswa === "function") await loadSiswa();
-    } catch (error) {
-      console.error("Import Excel siswa:", error);
-      if (typeof appNotify === "function") appNotify(error?.message || "Import Excel siswa gagal.", "error");
-      if (button) { button.disabled = false; button.textContent = "Import Siswa"; }
-    } finally { importing = false; }
+      const rows = valid.map(x => ({nama:x.nama,nis:x.nis,kelas:x.kelas,tahun_ajaran:x.tahun_ajaran||null,tempat_lahir:x.tempat_lahir||null,tanggal_lahir:x.tanggal_lahir,jenis_kelamin:x.jenis_kelamin,nama_wali:x.nama_wali||null,nomor_hp_ortu:x.nomor_hp_ortu||null,mulai_bulan:x.mulai_bulan,mulai_tahun:x.mulai_tahun,tanggal_keluar:x.tanggal_keluar,alamat:x.alamat||null,kode_akses:x.kode_akses||(typeof generateKodeAkses==="function"?generateKodeAkses():null)}));
+      const {error}=await supabase.from("siswa").insert(rows); if(error) throw error;
+      if(typeof appNotify==="function") appNotify(`${rows.length} siswa berhasil diimport.`,"success");
+      document.getElementById("gtrImportSiswaModal")?.remove(); if(typeof loadSiswa==="function") await loadSiswa();
+    } catch(error) {
+      console.error("Import Excel siswa:",error); if(typeof appNotify==="function") appNotify(error?.message||"Import Excel siswa gagal.","error");
+      if(button){button.disabled=false;button.textContent="Import Siswa";}
+    } finally { importing=false; }
   }
 
-  // Capture lebih dulu daripada parser CSV lama karena file ini dimuat sebelum parser-fix.
-  document.addEventListener("change", event => {
-    const input = event.target;
-    if (!input || input.id !== "gtrImportSiswaFile") return;
-    const file = input.files?.[0];
-    if (!file || !/\.(xlsx|xls)$/i.test(file.name)) return;
-    excelMode = true;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    handleExcel(input);
-  }, true);
-
-  document.addEventListener("click", event => {
-    const button = event.target?.closest?.("#gtrImportRun");
-    if (!button || !excelMode) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    importExcel();
-  }, true);
+  document.addEventListener("change",event=>{const input=event.target;if(!input||input.id!=="gtrImportSiswaFile")return;const file=input.files?.[0];if(!file||!/\.(xlsx|xls)$/i.test(file.name))return;excelMode=true;event.preventDefault();event.stopImmediatePropagation();handleExcel(input);},true);
+  document.addEventListener("click",event=>{const button=event.target?.closest?.("#gtrImportRun");if(!button||!excelMode)return;event.preventDefault();event.stopImmediatePropagation();importExcel();},true);
 })();
