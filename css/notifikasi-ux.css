@@ -1,0 +1,63 @@
+/* ============================================================
+   GANTARIKU — NOTIFIKASI UX LAYER
+   Memastikan panel selalu berada di atas konten dashboard.
+   ============================================================ */
+
+.topbar-actions {
+  position: relative;
+  z-index: 100;
+}
+
+.notif-button {
+  position: relative;
+  isolation: isolate;
+}
+
+.notif-button.has-notification {
+  box-shadow: 0 0 0 3px rgba(169, 123, 80, .10);
+}
+
+.notif-panel {
+  z-index: 1000 !important;
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 18px 48px rgba(58, 58, 60, .20) !important;
+}
+
+.notif-panel.show {
+  animation: notif-panel-in .18s ease-out;
+}
+
+#notifCount {
+  min-width: 18px;
+  min-height: 18px;
+  line-height: 18px;
+  justify-content: center;
+}
+
+@keyframes notif-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar-actions {
+    z-index: 200;
+  }
+
+  .notif-panel {
+    position: fixed !important;
+    top: 68px;
+    left: 12px;
+    right: 12px;
+    width: auto !important;
+    max-height: calc(100vh - 84px);
+  }
+}
