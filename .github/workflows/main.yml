@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 22
+          cache: npm
 
       - name: Check files
         run: |
@@ -45,11 +46,17 @@ jobs:
           test -s index.html
           echo "index.html OK"
 
-      - name: Run tests
-        if: ${{ hashFiles('package.json') != '' }}
-        run: |
-          npm install
-          npm test
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser E2E tests
+        run: npm run test:e2e
 
       - name: Success
         run: echo "GANTARIKU TEST PASSED"
