@@ -1,23 +1,16 @@
 // ============================================================
 // GANTARIKU — NOTIFIKASI ORANG TUA
+// Tidak mengubah notifikasi Admin.
 // ============================================================
 
-async function loadNotifikasi() {
+const gtrAdminLoadNotifikasi = window.loadNotifikasi;
+
+async function loadNotifikasiOrtu() {
   const panel = document.getElementById("notifPanel");
   const count = document.getElementById("notifCount");
-
   if (!supabase || !panel || !count) return;
 
-  if (currentUserRole !== "ortu") {
-    // Admin tetap menggunakan notifikasi yang sudah ada.
-    if (typeof window.__gtrLoadNotifikasiAdmin === "function") {
-      return window.__gtrLoadNotifikasiAdmin();
-    }
-    return;
-  }
-
   await pastikanAnakOrangTuaDimuat();
-
   const ids = anakOrangTuaList.map((anak) => anak.id).filter(Boolean);
   const items = [];
 
@@ -33,30 +26,26 @@ async function loadNotifikasi() {
       .select("id,siswa_id,bulan,tahun,status,nominal,updated_at")
       .in("siswa_id", ids)
       .in("status", ["Belum Bayar", "Menunggu Verifikasi"])
-      .order("updated_at", { ascending: false });
-
+      .order("updated_at", { ascending: false })
+      .limit(8);
     if (sppError) throw sppError;
 
-    (spp || []).slice(0, 8).forEach((row) => {
+    (spp || []).forEach((row) => {
       const anak = anakOrangTuaList.find((x) => String(x.id) === String(row.siswa_id));
       if (!anak) return;
-      const statusText = row.status === "Menunggu Verifikasi"
-        ? "menunggu verifikasi"
-        : "belum lunas";
       items.push({
         icon: row.status === "Menunggu Verifikasi" ? "⏳" : "💳",
-        text: `${anak.nama}: SPP ${namaBulan(Number(row.bulan))} ${row.tahun} ${statusText}.`,
-        action: "spp"
+        text: `${anak.nama}: SPP ${namaBulan(Number(row.bulan))} ${row.tahun} ${row.status === "Menunggu Verifikasi" ? "menunggu verifikasi" : "belum lunas"}.`,
+        action: "spp-anak"
       });
     });
 
     const { data: perkembangan, error: perkembanganError } = await supabase
       .from("perkembangan")
-      .select("id,siswa_id,tanggal,aspek,created_at")
+      .select("id,siswa_id,tanggal,created_at")
       .in("siswa_id", ids)
       .order("created_at", { ascending: false })
-      .limit(5);
-
+      .limit(20);
     if (perkembanganError) throw perkembanganError;
 
     const seen = new Set();
@@ -69,15 +58,16 @@ async function loadNotifikasi() {
       items.push({
         icon: "🌱",
         text: `${anak.nama}: perkembangan terbaru tersedia.`,
-        action: "perkembangan"
+        action: "perkembangan-anak"
       });
     });
 
-    count.textContent = items.length > 0 ? String(items.length) : "";
-    count.style.display = items.length > 0 ? "inline-flex" : "none";
+    const uniqueItems = items.slice(0, 10);
+    count.textContent = uniqueItems.length ? String(uniqueItems.length) : "";
+    count.style.display = uniqueItems.length ? "inline-flex" : "none";
 
-    panel.innerHTML = items.length
-      ? items.map((item) => `
+    panel.innerHTML = uniqueItems.length
+      ? uniqueItems.map((item) => `
           <button type="button" class="notif-item notif-item-action" data-notif-action="${item.action}">
             <span class="notif-icon">${item.icon}</span>
             <span>${escapeHtml(item.text)}</span>
@@ -88,12 +78,9 @@ async function loadNotifikasi() {
     panel.querySelectorAll("[data-notif-action]").forEach((button) => {
       button.addEventListener("click", () => {
         panel.classList.remove("show");
-        const action = button.dataset.notifAction;
-        if (action === "spp") {
-          if (typeof window.__app?.navigateTo === "function") window.__app.navigateTo("status-spp");
-        } else if (action === "perkembangan") {
-          if (typeof window.__app?.navigateTo === "function") window.__app.navigateTo("perkembangan-anak");
-        }
+        const target = button.dataset.notifAction;
+        const navButton = document.querySelector(`[data-page="${target}"]`);
+        if (navButton) navButton.click();
       });
     });
   } catch (error) {
@@ -103,3 +90,12 @@ async function loadNotifikasi() {
     panel.innerHTML = `<div class="notif-empty notif-error">Notifikasi belum dapat dimuat. Silakan coba lagi.</div>`;
   }
 }
+
+window.loadNotifikasi = async function () {
+  if (currentUserRole === "ortu") {
+    return loadNotifikasiOrtu();
+  }
+  if (typeof gtrAdminLoadNotifikasi === "function") {
+    return gtrAdminLoadNotifikasi();
+  }
+};
