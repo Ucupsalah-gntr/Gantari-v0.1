@@ -15,8 +15,6 @@ jobs:
 test:
 name: Test Gantariku
 runs-on: ubuntu-latest
-
-```
 steps:
   - name: Checkout
     uses: actions/checkout@v5
@@ -54,4 +52,3 @@ steps:
 
   - name: Success
     run: echo "GANTARIKU TEST PASSED"
-```
