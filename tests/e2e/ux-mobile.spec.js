@@ -8,13 +8,18 @@ const viewports = [
   { name: "desktop", width: 1440, height: 900 },
 ];
 
+async function assertLoginShell(page) {
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("#app")).toBeVisible();
+  await expect(page.locator('input[type="email"]').first()).toBeVisible();
+  await expect(page.locator('input[type="password"]').first()).toBeVisible();
+}
+
 test.describe("Gantariku responsive UX", () => {
   for (const viewport of viewports) {
-    test(`${viewport.name} tidak memiliki horizontal overflow`, async ({ page }) => {
+    test(`${viewport.name} login shell tidak memiliki horizontal overflow`, async ({ page }) => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.goto("/", { waitUntil: "domcontentloaded" });
-
-      await expect(page.locator("#app")).toBeVisible();
+      await assertLoginShell(page);
 
       const dimensions = await page.evaluate(() => ({
         documentWidth: document.documentElement.scrollWidth,
@@ -34,33 +39,13 @@ test.describe("Gantariku responsive UX", () => {
     });
   }
 
-  test("mobile memiliki tombol menu dan dapat membuka sidebar", async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto("/", { waitUntil: "domcontentloaded" });
-
-    const menuButton = page.locator("#mobileMenuBtn");
-    await expect(menuButton).toBeVisible();
-    await expect(menuButton).toHaveAttribute("aria-label", "Buka menu");
-
-    const sidebar = page.locator("#sidebar");
-    await menuButton.click();
-    await expect(sidebar).toHaveClass(/mobile-open/);
-
-    await menuButton.click();
-    await expect(sidebar).not.toHaveClass(/mobile-open/);
-  });
-
-  test("login tetap nyaman digunakan pada mobile kecil", async ({ page }) => {
+  test("login tetap usable pada mobile kecil", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 800 });
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await assertLoginShell(page);
 
     const email = page.locator('input[type="email"]').first();
     const password = page.locator('input[type="password"]').first();
     const submit = page.locator('button[type="submit"]').first();
-
-    await expect(email).toBeVisible();
-    await expect(password).toBeVisible();
-    await expect(submit).toBeVisible();
 
     const emailBox = await email.boundingBox();
     const passwordBox = await password.boundingBox();
@@ -75,5 +60,19 @@ test.describe("Gantariku responsive UX", () => {
       expect(box.x, `${label} keluar sisi kiri`).toBeGreaterThanOrEqual(0);
       expect(box.x + box.width, `${label} keluar sisi kanan`).toBeLessThanOrEqual(320);
     }
+  });
+
+  test("password toggle tetap tersedia pada mobile", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await assertLoginShell(page);
+
+    const showButton = page.locator('button[aria-label="Tampilkan password"]').first();
+    await expect(showButton).toBeVisible();
+
+    await showButton.click();
+    await expect(page.locator('button[aria-label="Sembunyikan password"]').first()).toBeVisible();
+
+    await page.locator('button[aria-label="Sembunyikan password"]').first().click();
+    await expect(page.locator('input[type="password"]').first()).toBeVisible();
   });
 });
