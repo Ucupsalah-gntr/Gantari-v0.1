@@ -4,7 +4,6 @@ on:
 push:
 branches:
 - main
-
 pull_request:
 branches:
 - main
@@ -14,157 +13,48 @@ contents: read
 
 jobs:
 test:
-name: Test & Validate Gantariku
+name: Test and Validate Gantariku
 runs-on: ubuntu-latest
 
 ```
 steps:
-  # ==========================================================
-  # 1. Checkout repository
-  # ==========================================================
   - name: Checkout repository
     uses: actions/checkout@v5
 
-  # ==========================================================
-  # 2. Setup Node.js
-  # ==========================================================
   - name: Setup Node.js
     uses: actions/setup-node@v5
     with:
       node-version: 22
 
-  # ==========================================================
-  # 3. Check project structure
-  # ==========================================================
-  - name: Check project structure
-    shell: bash
+  - name: Check required files
     run: |
-      set -e
+      test -f index.html
+      test -d css
+      test -d js
+      echo "Required files and folders are OK."
 
-      echo "======================================"
-      echo "   CHECK PROJECT STRUCTURE"
-      echo "======================================"
-
-      required_paths=(
-        "index.html"
-        "css"
-        "js"
-      )
-
-      for path in "${required_paths[@]}"; do
-        if [ ! -e "$path" ]; then
-          echo "❌ Tidak ditemukan: $path"
-          exit 1
-        fi
-
-        echo "✅ Ditemukan: $path"
-      done
-
-  # ==========================================================
-  # 4. Check JavaScript files
-  # ==========================================================
-  - name: Check JavaScript files
-    shell: bash
-    run: |
-      set -e
-
-      echo "======================================"
-      echo "   JAVASCRIPT FILES"
-      echo "======================================"
-
-      files=$(find js -type f -name "*.js" | sort)
-
-      if [ -z "$files" ]; then
-        echo "❌ Tidak ada file JavaScript."
-        exit 1
-      fi
-
-      echo "$files"
-
-  # ==========================================================
-  # 5. Check JavaScript syntax
-  # ==========================================================
   - name: Check JavaScript syntax
-    shell: bash
     run: |
-      set -e
-
-      echo "======================================"
-      echo "   JAVASCRIPT SYNTAX CHECK"
-      echo "======================================"
-
-      files=$(find js -type f -name "*.js" | sort)
-
-      for file in $files; do
-        echo "Checking: $file"
+      find js -type f -name "*.js" -print0 | while IFS= read -r -d '' file
+      do
+        echo "Checking $file"
         node --check "$file"
       done
 
-      echo ""
-      echo "✅ Semua file JavaScript lolos syntax check."
-
-  # ==========================================================
-  # 6. Validate index.html
-  # ==========================================================
-  - name: Validate index.html
-    shell: bash
+  - name: Check index.html
     run: |
-      set -e
+      test -s index.html
+      echo "index.html is OK."
 
-      echo "======================================"
-      echo "   HTML CHECK"
-      echo "======================================"
-
-      if [ ! -f "index.html" ]; then
-        echo "❌ index.html tidak ditemukan."
-        exit 1
-      fi
-
-      if [ ! -s "index.html" ]; then
-        echo "❌ index.html kosong."
-        exit 1
-      fi
-
-      echo "✅ index.html tersedia dan tidak kosong."
-
-  # ==========================================================
-  # 7. npm test — hanya jika package.json memang ada
-  # ==========================================================
-  - name: Run npm test
+  - name: Run npm test if package.json exists
     if: ${{ hashFiles('package.json') != '' }}
-    shell: bash
     run: |
-      echo "package.json ditemukan."
-      echo "Menjalankan npm test..."
       npm install
       npm test
 
-  # ==========================================================
-  # 8. Informasi jika package.json belum ada
-  # ==========================================================
-  - name: Skip npm test if package.json is missing
-    if: ${{ hashFiles('package.json') == '' }}
+  - name: Finish
     run: |
-      echo "ℹ️ package.json belum tersedia di repository."
-      echo "npm test dilewati."
-      echo "Syntax dan struktur project tetap diperiksa."
-
-  # ==========================================================
-  # 9. Final summary
-  # ==========================================================
-  - name: Test summary
-    run: |
-      echo ""
-      echo "======================================"
-      echo "      GANTARIKU TEST PASSED"
-      echo "======================================"
-      echo ""
-      echo "✅ Checkout repository"
-      echo "✅ Node.js 22"
-      echo "✅ Struktur project"
-      echo "✅ JavaScript syntax"
-      echo "✅ index.html"
-      echo "✅ npm test jika tersedia"
-      echo ""
-      echo "======================================"
+      echo "================================"
+      echo "GANTARIKU TEST PASSED"
+      echo "================================"
 ```
