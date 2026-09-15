@@ -1,6 +1,6 @@
 name: Test Gantariku
 
-on:
+"on":
 push:
 branches:
 - main
@@ -13,45 +13,45 @@ contents: read
 
 jobs:
 test:
-name: Test and Validate Gantariku
+name: Test Gantariku
 runs-on: ubuntu-latest
 
+```
 steps:
-  - name: Checkout repository
+  - name: Checkout
     uses: actions/checkout@v5
 
-  - name: Setup Node.js
+  - name: Setup Node
     uses: actions/setup-node@v5
     with:
       node-version: 22
 
-  - name: Check required files
+  - name: Check files
     run: |
       test -f index.html
       test -d css
       test -d js
-      echo "Required files and folders are OK."
+      echo "Project structure OK"
 
-  - name: Check JavaScript syntax
+  - name: Check JavaScript
     run: |
       find js -type f -name "*.js" -print0 | while IFS= read -r -d '' file
       do
-        echo "Checking $file"
+        echo "Checking: $file"
         node --check "$file"
       done
 
-  - name: Check index.html
+  - name: Check HTML
     run: |
       test -s index.html
-      echo "index.html is OK."
+      echo "index.html OK"
 
-  - name: Run npm test if package.json exists
+  - name: Run tests
     if: ${{ hashFiles('package.json') != '' }}
     run: |
       npm install
       npm test
 
-  - name: Finish
-    run: |
-      echo "================================"
-      echo "GANTARIKU TEST PASSED"
+  - name: Success
+    run: echo "GANTARIKU TEST PASSED"
+```
