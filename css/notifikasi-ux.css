@@ -1,7 +1,12 @@
 /* ============================================================
    GANTARIKU — NOTIFIKASI UX LAYER
-   Memastikan panel selalu berada di atas konten dashboard.
+   Popover attached to the topbar, above dashboard content.
    ============================================================ */
+
+.topbar {
+  position: relative;
+  z-index: 50;
+}
 
 .topbar-actions {
   position: relative;
@@ -11,6 +16,7 @@
 .notif-button {
   position: relative;
   isolation: isolate;
+  z-index: 101;
 }
 
 .notif-button.has-notification {
@@ -18,6 +24,11 @@
 }
 
 .notif-panel {
+  position: absolute !important;
+  top: calc(100% + 10px) !important;
+  right: 0 !important;
+  left: auto !important;
+  width: min(380px, calc(100vw - 36px)) !important;
   z-index: 1000 !important;
   max-height: min(70vh, 560px);
   overflow-y: auto;
@@ -47,16 +58,16 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
   .topbar-actions {
     z-index: 200;
   }
 
   .notif-panel {
     position: fixed !important;
-    top: 68px;
-    left: 12px;
-    right: 12px;
+    top: 68px !important;
+    left: 12px !important;
+    right: 12px !important;
     width: auto !important;
     max-height: calc(100vh - 84px);
   }
