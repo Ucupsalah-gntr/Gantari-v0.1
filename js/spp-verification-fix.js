@@ -1,7 +1,7 @@
 // ============================================================
 // GANTARIKU — SPP VERIFICATION FIX
 // ============================================================
-// Admin verification uses a protected Supabase RPC.
+// Admin SPP actions use protected Supabase RPCs.
 
 async function terimaPembayaranSpp(id) {
   if (!supabase) {
@@ -14,8 +14,6 @@ async function terimaPembayaranSpp(id) {
     return false;
   }
 
-  // Jangan bergantung pada helper confirmSpp yang tidak tersedia
-  // di semua versi aplikasi. Gunakan confirm bawaan browser.
   if (!window.confirm("Terima pembayaran ini dan ubah status menjadi Lunas?")) {
     return false;
   }
@@ -26,10 +24,7 @@ async function terimaPembayaranSpp(id) {
       { p_spp_id: id }
     );
 
-    if (error) {
-      console.error("SPP verification RPC error:", error);
-      throw error;
-    }
+    if (error) throw error;
 
     const row = Array.isArray(data) ? data[0] : data;
 
@@ -47,7 +42,6 @@ async function terimaPembayaranSpp(id) {
     console.error("Terima pembayaran:", error);
 
     let message = error?.message || "Terjadi kesalahan.";
-
     if (error?.code === "42501") {
       message = "Akun yang digunakan bukan admin atau profil admin tidak ditemukan.";
     } else if (error?.code === "P0002") {
@@ -55,6 +49,56 @@ async function terimaPembayaranSpp(id) {
     }
 
     appNotify("Gagal memverifikasi pembayaran:\n\n" + message);
+    return false;
+  }
+}
+
+async function tandaiLunas(id) {
+  if (!supabase) {
+    appNotify("Supabase belum terhubung.");
+    return false;
+  }
+
+  if (!id) {
+    appNotify("ID tagihan tidak ditemukan.");
+    return false;
+  }
+
+  if (!window.confirm("Tandai tagihan ini sebagai Lunas?")) {
+    return false;
+  }
+
+  try {
+    const { data, error } = await supabase.rpc(
+      "tandai_lunas_spp",
+      { p_spp_id: id }
+    );
+
+    if (error) throw error;
+
+    const row = Array.isArray(data) ? data[0] : data;
+
+    if (!row || row.status !== "Lunas") {
+      appNotify("Gagal: status tagihan belum berubah menjadi Lunas.");
+      await loadSpp();
+      return false;
+    }
+
+    appNotify("Tagihan berhasil ditandai sebagai Lunas.");
+    tutupDetailSpp();
+    await loadSpp();
+    return true;
+  } catch (error) {
+    console.error("Tandai lunas:", error);
+
+    let message = error?.message || "Terjadi kesalahan.";
+    if (error?.code === "42501") {
+      message = "Akun yang digunakan bukan admin atau profil admin tidak ditemukan.";
+    } else if (error?.code === "P0002") {
+      message = "Tagihan sudah berubah atau tidak lagi berstatus Belum Bayar.";
+    }
+
+    appNotify("Gagal menandai lunas:\n\n" + message);
     return false;
   }
 }
@@ -70,11 +114,7 @@ async function tolakPembayaranSpp(id) {
     return false;
   }
 
-  if (
-    !window.confirm(
-      "Tolak bukti pembayaran ini? Status akan kembali menjadi Belum Bayar."
-    )
-  ) {
+  if (!window.confirm("Tolak bukti pembayaran ini? Status akan kembali menjadi Belum Bayar.")) {
     return false;
   }
 
@@ -106,10 +146,7 @@ async function tolakPembayaranSpp(id) {
     return true;
   } catch (error) {
     console.error("Tolak pembayaran:", error);
-    appNotify(
-      "Gagal menolak pembayaran:\n\n" +
-      (error?.message || "Terjadi kesalahan.")
-    );
+    appNotify("Gagal menolak pembayaran:\n\n" + (error?.message || "Terjadi kesalahan."));
     return false;
   }
 }
