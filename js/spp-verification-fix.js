@@ -1,8 +1,7 @@
 // ============================================================
 // GANTARIKU — SPP VERIFICATION FIX
 // ============================================================
-// Admin verification uses a protected Supabase RPC so the action
-// is not blocked by client-side RLS/update-return behaviour.
+// Admin verification uses a protected Supabase RPC.
 
 async function terimaPembayaranSpp(id) {
   if (!supabase) {
@@ -15,7 +14,9 @@ async function terimaPembayaranSpp(id) {
     return false;
   }
 
-  if (!confirmSpp("Terima pembayaran ini dan ubah status menjadi Lunas?")) {
+  // Jangan bergantung pada helper confirmSpp yang tidak tersedia
+  // di semua versi aplikasi. Gunakan confirm bawaan browser.
+  if (!window.confirm("Terima pembayaran ini dan ubah status menjadi Lunas?")) {
     return false;
   }
 
@@ -70,7 +71,7 @@ async function tolakPembayaranSpp(id) {
   }
 
   if (
-    !confirmSpp(
+    !window.confirm(
       "Tolak bukti pembayaran ini? Status akan kembali menjadi Belum Bayar."
     )
   ) {
