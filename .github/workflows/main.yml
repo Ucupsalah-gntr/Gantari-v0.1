@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
   pull_request:
     branches:
       - main
@@ -13,18 +14,126 @@ permissions:
 
 jobs:
   test:
-    name: Unit tests
+    name: Test & Validate Gantariku
     runs-on: ubuntu-latest
 
     steps:
+      # ==========================================================
+      # 1. Ambil source code
+      # ==========================================================
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ==========================================================
+      # 2. Setup Node.js
+      # ==========================================================
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
-      - name: Run unit tests
+      # ==========================================================
+      # 3. Cek struktur project
+      # ==========================================================
+      - name: Check project files
+        run: |
+          echo "=== ROOT PROJECT ==="
+          ls -la
+
+          echo ""
+          echo "=== JAVASCRIPT FILES ==="
+          find js -type f -name "*.js" | sort || true
+
+      # ==========================================================
+      # 4. Install dependencies jika package.json tersedia
+      # ==========================================================
+      - name: Install dependencies
+        if: ${{ hashFiles('package-lock.json') != '' }}
+        run: npm ci
+
+      - name: Install dependencies without lockfile
+        if: ${{ hashFiles('package-lock.json') == '' && hashFiles('package.json') != '' }}
+        run: npm install
+
+      # ==========================================================
+      # 5. Jalankan npm test jika package.json tersedia
+      # ==========================================================
+      - name: Run npm test
+        if: ${{ hashFiles('package.json') != '' }}
         run: npm test
+
+      # ==========================================================
+      # 6. Validasi syntax seluruh file JavaScript
+      # ==========================================================
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -e
+
+          echo "Memeriksa syntax JavaScript..."
+
+          files=$(find js -type f -name "*.js" | sort)
+
+          if [ -z "$files" ]; then
+            echo "Tidak ada file JavaScript di folder js/"
+            exit 0
+          fi
+
+          for file in $files; do
+            echo "Checking: $file"
+            node --check "$file"
+          done
+
+          echo ""
+          echo "✅ Semua file JavaScript lolos pemeriksaan syntax."
+
+      # ==========================================================
+      # 7. Pastikan index.html ada
+      # ==========================================================
+      - name: Validate main HTML
+        shell: bash
+        run: |
+          if [ ! -f "index.html" ]; then
+            echo "❌ index.html tidak ditemukan."
+            exit 1
+          fi
+
+          echo "✅ index.html ditemukan."
+
+      # ==========================================================
+      # 8. Pastikan folder utama aplikasi tersedia
+      # ==========================================================
+      - name: Validate project structure
+        shell: bash
+        run: |
+          required_paths=(
+            "index.html"
+            "css"
+            "js"
+          )
+
+          for path in "${required_paths[@]}"; do
+            if [ ! -e "$path" ]; then
+              echo "❌ Tidak ditemukan: $path"
+              exit 1
+            fi
+
+            echo "✅ Ditemukan: $path"
+          done
+
+      # ==========================================================
+      # 9. Ringkasan hasil
+      # ==========================================================
+      - name: Test summary
+        run: |
+          echo "======================================"
+          echo "   GANTARIKU TEST SELESAI"
+          echo "======================================"
+          echo "Repository berhasil melewati:"
+          echo "- Checkout source"
+          echo "- Node.js validation"
+          echo "- JavaScript syntax check"
+          echo "- Struktur project check"
+          echo "- npm test (jika tersedia)"
+          echo "======================================"
