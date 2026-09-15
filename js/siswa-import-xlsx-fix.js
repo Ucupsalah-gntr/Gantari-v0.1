@@ -1,6 +1,5 @@
-// GANTARIKU — IMPORT SISWA EXCEL FIX v3
-// Parser Excel yang toleran terhadap judul/header beragam.
-// Preview hanya membaca file + NIS existing. Database ditulis hanya saat Import.
+// GANTARIKU — IMPORT SISWA EXCEL FIX v4
+// Parser Excel toleran: mengenali header nama siswa dengan berbagai variasi.
 (function () {
   let candidates = [];
   let excelMode = false;
@@ -8,8 +7,10 @@
   const MONTHS=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
   const esc=v=>typeof escapeHtml==="function"?escapeHtml(v??""):String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
   const norm=v=>String(v??"").replace(/^\uFEFF/,"").trim().toLowerCase().replace(/[\r\n]+/g," ").replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
-  function canonical(v){const k=norm(v), compact=k.replace(/_/g,"");
-    if(k==="nama"||/^(nama_siswa|nama_anak|nama_murid|nama_siswa_murid|nama_lengkap|nama_lengkap_siswa)$/.test(k)||/nama_(siswa|anak|murid)/.test(k))return"nama";
+  function canonical(v){
+    const k=norm(v), compact=k.replace(/_/g,"");
+    // Nama: sengaja dibuat luas karena file Excel sekolah sering memakai label berbeda.
+    if((k.includes("nama") || compact.includes("namapeserta")) && !k.includes("wali") && !k.includes("ortu") && !k.includes("orang_tua") && !compact.includes("orangtua"))return"nama";
     if(k==="nis"||compact.includes("nomorinduksiswa")||compact==="nomorinduk"||compact==="nisanak")return"nis";
     if(k==="kelas"||k==="class"||compact.includes("kelassiswa"))return"kelas";
     if(k.includes("tahun")&&k.includes("ajar"))return"tahun_ajaran";
