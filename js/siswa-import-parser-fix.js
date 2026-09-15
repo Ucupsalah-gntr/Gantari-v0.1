@@ -1,10 +1,11 @@
 // GANTARIKU — IMPORT SISWA PARSER FIX
-// Mendukung CSV Excel Indonesia dengan delimiter ;, , atau TAB.
+// Mendukung CSV/Excel Indonesia dengan delimiter ;, , atau TAB.
 (function () {
   const MONTHS = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  const MONTH_ALIASES = {jan:1,januari:1,feb:2,februari:2,mar:3,maret:3,apr:4,april:4,mei:5,may:5,jun:6,juni:6,jul:7,juli:7,agu:8,agt:8,agustus:8,sep:9,sept:9,september:9,okt:10,oktober:10,nov:11,november:11,des:12,desember:12,dec:12};
   let candidates = [];
   let busy = false;
-  const esc = (v) => typeof escapeHtml === "function" ? escapeHtml(v ?? "") : String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+  const esc = (v) => typeof escapeHtml === "function" ? escapeHtml(v ?? "") : String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;");
   const notify = (m,t="info") => typeof appNotify === "function" ? appNotify(m,t) : console.log(m);
 
   function detectDelimiter(text) {
@@ -45,17 +46,36 @@
     let m=v.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);if(m)return `${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;
     m=v.match(/^(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})$/i);if(m){const mi=MONTHS.findIndex(x=>x.toLowerCase()===m[2].toLowerCase());if(mi>=0)return `${m[3]}-${String(mi+1).padStart(2,"0")}-${m[1].padStart(2,"0")}`;}return null;
   }
-  function monthValue(v){v=String(v||"").trim();if(/^\d{4}-\d{2}$/.test(v))return v;let m=v.match(/^(\d{1,2})[\/-](\d{4})$/);if(m)return `${m[2]}-${m[1].padStart(2,"0")}`;const mi=MONTHS.findIndex(x=>v.toLowerCase().includes(x.toLowerCase())),y=v.match(/20\d{2}/)?.[0];return mi>=0&&y?`${y}-${String(mi+1).padStart(2,"0")}`:"";}
+  function monthValue(v, fallbackYear=""){
+    const raw=String(v||"").trim(); if(!raw)return "";
+    const yearFromRow=String(fallbackYear||"").match(/20\d{2}/)?.[0] || "";
+    let m;
+    if(/^\d{4}-\d{2}$/.test(raw)){const n=Number(raw.slice(5));return n>=1&&n<=12?raw:"";}
+    m=raw.match(/^(20\d{2})[\/-](\d{1,2})$/);if(m){const n=Number(m[2]);return n>=1&&n<=12?`${m[1]}-${String(n).padStart(2,"0")}`:"";}
+    m=raw.match(/^(\d{1,2})[\/-](20\d{2})$/);if(m){const n=Number(m[1]);return n>=1&&n<=12?`${m[2]}-${String(n).padStart(2,"0")}`:"";}
+    m=raw.match(/^([A-Za-z]+)\s+(20\d{2})$/i);if(m){const n=MONTH_ALIASES[m[1].toLowerCase()];return n?`${m[2]}-${String(n).padStart(2,"0")}`:"";}
+    m=raw.match(/^(20\d{2})\s+([A-Za-z]+)$/i);if(m){const n=MONTH_ALIASES[m[2].toLowerCase()];return n?`${m[1]}-${String(n).padStart(2,"0")}`:"";}
+    m=raw.match(/^(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})$/i);if(m){const n=MONTH_ALIASES[m[2].toLowerCase()];return n?`${m[3]}-${String(n).padStart(2,"0")}`:"";}
+    const lower=raw.toLowerCase().replace(/[.,]/g," ").trim();
+    const wordMonth=lower.split(/\s+/).map(w=>MONTH_ALIASES[w]).find(Boolean);
+    if(wordMonth){const y=raw.match(/20\d{2}/)?.[0] || yearFromRow; if(y)return `${y}-${String(wordMonth).padStart(2,"0")}`;}
+    const numeric=Number(raw.replace(/,/g,"."));
+    if(Number.isInteger(numeric)&&numeric>=1&&numeric<=12){const y=yearFromRow || new Date().getFullYear();return `${y}-${String(numeric).padStart(2,"0")}`;}
+    // Excel date serial number, if the month column was stored as a date.
+    if(Number.isInteger(numeric)&&numeric>30000&&numeric<70000){const d=new Date(Date.UTC(1899,11,30)+numeric*86400000);const y=d.getUTCFullYear(),n=d.getUTCMonth()+1;return `${y}-${String(n).padStart(2,"0")}`;}
+    return "";
+  }
   function gender(v){v=String(v||"").trim().toLowerCase();if(["l","lk","laki-laki","laki laki","male"].includes(v))return"L";if(["p","pr","perempuan","female"].includes(v))return"P";return null;}
 
   function makeCandidates(rows, existing){
     const seen=new Set(existing);
     return rows.map(r=>{
-      const nama=pick(r,["nama","nama_siswa","nama_anak","nama_murid"]), nis=pick(r,["nis","nomor_induk","nomor_induk_siswa","nomor_induk_murid"]), kelas=pick(r,["kelas","class"]), errors=[];
+      const nama=pick(r,["nama","nama_siswa","nama_anak","nama_murid","nama_lengkap","nama_peserta_didik"]), nis=pick(r,["nis","nomor_induk","nomor_induk_siswa","nomor_induk_murid"]), kelas=pick(r,["kelas","class"]), errors=[];
       const nk=nis.toLowerCase(); if(!nama)errors.push("Nama kosong");if(!nis)errors.push("NIS kosong");if(!kelas)errors.push("Kelas kosong");if(nis&&seen.has(nk))errors.push("NIS sudah terdaftar/duplikat");if(nis)seen.add(nk);
       const tlRaw=pick(r,["tanggal_lahir","tanggallahir","tgl_lahir"]), tkRaw=pick(r,["tanggal_keluar","tanggal_keluar_siswa","tgl_keluar"]), tl=dateValue(tlRaw), tk=dateValue(tkRaw);if(tlRaw&&!tl)errors.push("Tanggal lahir tidak valid");if(tkRaw&&!tk)errors.push("Tanggal keluar tidak valid");
-      const mbRaw=pick(r,["mulai_bergabung","mulai_bulan","bergabung"]), mb=monthValue(mbRaw);if(mbRaw&&!mb)errors.push("Mulai bergabung tidak valid");
-      return {row:r.__row,nama,nis,kelas,tahun_ajaran:pick(r,["tahun_ajaran","tahunajaran"]),tempat_lahir:pick(r,["tempat_lahir","tempatlahir"]),tanggal_lahir:tl,jenis_kelamin:gender(pick(r,["jenis_kelamin","jeniskelamin","gender","jk"])),nama_wali:pick(r,["nama_wali","wali","nama_orang_tua","nama_ortu"]),nomor_hp_ortu:pick(r,["nomor_hp_ortu","no_hp_ortu","nomor_hp","no_hp","hp_ortu"]),mulai_bulan:mb?Number(mb.slice(5,7)):null,mulai_tahun:mb?Number(mb.slice(0,4)):null,tanggal_keluar:tk,alamat:pick(r,["alamat"]),kode_akses:pick(r,["kode_akses","kode_akses_anak"]),errors};
+      const tahunAjaran=pick(r,["tahun_ajaran","tahunajaran"]);
+      const mbRaw=pick(r,["mulai_bergabung","mulai_bulan","bergabung","bulan_bergabung"]), mb=monthValue(mbRaw,tahunAjaran);if(mbRaw&&!mb)errors.push("Mulai bergabung tidak valid");
+      return {row:r.__row,nama,nis,kelas,tahun_ajaran:tahunAjaran,tempat_lahir:pick(r,["tempat_lahir","tempatlahir"]),tanggal_lahir:tl,jenis_kelamin:gender(pick(r,["jenis_kelamin","jeniskelamin","gender","jk"])),nama_wali:pick(r,["nama_wali","wali","nama_orang_tua","nama_ortu"]),nomor_hp_ortu:pick(r,["nomor_hp_ortu","no_hp_ortu","nomor_hp","no_hp","hp_ortu"]),mulai_bulan:mb?Number(mb.slice(5,7)):null,mulai_tahun:mb?Number(mb.slice(0,4)):null,tanggal_keluar:tk,alamat:pick(r,["alamat"]),kode_akses:pick(r,["kode_akses","kode_akses_anak"]),errors};
     });
   }
 
@@ -68,12 +88,12 @@
   async function handleFile(input){
     const modal=document.getElementById("gtrImportSiswaModal");if(!modal||!input.files?.[0])return;const file=input.files[0], preview=modal.querySelector("#gtrImportPreview"),button=modal.querySelector("#gtrImportRun"),text=modal.querySelector("#gtrImportReadyText"),fileName=modal.querySelector("#gtrImportFileName");
     if(fileName)fileName.textContent=`${file.name} · ${Math.max(1, Math.round(file.size / 1024))} KB`;
-    try{preview.innerHTML=`<div class="gtr-import-loading">Membaca data siswa...</div>`;text.textContent="Membaca file...";button.disabled=true;const rows=objects(await file.text());const {data:existing,error}=await supabase.from("siswa").select("nis");if(error)throw error;const set=new Set((existing||[]).map(x=>String(x.nis||"").trim().toLowerCase()).filter(Boolean));candidates=makeCandidates(rows,set);const result=render(preview,candidates);button.disabled=result.valid.length===0;text.textContent=result.valid.length?`${result.valid.length} siswa siap diimport${result.invalid.length?` · ${result.invalid.length} perlu diperiksa`:""}.`:"Belum ada data yang siap diimport.";}catch(error){console.error(error);candidates=[];button.disabled=true;text.textContent="File belum siap diimport.";preview.innerHTML=`<div class="gtr-import-error">⚠ ${esc(error?.message||"File tidak dapat dibaca.")}</div>`;}
+    try{preview.innerHTML=`<div class="gtr-import-loading">Membaca data siswa...</div>`;text.textContent="Membaca file...";button.disabled=true;const rows=objects(await file.text());const {data:existing,error}=await supabase.from("siswa").select("nis");if(error)throw error;const set=new Set((existing||[]).map(x=>String(x.nis||"").trim().toLowerCase()).filter(Boolean));candidates=makeCandidates(rows,set);const result=render(preview,candidates);button.disabled=result.valid.length===0;text.textContent=result.valid.length?`${result.valid.length} siswa siap diimport${result.invalid.length?` · ${result.invalid.length} perlu diperiksa`:""}.`:`Belum ada data yang siap diimport.`;}catch(error){console.error(error);candidates=[];button.disabled=true;text.textContent="File belum siap diimport.";preview.innerHTML=`<div class="gtr-import-error">⚠ ${esc(error?.message||"File tidak dapat dibaca.")}</div>`;}
   }
 
   async function importData(){
     if(busy)return;const valid=candidates.filter(x=>!x.errors.length);if(!valid.length)return;busy=true;const button=document.getElementById("gtrImportRun");if(button){button.disabled=true;button.textContent="Mengimport...";}
-    try{const rows=valid.map(x=>({nama:x.nama,nis:x.nis,kelas:x.kelas,tahun_ajaran:x.tahun_ajaran||null,tempat_lahir:x.tempat_lahir||null,tanggal_lahir:x.tanggal_lahir,jenis_kelamin:x.jenis_kelamin,nama_wali:x.nama_wali||null,nomor_hp_ortu:x.nomor_hp_ortu||null,mulai_bulan:x.mulai_bulan,mulai_tahun:x.mulai_tahun,tanggal_keluar:x.tanggal_keluar,alamat:x.alamat||null,kode_akses:x.kode_akses||(typeof generateKodeAkses==="function"?generateKodeAkses():null)}));const {error}=await supabase.from("siswa").insert(rows);if(error)throw error;notify(`${rows.length} siswa berhasil diimport.`,"success");document.getElementById("gtrImportSiswaModal")?.remove();if(typeof loadSiswa==="function")await loadSiswa();}catch(error){console.error(error);notify(error?.message||"Import siswa gagal.","error");if(button){button.disabled=false;button.textContent="Import Siswa";}}finally{busy=false;}
+    try{const rows=valid.map(x=>({nama:x.nama,nis:x.nis,kelas:x.kelas,tahun_ajaran:x.tahun_ajaran||null,tempat_lahir:x.tempat_lahir||null,tanggal_lahir:x.tanggal_lahir,jenis_kelamin:x.jenis_kelamin,nama_wali:x.nama_wali||null,nomor_hp_ortu:x.nomor_hp_ortu||null,mulai_bulan:x.mulai_bulan,mulai_tahun:x.mulai_tahun,tanggal_keluar:x.tanggal_keluar,alamat:x.alamat||null,kode_akses:x.kode_akses||(typeof generateKodeAkses==="function"?generateKodeAkses():null)}));const {error}=await supabase.from("siswa").insert(rows);if(error)throw error;notify(`${rows.length} siswa berhasil diimport.` ,"success");document.getElementById("gtrImportSiswaModal")?.remove();if(typeof loadSiswa==="function")await loadSiswa();}catch(error){console.error(error);notify(error?.message||"Import siswa gagal.","error");if(button){button.disabled=false;button.textContent="Import Siswa";}}finally{busy=false;}
   }
 
   document.addEventListener("change",e=>{if(e.target?.id!=="gtrImportSiswaFile")return;e.preventDefault();e.stopImmediatePropagation();handleFile(e.target);},true);
