@@ -1,0 +1,65 @@
+/* ============================================================
+   GANTARIKU — NOTIFICATION UX FIX
+   Keeps the notification popover attached to the topbar and above
+   dashboard content.
+   ============================================================ */
+
+.topbar {
+  position: relative;
+  z-index: 50;
+}
+
+.topbar-actions {
+  position: relative;
+  z-index: 60;
+}
+
+.notif-button {
+  position: relative;
+  z-index: 61;
+}
+
+.notif-panel,
+.notif-panel.show {
+  position: absolute !important;
+  top: calc(100% + 10px) !important;
+  right: 0 !important;
+  left: auto !important;
+  width: min(380px, calc(100vw - 36px)) !important;
+  max-height: min(520px, calc(100vh - 110px));
+  overflow-y: auto;
+  z-index: 9999 !important;
+  transform-origin: top right;
+}
+
+.notif-panel.show {
+  animation: notifPanelIn .16s ease-out;
+}
+
+@keyframes notifPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.notif-button[aria-expanded="true"] {
+  box-shadow: 0 0 0 3px rgba(169,123,80,.12);
+}
+
+@media (max-width: 760px) {
+  .notif-panel,
+  .notif-panel.show {
+    position: fixed !important;
+    top: 65px !important;
+    right: 16px !important;
+    left: 16px !important;
+    width: auto !important;
+    max-height: calc(100vh - 90px);
+    transform-origin: top center;
+  }
+}
