@@ -28,6 +28,10 @@ function tutupModalTunggakan() {
   document.getElementById("gtrTunggakanModal")?.remove();
 }
 
+function gtrFormatMonth(tahun, bulan) {
+  return `${tahun}-${String(bulan).padStart(2, "0")}`;
+}
+
 async function bukaBuatTagihanTunggakan() {
   if (currentUserRole !== "admin") {
     appNotify("Fitur ini hanya untuk admin.");
@@ -41,15 +45,18 @@ async function bukaBuatTagihanTunggakan() {
 
   let siswa = [];
   try {
+    // Gunakan kolom yang memang ada di tabel siswa.
+    // Tabel siswa memakai mulai_bulan + mulai_tahun, bukan tanggal_masuk.
     const { data, error } = await supabase
       .from("siswa")
-      .select("id,nama,nis,kelas,tahun_ajaran,tanggal_masuk,tanggal_keluar")
+      .select("id,nama,nis,kelas,tahun_ajaran,mulai_bulan,mulai_tahun,tanggal_keluar")
       .order("nama", { ascending: true });
+
     if (error) throw error;
     siswa = (data || []).filter((row) => !row.tanggal_keluar);
   } catch (error) {
     console.error("Load siswa untuk tunggakan:", error);
-    appNotify("Gagal memuat daftar siswa.");
+    appNotify("Gagal memuat daftar siswa:\n\n" + (error?.message || "Terjadi kesalahan."));
     return;
   }
 
@@ -59,8 +66,10 @@ async function bukaBuatTagihanTunggakan() {
   }
 
   tutupModalTunggakan();
+
   const now = getNowWIB();
-  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  const currentMonth = gtrFormatMonth(now.getFullYear(), now.getMonth() + 1);
+
   const defaultStudent = typeof sppTahunanSiswa !== "undefined" && sppTahunanSiswa.length
     ? sppTahunanSiswa.find((s) => siswa.some((x) => String(x.id) === String(s.id)))?.id
     : siswa[0].id;
@@ -81,11 +90,13 @@ async function bukaBuatTagihanTunggakan() {
         </div>
         <button type="button" class="btn ghost" id="gtrTunggakanClose">×</button>
       </div>
+
       <form id="gtrTunggakanForm">
         <div class="form-group">
           <label>Siswa</label>
           <select id="gtrTunggakanSiswa" required>${options}</select>
         </div>
+
         <div class="gtr-tunggakan-grid">
           <div class="form-group">
             <label>Mulai Bulan</label>
@@ -96,11 +107,14 @@ async function bukaBuatTagihanTunggakan() {
             <input type="month" id="gtrTunggakanSampai" value="${currentMonth}" required>
           </div>
         </div>
+
         <div class="form-group">
           <label>Nominal per bulan (Rp)</label>
           <input type="number" id="gtrTunggakanNominal" min="1" step="1000" placeholder="Contoh: 150000" required>
         </div>
+
         <div id="gtrTunggakanPreview" class="spp-tunggakan-preview"></div>
+
         <div class="gtr-modal-actions">
           <button type="button" class="btn ghost" id="gtrTunggakanCancel">Batal</button>
           <button type="submit" class="btn" id="gtrTunggakanSubmit">Buat Tagihan</button>
@@ -113,23 +127,56 @@ async function bukaBuatTagihanTunggakan() {
   const siswaSelect = document.getElementById("gtrTunggakanSiswa");
   if (defaultStudent) siswaSelect.value = defaultStudent;
 
+  const mulaiInput = document.getElementById("gtrTunggakanMulai");
+  const sampaiInput = document.getElementById("gtrTunggakanSampai");
+  const nominalInput = document.getElementById("gtrTunggakanNominal");
+
+  function setDefaultRangeForStudent(studentId) {
+    const selected = siswa.find((x) => String(x.id) === String(studentId));
+    if (!selected) return;
+
+    const hasStart = Number(selected.mulai_bulan) >= 1 && Number(selected.mulai_bulan) <= 12 && Number(selected.mulai_tahun) >= 2000;
+    if (hasStart) {
+      const startValue = gtrFormatMonth(Number(selected.mulai_tahun), Number(selected.mulai_bulan));
+      mulaiInput.value = startValue;
+      // Jangan pernah membuat tagihan setelah bulan sekarang.
+      sampaiInput.value = currentMonth;
+    }
+  }
+
+  setDefaultRangeForStudent(siswaSelect.value);
+
   const updatePreview = () => {
-    const months = gtrBulanBerjalanMulai(
-      document.getElementById("gtrTunggakanMulai")?.value,
-      document.getElementById("gtrTunggakanSampai")?.value
-    );
-    const nominal = Number(document.getElementById("gtrTunggakanNominal")?.value || 0);
-    const total = months.length * nominal;
+    const months = gtrBulanBerjalanMulai(mulaiInput?.value, sampaiInput?.value);
+    const nominal = Number(nominalInput?.value || 0);
     const preview = document.getElementById("gtrTunggakanPreview");
+
     if (!preview) return;
-    preview.innerHTML = months.length
-      ? `<strong>${months.length} bulan</strong> · Maksimal ${formatRupiah(total)} sebelum melewati tagihan yang sudah ada.`
-      : `<span class="text-danger">Rentang bulan tidak valid.</span>`;
+
+    if (!months.length) {
+      preview.innerHTML = `<span class="text-danger">Rentang bulan tidak valid.</span>`;
+      return;
+    }
+
+    const total = months.length * nominal;
+    const first = months[0];
+    const last = months[months.length - 1];
+    preview.innerHTML = `
+      <strong>${months.length} bulan</strong>
+      · ${gtrFormatMonth(first.tahun, first.bulan)} s/d ${gtrFormatMonth(last.tahun, last.bulan)}
+      · Maksimal ${formatRupiah(total)} sebelum melewati tagihan yang sudah ada.
+    `;
   };
 
-  ["gtrTunggakanMulai", "gtrTunggakanSampai", "gtrTunggakanNominal"].forEach((id) => {
-    document.getElementById(id)?.addEventListener("input", updatePreview);
+  [mulaiInput, sampaiInput, nominalInput].forEach((input) => {
+    input?.addEventListener("input", updatePreview);
   });
+
+  siswaSelect?.addEventListener("change", () => {
+    setDefaultRangeForStudent(siswaSelect.value);
+    updatePreview();
+  });
+
   updatePreview();
 
   document.getElementById("gtrTunggakanClose")?.addEventListener("click", tutupModalTunggakan);
@@ -140,10 +187,11 @@ async function bukaBuatTagihanTunggakan() {
 
   document.getElementById("gtrTunggakanForm")?.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const siswaId = siswaSelect.value;
-    const mulai = document.getElementById("gtrTunggakanMulai").value;
-    const sampai = document.getElementById("gtrTunggakanSampai").value;
-    const nominal = Number(document.getElementById("gtrTunggakanNominal").value);
+    const mulai = mulaiInput.value;
+    const sampai = sampaiInput.value;
+    const nominal = Number(nominalInput.value);
     const months = gtrBulanBerjalanMulai(mulai, sampai);
     const siswaTerpilih = siswa.find((x) => String(x.id) === String(siswaId));
 
@@ -162,6 +210,7 @@ async function bukaBuatTagihanTunggakan() {
         .eq("siswa_id", siswaId)
         .gte("tahun", months[0].tahun)
         .lte("tahun", months[months.length - 1].tahun);
+
       if (existingError) throw existingError;
 
       const existingKeys = new Set((existing || []).map((row) => `${row.tahun}-${row.bulan}`));
@@ -192,6 +241,7 @@ async function bukaBuatTagihanTunggakan() {
         .from("spp")
         .insert(payload)
         .select("id,bulan,tahun");
+
       if (insertError) throw insertError;
 
       appNotify(`Berhasil membuat ${inserted?.length || payload.length} tagihan tunggakan untuk ${siswaTerpilih.nama}.`);
