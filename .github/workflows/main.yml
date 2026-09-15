@@ -20,7 +20,7 @@ runs-on: ubuntu-latest
 ```
 steps:
   # ==========================================================
-  # 1. Checkout source code
+  # 1. Checkout repository
   # ==========================================================
   - name: Checkout repository
     uses: actions/checkout@v5
@@ -32,7 +32,6 @@ steps:
     uses: actions/setup-node@v5
     with:
       node-version: 22
-      cache: npm
 
   # ==========================================================
   # 3. Check project structure
@@ -61,46 +60,29 @@ steps:
         echo "✅ Ditemukan: $path"
       done
 
-      echo ""
-      echo "Struktur utama project OK."
-
   # ==========================================================
-  # 4. Tampilkan file JavaScript
+  # 4. Check JavaScript files
   # ==========================================================
-  - name: List JavaScript files
+  - name: Check JavaScript files
     shell: bash
     run: |
+      set -e
+
       echo "======================================"
       echo "   JAVASCRIPT FILES"
       echo "======================================"
 
-      if [ -d "js" ]; then
-        find js -type f -name "*.js" | sort
-      else
-        echo "Folder js/ tidak ditemukan."
+      files=$(find js -type f -name "*.js" | sort)
+
+      if [ -z "$files" ]; then
+        echo "❌ Tidak ada file JavaScript."
         exit 1
       fi
 
-  # ==========================================================
-  # 5. Install dependencies
-  # ==========================================================
-  - name: Install dependencies with npm ci
-    if: ${{ hashFiles('package-lock.json') != '' }}
-    run: npm ci
-
-  - name: Install dependencies with npm install
-    if: ${{ hashFiles('package-lock.json') == '' && hashFiles('package.json') != '' }}
-    run: npm install
+      echo "$files"
 
   # ==========================================================
-  # 6. Run npm test jika package.json tersedia
-  # ==========================================================
-  - name: Run npm test
-    if: ${{ hashFiles('package.json') != '' }}
-    run: npm test
-
-  # ==========================================================
-  # 7. Check JavaScript syntax
+  # 5. Check JavaScript syntax
   # ==========================================================
   - name: Check JavaScript syntax
     shell: bash
@@ -113,11 +95,6 @@ steps:
 
       files=$(find js -type f -name "*.js" | sort)
 
-      if [ -z "$files" ]; then
-        echo "Tidak ada file JavaScript."
-        exit 0
-      fi
-
       for file in $files; do
         echo "Checking: $file"
         node --check "$file"
@@ -127,7 +104,7 @@ steps:
       echo "✅ Semua file JavaScript lolos syntax check."
 
   # ==========================================================
-  # 8. Validate index.html
+  # 6. Validate index.html
   # ==========================================================
   - name: Validate index.html
     shell: bash
@@ -151,6 +128,28 @@ steps:
       echo "✅ index.html tersedia dan tidak kosong."
 
   # ==========================================================
+  # 7. npm test — hanya jika package.json memang ada
+  # ==========================================================
+  - name: Run npm test
+    if: ${{ hashFiles('package.json') != '' }}
+    shell: bash
+    run: |
+      echo "package.json ditemukan."
+      echo "Menjalankan npm test..."
+      npm install
+      npm test
+
+  # ==========================================================
+  # 8. Informasi jika package.json belum ada
+  # ==========================================================
+  - name: Skip npm test if package.json is missing
+    if: ${{ hashFiles('package.json') == '' }}
+    run: |
+      echo "ℹ️ package.json belum tersedia di repository."
+      echo "npm test dilewati."
+      echo "Syntax dan struktur project tetap diperiksa."
+
+  # ==========================================================
   # 9. Final summary
   # ==========================================================
   - name: Test summary
@@ -160,13 +159,12 @@ steps:
       echo "      GANTARIKU TEST PASSED"
       echo "======================================"
       echo ""
-      echo "✅ Repository berhasil di-check"
-      echo "✅ Node.js 22 tersedia"
-      echo "✅ JavaScript syntax OK"
-      echo "✅ index.html OK"
-      echo "✅ Struktur project OK"
-      echo "✅ npm test dijalankan jika package.json tersedia"
+      echo "✅ Checkout repository"
+      echo "✅ Node.js 22"
+      echo "✅ Struktur project"
+      echo "✅ JavaScript syntax"
+      echo "✅ index.html"
+      echo "✅ npm test jika tersedia"
       echo ""
       echo "======================================"
-      echo "       SIAP UNTUK DEPLOYMENT"
-      echo "======================================"
+```
