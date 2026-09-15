@@ -1,0 +1,70 @@
+/* ============================================================
+   GANTARIKU — DATA SISWA TABLE UX
+   Tabel siswa dibuat lebar dan horizontal agar teks tidak
+   dipaksa bertumpuk. Jika layar sempit, gunakan scroll horizontal.
+   ============================================================ */
+
+/* Hanya tabel yang memiliki #daftarSiswa */
+.table-scroll:has(#daftarSiswa) {
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll:has(#daftarSiswa) table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+}
+
+.table-scroll:has(#daftarSiswa) th,
+.table-scroll:has(#daftarSiswa) td {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Nama siswa juga tetap satu baris. */
+.table-scroll:has(#daftarSiswa) td:first-child {
+  min-width: 180px;
+}
+
+/* Kolom yang memang membutuhkan ruang diberi lebar minimum. */
+.table-scroll:has(#daftarSiswa) th:nth-child(2),
+.table-scroll:has(#daftarSiswa) td:nth-child(2) {
+  min-width: 105px;
+}
+
+.table-scroll:has(#daftarSiswa) th:nth-child(4),
+.table-scroll:has(#daftarSiswa) td:nth-child(4) {
+  min-width: 120px;
+}
+
+.table-scroll:has(#daftarSiswa) th:nth-child(5),
+.table-scroll:has(#daftarSiswa) td:nth-child(5) {
+  min-width: 135px;
+}
+
+.table-scroll:has(#daftarSiswa) th:nth-child(6),
+.table-scroll:has(#daftarSiswa) td:nth-child(6) {
+  min-width: 125px;
+}
+
+.table-scroll:has(#daftarSiswa) th:nth-child(7),
+.table-scroll:has(#daftarSiswa) td:nth-child(7) {
+  min-width: 120px;
+}
+
+.table-scroll:has(#daftarSiswa) th:nth-child(8),
+.table-scroll:has(#daftarSiswa) td:nth-child(8) {
+  min-width: 105px;
+}
+
+.table-scroll:has(#daftarSiswa) th:nth-child(9),
+.table-scroll:has(#daftarSiswa) td:nth-child(9) {
+  min-width: 125px;
+}
+
+.table-scroll:has(#daftarSiswa) th:last-child,
+.table-scroll:has(#daftarSiswa) td:last-child {
+  min-width: 90px;
+}
