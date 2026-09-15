@@ -1,0 +1,42 @@
+/* ============================================================
+   GANTARIKU — IMPORT SISWA PREVIEW
+   ============================================================ */
+
+.gtr-import-overlay{position:fixed;inset:0;z-index:99999;background:rgba(35,29,25,.46);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:22px;animation:gtrImportFade .18s ease-out}
+.gtr-import-modal{width:min(1120px,100%);max-height:min(92vh,900px);overflow:hidden;background:#fffdf9;border:1px solid rgba(120,85,55,.12);border-radius:24px;box-shadow:0 28px 90px rgba(40,28,20,.28);display:flex;flex-direction:column;animation:gtrImportUp .2s ease-out}
+.gtr-import-top{display:flex;justify-content:space-between;gap:22px;padding:24px 28px 18px;border-bottom:1px solid #eee5db}
+.gtr-import-kicker{font-size:11px;letter-spacing:.14em;font-weight:800;color:#a66e3d;margin-bottom:5px}
+.gtr-import-top h3{margin:0;font-size:23px;color:#2f2925}
+.gtr-import-top p{margin:7px 0 0;color:#796d64;font-size:13px}
+.gtr-import-close{border:0;background:#f8efe5;width:38px;height:38px;border-radius:12px;font-size:25px;line-height:1;color:#79563d;cursor:pointer;flex:0 0 auto}
+.gtr-import-close:hover{background:#f0e2d3}
+.gtr-import-info{margin:18px 28px 14px;padding:14px 16px;border-radius:15px;background:#faf5ed;border:1px solid #eee2d4;display:grid;grid-template-columns:minmax(180px,.7fr) 2fr;gap:12px;font-size:12px}
+.gtr-import-info div{display:flex;flex-direction:column;gap:3px}
+.gtr-import-info strong{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#91623e}
+.gtr-import-info span{color:#5f554e;line-height:1.5}
+.gtr-import-drop{margin:0 28px 14px;border:1.5px dashed #d9c1a8;border-radius:16px;background:#fffaf4;padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s ease}
+.gtr-import-drop:hover{border-color:#b98255;background:#fff7ed}
+.gtr-import-drop input{position:absolute;width:1px;height:1px;opacity:0}
+.gtr-import-drop-icon{width:38px;height:38px;border-radius:11px;background:#f1e1d0;color:#9a653e;display:grid;place-items:center;font-size:22px;font-weight:700}
+.gtr-import-drop strong{font-size:13px;color:#403833}
+.gtr-import-drop small{font-size:11px;color:#887a70}
+.gtr-import-file{margin-left:auto;font-size:11px;color:#9b7658;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gtr-import-preview-empty{margin:0 28px 16px;min-height:150px;border:1px solid #eee6dd;border-radius:16px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:#71675f}
+.gtr-import-empty-icon{font-size:31px;opacity:.8}
+.gtr-import-preview-empty strong{font-size:14px;color:#514941}
+.gtr-import-preview-empty span{font-size:12px}
+.gtr-import-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.gtr-import-stat{padding:10px 14px;border:1px solid #eee5dc;background:#fff;border-radius:13px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gtr-import-stat strong{font-size:20px;color:#4b433e}.gtr-import-stat span{font-size:11px;color:#82766d}.gtr-import-stat.is-good{background:#f5faf2;border-color:#dcebd5}.gtr-import-stat.is-good strong{color:#55784a}.gtr-import-stat.is-bad{background:#fff6f3;border-color:#f0d8d0}.gtr-import-stat.is-bad strong{color:#a84d3f}
+.gtr-import-preview-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;padding:0 2px}.gtr-import-preview-head div{display:flex;flex-direction:column;gap:2px}.gtr-import-preview-head strong{font-size:14px;color:#403833}.gtr-import-preview-head small,.gtr-import-preview-head>span{font-size:11px;color:#8a7e75}
+.gtr-import-table-wrap{max-height:330px;overflow:auto;border:1px solid #e9e1d8;border-radius:14px;background:#fff}
+.gtr-import-table{width:100%;min-width:930px;border-collapse:separate;border-spacing:0;font-size:11px;color:#514943}
+.gtr-import-table th{position:sticky;top:0;z-index:2;background:#f8f2eb;color:#6b594b;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.035em;padding:10px 9px;border-bottom:1px solid #e6ddd3;white-space:nowrap}
+.gtr-import-table td{padding:9px;border-bottom:1px solid #f0ebe5;white-space:nowrap;vertical-align:middle}.gtr-import-table tbody tr:last-child td{border-bottom:0}.gtr-import-table tbody tr:hover{background:#fffaf5}.gtr-import-table tbody tr.is-invalid{background:#fff8f6}.gtr-import-table .name-cell{font-weight:700;color:#39322e;max-width:190px;white-space:normal}
+.gtr-import-badge{display:inline-flex;align-items:center;gap:3px;border-radius:999px;padding:4px 7px;font-size:10px;font-weight:700}.gtr-import-badge.good{background:#eaf5e5;color:#4e7743}.gtr-import-badge.bad{background:#fde9e4;color:#a64b3e;max-width:135px;overflow:hidden;text-overflow:ellipsis}
+.gtr-import-note{margin-top:8px;font-size:11px;color:#8a7d74}
+.gtr-import-loading,.gtr-import-error{margin:20px;padding:24px;text-align:center;border-radius:14px;font-size:13px}.gtr-import-loading{background:#faf6f0;color:#796d64}.gtr-import-error{background:#fff1ed;color:#a34b3d}
+#gtrImportPreview{margin:0 28px 0;min-height:0;overflow:hidden}
+.gtr-import-actions{padding:15px 28px 20px;border-top:1px solid #eee5db;margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:16px}.gtr-import-actions>span{font-size:12px;color:#766b63}.gtr-import-actions>div{display:flex;gap:9px}.gtr-import-actions .btn{min-width:128px}
+@keyframes gtrImportFade{from{opacity:0}to{opacity:1}}@keyframes gtrImportUp{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+@media(max-width:720px){.gtr-import-overlay{padding:10px}.gtr-import-modal{max-height:95vh;border-radius:18px}.gtr-import-top{padding:18px 18px 14px}.gtr-import-info{margin:14px 18px 10px;grid-template-columns:1fr}.gtr-import-drop{margin:0 18px 10px;flex-wrap:wrap}.gtr-import-file{width:100%;margin-left:0}.gtr-import-summary{grid-template-columns:1fr}.gtr-import-preview-head{align-items:flex-start;gap:8px;flex-direction:column}#gtrImportPreview{margin:0 18px}.gtr-import-actions{padding:12px 18px 16px;align-items:stretch;flex-direction:column}.gtr-import-actions>div{width:100%}.gtr-import-actions .btn{flex:1}.gtr-import-table-wrap{max-height:300px}}
