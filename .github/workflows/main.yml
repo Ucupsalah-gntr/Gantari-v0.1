@@ -1,54 +1,55 @@
 name: Test Gantariku
 
-"on":
-push:
-branches:
-- main
-pull_request:
-branches:
-- main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 permissions:
-contents: read
+  contents: read
 
 jobs:
-test:
-name: Test Gantariku
-runs-on: ubuntu-latest
-steps:
-  - name: Checkout
-    uses: actions/checkout@v5
+  test:
+    name: Test Gantariku
+    runs-on: ubuntu-latest
 
-  - name: Setup Node
-    uses: actions/setup-node@v5
-    with:
-      node-version: 22
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-  - name: Check files
-    run: |
-      test -f index.html
-      test -d css
-      test -d js
-      echo "Project structure OK"
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
 
-  - name: Check JavaScript
-    run: |
-      find js -type f -name "*.js" -print0 | while IFS= read -r -d '' file
-      do
-        echo "Checking: $file"
-        node --check "$file"
-      done
+      - name: Check files
+        run: |
+          test -f index.html
+          test -d css
+          test -d js
+          echo "Project structure OK"
 
-  - name: Check HTML
-    run: |
-      test -s index.html
-      echo "index.html OK"
+      - name: Check JavaScript
+        run: |
+          find js -type f -name "*.js" -print0 | while IFS= read -r -d '' file
+          do
+            echo "Checking: $file"
+            node --check "$file"
+          done
 
-  - name: Run tests
-    if: ${{ hashFiles('package.json') != '' }}
-    run: |
-      npm install
-      npm test
+      - name: Check HTML
+        run: |
+          test -s index.html
+          echo "index.html OK"
 
-  - name: Success
-    run: echo "GANTARIKU TEST PASSED"
+      - name: Run tests
+        if: ${{ hashFiles('package.json') != '' }}
+        run: |
+          npm install
+          npm test
+
+      - name: Success
+        run: echo "GANTARIKU TEST PASSED"
