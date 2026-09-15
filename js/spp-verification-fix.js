@@ -188,3 +188,65 @@ async function tandaiLunas(id) {
     return false;
   }
 }
+
+// ============================================================
+// TAMPILKAN KETERANGAN PEMBAYARAN CASH
+// ============================================================
+// Data keterangan disimpan di kolom keterangan_pembayaran.
+// Versi bukaDetailSpp lama hanya menampilkan kolom catatan,
+// sehingga keterangan cash tersimpan tetapi belum terlihat.
+
+(function pasangTampilanKeteranganPembayaran() {
+  const bukaDetailSppAsli = window.bukaDetailSpp;
+
+  if (typeof bukaDetailSppAsli !== "function") return;
+
+  window.bukaDetailSpp = async function (id) {
+    await bukaDetailSppAsli(id);
+
+    if (!supabase || !id) return;
+
+    try {
+      const { data, error } = await supabase
+        .from("spp")
+        .select("keterangan_pembayaran")
+        .eq("id", id)
+        .single();
+
+      if (error) throw error;
+
+      const keterangan = String(data?.keterangan_pembayaran || "").trim();
+      if (!keterangan) return;
+
+      const card = document.querySelector("#sppDetailModal .spp-modal-card");
+      if (!card) return;
+
+      const existing = card.querySelector("[data-spp-keterangan]");
+      if (existing) existing.remove();
+
+      const section = document.createElement("div");
+      section.className = "spp-detail-section";
+      section.setAttribute("data-spp-keterangan", "true");
+
+      const label = document.createElement("div");
+      label.className = "spp-detail-label";
+      label.textContent = "Keterangan Pembayaran";
+
+      const note = document.createElement("div");
+      note.className = "spp-note";
+      note.textContent = keterangan;
+
+      section.appendChild(label);
+      section.appendChild(note);
+
+      const aksi = card.querySelector(".spp-detail-section button")?.closest(".spp-detail-section");
+      if (aksi) {
+        card.insertBefore(section, aksi);
+      } else {
+        card.appendChild(section);
+      }
+    } catch (error) {
+      console.error("Gagal menampilkan keterangan pembayaran:", error);
+    }
+  };
+})();
