@@ -15,33 +15,38 @@ test("import siswa: save safety fix dimuat setelah importer", () => {
   assert.ok(saveFix > importer, "Save safety fix harus dimuat setelah importer");
 });
 
-test("import siswa: Tahun Ajaran null tidak boleh lolos ke insert", () => {
+test("import siswa: Tahun Ajaran kosong diberi fallback aman sebelum insert", () => {
   const fix = read("js/siswa-import-save-fix.js");
 
-  assert.match(fix, /normalizeTahunAjaran/);
-  assert.match(fix, /tahun_ajaran: normalizeTahunAjaran/);
+  assert.match(fix, /DEFAULT_TAHUN_AJARAN\s*=\s*[\"']2025\/2026[\"']/);
+  assert.match(fix, /fillMissingTahunAjaran/);
   assert.match(fix, /lastYear/);
-  assert.match(fix, /ada data siswa tanpa Tahun Ajaran/i);
+  assert.match(fix, /row\.tahun_ajaran\s*=\s*DEFAULT_TAHUN_AJARAN/);
+  assert.doesNotMatch(fix, /ada data siswa tanpa Tahun Ajaran/);
 });
 
-test("riwayat absensi: tampilan guru diringkas per tanggal", () => {
+test("rekap absensi: admin dan guru sama-sama memakai tampilan ringkas per tanggal", () => {
   const html = read("index.html");
   const rekap = html.indexOf('src="js/rekap-absensi.js"');
   const uxFix = html.indexOf('src="js/riwayat-absensi-ux-fix.js"');
 
   assert.ok(rekap >= 0, "rekap-absensi.js tidak ditemukan di index.html");
-  assert.ok(uxFix > rekap, "UX fix riwayat harus dimuat setelah rekap-absensi.js");
+  assert.ok(uxFix > rekap, "UX fix absensi harus dimuat setelah rekap-absensi.js");
 
   const fix = read("js/riwayat-absensi-ux-fix.js");
+  assert.match(fix, /renderRiwayatAbsen/);
+  assert.match(fix, /renderRekap/);
+  assert.match(fix, /loadRiwayatAbsensi/);
+  assert.match(fix, /loadRekapAbsensi/);
   assert.match(fix, /groupByDate/);
   assert.match(fix, /<details class="gtr-riwayat-day">/);
   assert.match(fix, /counts: \{ H: 0, I: 0, S: 0, A: 0 \}/);
 });
 
-test("riwayat absensi: CSS compact tersedia dan responsif", () => {
+test("absensi compact: CSS tersedia dan responsif", () => {
   const html = read("index.html");
   const css = html.indexOf('href="css/riwayat-absensi-compact.css"');
-  assert.ok(css >= 0, "CSS riwayat absensi compact belum dimuat");
+  assert.ok(css >= 0, "CSS absensi compact belum dimuat");
 
   const stylesheet = read("css/riwayat-absensi-compact.css");
   assert.match(stylesheet, /\.gtr-riwayat-day/);
