@@ -53,8 +53,23 @@
     return div.innerHTML;
   }
 
+  function refreshNotifCount() {
+    const panel = document.getElementById("notifPanel");
+    const count = document.getElementById("notifCount");
+    if (!panel || !count) return;
+
+    const total = panel.querySelectorAll("[data-notif-action]").length;
+    count.textContent = total ? String(total) : "";
+    count.style.display = total ? "inline-flex" : "none";
+    count.classList.toggle("is-hidden", !total);
+
+    if (!total) {
+      panel.innerHTML = `<div class="notif-empty">Semua aman. Tidak ada notifikasi baru.</div>`;
+    }
+  }
+
   // ----------------------------------------------------------
-  // FOKUS SPP DESKTOP + HP
+  // FOKUS SPP: desktop = row, mobile = card.
   // ----------------------------------------------------------
   window.fokusSppDariNotifikasi = async function (context, attempt = 0) {
     if (!context || !document.getElementById("view")) return;
@@ -62,7 +77,6 @@
 
     const tbody = document.getElementById("daftarSppAnak");
     const mobileList = document.getElementById("daftarSppAnakMobile");
-
     if (!tbody || !mobileList) {
       setTimeout(() => window.fokusSppDariNotifikasi(context, attempt + 1), 150);
       return;
@@ -148,8 +162,8 @@
   };
 
   // ----------------------------------------------------------
-  // NOTIFIKASI ORANGTUA: PENOLAKAN PEMBAYARAN
-  // Sumber data adalah catatan penolakan + status Belum Bayar.
+  // NOTIFIKASI ORANGTUA: penolakan SPP.
+  // Catatan penolakan berasal dari alur admin yang sudah ada.
   // ----------------------------------------------------------
   async function appendRejectedNotifications() {
     if (!isOrtu() || !supabase) return;
@@ -196,7 +210,6 @@
         button.dataset.gtrRejectedSpp = "1";
         button.dataset.notifAction = "spp-anak";
         button.dataset.notifId = key;
-
         button.innerHTML = `
           <span class="notif-icon">⚠️</span>
           <span>${escapeText(anak.nama)}: bukti SPP ${escapeText(namaBulan(row.bulan))} ${escapeText(row.tahun)} ditolak. Silakan kirim ulang bukti pembayaran.</span>
@@ -206,43 +219,73 @@
           event.preventDefault();
           event.stopPropagation();
           markRead(key);
-          if (row.siswa_id) anakTerpilihId = row.siswa_id;
+          anakTerpilihId = row.siswa_id;
           panel.classList.remove("show");
+
           if (window.__app && typeof window.__app.goTo === "function") {
             window.__app.goTo("spp-anak");
           }
+
           setTimeout(() => window.fokusSppDariNotifikasi({
             siswaId: row.siswa_id,
             bulan: Number(row.bulan),
             tahun: Number(row.tahun)
-          }), 200);
+          }), 220);
         });
 
         panel.appendChild(button);
       });
 
-      const total = panel.querySelectorAll("[data-notif-action]").length;
-      count.textContent = total ? String(total) : "";
-      count.style.display = total ? "inline-flex" : "none";
-      count.classList.toggle("is-hidden", !total);
-
-      if (!total) {
-        panel.innerHTML = `<div class="notif-empty">Semua aman. Tidak ada notifikasi baru.</div>`;
-      }
+      refreshNotifCount();
     } catch (error) {
       console.warn("Gantariku: gagal memuat notifikasi penolakan SPP.", error);
     }
   }
 
   // ----------------------------------------------------------
-  // WRAP LOAD NOTIFIKASI
-  // Base loader lama tetap dipakai; kita hanya menambahkan notifikasi reject.
+  // Hapus SPP Menunggu Verifikasi dari notifikasi orangtua.
+  // Status ini adalah proses internal admin, bukan tugas baru orangtua.
   // ----------------------------------------------------------
-  const previousLoadNotifikasi = window.loadNotifikasi;
-  if (typeof previousLoadNotifikasi === "function") {
+  function normalizeParentNotifications() {
+    if (!isOrtu()) return;
+    const panel = document.getElementById("notifPanel");
+    if (!panel) return;
+
+    panel.querySelectorAll('[data-notif-action="spp-anak"]').forEach((button) => {
+      const text = String(button.textContent || "").toLowerCase();
+      if (text.includes("menunggu verifikasi")) button.remove();
+    });
+
+    refreshNotifCount();
+  }
+
+  // ----------------------------------------------------------
+  // Bungkus loader global dan loader pada __app.
+  // ----------------------------------------------------------
+  const previousWindowLoadNotifikasi = window.loadNotifikasi;
+  if (typeof previousWindowLoadNotifikasi === "function") {
     window.loadNotifikasi = async function (...args) {
-      const result = await previousLoadNotifikasi.apply(this, args);
-      if (isOrtu()) await appendRejectedNotifications();
+      const result = await previousWindowLoadNotifikasi.apply(this, args);
+      if (isOrtu()) {
+        normalizeParentNotifications();
+        await appendRejectedNotifications();
+      }
+      return result;
+    };
+  }
+
+  const previousAppLoadNotifikasi =
+    window.__app && typeof window.__app.loadNotifikasi === "function"
+      ? window.__app.loadNotifikasi
+      : null;
+
+  if (previousAppLoadNotifikasi && window.__app) {
+    window.__app.loadNotifikasi = async function (...args) {
+      const result = await previousAppLoadNotifikasi.apply(this, args);
+      if (isOrtu()) {
+        normalizeParentNotifications();
+        await appendRejectedNotifications();
+      }
       return result;
     };
   }
@@ -327,7 +370,6 @@
 
     actions.appendChild(cancel);
     actions.appendChild(confirm);
-
     card.appendChild(title);
     card.appendChild(previewWrap);
     card.appendChild(info);
@@ -341,11 +383,8 @@
     document.body.appendChild(overlay);
   }
 
-  // App.js sudah mengambil referensi upload ke window.__app.
-  // Bungkus referensi itu agar preview terjadi sebelum upload, tanpa mengubah
-  // fungsi upload asli.
   const originalUpload = window.__app && window.__app.uploadBuktiSpp;
-  if (typeof originalUpload === "function") {
+  if (typeof originalUpload === "function" && window.__app) {
     window.__app.uploadBuktiSpp = function (sppId, file) {
       if (!file) return;
 
@@ -353,20 +392,14 @@
         (file.type && file.type.startsWith("image/")) ||
         file.type === "application/pdf";
 
-      if (!imageOrPdf) {
-        return originalUpload(sppId, file);
-      }
+      if (!imageOrPdf) return originalUpload(sppId, file);
 
       return showUploadPreview(sppId, file, async () => {
-        // Upload asli sudah memiliki confirm teks sendiri. Kita lewati hanya
-        // dialog teks itu setelah user menyetujui preview visual.
         const oldConfirm = window.confirm;
         try {
           window.confirm = () => true;
           const result = await originalUpload(sppId, file);
 
-          // Setelah upload sukses, hapus catatan penolakan lama agar tidak
-          // muncul sebagai notifikasi reject untuk pengiriman berikutnya.
           try {
             const { data } = await supabase
               .from("spp")
@@ -394,12 +427,10 @@
 
   // ----------------------------------------------------------
   // PENOLAKAN ADMIN
-  // - status => Belum Bayar (fungsi asli)
-  // - refresh notif admin segera
-  // - file bukti lama dihapus dari Storage setelah penolakan berhasil
+  // Bungkus fungsi yang sudah dipasang oleh app.js.
   // ----------------------------------------------------------
   const originalReject = window.__app && window.__app.tolakPembayaranSpp;
-  if (typeof originalReject === "function") {
+  if (typeof originalReject === "function" && window.__app) {
     window.__app.tolakPembayaranSpp = async function (id) {
       let oldPath = null;
 
@@ -417,6 +448,7 @@
       const result = await originalReject(id);
 
       if (result) {
+        // Hapus bukti lama dari private storage setelah penolakan berhasil.
         if (oldPath && supabase) {
           try {
             const path = typeof getBuktiPathOrtu === "function"
@@ -430,7 +462,7 @@
           }
         }
 
-        // Admin: notifikasi Menunggu Verifikasi harus langsung hilang.
+        // Admin: refresh langsung agar item Menunggu Verifikasi hilang.
         if (getRole() === "admin") {
           try {
             if (typeof window.__app.loadNotifikasi === "function") {
