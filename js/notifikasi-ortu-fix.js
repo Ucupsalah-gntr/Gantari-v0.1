@@ -65,6 +65,7 @@ async function loadNotifikasiOrtu() {
     const uniqueItems = items.slice(0, 10);
     count.textContent = uniqueItems.length ? String(uniqueItems.length) : "";
     count.style.display = uniqueItems.length ? "inline-flex" : "none";
+    count.classList.toggle("is-hidden", !uniqueItems.length);
 
     panel.innerHTML = uniqueItems.length
       ? uniqueItems.map((item) => `
@@ -77,9 +78,20 @@ async function loadNotifikasiOrtu() {
 
     panel.querySelectorAll("[data-notif-action]").forEach((button) => {
       button.addEventListener("click", () => {
-        panel.classList.remove("show");
         const target = button.dataset.notifAction;
-        const navButton = document.querySelector(`[data-page="${target}"]`);
+        panel.classList.remove("show");
+
+        // Jangan mencari [data-page], karena tombol navigasi Gantariku
+        // memang berpindah halaman melalui window.__app.goTo().
+        if (window.__app && typeof window.__app.goTo === "function") {
+          window.__app.goTo(target);
+          return;
+        }
+
+        // Fallback bila app shell belum siap.
+        const navButton = document.querySelector(
+          `.nav-item[onclick*="goTo('${target}')"]`
+        );
         if (navButton) navButton.click();
       });
     });
@@ -87,6 +99,7 @@ async function loadNotifikasiOrtu() {
     console.error("Error load notifikasi orang tua:", error);
     count.textContent = "!";
     count.style.display = "inline-flex";
+    count.classList.remove("is-hidden");
     panel.innerHTML = `<div class="notif-empty notif-error">Notifikasi belum dapat dimuat. Silakan coba lagi.</div>`;
   }
 }
