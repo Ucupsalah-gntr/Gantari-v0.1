@@ -77,7 +77,9 @@ async function fokusSppDariNotifikasi(context, attempt = 0) {
 
   if (yearSelect && String(yearSelect.value) !== String(context.tahun)) {
     yearSelect.value = String(context.tahun);
-    yearSelect.dispatchEvent(new Event("change", { bubbles: true }));
+
+    // Status SPP tidak memakai onchange untuk memuat data.
+    // Muat sekali setelah tahun target dipilih, lalu tunggu hasilnya.
     if (typeof loadSppAnak === "function") {
       try {
         await loadSppAnak();
@@ -85,21 +87,17 @@ async function fokusSppDariNotifikasi(context, attempt = 0) {
         console.warn("Gantariku: gagal memuat ulang SPP setelah memilih tahun.", error);
       }
     }
+
     setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
     return;
   }
 
-  if (typeof loadSppAnak === "function" && attempt === 0) {
-    try {
-      await loadSppAnak();
-    } catch (error) {
-      console.warn("Gantariku: gagal memuat ulang Status SPP dari notifikasi.", error);
-    }
-    setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 100);
-    return;
-  }
-
+  // JANGAN memanggil loadSppAnak() lagi di sini.
+  // goTo("spp-anak") sudah memuat Status SPP. Pemanggilan kedua
+  // sebelumnya dapat berlomba dengan render pertama dan membuat baris
+  // target tampak berkedip/menghilang sebelum tombol bukti pembayaran siap.
   const rows = Array.from(tbody.querySelectorAll("tr"));
+
   if (!rows.length) {
     setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
     return;
@@ -177,7 +175,6 @@ async function loadNotifikasiOrtu() {
       // Selama tagihan masih Belum Bayar / Menunggu Verifikasi, notifikasi
       // tetap boleh muncul kembali meskipun sebelumnya sudah diklik.
       if (readSet.has(notificationKey)) {
-        // Hapus status baca lama untuk SPP yang masih aktif.
         clearOrtuNotifRead(notificationKey);
       }
 
