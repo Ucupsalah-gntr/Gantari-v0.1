@@ -1,13 +1,14 @@
 // ============================================================
 // GANTARIKU — NOTIFIKASI ORANGTUA STABLE FIX
 // Dimuat paling akhir setelah app + realtime init.
-// Tidak mengubah fungsi notifikasi Admin.
+// Menstabilkan role orangtua tanpa memutus notifikasi Admin.
 // ============================================================
 
 (function () {
   "use strict";
 
   const READ_KEY = "gantariku_ortu_notif_read_v1";
+  const previousWindowLoadNotifikasi = window.loadNotifikasi;
   let lastFingerprint = "";
 
   function getReadSet() {
@@ -45,8 +46,6 @@
   function renderItems(panel, count, items, force = false) {
     const fingerprint = items.map((item) => item.id).join("|");
 
-    // Saat panel sedang terlihat, jangan sentuh DOM bila daftar belum berubah.
-    // Ini mencegah efek berkedip akibat realtime/polling.
     if (!force && fingerprint === lastFingerprint) {
       return;
     }
@@ -80,8 +79,6 @@
         const item = items.find((entry) => entry.id === notificationId);
         const target = item?.action;
 
-        // Hanya notifikasi sekali-baca yang ditandai selesai saat dibuka.
-        // SPP Belum Bayar tetap aktif sampai status berubah.
         if (item?.readOnOpen) {
           markRead(notificationId);
         }
@@ -124,10 +121,6 @@
     const readSet = getReadSet();
 
     try {
-      // ----------------------------------------------------------
-      // A. SPP BELUM BAYAR = notifikasi tindakan
-      // Menunggu Verifikasi sengaja tidak masuk daftar orangtua.
-      // ----------------------------------------------------------
       const { data: sppBelumBayar, error: sppError } = await supabase
         .from("spp")
         .select("id,siswa_id,bulan,tahun,status,updated_at")
@@ -156,11 +149,6 @@
         });
       });
 
-      // ----------------------------------------------------------
-      // B. SPP DITOLAK = notifikasi sekali-baca
-      // Saat status berubah menjadi Menunggu Verifikasi/Lunas,
-      // query ini otomatis tidak lagi menemukannya.
-      // ----------------------------------------------------------
       const { data: sppDitolak, error: rejectError } = await supabase
         .from("spp")
         .select("id,siswa_id,bulan,tahun,status,catatan,updated_at")
@@ -193,9 +181,6 @@
         });
       });
 
-      // ----------------------------------------------------------
-      // C. PERKEMBANGAN = tetap seperti perilaku sebelumnya
-      // ----------------------------------------------------------
       const { data: perkembangan, error: perkembanganError } = await supabase
         .from("perkembangan")
         .select("id,siswa_id,tanggal,created_at")
@@ -230,7 +215,6 @@
         });
       });
 
-      // Prioritas pesan ditolak, lalu SPP, lalu perkembangan.
       const unique = [];
       const seenIds = new Set();
       items.forEach((item) => {
@@ -246,25 +230,32 @@
       }
     } catch (error) {
       console.error("Gantariku: stable notification error:", error);
-      // Jangan menghapus daftar yang sudah tampil hanya karena satu refresh gagal.
       count.textContent = panel.querySelectorAll("[data-notif-action]").length || "";
       count.style.display = count.textContent ? "inline-flex" : "none";
       count.classList.toggle("is-hidden", !count.textContent);
     }
   }
 
-  // Ganti loader hanya untuk role orangtua.
+  // Orangtua memakai loader stabil.
+  // Admin tetap meneruskan ke loader yang sudah ada sebelum fix ini.
   window.loadNotifikasi = async function () {
     if (getRole() === "ortu") {
       return loadStableOrtuNotifications();
     }
+
+    if (typeof previousWindowLoadNotifikasi === "function") {
+      return previousWindowLoadNotifikasi.apply(this, arguments);
+    }
   };
 
-  // app.js menyimpan toggle di window.__app dan fungsi tersebut memakai
-  // loader lexical lama. Override khusus role orangtua agar membuka panel
-  // selalu memakai loader stabil di atas.
   if (window.__app && typeof window.__app.toggleNotifikasi === "function") {
+    const originalToggle = window.__app.toggleNotifikasi;
+
     window.__app.toggleNotifikasi = function () {
+      if (getRole() !== "ortu") {
+        return originalToggle.apply(this, arguments);
+      }
+
       const panel = document.getElementById("notifPanel");
       const button = document.getElementById("notifButton");
       if (!panel) return;
@@ -273,7 +264,7 @@
       panel.classList.toggle("show", showing);
       if (button) button.setAttribute("aria-expanded", showing ? "true" : "false");
 
-      if (showing && getRole() === "ortu") {
+      if (showing) {
         loadStableOrtuNotifications();
       }
     };
