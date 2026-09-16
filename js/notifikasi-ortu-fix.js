@@ -35,6 +35,62 @@ function markOrtuNotifRead(notificationKey) {
   saveOrtuNotifReadSet(readSet);
 }
 
+// ============================================================
+// FOKUS KONTEKS NOTIFIKASI SPP
+// Setelah masuk ke Status SPP, arahkan pengguna ke anak + bulan
+// yang memang menjadi sumber notifikasi.
+// ============================================================
+
+function fokusSppDariNotifikasi(context, attempt = 0) {
+  if (!context || !document.getElementById("view")) return;
+
+  const tbody = document.getElementById("daftarSppAnak");
+  if (!tbody) {
+    if (attempt < 20) {
+      setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 100);
+    }
+    return;
+  }
+
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+  if (!rows.length) {
+    if (attempt < 20) {
+      setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 100);
+    }
+    return;
+  }
+
+  // Jika halaman memiliki pilihan tahun, pilih tahun yang sesuai.
+  const yearSelect = Array.from(document.querySelectorAll("select")).find((select) =>
+    Array.from(select.options || []).some(
+      (option) => String(option.value) === String(context.tahun)
+    )
+  );
+
+  if (yearSelect && String(yearSelect.value) !== String(context.tahun)) {
+    yearSelect.value = String(context.tahun);
+    yearSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
+    return;
+  }
+
+  // Status SPP orang tua ditampilkan per bulan. Bulan 1 = baris pertama.
+  const rowIndex = Math.max(0, Number(context.bulan) - 1);
+  const targetRow = rows[rowIndex];
+
+  if (!targetRow) return;
+
+  targetRow.style.transition = "box-shadow .2s ease, background-color .2s ease";
+  targetRow.style.backgroundColor = "rgba(255, 193, 7, .12)";
+  targetRow.style.boxShadow = "inset 4px 0 0 var(--primary)";
+  targetRow.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  setTimeout(() => {
+    targetRow.style.backgroundColor = "";
+    targetRow.style.boxShadow = "";
+  }, 2800);
+}
+
 async function loadNotifikasiOrtu() {
   const panel = document.getElementById("notifPanel");
   const count = document.getElementById("notifCount");
@@ -74,7 +130,12 @@ async function loadNotifikasiOrtu() {
         id: notificationKey,
         icon: row.status === "Menunggu Verifikasi" ? "⏳" : "💳",
         text: `${anak.nama}: SPP ${namaBulan(Number(row.bulan))} ${row.tahun} ${row.status === "Menunggu Verifikasi" ? "menunggu verifikasi" : "belum lunas"}.`,
-        action: "spp-anak"
+        action: "spp-anak",
+        context: {
+          siswaId: row.siswa_id,
+          bulan: Number(row.bulan),
+          tahun: Number(row.tahun)
+        }
       });
     });
 
@@ -102,7 +163,11 @@ async function loadNotifikasiOrtu() {
         id: notificationKey,
         icon: "🌱",
         text: `${anak.nama}: perkembangan terbaru tersedia.`,
-        action: "perkembangan-anak"
+        action: "perkembangan-anak",
+        context: {
+          siswaId: row.siswa_id,
+          tanggal: row.tanggal
+        }
       });
     });
 
@@ -132,10 +197,16 @@ async function loadNotifikasiOrtu() {
 
         const target = button.dataset.notifAction;
         const notificationId = button.dataset.notifId;
+        const item = uniqueItems.find((entry) => entry.id === notificationId);
 
         // Tandai sudah dibaca SEBELUM berpindah halaman.
         // Dengan begitu badge tidak menghitungnya lagi saat kembali.
         markOrtuNotifRead(notificationId);
+
+        // Simpan konteks sebelum router merender halaman tujuan.
+        if (item?.context?.siswaId) {
+          anakTerpilihId = item.context.siswaId;
+        }
 
         panel.classList.remove("show");
         const countNow = Math.max(0, (Number.parseInt(count.textContent, 10) || 0) - 1);
@@ -146,6 +217,10 @@ async function loadNotifikasiOrtu() {
         // Navigasi langsung melalui router aplikasi.
         if (window.__app && typeof window.__app.goTo === "function") {
           window.__app.goTo(target);
+
+          if (target === "spp-anak" && item?.context) {
+            setTimeout(() => fokusSppDariNotifikasi(item.context), 150);
+          }
           return;
         }
 
@@ -154,6 +229,10 @@ async function loadNotifikasiOrtu() {
           `.nav-item[onclick*="goTo('${target}')"]`
         );
         if (navButton) navButton.click();
+
+        if (target === "spp-anak" && item?.context) {
+          setTimeout(() => fokusSppDariNotifikasi(item.context), 150);
+        }
       });
     });
   } catch (error) {
