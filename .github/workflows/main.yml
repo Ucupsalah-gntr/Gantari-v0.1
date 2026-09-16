@@ -67,6 +67,7 @@ jobs:
           GTR_TEST_ORTU_B_PASSWORD: ${{ secrets.GTR_TEST_ORTU_B_PASSWORD }}
           GTR_TEST_ORTU_A_CHILD_ID: ${{ secrets.GTR_TEST_ORTU_A_CHILD_ID }}
           GTR_TEST_ORTU_B_CHILD_ID: ${{ secrets.GTR_TEST_ORTU_B_CHILD_ID }}
+          GTR_TEST_WRITE_MODE: ${{ secrets.GTR_TEST_WRITE_MODE }}
         run: npm run test:e2e
 
       - name: Success
