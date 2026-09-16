@@ -41,26 +41,33 @@ function markOrtuNotifRead(notificationKey) {
 // yang memang menjadi sumber notifikasi.
 // ============================================================
 
-function fokusSppDariNotifikasi(context, attempt = 0) {
+async function fokusSppDariNotifikasi(context, attempt = 0) {
   if (!context || !document.getElementById("view")) return;
 
+  const maxAttempts = 40;
+  if (attempt >= maxAttempts) {
+    console.warn("Gantariku: gagal menemukan target SPP dari notifikasi.", context);
+    return;
+  }
+
+  // Tunggu sampai halaman Status SPP benar-benar selesai dirender.
   const tbody = document.getElementById("daftarSppAnak");
   if (!tbody) {
-    if (attempt < 20) {
-      setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 100);
-    }
+    setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
     return;
   }
 
-  const rows = Array.from(tbody.querySelectorAll("tr"));
-  if (!rows.length) {
-    if (attempt < 20) {
-      setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 100);
+  // Pastikan anak dari notifikasi tetap menjadi anak yang sedang dipilih.
+  if (context.siswaId && String(anakTerpilihId) !== String(context.siswaId)) {
+    anakTerpilihId = context.siswaId;
+    if (typeof renderView === "function") {
+      renderView();
+      setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
+      return;
     }
-    return;
   }
 
-  // Jika halaman memiliki pilihan tahun, pilih tahun yang sesuai.
+  // Cari select tahun berdasarkan option value, bukan berdasarkan posisi elemen.
   const yearSelect = Array.from(document.querySelectorAll("select")).find((select) =>
     Array.from(select.options || []).some(
       (option) => String(option.value) === String(context.tahun)
@@ -70,15 +77,62 @@ function fokusSppDariNotifikasi(context, attempt = 0) {
   if (yearSelect && String(yearSelect.value) !== String(context.tahun)) {
     yearSelect.value = String(context.tahun);
     yearSelect.dispatchEvent(new Event("change", { bubbles: true }));
+
+    // Jangan langsung mencari row lama. Muat ulang tabel untuk tahun target.
+    if (typeof loadSppAnak === "function") {
+      try {
+        await loadSppAnak();
+      } catch (error) {
+        console.warn("Gantariku: gagal memuat ulang SPP setelah memilih tahun.", error);
+      }
+    }
+
     setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
     return;
   }
 
-  // Status SPP orang tua ditampilkan per bulan. Bulan 1 = baris pertama.
-  const rowIndex = Math.max(0, Number(context.bulan) - 1);
-  const targetRow = rows[rowIndex];
+  // Pastikan data tabel sudah dimuat untuk anak + tahun target.
+  if (typeof loadSppAnak === "function" && attempt === 0) {
+    try {
+      await loadSppAnak();
+    } catch (error) {
+      console.warn("Gantariku: gagal memuat ulang Status SPP dari notifikasi.", error);
+    }
+    setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 100);
+    return;
+  }
 
-  if (!targetRow) return;
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+  if (!rows.length) {
+    setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
+    return;
+  }
+
+  const bulanTarget = Number(context.bulan);
+  const tahunTarget = Number(context.tahun);
+  const namaBulanTarget = String(namaBulan(bulanTarget) || "").toLowerCase();
+
+  // Cari berdasarkan isi baris. Jangan memakai index bulan karena tabel dapat
+  // diurutkan berdasarkan tahun/bulan dan tidak selalu dimulai dari Januari.
+  let targetRow = rows.find((row) => {
+    const text = String(row.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+    const cocokBulan = namaBulanTarget && text.includes(namaBulanTarget);
+    const cocokTahun = !tahunTarget || text.includes(String(tahunTarget));
+    return cocokBulan && cocokTahun;
+  });
+
+  // Fallback: jika tabel sudah difilter hanya untuk tahun target, cukup cocokkan bulan.
+  if (!targetRow && namaBulanTarget) {
+    targetRow = rows.find((row) => {
+      const text = String(row.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+      return text.includes(namaBulanTarget);
+    });
+  }
+
+  if (!targetRow) {
+    setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
+    return;
+  }
 
   targetRow.style.transition = "box-shadow .2s ease, background-color .2s ease";
   targetRow.style.backgroundColor = "rgba(255, 193, 7, .12)";
