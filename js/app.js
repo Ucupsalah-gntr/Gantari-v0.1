@@ -1,6 +1,16 @@
 // ============================================================
       // APP SHELL
       // ============================================================
+      function getDisplayUserName() {
+        // Admin menggunakan username untuk identitas tampilan.
+        // Email Auth tetap menjadi identitas internal Supabase.
+        if (currentUserRole === "admin") {
+          return "IbukEkaCantik";
+        }
+
+        return currentUser?.nama || "Pengguna";
+      }
+
       function renderApp() {
         const html = `
           <div class="app">
@@ -17,7 +27,7 @@
 
               <div class="sidebar-menu" id="sidebarMenu">
                 <div class="user-info">
-                  <div class="user-name">${currentUser.nama}</div>
+                  <div class="user-name">${getDisplayUserName()}</div>
                   <div class="user-role">${getRoleLabel(currentUserRole)}</div>
                 </div>
 
