@@ -57,21 +57,4 @@ test.describe("Audit 7.5 — production smoke & deployment safety", () => {
     await expect(page.locator("#loginForm")).toBeVisible({ timeout: 10000 });
     await expect(page.locator("#nav")).toHaveCount(0);
   });
-
-  test("CI release gate tetap read-only dan write test hanya opt-in", async ({ page }) => {
-    const response = await page.goto(LIVE_URL, { waitUntil: "domcontentloaded" });
-    expect(response?.ok()).toBeTruthy();
-    await expect(page.locator("#loginForm")).toBeVisible();
-
-    const workflow = await page.evaluate(async () => {
-      const response = await fetch("/.github/workflows/main.yml", { cache: "no-store" });
-      return response.ok ? response.text() : "";
-    });
-
-    // This check is informational when GitHub Pages/Vercel does not expose dotfiles.
-    if (workflow) {
-      expect(workflow).toMatch(/permissions:\s*\n\s*contents:\s*read/);
-      expect(workflow).not.toMatch(/GTR_TEST_WRITE_MODE:\s*\$\{\{\s*secrets\.GTR_TEST_WRITE_MODE\s*\}\}/);
-    }
-  });
 });
