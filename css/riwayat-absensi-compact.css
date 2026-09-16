@@ -1,0 +1,54 @@
+/* ============================================================
+   GANTARIKU — RIWAYAT ABSENSI COMPACT UX
+   ============================================================ */
+.gtr-riwayat-head { align-items: flex-start; }
+.gtr-riwayat-head > div:first-child { min-width: 220px; }
+.gtr-riwayat-controls { display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:flex-end; }
+.gtr-riwayat-controls select, .gtr-riwayat-controls input { min-height:38px; }
+.gtr-riwayat-list { display:flex; flex-direction:column; gap:10px; }
+.gtr-riwayat-day { overflow:hidden; border:1px solid var(--line); border-radius:14px; background:var(--surface); }
+.gtr-riwayat-day[open] { box-shadow:0 8px 24px rgba(58,58,60,.06); }
+.gtr-riwayat-day__head { display:grid; grid-template-columns:minmax(180px,1fr) auto 18px; align-items:center; gap:14px; padding:14px 16px; cursor:pointer; list-style:none; user-select:none; }
+.gtr-riwayat-day__head::-webkit-details-marker { display:none; }
+.gtr-riwayat-day__date { display:flex; flex-direction:column; gap:3px; min-width:0; }
+.gtr-riwayat-day__date strong { font-family:'Space Grotesk',sans-serif; font-size:15px; color:var(--ink); }
+.gtr-riwayat-day__date span { color:var(--ink-soft); font-size:11px; }
+.gtr-riwayat-stats { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; }
+.gtr-riwayat-stat { display:inline-flex; align-items:center; gap:5px; min-width:62px; justify-content:center; padding:5px 8px; border-radius:999px; background:var(--muted); color:var(--ink-soft); }
+.gtr-riwayat-stat strong { font-size:12px; color:var(--ink); }
+.gtr-riwayat-stat small { font-size:10px; }
+.gtr-riwayat-stat--h { background:var(--good-soft); }
+.gtr-riwayat-stat--i { background:var(--warn-soft); }
+.gtr-riwayat-stat--s { background:var(--sick-soft); }
+.gtr-riwayat-stat--a { background:var(--bad-soft); }
+.gtr-riwayat-toggle { display:inline-flex; width:18px; height:18px; align-items:center; justify-content:center; color:var(--ink-soft); font-size:20px; line-height:1; transition:transform .15s ease; }
+.gtr-riwayat-day[open] .gtr-riwayat-toggle { transform:rotate(90deg); }
+.gtr-riwayat-detail { border-top:1px solid var(--line); padding:14px 16px 16px; background:#fcfaf6; }
+.gtr-riwayat-detail__title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
+.gtr-riwayat-detail__title strong { font-size:12px; }
+.gtr-riwayat-detail__title span { font-size:11px; color:var(--ink-soft); }
+.gtr-riwayat-detail__table-wrap { width:100%; overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); }
+.gtr-riwayat-detail__table { width:100%; min-width:620px; border-collapse:collapse; }
+.gtr-riwayat-detail__table th, .gtr-riwayat-detail__table td { padding:9px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:middle; font-size:12px; }
+.gtr-riwayat-detail__table th { font-size:10px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); background:var(--muted); }
+.gtr-riwayat-detail__table tr:last-child td { border-bottom:none; }
+.gtr-riwayat-detail-name { font-weight:600; }
+.gtr-riwayat-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:180px; padding:26px; text-align:center; color:var(--ink-soft); border:1px dashed var(--line); border-radius:14px; background:var(--surface); }
+.gtr-riwayat-empty__icon { font-size:34px; margin-bottom:8px; }
+.gtr-riwayat-empty strong { color:var(--ink); margin-bottom:4px; }
+.gtr-riwayat-empty span { font-size:12px; }
+.gtr-riwayat-loading { display:flex; flex-direction:column; gap:8px; }
+.gtr-riwayat-loading__bar { height:62px; border-radius:14px; background:linear-gradient(90deg,var(--muted),#fff,var(--muted)); background-size:200% 100%; animation:gtr-riwayat-shimmer 1.2s linear infinite; }
+@keyframes gtr-riwayat-shimmer { from { background-position:200% 0; } to { background-position:-200% 0; } }
+@media (max-width:900px) {
+  .gtr-riwayat-day__head { grid-template-columns:1fr 18px; }
+  .gtr-riwayat-stats { grid-column:1 / -1; justify-content:flex-start; }
+}
+@media (max-width:620px) {
+  .gtr-riwayat-controls { width:100%; justify-content:stretch; }
+  .gtr-riwayat-controls select, .gtr-riwayat-controls input, .gtr-riwayat-controls .btn { flex:1 1 100%; width:100%; }
+  .gtr-riwayat-day__head { padding:12px; }
+  .gtr-riwayat-stats { gap:5px; }
+  .gtr-riwayat-stat { flex:1 1 calc(50% - 5px); }
+  .gtr-riwayat-detail { padding:12px; }
+}
