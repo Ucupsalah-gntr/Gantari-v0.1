@@ -1,0 +1,8 @@
+/* Gantariku — Import Preview
+   Tahun Ajaran tetap diproses untuk kebutuhan import,
+   tetapi disembunyikan dari tabel review agar preview lebih ringkas.
+*/
+#gtrImportSiswaModal .gtr-import-table th:nth-child(5),
+#gtrImportSiswaModal .gtr-import-table td:nth-child(5) {
+  display: none;
+}
