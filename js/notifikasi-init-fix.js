@@ -20,8 +20,27 @@
   const REFRESH_DELAY = 450;
   const POLLING_INTERVAL = 15000;
 
+  // currentUserRole/currentUser dideklarasikan dengan let di state.js,
+  // sehingga tidak otomatis menjadi window.currentUserRole/window.currentUser.
+  // Ambil dari scope aplikasi terlebih dahulu, lalu fallback ke window.
   function getRole() {
+    try {
+      if (typeof currentUserRole !== "undefined" && currentUserRole) {
+        return String(currentUserRole).toLowerCase();
+      }
+    } catch (_) {}
+
     return String(window.currentUserRole || "").toLowerCase();
+  }
+
+  function getCurrentUser() {
+    try {
+      if (typeof currentUser !== "undefined" && currentUser) {
+        return currentUser;
+      }
+    } catch (_) {}
+
+    return window.currentUser || {};
   }
 
   function roleSupported() {
@@ -29,7 +48,7 @@
   }
 
   function getUserKey() {
-    const user = window.currentUser || {};
+    const user = getCurrentUser();
     return String(
       user.id ||
       user.user_id ||
@@ -136,8 +155,6 @@
     pollingTimer = setInterval(() => {
       if (!window.supabase || !roleSupported()) return;
 
-      // Polling hanya sebagai pengaman. Saat Realtime aktif,
-      // refresh tetap dilakukan sangat jarang (15 detik).
       scheduleRefresh("fallback 15 detik");
       startRealtime();
     }, POLLING_INTERVAL);
@@ -157,12 +174,10 @@
     boot();
   }, 500);
 
-  // Tidak perlu memeriksa login terus-menerus setelah 60 detik.
   setTimeout(() => {
     clearInterval(bootTimer);
   }, 60000);
 
-  // Saat tab kembali aktif, sinkronkan badge.
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) {
       boot();
