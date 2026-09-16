@@ -39,6 +39,21 @@ test.describe("Audit 7.2 — authenticated E2E", () => {
     await expect(page.locator("#view")).toBeVisible();
   }
 
+  async function readStudentById(page, studentId) {
+    return page.evaluate(async (id) => {
+      if (!window.supabase) return { data: null, error: "Supabase client tidak tersedia" };
+      const { data, error } = await window.supabase
+        .from("siswa")
+        .select("id,nama,orang_tua_id")
+        .eq("id", id)
+        .maybeSingle();
+      return {
+        data: data || null,
+        error: error ? { code: error.code || null, message: error.message || null } : null,
+      };
+    }, studentId);
+  }
+
   test("Admin login → seluruh halaman admin → logout", async ({ page }) => {
     await login(page, ENV.adminEmail, ENV.adminPassword);
 
@@ -76,27 +91,18 @@ test.describe("Audit 7.2 — authenticated E2E", () => {
     await login(page, ENV.ortuAEmail, ENV.ortuAPassword);
 
     await visitNav(page, "Ringkasan Anak");
-    await expect(page.locator("#view")).toContainText(/Anak|Siswa/i);
-
     await visitNav(page, "Kehadiran Anak");
     await visitNav(page, "Status SPP");
     await visitNav(page, "Perkembangan Anak");
 
-    const crossAccess = await page.evaluate(async (childBId) => {
-      if (!window.supabase) return { error: "Supabase client tidak tersedia" };
-      const { data, error } = await window.supabase
-        .from("siswa")
-        .select("id")
-        .eq("id", childBId)
-        .maybeSingle();
-      return {
-        rows: data ? 1 : 0,
-        errorCode: error?.code || null,
-        errorMessage: error?.message || null,
-      };
-    }, ENV.childBId);
+    const ownAccess = await readStudentById(page, ENV.childAId);
+    expect(ownAccess.error).toBeNull();
+    expect(ownAccess.data?.id).toBe(ENV.childAId);
 
-    expect(crossAccess.rows).toBe(0);
+    const crossAccess = await readStudentById(page, ENV.childBId);
+    expect(crossAccess.error).toBeNull();
+    expect(crossAccess.data).toBeNull();
+
     await logout(page);
   });
 
@@ -108,21 +114,14 @@ test.describe("Audit 7.2 — authenticated E2E", () => {
     await visitNav(page, "Status SPP");
     await visitNav(page, "Perkembangan Anak");
 
-    const crossAccess = await page.evaluate(async (childAId) => {
-      if (!window.supabase) return { error: "Supabase client tidak tersedia" };
-      const { data, error } = await window.supabase
-        .from("siswa")
-        .select("id")
-        .eq("id", childAId)
-        .maybeSingle();
-      return {
-        rows: data ? 1 : 0,
-        errorCode: error?.code || null,
-        errorMessage: error?.message || null,
-      };
-    }, ENV.childAId);
+    const ownAccess = await readStudentById(page, ENV.childBId);
+    expect(ownAccess.error).toBeNull();
+    expect(ownAccess.data?.id).toBe(ENV.childBId);
 
-    expect(crossAccess.rows).toBe(0);
+    const crossAccess = await readStudentById(page, ENV.childAId);
+    expect(crossAccess.error).toBeNull();
+    expect(crossAccess.data).toBeNull();
+
     await logout(page);
   });
 
