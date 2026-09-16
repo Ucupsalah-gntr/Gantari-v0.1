@@ -478,3 +478,53 @@ window.loadSppAnak = gtrStableLoadSppAnak;
 
 // app.js mengambil referensi fungsi global ini setelah file ini dimuat.
 // Assignment di atas sengaja ditempatkan sebelum app.js.
+
+// ============================================================
+// KONFIRMASI SEBELUM UPLOAD BUKTI PEMBAYARAN
+// File tidak akan diteruskan ke fungsi upload asli sebelum pengguna
+// menyetujui konfirmasi.
+// ============================================================
+
+const gtrOriginalUploadBuktiSpp = window.uploadBuktiSpp;
+
+window.uploadBuktiSpp = async function (sppId, file) {
+  if (!file) return;
+
+  const maxSize = 5 * 1024 * 1024;
+  const tipeDiizinkan = [
+    "image/jpeg",
+    "image/png",
+    "application/pdf"
+  ];
+
+  // Pertahankan validasi lama. Untuk file yang memang tidak valid,
+  // teruskan ke fungsi asli agar pesan error yang sudah ada tetap dipakai.
+  if (file.size > maxSize || !tipeDiizinkan.includes(file.type)) {
+    if (typeof gtrOriginalUploadBuktiSpp === "function") {
+      return gtrOriginalUploadBuktiSpp(sppId, file);
+    }
+    return;
+  }
+
+  const ukuranMb = (file.size / (1024 * 1024)).toFixed(2);
+  const konfirmasi = window.confirm(
+    "KONFIRMASI BUKTI PEMBAYARAN\n\n" +
+    "File yang dipilih:\n" +
+    file.name + "\n\n" +
+    "Ukuran: " + ukuranMb + " MB\n\n" +
+    "Pastikan file ini benar dan memang merupakan bukti pembayaran " +
+    "yang ingin dikirim. Jangan kirim file pribadi atau file yang salah.\n\n" +
+    "Lanjutkan upload?"
+  );
+
+  if (!konfirmasi) {
+    const input = document.getElementById(`fileSpp_${sppId}`);
+    if (input) input.value = "";
+    appNotify("Upload dibatalkan. File tidak dikirim.");
+    return;
+  }
+
+  if (typeof gtrOriginalUploadBuktiSpp === "function") {
+    return gtrOriginalUploadBuktiSpp(sppId, file);
+  }
+};
