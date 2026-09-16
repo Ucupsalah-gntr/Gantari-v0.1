@@ -1,7 +1,11 @@
 // ============================================================
-// GANTARIKU — RIWAYAT ABSENSI COMPACT UX
-// Hanya mengganti tampilan RIWAYAT ABSENSI milik guru.
-// Rekap Absensi admin tetap memakai implementasi lama.
+// GANTARIKU — ABSENSI COMPACT UX
+// Dipakai untuk:
+// - Riwayat Absensi guru
+// - Rekap Absensi admin
+//
+// Tujuan: ringkas per tanggal. Detail siswa dibuka hanya saat
+// diperlukan, sehingga tetap nyaman meski jumlah siswa banyak.
 // ============================================================
 
 (function () {
@@ -69,7 +73,9 @@
       group.rows.push(row);
 
       const code = String(row?.status || "").trim();
-      if (Object.prototype.hasOwnProperty.call(group.counts, code)) group.counts[code] += 1;
+      if (Object.prototype.hasOwnProperty.call(group.counts, code)) {
+        group.counts[code] += 1;
+      }
     }
 
     return [...groups.values()].sort((a, b) => b.tanggal.localeCompare(a.tanggal));
@@ -123,24 +129,36 @@
     `;
   }
 
-  function renderRiwayatAbsenCompact() {
+  function renderCompactShell(kind) {
+    const isAdmin = kind === "admin";
+    const prefix = isAdmin ? "rekap" : "riwayat";
+    const title = isAdmin ? "Rekap Absensi" : "Riwayat Absensi";
+    const subtitle = isAdmin
+      ? "Ringkas per hari. Detail siswa dibuka hanya saat diperlukan."
+      : "Ringkas per hari. Detail dibuka hanya saat diperlukan.";
     const today = todayString();
+    const action = isAdmin ? "loadRekapAbsensi" : "loadRiwayatAbsensi";
+    const exportButton = isAdmin
+      ? '<button class="btn secondary" onclick="window.__app.exportRekapAbsensiCsv()">⬇ Export CSV</button>'
+      : "";
+
     return `
       <div class="section gtr-riwayat-section">
         <div class="section-head gtr-riwayat-head">
           <div>
-            <h2>Riwayat Absensi</h2>
-            <div class="section-subtitle">Ringkas per hari. Detail dibuka hanya saat diperlukan.</div>
+            <h2>${title}</h2>
+            <div class="section-subtitle">${subtitle}</div>
           </div>
           <div class="controls gtr-riwayat-controls">
-            <select id="riwayatKelas"><option value="">Semua kelas</option></select>
-            <input type="date" id="riwayatDari" value="${today}">
-            <input type="date" id="riwayatSampai" value="${today}">
-            <button class="btn secondary" onclick="window.__app.loadRiwayatAbsensi()">Tampilkan</button>
+            <select id="${prefix}Kelas"><option value="">Semua kelas</option></select>
+            <input type="date" id="${prefix}Dari" value="${today}">
+            <input type="date" id="${prefix}Sampai" value="${today}">
+            <button class="btn secondary" onclick="window.__app.${action}()">Tampilkan</button>
+            ${exportButton}
           </div>
         </div>
         <div class="section-body">
-          <div id="daftarRiwayatAbsensi" class="gtr-riwayat-list">
+          <div id="${isAdmin ? "daftarRekapAbsensi" : "daftarRiwayatAbsensi"}" class="gtr-riwayat-list">
             <div class="table-state">Pilih rentang tanggal, lalu klik Tampilkan.</div>
           </div>
         </div>
@@ -148,13 +166,19 @@
     `;
   }
 
-  async function loadRiwayatAbsensiCompact() {
-    const container = document.getElementById("daftarRiwayatAbsensi");
+  async function loadCompact(kind) {
+    const isAdmin = kind === "admin";
+    const containerId = isAdmin ? "daftarRekapAbsensi" : "daftarRiwayatAbsensi";
+    const kelasId = isAdmin ? "rekapKelas" : "riwayatKelas";
+    const dariId = isAdmin ? "rekapDari" : "riwayatDari";
+    const sampaiId = isAdmin ? "rekapSampai" : "riwayatSampai";
+    const container = document.getElementById(containerId);
+
     if (!container || !supabase) return;
 
-    const kelas = document.getElementById("riwayatKelas")?.value || "";
-    const dari = document.getElementById("riwayatDari")?.value || "";
-    const sampai = document.getElementById("riwayatSampai")?.value || "";
+    const kelas = document.getElementById(kelasId)?.value || "";
+    const dari = document.getElementById(dariId)?.value || "";
+    const sampai = document.getElementById(sampaiId)?.value || "";
 
     if (!dari || !sampai) {
       container.innerHTML = `<div class="table-state">Pilih rentang tanggal terlebih dahulu.</div>`;
@@ -191,7 +215,7 @@
         container.innerHTML = `
           <div class="gtr-riwayat-empty">
             <div class="gtr-riwayat-empty__icon">📭</div>
-            <strong>Belum ada riwayat absensi</strong>
+            <strong>${isAdmin ? "Belum ada rekap absensi" : "Belum ada riwayat absensi"}</strong>
             <span>Tidak ada data pada rentang tanggal dan kelas yang dipilih.</span>
           </div>
         `;
@@ -200,15 +224,17 @@
 
       container.innerHTML = groupByDate(rows).map(renderDay).join("");
     } catch (error) {
-      console.error("Error load riwayat absensi compact:", error);
+      console.error(`Error load ${kind} absensi compact:`, error);
       container.innerHTML = `
         <div class="table-state table-state-error">
-          Gagal memuat riwayat absensi. Silakan coba lagi.
+          Gagal memuat ${isAdmin ? "rekap" : "riwayat"} absensi. Silakan coba lagi.
         </div>
       `;
     }
   }
 
-  window.renderRiwayatAbsen = renderRiwayatAbsenCompact;
-  window.loadRiwayatAbsensi = loadRiwayatAbsensiCompact;
+  window.renderRiwayatAbsen = () => renderCompactShell("guru");
+  window.loadRiwayatAbsensi = () => loadCompact("guru");
+  window.renderRekap = () => renderCompactShell("admin");
+  window.loadRekapAbsensi = () => loadCompact("admin");
 })();
