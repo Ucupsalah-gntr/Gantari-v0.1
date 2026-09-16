@@ -5,6 +5,36 @@
 
 const gtrAdminLoadNotifikasi = window.loadNotifikasi;
 
+const GTR_ORTU_NOTIF_READ_KEY = "gantariku_ortu_notif_read_v1";
+
+function getOrtuNotifReadSet() {
+  try {
+    const raw = localStorage.getItem(GTR_ORTU_NOTIF_READ_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return new Set(Array.isArray(parsed) ? parsed : []);
+  } catch (error) {
+    console.warn("Gantariku: gagal membaca status notifikasi Orangtua:", error);
+    return new Set();
+  }
+}
+
+function saveOrtuNotifReadSet(readSet) {
+  try {
+    // Batasi penyimpanan agar localStorage tidak terus membesar.
+    const values = Array.from(readSet).slice(-100);
+    localStorage.setItem(GTR_ORTU_NOTIF_READ_KEY, JSON.stringify(values));
+  } catch (error) {
+    console.warn("Gantariku: gagal menyimpan status notifikasi Orangtua:", error);
+  }
+}
+
+function markOrtuNotifRead(notificationKey) {
+  if (!notificationKey) return;
+  const readSet = getOrtuNotifReadSet();
+  readSet.add(String(notificationKey));
+  saveOrtuNotifReadSet(readSet);
+}
+
 async function loadNotifikasiOrtu() {
   const panel = document.getElementById("notifPanel");
   const count = document.getElementById("notifCount");
@@ -13,9 +43,12 @@ async function loadNotifikasiOrtu() {
   await pastikanAnakOrangTuaDimuat();
   const ids = anakOrangTuaList.map((anak) => anak.id).filter(Boolean);
   const items = [];
+  const readSet = getOrtuNotifReadSet();
 
   if (!ids.length) {
+    count.textContent = "";
     count.style.display = "none";
+    count.classList.add("is-hidden");
     panel.innerHTML = `<div class="notif-empty">Belum ada notifikasi untuk akun Anda.</div>`;
     return;
   }
@@ -33,7 +66,12 @@ async function loadNotifikasiOrtu() {
     (spp || []).forEach((row) => {
       const anak = anakOrangTuaList.find((x) => String(x.id) === String(row.siswa_id));
       if (!anak) return;
+
+      const notificationKey = `spp:${row.id}:${row.updated_at || row.status}`;
+      if (readSet.has(notificationKey)) return;
+
       items.push({
+        id: notificationKey,
         icon: row.status === "Menunggu Verifikasi" ? "⏳" : "💳",
         text: `${anak.nama}: SPP ${namaBulan(Number(row.bulan))} ${row.tahun} ${row.status === "Menunggu Verifikasi" ? "menunggu verifikasi" : "belum lunas"}.`,
         action: "spp-anak"
@@ -53,9 +91,15 @@ async function loadNotifikasiOrtu() {
       const key = `${row.siswa_id}-${row.tanggal}`;
       if (seen.has(key)) return;
       seen.add(key);
+
       const anak = anakOrangTuaList.find((x) => String(x.id) === String(row.siswa_id));
       if (!anak) return;
+
+      const notificationKey = `perkembangan:${row.id}:${row.created_at || row.tanggal}`;
+      if (readSet.has(notificationKey)) return;
+
       items.push({
+        id: notificationKey,
         icon: "🌱",
         text: `${anak.nama}: perkembangan terbaru tersedia.`,
         action: "perkembangan-anak"
@@ -69,7 +113,12 @@ async function loadNotifikasiOrtu() {
 
     panel.innerHTML = uniqueItems.length
       ? uniqueItems.map((item) => `
-          <button type="button" class="notif-item notif-item-action" data-notif-action="${item.action}">
+          <button
+            type="button"
+            class="notif-item notif-item-action"
+            data-notif-action="${item.action}"
+            data-notif-id="${escapeHtml(item.id)}"
+          >
             <span class="notif-icon">${item.icon}</span>
             <span>${escapeHtml(item.text)}</span>
           </button>
@@ -77,12 +126,24 @@ async function loadNotifikasiOrtu() {
       : `<div class="notif-empty">Semua aman. Tidak ada notifikasi baru.</div>`;
 
     panel.querySelectorAll("[data-notif-action]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const target = button.dataset.notifAction;
-        panel.classList.remove("show");
+      button.addEventListener("click", async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-        // Jangan mencari [data-page], karena tombol navigasi Gantariku
-        // memang berpindah halaman melalui window.__app.goTo().
+        const target = button.dataset.notifAction;
+        const notificationId = button.dataset.notifId;
+
+        // Tandai sudah dibaca SEBELUM berpindah halaman.
+        // Dengan begitu badge tidak menghitungnya lagi saat kembali.
+        markOrtuNotifRead(notificationId);
+
+        panel.classList.remove("show");
+        const countNow = Math.max(0, (Number.parseInt(count.textContent, 10) || 0) - 1);
+        count.textContent = countNow ? String(countNow) : "";
+        count.style.display = countNow ? "inline-flex" : "none";
+        count.classList.toggle("is-hidden", !countNow);
+
+        // Navigasi langsung melalui router aplikasi.
         if (window.__app && typeof window.__app.goTo === "function") {
           window.__app.goTo(target);
           return;
