@@ -34,6 +34,25 @@ async function visitNav(page, label, expectedTitle = label) {
   await expect(page.locator("#view")).toBeVisible();
 }
 
+async function assertNoUnexpectedWrites(page, action) {
+  const writes = [];
+  const onRequest = (request) => {
+    const method = request.method();
+    const url = request.url();
+    const isDataApi = url.includes("/rest/v1/") || url.includes("/rest/v1/rpc/");
+    const isWrite = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
+    if (isDataApi && isWrite) writes.push(`${method} ${url}`);
+  };
+
+  page.on("request", onRequest);
+  try {
+    await action();
+    expect(writes, `Ditemukan request write pada aksi read-only: ${writes.join(" | ")}`).toEqual([]);
+  } finally {
+    page.off("request", onRequest);
+  }
+}
+
 async function assertNoCriticalRuntimeErrors(page, action) {
   const runtimeErrors = [];
   const onPageError = (error) => runtimeErrors.push(error.message);
@@ -49,14 +68,7 @@ async function assertNoCriticalRuntimeErrors(page, action) {
 test.describe("Audit 7.3A — authenticated read-only actions", () => {
   test.skip(!AUTH_READY, "Test account secrets belum dikonfigurasi di GitHub Actions.");
 
-  test("Admin dapat membuka seluruh halaman tanpa operasi write", async ({ page }) => {
-    const writes = [];
-    page.on("request", (request) => {
-      if (["POST", "PUT", "PATCH", "DELETE"].includes(request.method())) {
-        writes.push(`${request.method()} ${request.url()}`);
-      }
-    });
-
+  test("Admin dapat membuka seluruh halaman tanpa operasi data write", async ({ page }) => {
     await login(page, ENV.adminEmail, ENV.adminPassword);
 
     for (const label of [
@@ -68,21 +80,15 @@ test.describe("Audit 7.3A — authenticated read-only actions", () => {
       "Rekap Absensi",
       "Perkembangan Anak",
     ]) {
-      await assertNoCriticalRuntimeErrors(page, () => visitNav(page, label));
+      await assertNoCriticalRuntimeErrors(page, async () => {
+        await assertNoUnexpectedWrites(page, () => visitNav(page, label));
+      });
     }
 
-    expect(writes, `Ditemukan request write tidak diharapkan: ${writes.join(" | ")}`).toEqual([]);
     await logout(page);
   });
 
-  test("Guru dapat membuka seluruh halaman tanpa operasi write", async ({ page }) => {
-    const writes = [];
-    page.on("request", (request) => {
-      if (["POST", "PUT", "PATCH", "DELETE"].includes(request.method())) {
-        writes.push(`${request.method()} ${request.url()}`);
-      }
-    });
-
+  test("Guru dapat membuka seluruh halaman tanpa operasi data write", async ({ page }) => {
     await login(page, ENV.guruEmail, ENV.guruPassword);
 
     for (const label of [
@@ -91,21 +97,15 @@ test.describe("Audit 7.3A — authenticated read-only actions", () => {
       "Riwayat Absensi",
       "Perkembangan Anak",
     ]) {
-      await assertNoCriticalRuntimeErrors(page, () => visitNav(page, label));
+      await assertNoCriticalRuntimeErrors(page, async () => {
+        await assertNoUnexpectedWrites(page, () => visitNav(page, label));
+      });
     }
 
-    expect(writes, `Ditemukan request write tidak diharapkan: ${writes.join(" | ")}`).toEqual([]);
     await logout(page);
   });
 
-  test("Orang tua dapat membuka seluruh halaman anak tanpa operasi write", async ({ page }) => {
-    const writes = [];
-    page.on("request", (request) => {
-      if (["POST", "PUT", "PATCH", "DELETE"].includes(request.method())) {
-        writes.push(`${request.method()} ${request.url()}`);
-      }
-    });
-
+  test("Orang tua dapat membuka seluruh halaman anak tanpa operasi data write", async ({ page }) => {
     await login(page, ENV.ortuAEmail, ENV.ortuAPassword);
 
     for (const label of [
@@ -114,10 +114,11 @@ test.describe("Audit 7.3A — authenticated read-only actions", () => {
       "Status SPP",
       "Perkembangan Anak",
     ]) {
-      await assertNoCriticalRuntimeErrors(page, () => visitNav(page, label));
+      await assertNoCriticalRuntimeErrors(page, async () => {
+        await assertNoUnexpectedWrites(page, () => visitNav(page, label));
+      });
     }
 
-    expect(writes, `Ditemukan request write tidak diharapkan: ${writes.join(" | ")}`).toEqual([]);
     await logout(page);
   });
 });
