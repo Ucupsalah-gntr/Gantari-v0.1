@@ -307,3 +307,174 @@ window.loadNotifikasi = async function () {
     return gtrAdminLoadNotifikasi();
   }
 };
+
+// ============================================================
+// SPP ORTU — STABLE RENDER FIX
+// Tidak mengubah proses upload/status SPP.
+// Tujuan: tabel dan tombol aksi tampil segera dari data DB.
+// Signed URL hanya dicari untuk baris yang memang sudah punya bukti.
+// ============================================================
+
+const gtrOriginalLoadSppAnak = window.loadSppAnak;
+
+async function gtrStableLoadSppAnak() {
+  const wrap = document.getElementById("pilihAnakWrap");
+  const tbody = document.getElementById("daftarSppAnak");
+  const mobileList = document.getElementById("daftarSppAnakMobile");
+
+  if (!tbody || !mobileList || !supabase) return;
+
+  await pastikanAnakOrangTuaDimuat();
+
+  if (wrap) wrap.innerHTML = renderPilihAnakHtml();
+
+  if (anakOrangTuaList.length === 0) {
+    const message = "Belum ada data siswa yang terhubung dengan akun ini.";
+    tbody.innerHTML = `<tr><td colspan="6" class="table-state">${message}</td></tr>`;
+    mobileList.innerHTML = `<div class="empty">${message}</div>`;
+    return;
+  }
+
+  const anak = anakYangDipilih();
+  if (!anak) return;
+
+  const tahun = document.getElementById("sppAnakTahun")?.value;
+
+  try {
+    let query = supabase
+      .from("spp")
+      .select(`
+        id,
+        bulan,
+        tahun,
+        nominal,
+        status,
+        tanggal_bayar,
+        bukti_bayar_url
+      `)
+      .eq("siswa_id", anak.id);
+
+    if (tahun) query = query.eq("tahun", Number(tahun));
+
+    const { data, error } = await query
+      .order("tahun", { ascending: false })
+      .order("bulan", { ascending: false });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" class="table-state">Belum ada data SPP.</td></tr>`;
+      mobileList.innerHTML = `<div class="empty">Belum ada data SPP.</div>`;
+      return;
+    }
+
+    // Render SEKARANG dari data SPP.
+    // Jangan tunggu createSignedUrl karena itu hanya diperlukan untuk
+    // membuka bukti yang sudah ada, bukan untuk menampilkan tombol bayar.
+    const baseRows = data.map((s) => ({ ...s, buktiSignedUrl: null }));
+
+    tbody.innerHTML = baseRows.map((s) => `
+      <tr>
+        <td>${namaBulan(s.bulan)}</td>
+        <td>${s.tahun}</td>
+        <td class="num">${formatRupiah(s.nominal)}</td>
+        <td>${renderBadgeSppOrtu(s.status)}</td>
+        <td>${s.tanggal_bayar || "-"}</td>
+        <td>${renderAksiSppOrtu(s, false)}</td>
+      </tr>
+    `).join("");
+
+    mobileList.innerHTML = baseRows.map((s) => `
+      <div class="ortu-spp-card">
+        <div class="ortu-card-top">
+          <div>
+            <div class="ortu-card-label">Periode</div>
+            <div class="ortu-card-title">${namaBulan(s.bulan)} ${s.tahun}</div>
+          </div>
+          ${renderBadgeSppOrtu(s.status)}
+        </div>
+
+        <div class="ortu-spp-nominal">${formatRupiah(s.nominal)}</div>
+
+        <div class="ortu-spp-detail">
+          <div>
+            <span>Tanggal bayar</span>
+            <strong>${s.tanggal_bayar || "-"}</strong>
+          </div>
+        </div>
+
+        <div class="ortu-card-divider"></div>
+
+        <div class="ortu-spp-action">
+          ${renderAksiSppOrtu(s, true)}
+        </div>
+      </div>
+    `).join("");
+
+    // Bukti hanya untuk Menunggu Verifikasi/Lunas yang memang punya file.
+    // Update link secara terpisah tanpa mengganti seluruh tabel.
+    const recordsWithProof = data.filter((s) => s.bukti_bayar_url && s.status === "Menunggu Verifikasi");
+
+    if (recordsWithProof.length) {
+      await Promise.all(recordsWithProof.map(async (s) => {
+        try {
+          const signed = await getBuktiSignedUrlOrtu(s.bukti_bayar_url);
+          if (!signed) return;
+
+          const matches = document.querySelectorAll(`a[href*="${String(signed).split("?")[0]}"]`);
+          if (matches.length) return;
+
+          // Untuk status Menunggu Verifikasi, tombol Lihat Bukti dibangun
+          // secara ringan hanya pada area aksi baris terkait.
+          const rowsNow = Array.from(tbody.querySelectorAll("tr"));
+          const targetRow = rowsNow.find((row) => {
+            const text = String(row.textContent || "").toLowerCase();
+            return text.includes(String(namaBulan(s.bulan)).toLowerCase()) &&
+                   text.includes(String(s.tahun));
+          });
+
+          if (targetRow) {
+            const aksiCell = targetRow.querySelector("td:last-child");
+            if (aksiCell) {
+              aksiCell.innerHTML = renderAksiSppOrtu({ ...s, buktiSignedUrl: signed }, false);
+            }
+          }
+
+          const mobileCards = Array.from(mobileList.querySelectorAll(".ortu-spp-card"));
+          const mobileCard = mobileCards.find((card) => {
+            const text = String(card.textContent || "").toLowerCase();
+            return text.includes(String(namaBulan(s.bulan)).toLowerCase()) &&
+                   text.includes(String(s.tahun));
+          });
+
+          if (mobileCard) {
+            const actionWrap = mobileCard.querySelector(".ortu-spp-action");
+            if (actionWrap) {
+              actionWrap.innerHTML = renderAksiSppOrtu({ ...s, buktiSignedUrl: signed }, true);
+            }
+          }
+        } catch (error) {
+          console.warn("Gantariku: signed URL bukti SPP gagal dimuat.", error);
+        }
+      }));
+    }
+  } catch (error) {
+    console.error("Error load SPP anak (stable fix):", error);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align:center;color:#E11D48;">
+          Gagal memuat data SPP.
+        </td>
+      </tr>
+    `;
+    mobileList.innerHTML = `
+      <div class="empty">Gagal memuat data SPP.</div>
+    `;
+  }
+}
+
+// Pastikan semua pemanggilan berikutnya memakai loader stabil.
+window.loadSppAnak = gtrStableLoadSppAnak;
+
+// app.js mengambil referensi fungsi global ini setelah file ini dimuat.
+// Assignment di atas sengaja ditempatkan sebelum app.js.
