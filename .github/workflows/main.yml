@@ -56,6 +56,17 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run browser E2E tests
+        env:
+          GTR_TEST_ADMIN_EMAIL: ${{ secrets.GTR_TEST_ADMIN_EMAIL }}
+          GTR_TEST_ADMIN_PASSWORD: ${{ secrets.GTR_TEST_ADMIN_PASSWORD }}
+          GTR_TEST_GURU_EMAIL: ${{ secrets.GTR_TEST_GURU_EMAIL }}
+          GTR_TEST_GURU_PASSWORD: ${{ secrets.GTR_TEST_GURU_PASSWORD }}
+          GTR_TEST_ORTU_A_EMAIL: ${{ secrets.GTR_TEST_ORTU_A_EMAIL }}
+          GTR_TEST_ORTU_A_PASSWORD: ${{ secrets.GTR_TEST_ORTU_A_PASSWORD }}
+          GTR_TEST_ORTU_B_EMAIL: ${{ secrets.GTR_TEST_ORTU_B_EMAIL }}
+          GTR_TEST_ORTU_B_PASSWORD: ${{ secrets.GTR_TEST_ORTU_B_PASSWORD }}
+          GTR_TEST_ORTU_A_CHILD_ID: ${{ secrets.GTR_TEST_ORTU_A_CHILD_ID }}
+          GTR_TEST_ORTU_B_CHILD_ID: ${{ secrets.GTR_TEST_ORTU_B_CHILD_ID }}
         run: npm run test:e2e
 
       - name: Success
