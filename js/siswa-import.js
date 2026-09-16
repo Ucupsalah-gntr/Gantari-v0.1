@@ -432,10 +432,10 @@
           </div>
 
           <label class="gtr-import-drop" id="gtrImportDrop">
-            <input type="file" id="gtrImportSiswaFile" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+            <input type="file" id="gtrImportSiswaFile" accept=".xlsx,.xls,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
             <span class="gtr-import-drop-icon">↑</span>
             <strong>Pilih file Excel</strong>
-            <small>Format .xlsx atau .xls</small>
+            <small>Format .xlsx, .xls, atau .csv</small>
             <span class="gtr-import-file" id="gtrImportFileName">Belum ada file dipilih</span>
           </label>
 
