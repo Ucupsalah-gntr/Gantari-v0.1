@@ -1,21 +1,13 @@
 // ============================================================
 // GANTARIKU — IMPORT SISWA SAVE SAFETY FIX
-// Menjaga importer lama tetap dipakai, tetapi mencegah batch insert
-// gagal hanya karena Tahun Ajaran kosong/null.
-//
-// Perilaku:
-// - Menunggu Supabase client benar-benar siap.
-// - Normalisasi 2023-2024 / 2023-24 -> 2023/2024.
-// - Mendukung Excel dengan Tahun Ajaran di-merge/blank: nilai blank
-//   mewarisi Tahun Ajaran terakhir yang terbaca.
-// - Jika baris pertama kosong sementara hanya ada satu tahun unik,
-//   tahun unik tersebut dipakai sebagai fallback.
-// - Jika masih ambigu, import dihentikan dengan pesan yang jelas.
-// - Hanya memproses insert ke tabel siswa saat modal import terbuka.
+// Menjaga importer lama tetap dipakai, tetapi memastikan payload
+// import selalu aman terhadap constraint Tahun Ajaran di database.
 // ============================================================
 
 (function () {
   "use strict";
+
+  const DEFAULT_TAHUN_AJARAN = "2025/2026";
 
   function normalizeTahunAjaran(value) {
     const text = String(value ?? "").trim();
@@ -28,6 +20,34 @@
     if (match) return `${match[1]}/${String(match[1]).slice(0, 2)}${match[2]}`;
 
     return text;
+  }
+
+  function fillMissingTahunAjaran(rows) {
+    const normalized = rows.map((row) => ({
+      ...(row || {}),
+      tahun_ajaran: normalizeTahunAjaran(row?.tahun_ajaran)
+    }));
+
+    let lastYear = null;
+    const uniqueYears = [...new Set(
+      normalized.map((row) => row.tahun_ajaran).filter(Boolean)
+    )];
+
+    for (const row of normalized) {
+      if (row.tahun_ajaran) {
+        lastYear = row.tahun_ajaran;
+      } else if (lastYear) {
+        row.tahun_ajaran = lastYear;
+      } else if (uniqueYears.length === 1) {
+        row.tahun_ajaran = uniqueYears[0];
+      } else {
+        // Database siswa memiliki default Tahun Ajaran.
+        // Kirim nilai eksplisit agar insert tidak pernah mengirim null.
+        row.tahun_ajaran = DEFAULT_TAHUN_AJARAN;
+      }
+    }
+
+    return normalized;
   }
 
   function installImportSaveGuard() {
@@ -54,36 +74,7 @@
 
           return function guardedInsert(payload, ...insertArgs) {
             const rows = Array.isArray(payload) ? payload : [payload];
-            const normalized = rows.map((row) => ({
-              ...(row || {}),
-              tahun_ajaran: normalizeTahunAjaran(row?.tahun_ajaran)
-            }));
-
-            const uniqueYears = [...new Set(
-              normalized
-                .map((row) => row.tahun_ajaran)
-                .filter(Boolean)
-            )];
-
-            let lastYear = null;
-
-            for (const row of normalized) {
-              if (row.tahun_ajaran) {
-                lastYear = row.tahun_ajaran;
-              } else if (lastYear) {
-                row.tahun_ajaran = lastYear;
-              } else if (uniqueYears.length === 1) {
-                row.tahun_ajaran = uniqueYears[0];
-              }
-            }
-
-            if (normalized.some((row) => !row.tahun_ajaran)) {
-              throw new Error(
-                "Import dibatalkan: ada data siswa tanpa Tahun Ajaran. " +
-                "Isi Tahun Ajaran pada baris yang kosong (atau jangan merge sebagian kolom), lalu coba import lagi."
-              );
-            }
-
+            const normalized = fillMissingTahunAjaran(rows);
             return target.insert(normalized, ...insertArgs);
           };
         }
@@ -108,4 +99,5 @@
 
   init();
   window.__gtrNormalizeTahunAjaran = normalizeTahunAjaran;
+  window.__gtrDefaultTahunAjaran = DEFAULT_TAHUN_AJARAN;
 })();
