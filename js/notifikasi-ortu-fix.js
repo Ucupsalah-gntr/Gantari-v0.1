@@ -20,7 +20,6 @@ function getOrtuNotifReadSet() {
 
 function saveOrtuNotifReadSet(readSet) {
   try {
-    // Batasi penyimpanan agar localStorage tidak terus membesar.
     const values = Array.from(readSet).slice(-100);
     localStorage.setItem(GTR_ORTU_NOTIF_READ_KEY, JSON.stringify(values));
   } catch (error) {
@@ -35,10 +34,15 @@ function markOrtuNotifRead(notificationKey) {
   saveOrtuNotifReadSet(readSet);
 }
 
+function clearOrtuNotifRead(notificationKey) {
+  if (!notificationKey) return;
+  const readSet = getOrtuNotifReadSet();
+  readSet.delete(String(notificationKey));
+  saveOrtuNotifReadSet(readSet);
+}
+
 // ============================================================
 // FOKUS KONTEKS NOTIFIKASI SPP
-// Setelah masuk ke Status SPP, arahkan pengguna ke anak + bulan
-// yang memang menjadi sumber notifikasi.
 // ============================================================
 
 async function fokusSppDariNotifikasi(context, attempt = 0) {
@@ -50,14 +54,12 @@ async function fokusSppDariNotifikasi(context, attempt = 0) {
     return;
   }
 
-  // Tunggu sampai halaman Status SPP benar-benar selesai dirender.
   const tbody = document.getElementById("daftarSppAnak");
   if (!tbody) {
     setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
     return;
   }
 
-  // Pastikan anak dari notifikasi tetap menjadi anak yang sedang dipilih.
   if (context.siswaId && String(anakTerpilihId) !== String(context.siswaId)) {
     anakTerpilihId = context.siswaId;
     if (typeof renderView === "function") {
@@ -67,7 +69,6 @@ async function fokusSppDariNotifikasi(context, attempt = 0) {
     }
   }
 
-  // Cari select tahun berdasarkan option value, bukan berdasarkan posisi elemen.
   const yearSelect = Array.from(document.querySelectorAll("select")).find((select) =>
     Array.from(select.options || []).some(
       (option) => String(option.value) === String(context.tahun)
@@ -77,8 +78,6 @@ async function fokusSppDariNotifikasi(context, attempt = 0) {
   if (yearSelect && String(yearSelect.value) !== String(context.tahun)) {
     yearSelect.value = String(context.tahun);
     yearSelect.dispatchEvent(new Event("change", { bubbles: true }));
-
-    // Jangan langsung mencari row lama. Muat ulang tabel untuk tahun target.
     if (typeof loadSppAnak === "function") {
       try {
         await loadSppAnak();
@@ -86,12 +85,10 @@ async function fokusSppDariNotifikasi(context, attempt = 0) {
         console.warn("Gantariku: gagal memuat ulang SPP setelah memilih tahun.", error);
       }
     }
-
     setTimeout(() => fokusSppDariNotifikasi(context, attempt + 1), 150);
     return;
   }
 
-  // Pastikan data tabel sudah dimuat untuk anak + tahun target.
   if (typeof loadSppAnak === "function" && attempt === 0) {
     try {
       await loadSppAnak();
@@ -112,8 +109,6 @@ async function fokusSppDariNotifikasi(context, attempt = 0) {
   const tahunTarget = Number(context.tahun);
   const namaBulanTarget = String(namaBulan(bulanTarget) || "").toLowerCase();
 
-  // Cari berdasarkan isi baris. Jangan memakai index bulan karena tabel dapat
-  // diurutkan berdasarkan tahun/bulan dan tidak selalu dimulai dari Januari.
   let targetRow = rows.find((row) => {
     const text = String(row.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
     const cocokBulan = namaBulanTarget && text.includes(namaBulanTarget);
@@ -121,7 +116,6 @@ async function fokusSppDariNotifikasi(context, attempt = 0) {
     return cocokBulan && cocokTahun;
   });
 
-  // Fallback: jika tabel sudah difilter hanya untuk tahun target, cukup cocokkan bulan.
   if (!targetRow && namaBulanTarget) {
     targetRow = rows.find((row) => {
       const text = String(row.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
@@ -178,7 +172,14 @@ async function loadNotifikasiOrtu() {
       if (!anak) return;
 
       const notificationKey = `spp:${row.id}:${row.updated_at || row.status}`;
-      if (readSet.has(notificationKey)) return;
+
+      // SPP adalah notifikasi berbasis kondisi, bukan notifikasi sekali baca.
+      // Selama tagihan masih Belum Bayar / Menunggu Verifikasi, notifikasi
+      // tetap boleh muncul kembali meskipun sebelumnya sudah diklik.
+      if (readSet.has(notificationKey)) {
+        // Hapus status baca lama untuk SPP yang masih aktif.
+        clearOrtuNotifRead(notificationKey);
+      }
 
       items.push({
         id: notificationKey,
@@ -253,22 +254,26 @@ async function loadNotifikasiOrtu() {
         const notificationId = button.dataset.notifId;
         const item = uniqueItems.find((entry) => entry.id === notificationId);
 
-        // Tandai sudah dibaca SEBELUM berpindah halaman.
-        // Dengan begitu badge tidak menghitungnya lagi saat kembali.
-        markOrtuNotifRead(notificationId);
+        // SPP JANGAN ditandai selesai hanya karena dibuka.
+        // Notifikasi SPP akan berhenti muncul otomatis ketika statusnya
+        // tidak lagi "Belum Bayar" / "Menunggu Verifikasi".
+        if (target !== "spp-anak") {
+          markOrtuNotifRead(notificationId);
+        }
 
-        // Simpan konteks sebelum router merender halaman tujuan.
         if (item?.context?.siswaId) {
           anakTerpilihId = item.context.siswaId;
         }
 
         panel.classList.remove("show");
-        const countNow = Math.max(0, (Number.parseInt(count.textContent, 10) || 0) - 1);
-        count.textContent = countNow ? String(countNow) : "";
-        count.style.display = countNow ? "inline-flex" : "none";
-        count.classList.toggle("is-hidden", !countNow);
 
-        // Navigasi langsung melalui router aplikasi.
+        if (target !== "spp-anak") {
+          const countNow = Math.max(0, (Number.parseInt(count.textContent, 10) || 0) - 1);
+          count.textContent = countNow ? String(countNow) : "";
+          count.style.display = countNow ? "inline-flex" : "none";
+          count.classList.toggle("is-hidden", !countNow);
+        }
+
         if (window.__app && typeof window.__app.goTo === "function") {
           window.__app.goTo(target);
 
@@ -278,7 +283,6 @@ async function loadNotifikasiOrtu() {
           return;
         }
 
-        // Fallback bila app shell belum siap.
         const navButton = document.querySelector(
           `.nav-item[onclick*="goTo('${target}')"]`
         );
