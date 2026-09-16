@@ -1,0 +1,30 @@
+/* ============================================================
+   GANTARIKU — PERKEMBANGAN FORM CANCEL / CLOSE FIX
+   ============================================================ */
+#formPerkembangan .gtr-perk-cancel-btn {
+  margin-left: 8px;
+}
+
+.gtr-perk-open-btn {
+  margin-top: 12px;
+}
+
+.gtr-perk-form-collapsed .spp-detail-section-lg {
+  padding: 0;
+}
+
+@media (max-width: 620px) {
+  #formPerkembangan .gtr-perk-cancel-btn {
+    margin-left: 0;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  #formPerkembangan #btnSimpanPerkembangan {
+    width: 100%;
+  }
+
+  .gtr-perk-open-btn {
+    width: 100%;
+  }
+}
