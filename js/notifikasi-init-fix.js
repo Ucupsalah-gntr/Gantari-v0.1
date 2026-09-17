@@ -17,13 +17,14 @@
   let bootTimer = null;
   let startedKey = "";
   let bootKey = "";
+  let adminRealtimeHandedOff = false;
+  let adminTogglePatched = false;
 
   const REFRESH_DELAY = 450;
   const POLLING_INTERVAL = 15000;
 
-  // currentUserRole/currentUser dideklarasikan dengan let di state.js,
-  // sehingga tidak otomatis menjadi window.currentUserRole/window.currentUser.
-  // Ambil dari scope aplikasi terlebih dahulu, lalu fallback ke window.
+  // currentUserRole/currentUser dideklarasikan di scope global aplikasi,
+  // jadi jangan hanya mengandalkan window.currentUserRole.
   function getRole() {
     try {
       if (typeof currentUserRole !== "undefined" && currentUserRole) {
@@ -89,7 +90,51 @@
 
     channel = null;
     startedKey = "";
-    bootKey = "";
+    // Jangan mereset bootKey di sini.
+    // Jika channel realtime reconnect, kita tidak ingin memicu
+    // "initial sync" berulang yang membuat UI berkedip.
+  }
+
+  function handoffAdminRealtime() {
+    if (getRole() !== "admin" || adminRealtimeHandedOff) return;
+
+    // Sebelumnya Admin sudah punya realtime lama dari export-notifikasi.js.
+    // Matikan channel lama sekali, lalu gunakan channel stabil di file ini.
+    if (typeof window.stopRealtimeNotifications === "function") {
+      try {
+        window.stopRealtimeNotifications();
+      } catch (error) {
+        console.warn("Gantariku: gagal menghentikan realtime Admin lama:", error);
+      }
+    } else if (typeof stopRealtimeNotifications === "function") {
+      try {
+        stopRealtimeNotifications();
+      } catch (error) {
+        console.warn("Gantariku: gagal menghentikan realtime Admin lama:", error);
+      }
+    }
+
+    adminRealtimeHandedOff = true;
+  }
+
+  function patchAdminToggle() {
+    if (getRole() !== "admin" || adminTogglePatched) return;
+
+    const app = window.__app;
+    if (!app || typeof app.toggleNotifikasi !== "function") return;
+
+    const originalToggle = app.toggleNotifikasi;
+
+    app.toggleNotifikasi = function (...args) {
+      // Pakai wrapper UX yang sudah dipasang ke window.toggleNotifikasi.
+      if (typeof window.toggleNotifikasi === "function") {
+        return window.toggleNotifikasi(...args);
+      }
+
+      return originalToggle.apply(this, args);
+    };
+
+    adminTogglePatched = true;
   }
 
   function startRealtime() {
@@ -174,6 +219,8 @@
     const key = getSessionKey();
     const isNewSession = bootKey !== key;
 
+    handoffAdminRealtime();
+    patchAdminToggle();
     startRealtime();
 
     if (isNewSession || !pollingTimer) {
@@ -190,7 +237,7 @@
 
   // Auth/login pada aplikasi selesai secara asynchronous.
   // Poll ini hanya menunggu sampai role tersedia. Setelah boot pertama,
-  // ia TIDAK lagi memicu refresh setiap 500 ms.
+  // ia tidak lagi memicu "initial sync" terus-menerus.
   bootTimer = setInterval(() => {
     if (!window.supabase || !roleSupported()) return;
     boot(false);
