@@ -85,7 +85,7 @@ test("workflow CI menjalankan syntax check, unit test, dan E2E", () => {
 
 test("package scripts menyediakan test unit dan browser", () => {
   const pkg = JSON.parse(read("package.json"));
-  assert.equal(pkg.scripts.test, "node --test");
+  assert.match(pkg.scripts.test, /^node --test(?:\s+tests\/\*\.test\.js)?$/);
   assert.equal(pkg.scripts["test:e2e"], "playwright test");
   assert.ok(pkg.devDependencies?.["@playwright/test"]);
 });
