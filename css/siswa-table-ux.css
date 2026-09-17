@@ -1,13 +1,14 @@
 /* ============================================================
    GANTARIKU — DATA SISWA TABLE UX
    Tabel siswa dibuat lebar dan horizontal agar teks tidak
-   dipaksa bertumpuk. Jika layar sempit, gunakan scroll horizontal.
+   dipaksa bertumpuk. Jika layar sempit, gunakan scroll.
    ============================================================ */
 
 /* Hanya tabel yang memiliki #daftarSiswa */
 .table-scroll:has(#daftarSiswa) {
+  max-height: 460px;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -15,6 +16,15 @@
   width: max-content;
   min-width: 100%;
   table-layout: auto;
+}
+
+/* Header tetap terlihat saat daftar siswa digulir ke bawah. */
+.table-scroll:has(#daftarSiswa) thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
 }
 
 .table-scroll:has(#daftarSiswa) th,
@@ -67,4 +77,10 @@
 .table-scroll:has(#daftarSiswa) th:last-child,
 .table-scroll:has(#daftarSiswa) td:last-child {
   min-width: 90px;
+}
+
+@media (max-width: 768px) {
+  .table-scroll:has(#daftarSiswa) {
+    max-height: 380px;
+  }
 }
