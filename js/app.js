@@ -449,11 +449,7 @@
   loadSppAnak,
 
   tampilkanRiwayatPerkembangan:
-    renderRiwayatPerkembanganDipilih,
-
-  // Compatibility aliases for legacy inline handlers.
-  exportRekapAbsensiCsv,
-  exportAbsensiGuruCsv
+    renderRiwayatPerkembanganDipilih
 };
 
       // Start app setelah koneksi Supabase siap.
