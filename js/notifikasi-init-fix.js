@@ -16,6 +16,7 @@
   let pollingTimer = null;
   let bootTimer = null;
   let startedKey = "";
+  let bootKey = "";
 
   const REFRESH_DELAY = 450;
   const POLLING_INTERVAL = 15000;
@@ -57,6 +58,10 @@
     );
   }
 
+  function getSessionKey() {
+    return `${getRole()}:${getUserKey()}`;
+  }
+
   function scheduleRefresh(reason) {
     clearTimeout(refreshTimer);
 
@@ -84,12 +89,13 @@
 
     channel = null;
     startedKey = "";
+    bootKey = "";
   }
 
   function startRealtime() {
     if (!window.supabase || !roleSupported()) return;
 
-    const key = `${getRole()}:${getUserKey()}`;
+    const key = getSessionKey();
 
     if (channel && startedKey === key) return;
 
@@ -142,6 +148,8 @@
         }
 
         if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+          channel = null;
+          startedKey = "";
           console.warn(
             "Gantariku: Supabase Realtime belum aktif untuk salah satu tabel. Fallback polling tetap berjalan."
           );
@@ -160,18 +168,32 @@
     }, POLLING_INTERVAL);
   }
 
-  function boot() {
+  function boot(forceRefresh = false) {
     if (!window.supabase || !roleSupported()) return;
 
+    const key = getSessionKey();
+    const isNewSession = bootKey !== key;
+
     startRealtime();
-    startPollingFallback();
-    scheduleRefresh("initial sync");
+
+    if (isNewSession || !pollingTimer) {
+      bootKey = key;
+      startPollingFallback();
+      scheduleRefresh("initial sync");
+      return;
+    }
+
+    if (forceRefresh) {
+      scheduleRefresh("focus/visibility sync");
+    }
   }
 
   // Auth/login pada aplikasi selesai secara asynchronous.
+  // Poll ini hanya menunggu sampai role tersedia. Setelah boot pertama,
+  // ia TIDAK lagi memicu refresh setiap 500 ms.
   bootTimer = setInterval(() => {
     if (!window.supabase || !roleSupported()) return;
-    boot();
+    boot(false);
   }, 500);
 
   setTimeout(() => {
@@ -180,12 +202,12 @@
 
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) {
-      boot();
+      boot(true);
     }
   });
 
   window.addEventListener("focus", () => {
-    boot();
+    boot(true);
   });
 
   window.gantarikuStartNotifikasiRealtime = boot;
