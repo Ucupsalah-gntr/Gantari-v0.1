@@ -138,7 +138,7 @@ async function exportSppCsv() {
       rows.push([s.nama || "", s.nis || "", s.kelas || "", ...bulanCells, lunas, belum]);
     });
 
-    downloadCsv(`gantariku-spp-tahunan-${tahun}.csv`, rows);
+    downloadXlsx(`gantariku-spp-tahunan-${tahun}.xlsx`, rows);
   } catch (error) {
     console.error("Export SPP tahunan:", error);
     appNotify("Gagal export SPP tahunan:\n\n" + (error?.message || "Terjadi kesalahan."));
@@ -234,10 +234,7 @@ async function exportAbsensiGuruCsv() {
       ])
   );
 
-  downloadCsv(
-    `gantariku-absensi-guru-${dari}-${sampai}.csv`,
-    rows
-  );
+  downloadXlsx(`gantariku-absensi-guru-${dari}-${sampai}.xlsx`, rows);
 }
 
 
@@ -329,10 +326,7 @@ async function exportRekapAbsensiCsv() {
       ])
   );
 
-  downloadCsv(
-    `gantariku-rekap-absensi-${dari}-${sampai}.csv`,
-    rows
-  );
+  downloadXlsx(`gantariku-rekap-absensi-${dari}-${sampai}.xlsx`, rows);
 }
 
 
