@@ -63,7 +63,7 @@ function downloadCsv(filename, rows) {
 
 
 // ============================================================
-// EXPORT SPP TAHUNAN
+// EXPORT SPP TAHUNAN — 12 SHEET
 // ============================================================
 async function exportSppCsv() {
   if (!supabase) return appNotify("Supabase belum terhubung.");
@@ -113,7 +113,9 @@ async function exportSppCsv() {
       if (kelas && s.kelas !== kelas) return false;
       if (cari && !hay.includes(cari)) return false;
       if (statusFilter) {
-        const rowHasStatus = data.some((x) => String(x.siswa_id) === String(s.id) && x.status === statusFilter);
+        const rowHasStatus = data.some(
+          (x) => String(x.siswa_id) === String(s.id) && x.status === statusFilter
+        );
         if (!rowHasStatus) return false;
       }
       return true;
@@ -123,22 +125,77 @@ async function exportSppCsv() {
       "Januari", "Februari", "Maret", "April", "Mei", "Juni",
       "Juli", "Agustus", "September", "Oktober", "November", "Desember"
     ];
-    const lookup = new Map(data.map((x) => [`${x.siswa_id}-${x.bulan}`, x]));
-    const rows = [["Nama", "NIS", "Kelas", ...bulanNama, "Total Lunas", "Total Belum Lunas"]];
 
-    visible.forEach((s) => {
-      let lunas = 0;
-      let belum = 0;
-      const bulanCells = bulanNama.map((_, i) => {
-        const rec = lookup.get(`${s.id}-${i + 1}`);
-        if (!rec) return "";
-        if (rec.status === "Lunas") lunas++; else belum++;
-        return rec.status || "";
+    const lookup = new Map(
+      data.map((x) => [`${x.siswa_id}-${x.bulan}`, x])
+    );
+
+    if (typeof XLSX === "undefined") {
+      return appNotify("Fitur Excel belum siap. Silakan muat ulang halaman.");
+    }
+
+    const workbook = XLSX.utils.book_new();
+
+    bulanNama.forEach((namaBulanSheet, index) => {
+      const bulan = index + 1;
+
+      const rows = [[
+        "Nama",
+        "NIS",
+        "Kelas",
+        "Status",
+        "Nominal",
+        "Tanggal Bayar"
+      ]];
+
+      visible.forEach((s) => {
+        const rec = lookup.get(`${s.id}-${bulan}`);
+
+        rows.push([
+          s.nama || "",
+          s.nis || "",
+          s.kelas || "",
+          rec?.status || "Belum Ada Tagihan",
+          rec?.nominal ?? "",
+          rec?.tanggal_bayar || ""
+        ]);
       });
-      rows.push([s.nama || "", s.nis || "", s.kelas || "", ...bulanCells, lunas, belum]);
+
+      const worksheet = XLSX.utils.aoa_to_sheet(rows);
+
+      worksheet["!cols"] = [
+        { wch: 28 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 24 },
+        { wch: 16 },
+        { wch: 18 }
+      ];
+
+      worksheet["!autofilter"] = {
+        ref: `A1:F${Math.max(1, rows.length)}`
+      };
+
+      worksheet["!freeze"] = {
+        xSplit: 0,
+        ySplit: 1
+      };
+
+      XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        namaBulanSheet
+      );
     });
 
-    downloadXlsx(`gantariku-spp-tahunan-${tahun}.xlsx`, rows);
+    XLSX.writeFile(
+      workbook,
+      `gantariku-spp-tahunan-${tahun}.xlsx`
+    );
+
+    appNotify(
+      `Export Excel SPP ${tahun} berhasil. File berisi 12 sheet Januari–Desember.`
+    );
   } catch (error) {
     console.error("Export SPP tahunan:", error);
     appNotify("Gagal export SPP tahunan:\n\n" + (error?.message || "Terjadi kesalahan."));
@@ -754,7 +811,7 @@ function jadwalkanRefreshNotifikasi() {
     setTimeout(
       () => {
         loadNotifikasi();
-      },
+      }, 
       350
     );
 }
