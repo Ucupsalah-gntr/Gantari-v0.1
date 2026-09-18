@@ -1,17 +1,12 @@
 // ============================================================
 // GANTARIKU — NOTIFIKASI ORANGTUA MOBILE UX FIX
 // Dijalankan setelah app.js.
-// Satu fix aman untuk: fokus SPP, notifikasi penolakan, preview upload.
+// Fix UX untuk: fokus SPP dan preview upload.
 // ============================================================
 
 (function () {
   "use strict";
 
-  function escapeText(value) {
-    const div = document.createElement("div");
-    div.textContent = String(value ?? "");
-    return div.innerHTML;
-  }
 
   // ----------------------------------------------------------
   // FOKUS SPP: desktop = row, mobile = card.
