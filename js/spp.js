@@ -84,7 +84,7 @@ function renderSpp() {
             class="btn secondary"
             onclick="window.__app.exportSppCsv()"
           >
-            ⬇ Export Excel
+            ⬇ Export Excel 12 Bulan
           </button>
 
           <button
