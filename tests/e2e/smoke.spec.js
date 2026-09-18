@@ -6,7 +6,7 @@ async function assertLoginShell(page) {
   await expect(page).toHaveTitle(/Gantariku/i);
   await expect(page.locator("#app")).toBeVisible();
 
-  const emailInput = page.locator('input[type="email"]');
+  const emailInput = page.locator('#loginEmail');
   const passwordInput = page.locator('input[type="password"]');
 
   await expect(emailInput).toBeVisible();
@@ -40,7 +40,7 @@ test.describe("Gantariku browser smoke", () => {
     await expect(toggleButton).toBeVisible();
     await toggleButton.click();
 
-    await expect(page.locator('input[type="text"]')).toHaveCount(1);
+    await expect(page.locator("#loginPassword")).toHaveAttribute("type", "text");
     await expect(page.locator('button[aria-label="Sembunyikan password"]').first()).toBeVisible();
 
     await page.locator('button[aria-label="Sembunyikan password"]').first().click();
