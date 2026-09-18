@@ -7,46 +7,6 @@
 (function () {
   "use strict";
 
-  const ROLE_ORANGTUA = "ortu";
-  const REJECT_NOTE = "Bukti pembayaran ditolak oleh admin.";
-  const READ_KEY = "gantariku_ortu_notif_read_v1";
-
-  function getRole() {
-    try {
-      if (typeof currentUserRole !== "undefined" && currentUserRole) {
-        return String(currentUserRole).toLowerCase();
-      }
-    } catch (_) {}
-    return String(window.currentUserRole || "").toLowerCase();
-  }
-
-  function isOrtu() {
-    return getRole() === ROLE_ORANGTUA;
-  }
-
-  function getReadSet() {
-    try {
-      const raw = localStorage.getItem(READ_KEY);
-      const parsed = raw ? JSON.parse(raw) : [];
-      return new Set(Array.isArray(parsed) ? parsed : []);
-    } catch (_) {
-      return new Set();
-    }
-  }
-
-  function saveReadSet(set) {
-    try {
-      localStorage.setItem(READ_KEY, JSON.stringify(Array.from(set).slice(-100)));
-    } catch (_) {}
-  }
-
-  function markRead(key) {
-    if (!key) return;
-    const set = getReadSet();
-    set.add(String(key));
-    saveReadSet(set);
-  }
-
   function escapeText(value) {
     const div = document.createElement("div");
     div.textContent = String(value ?? "");
