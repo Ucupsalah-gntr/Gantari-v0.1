@@ -1,0 +1,41 @@
+/* ============================================================
+   GANTARIKU — MONITORING SPP TABLE UX
+   Batasi tinggi tabel agar halaman tidak memanjang tanpa batas.
+   Scroll vertikal terjadi di dalam tabel, dengan header tetap.
+   ============================================================ */
+
+.spp-table-wrap {
+  max-height: 460px;
+  overflow-x: auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+}
+
+/* Header tetap terlihat saat tabel digulir ke bawah. */
+.spp-annual-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  background: var(--bg);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Kolom identitas tetap terkunci saat scroll horizontal. */
+.spp-annual-table th.spp-sticky-col,
+.spp-annual-table th.spp-class-col {
+  z-index: 8 !important;
+}
+
+/* Beri sedikit ruang di bawah konten agar scroll tidak terasa mentok. */
+.spp-table-wrap::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+@media (max-width: 768px) {
+  .spp-table-wrap {
+    max-height: 380px;
+  }
+}
