@@ -13,7 +13,7 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-gutter: stable;
   scrollbar-width: auto;
-  scrollbar-color: #B07A4F #F3ECE2;
+  scrollbar-color: #B07A4F #F3ECE2 !important;
 }
 
 .table-scroll:has(#daftarSiswa) table {
@@ -95,14 +95,14 @@
 }
 
 .table-scroll:has(#daftarSiswa)::-webkit-scrollbar-thumb {
-  background: #B07A4F;
+  background: #B07A4F !important;
   border: 2px solid #F3ECE2;
   border-radius: 999px;
   min-height: 42px;
 }
 
 .table-scroll:has(#daftarSiswa)::-webkit-scrollbar-thumb:hover {
-  background: #8C5E3B;
+  background: #8C5E3B !important;
 }
 
 .table-scroll:has(#daftarSiswa)::-webkit-scrollbar-corner {
