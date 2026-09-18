@@ -11,7 +11,7 @@ test.describe("Gantariku authentication flow", () => {
 
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
-    const email = page.locator('input[type="email"]').first();
+    const email = page.locator('#loginEmail').first();
     const password = page.locator('input[type="password"]').first();
 
     await expect(email).toBeVisible();
@@ -24,7 +24,7 @@ test.describe("Gantariku authentication flow", () => {
     await expect(submit).toBeVisible();
     await submit.click();
 
-    await expect(page.locator('input[type="email"]').first()).toBeVisible();
+    await expect(page.locator('#loginEmail').first()).toBeVisible();
     await expect(page.locator('input[type="password"]').first()).toBeVisible();
     expect(runtimeErrors).toEqual([]);
   });
