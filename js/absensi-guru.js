@@ -18,7 +18,7 @@
                   <option value="A">Alpa</option>
                 </select>
                 <button class="btn secondary" onclick="window.__app.loadAbsensiGuruAdmin()">Tampilkan</button>
-                <button class="btn secondary" onclick="window.__app.exportAbsensiGuruCsv()">⬇ Export CSV</button>
+                <button class="btn secondary" onclick="window.__app.exportAbsensiGuruCsv()">⬇ Export Excel</button>
               </div>
             </div>
             <div class="section-body">
