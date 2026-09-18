@@ -1,3 +1,25 @@
+function downloadXlsx(filename, rows) {
+  if (typeof XLSX === "undefined") {
+    return appNotify("Fitur Excel belum siap. Silakan muat ulang halaman.");
+  }
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet(rows);
+
+  worksheet["!cols"] = rows[0].map((_, i) => ({
+    wch: Math.min(
+      36,
+      Math.max(
+        12,
+        ...rows.slice(0, 100).map((row) => String(row[i] ?? "").length + 2)
+      )
+    )
+  }));
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+  XLSX.writeFile(workbook, filename);
+}
+
 function downloadCsv(filename, rows) {
   const csv = rows
     .map((row) =>
