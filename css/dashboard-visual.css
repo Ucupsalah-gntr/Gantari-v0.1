@@ -1,0 +1,101 @@
+/* ============================================================
+   GANTARIKU — DASHBOARD VISUAL DIRECTION
+   Visual-only layer; no data or business logic changes.
+   ============================================================ */
+
+.dash-welcome-pro{
+  min-height:220px;
+  padding:24px 34px !important;
+  border:1px solid rgba(232,225,214,.92);
+  background:
+    radial-gradient(circle at 78% 30%,rgba(255,205,43,.16),transparent 18%),
+    radial-gradient(circle at 92% 82%,rgba(168,215,177,.22),transparent 20%),
+    linear-gradient(135deg,#FFF5C9 0%,#FFFDF8 66%,#F4F8EF 100%) !important;
+}
+
+.dash-welcome-pro > div:first-child{max-width:58%;z-index:3}
+.dash-welcome-pro h2{font-size:24px;line-height:1.2;color:#354A62}
+.dash-welcome-pro p{color:#64748B;max-width:560px;line-height:1.65}
+
+.dash-welcome-illustration{
+  right:-6px;
+  bottom:-94px;
+  width:570px;
+  opacity:.98;
+  z-index:2;
+}
+.dash-welcome-illustration img{filter:drop-shadow(0 12px 22px rgba(88,72,52,.07))}
+
+.dash-welcome-pro::after{
+  content:"";
+  position:absolute;
+  width:170px;height:170px;
+  right:34%;bottom:-112px;
+  border-radius:50%;
+  background:rgba(255,255,255,.34);
+  z-index:1;
+  pointer-events:none;
+}
+
+/* warm visual rhythm for the summary cards */
+.dash-summary-pro .dash-mini{
+  position:relative;
+  overflow:hidden;
+  background:rgba(255,255,255,.96);
+  border-radius:18px;
+}
+.dash-summary-pro .dash-mini::after{
+  content:"";
+  position:absolute;
+  width:88px;height:88px;
+  right:-22px;bottom:-30px;
+  border-radius:50%;
+  background:rgba(168,215,177,.16);
+  pointer-events:none;
+}
+.dash-summary-pro .dash-mini-icon{
+  background:#FFF8E7;
+  border:1px solid rgba(255,205,43,.20);
+}
+
+/* gentle botanical corners without changing content */
+.dash-two-col-pro .section,
+.dash-class-table,
+#dashAktivitasBody{
+  position:relative;
+}
+
+/* dashboard table feels lighter like the reference */
+.dash-class-table .dash-table-scroll{
+  border-radius:14px;
+}
+.dash-class-table table{background:rgba(255,255,255,.55)}
+.dash-class-table th{
+  background:#FAF7EF;
+  color:#9A8D7D;
+}
+.dash-class-table td{color:#506176}
+
+/* quick actions */
+.dash-quick-card{
+  border-radius:16px !important;
+  background:#FFFDF9 !important;
+}
+.dash-quick-icon{
+  box-shadow:inset 0 0 0 1px rgba(169,123,80,.08);
+}
+
+/* mobile: keep the artwork present but never over text */
+@media(max-width:760px){
+  .dash-welcome-pro{min-height:245px;padding:18px 18px !important}
+  .dash-welcome-pro > div:first-child{max-width:72%}
+  .dash-welcome-pro h2{font-size:19px}
+  .dash-welcome-pro p{font-size:12px;max-width:430px}
+  .dash-welcome-illustration{right:-35px;bottom:-55px;width:355px;opacity:.62}
+}
+@media(max-width:520px){
+  .dash-welcome-pro{min-height:270px}
+  .dash-welcome-pro > div:first-child{max-width:100%;padding-right:42px}
+  .dash-welcome-pro p{max-width:300px}
+  .dash-welcome-illustration{right:-58px;bottom:-38px;width:285px;opacity:.42}
+}
