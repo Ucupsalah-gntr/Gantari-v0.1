@@ -84,7 +84,7 @@ function renderDasbor() {
       <div class="dash-mini dash-mini-action">
         <div class="dash-mini-top">
           <div class="dash-mini-label">Siswa aktif</div>
-          <span>👧</span>
+          <span class="dash-mini-icon"><svg aria-hidden="true"><use href="assets/gantariku-icons.svg#icon-child"></use></svg></span>
         </div>
 
         <div class="dash-mini-num" id="dashTotalSiswa">–</div>
@@ -105,7 +105,7 @@ function renderDasbor() {
       <div class="dash-mini">
         <div class="dash-mini-top">
           <div class="dash-mini-label">Kehadiran hari ini</div>
-          <span>🌼</span>
+          <span class="dash-mini-icon"><svg aria-hidden="true"><use href="assets/gantariku-icons.svg#icon-sunflower"></use></svg></span>
         </div>
 
         <div class="dash-mini-num" id="dashPersenHadir">–</div>
@@ -124,7 +124,7 @@ function renderDasbor() {
           <div class="dash-mini-label">
             Pemasukan ${namaBulan(bulan)}
           </div>
-          <span>💛</span>
+          <span class="dash-mini-icon"><svg aria-hidden="true"><use href="assets/gantariku-icons.svg#icon-heart"></use></svg></span>
         </div>
 
         <div class="dash-mini-num dash-money" id="dashPemasukan">
@@ -234,7 +234,7 @@ function renderDasbor() {
               class="dash-quick-card"
               onclick="window.__app.goTo('absen-guru')"
             >
-              <span class="dash-quick-icon">👩‍🏫</span>
+              <span class="dash-quick-icon"><svg aria-hidden="true"><use href="assets/gantariku-icons.svg#icon-teacher"></use></svg></span>
 
               <span>
                 <strong>Absensi guru</strong>
@@ -249,7 +249,7 @@ function renderDasbor() {
               class="dash-quick-card"
               onclick="window.__app.goTo('perkembangan')"
             >
-              <span class="dash-quick-icon">🌱</span>
+              <span class="dash-quick-icon"><svg aria-hidden="true"><use href="assets/gantariku-icons.svg#icon-leaf"></use></svg></span>
 
               <span>
                 <strong>Perkembangan anak</strong>
@@ -264,7 +264,7 @@ function renderDasbor() {
               class="dash-quick-card"
               onclick="window.__app.goTo('spp')"
             >
-              <span class="dash-quick-icon">💳</span>
+              <span class="dash-quick-icon"><svg aria-hidden="true"><use href="assets/gantariku-icons.svg#icon-card"></use></svg></span>
 
               <span>
                 <strong>Monitoring SPP</strong>
@@ -279,7 +279,7 @@ function renderDasbor() {
               class="dash-quick-card"
               onclick="window.__app.goTo('rekap')"
             >
-              <span class="dash-quick-icon">📊</span>
+              <span class="dash-quick-icon"><svg aria-hidden="true"><use href="assets/gantariku-icons.svg#icon-chart"></use></svg></span>
 
               <span>
                 <strong>Rekap absensi</strong>
