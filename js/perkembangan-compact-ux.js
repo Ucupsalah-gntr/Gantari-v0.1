@@ -223,35 +223,7 @@
     `;
   }
 
-  function renderGuruHistoryShell() {
-    const year = new Date().getFullYear();
-    const today = todayWIB();
-    return `
-      <div class="section gtr-perk-section">
-        <div class="section-head gtr-perk-head">
-          <div>
-            <h2>Penilaian Terakhir Saya</h2>
-            <div class="section-subtitle">Ringkasan per anak. Klik anak untuk melihat seluruh histori penilaiannya.</div>
-          </div>
-          <div class="perk-toolbar gtr-perk-toolbar">
-            <input class="perk-search" type="text" id="perkembanganGuruCari" placeholder="Cari nama siswa...">
-            <select id="perkembanganGuruBulan">
-              <option value="0">Semua bulan</option>
-              <option value="1">Januari</option><option value="2">Februari</option><option value="3">Maret</option>
-              <option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option>
-              <option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option>
-              <option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option>
-            </select>
-            <select id="perkembanganGuruTahun"><option value="${year}">${year}</option><option value="${year - 1}">${year - 1}</option></select>
-            <button class="btn secondary" onclick="window.__app.loadPerkembanganGuru()">Tampilkan</button>
-          </div>
-        </div>
-        <div class="section-body">
-          <div id="daftarPerkembanganGuru"><div class="perk-empty">Memuat data...</div></div>
-        </div>
-      </div>
-    `;
-  }
+
 
   async function fetchRecords(role) {
     let query = supabase
@@ -382,7 +354,6 @@
     window.renderPerkembanganAdmin = renderAdminShell;
     window.renderPerkembanganAdminCards = renderAdminCards;
     window.loadPerkembanganAdmin = loadAdmin;
-    window.renderPerkembanganInputHistory = renderGuruHistoryShell;
     window.loadPerkembanganGuru = loadGuru;
     window.changePerkPage = function (delta) {
       window.__gtrPerkAdminPage = Math.max(1, (Number(window.__gtrPerkAdminPage) || 1) + delta);
