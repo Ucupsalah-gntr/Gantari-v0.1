@@ -11,7 +11,7 @@ const viewports = [
 async function assertLoginShell(page) {
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await expect(page.locator("#app")).toBeVisible();
-  await expect(page.locator('input[type="email"]').first()).toBeVisible();
+  await expect(page.locator('#loginEmail').first()).toBeVisible();
   await expect(page.locator('input[type="password"]').first()).toBeVisible();
 }
 
@@ -43,7 +43,7 @@ test.describe("Gantariku responsive UX", () => {
     await page.setViewportSize({ width: 320, height: 800 });
     await assertLoginShell(page);
 
-    const email = page.locator('input[type="email"]').first();
+    const email = page.locator('#loginEmail').first();
     const password = page.locator('input[type="password"]').first();
     const submit = page.locator('button[type="submit"]').first();
 
