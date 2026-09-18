@@ -22,6 +22,39 @@
         --muted: #F3EEE5;
       }
 
+      /* ============================================================
+         GANTARIKU — GLOBAL SCROLLBAR
+         Standar visual untuk seluruh area yang dapat di-scroll.
+         ============================================================ */
+      html {
+        scrollbar-color: #B07A4F #F3ECE2;
+        scrollbar-width: auto;
+      }
+
+      *::-webkit-scrollbar {
+        width: 11px;
+        height: 11px;
+      }
+
+      *::-webkit-scrollbar-track {
+        background: #F3ECE2;
+        border-radius: 999px;
+      }
+
+      *::-webkit-scrollbar-thumb {
+        background: #B07A4F;
+        border: 2px solid #F3ECE2;
+        border-radius: 999px;
+      }
+
+      *::-webkit-scrollbar-thumb:hover {
+        background: #8C5E3B;
+      }
+
+      *::-webkit-scrollbar-corner {
+        background: #F3ECE2;
+      }
+
       * { box-sizing: border-box; }
 
       body {
