@@ -70,7 +70,13 @@ function renderDasbor() {
         </p>
       </div>
 
-      <div class="dash-welcome-mark" aria-hidden="true">🌻</div>
+      <div class="dash-welcome-illustration" aria-hidden="true">
+        <img
+          src="assets/illustration-dashboard.svg"
+          alt=""
+          loading="lazy"
+        >
+      </div>
     </div>
 
     <div class="dash-summary dash-summary-pro">
