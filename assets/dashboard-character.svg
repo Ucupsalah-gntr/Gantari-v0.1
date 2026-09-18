@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 720" role="img" aria-label="Ilustrasi anak menari dengan bunga matahari">
+<defs>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#6B5848" flood-opacity=".10"/></filter>
+</defs>
+<!-- soft foliage -->
+<g fill="#A8D7B1">
+ <path d="M34 650C12 592 26 544 76 514c15 55-1 101-42 136z"/>
+ <path d="M58 674c24-64 66-91 126-82-20 58-62 85-126 82z"/>
+ <path d="M365 686c-2-58 23-91 71-105 10 51-13 86-71 105z"/>
+ <path d="M339 706c16-54 50-76 100-65-13 47-47 69-100 65z"/>
+</g>
+<g fill="#75A77B">
+ <path d="M71 690c-8-40 7-65 44-76 6 37-9 61-44 76z"/>
+ <path d="M319 714c-1-37 18-59 54-64 4 34-14 56-54 64z"/>
+</g>
+<!-- flowers -->
+<g transform="translate(82 624)">
+ <g fill="#FFCD2B">
+  <ellipse cy="-38" rx="17" ry="33"/><ellipse cy="38" rx="17" ry="33"/>
+  <ellipse cx="-38" rx="33" ry="17"/><ellipse cx="38" rx="33" ry="17"/>
+  <ellipse transform="rotate(45)" cy="-38" rx="17" ry="33"/><ellipse transform="rotate(45)" cy="38" rx="17" ry="33"/>
+  <ellipse transform="rotate(-45)" cy="-38" rx="17" ry="33"/><ellipse transform="rotate(-45)" cy="38" rx="17" ry="33"/>
+ </g><circle r="28" fill="#A97B50"/><circle r="9" fill="#8C633F"/>
+</g>
+<g transform="translate(347 669) scale(.72)">
+ <g fill="#FFCD2B">
+  <ellipse cy="-38" rx="17" ry="33"/><ellipse cy="38" rx="17" ry="33"/>
+  <ellipse cx="-38" rx="33" ry="17"/><ellipse cx="38" rx="33" ry="17"/>
+  <ellipse transform="rotate(45)" cy="-38" rx="17" ry="33"/><ellipse transform="rotate(45)" cy="38" rx="17" ry="33"/>
+  <ellipse transform="rotate(-45)" cy="-38" rx="17" ry="33"/><ellipse transform="rotate(-45)" cy="38" rx="17" ry="33"/>
+ </g><circle r="28" fill="#A97B50"/>
+</g>
+<!-- dancing child -->
+<g filter="url(#shadow)">
+ <!-- skirt/body -->
+ <path d="M178 313c-42 29-58 82-50 141 7 52 38 90 87 91 51 2 87-34 94-86 8-60-13-115-55-146z" fill="#FFCD2B"/>
+ <path d="M174 338c26 22 55 31 82 31" fill="none" stroke="#F0B91D" stroke-width="6" opacity=".65"/>
+ <!-- neck -->
+ <path d="M204 287v35M233 287v35" stroke="#A97B50" stroke-width="16" stroke-linecap="round"/>
+ <!-- head -->
+ <circle cx="220" cy="239" r="57" fill="#B77F57"/>
+ <!-- hair -->
+ <path d="M165 234c-6-47 26-87 73-84 39 3 62 33 57 77-19-3-36-17-48-37-14 25-38 40-82 44z" fill="#4A3730"/>
+ <circle cx="273" cy="187" r="27" fill="#4A3730"/>
+ <!-- face -->
+ <circle cx="199" cy="238" r="6" fill="#FFFDF8"/><circle cx="240" cy="238" r="6" fill="#FFFDF8"/>
+ <circle cx="200" cy="238" r="2.5" fill="#4A3730"/><circle cx="240" cy="238" r="2.5" fill="#4A3730"/>
+ <path d="M202 260q18 17 37 0" fill="none" stroke="#FFFDF8" stroke-width="6" stroke-linecap="round"/>
+ <!-- sunflower hair clip -->
+ <g transform="translate(178 180) scale(.55)">
+  <g fill="#FFCD2B"><circle cy="-25" r="10"/><circle cy="25" r="10"/><circle cx="-25" r="10"/><circle cx="25" r="10"/><circle transform="rotate(45)" cy="-25" r="10"/><circle transform="rotate(45)" cy="25" r="10"/><circle transform="rotate(-45)" cy="-25" r="10"/><circle transform="rotate(-45)" cy="25" r="10"/></g><circle r="15" fill="#A97B50"/>
+ </g>
+ <!-- arms in dance pose -->
+ <path d="M181 328c-45-3-77-35-104-74" fill="none" stroke="#B77F57" stroke-width="18" stroke-linecap="round"/>
+ <path d="M258 325c42 9 76-13 105-48" fill="none" stroke="#B77F57" stroke-width="18" stroke-linecap="round"/>
+ <path d="M77 254c-10-5-19-12-26-21M363 278c9-7 17-16 21-26" fill="none" stroke="#B77F57" stroke-width="13" stroke-linecap="round"/>
+ <!-- legs -->
+ <path d="M192 531c-7 45-27 83-57 112M259 531c13 43 37 76 70 102" fill="none" stroke="#B77F57" stroke-width="17" stroke-linecap="round"/>
+ <path d="M135 643l-28 15M329 635l29 11" stroke="#B77F57" stroke-width="13" stroke-linecap="round"/>
+</g>
+<!-- petals -->
+<g fill="#FFCD2B" opacity=".78">
+ <path d="M30 410q22-21 44 0-22 23-44 0z"/><path d="M331 350q19-18 37 0-18 20-37 0z"/><path d="M288 85q17-16 33 0-16 18-33 0z"/>
+</g>
+<!-- leaves -->
+<g fill="#A8D7B1">
+ <path d="M36 466c-4-40 16-66 55-73 8 36-12 62-55 73z"/>
+ <path d="M350 408c17-39 47-55 84-45-14 36-42 51-84 45z"/>
+</g>
+</svg>
