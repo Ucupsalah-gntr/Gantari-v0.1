@@ -9,7 +9,11 @@
   max-height: 460px;
   overflow-x: auto;
   overflow-y: auto;
+  overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+  scrollbar-width: auto;
+  scrollbar-color: #B07A4F #F3ECE2;
 }
 
 .table-scroll:has(#daftarSiswa) table {
@@ -77,6 +81,32 @@
 .table-scroll:has(#daftarSiswa) th:last-child,
 .table-scroll:has(#daftarSiswa) td:last-child {
   min-width: 90px;
+}
+
+/* Scrollbar disamakan dengan Monitoring SPP: jelas, tipis, dan coklat. */
+.table-scroll:has(#daftarSiswa)::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+.table-scroll:has(#daftarSiswa)::-webkit-scrollbar-track {
+  background: #F3ECE2;
+  border-radius: 999px;
+}
+
+.table-scroll:has(#daftarSiswa)::-webkit-scrollbar-thumb {
+  background: #B07A4F;
+  border: 2px solid #F3ECE2;
+  border-radius: 999px;
+  min-height: 42px;
+}
+
+.table-scroll:has(#daftarSiswa)::-webkit-scrollbar-thumb:hover {
+  background: #8C5E3B;
+}
+
+.table-scroll:has(#daftarSiswa)::-webkit-scrollbar-corner {
+  background: #F3ECE2;
 }
 
 @media (max-width: 768px) {
