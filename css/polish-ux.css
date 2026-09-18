@@ -1,0 +1,368 @@
+/* ============================================================
+   GANTARIKU — UI / UX POLISH
+   Visual-only overrides.
+   Tidak mengubah alur, data, atau JavaScript aplikasi.
+   ============================================================ */
+
+:root {
+  --surface-soft: #FFFCF7;
+  --shadow-soft: 0 8px 24px rgba(58, 58, 60, .055);
+  --shadow-card: 0 10px 28px rgba(58, 58, 60, .065);
+}
+
+/* ---------- GLOBAL RHYTHM ---------- */
+
+body {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(255, 243, 201, .28), transparent 22%),
+    var(--bg);
+}
+
+.view {
+  padding-top: 10px;
+}
+
+.topbar {
+  padding-top: 22px;
+}
+
+.today-chip {
+  box-shadow: 0 4px 14px rgba(58, 58, 60, .045);
+}
+
+/* ---------- NAVIGATION ---------- */
+
+.nav-item {
+  position: relative;
+  transition:
+    background .18s ease,
+    color .18s ease,
+    transform .12s ease;
+}
+
+.nav-item:hover {
+  transform: translateX(1px);
+}
+
+.nav-item.active {
+  box-shadow: 0 6px 16px rgba(58, 58, 60, .09);
+}
+
+.nav-item.active::before {
+  content: "";
+  width: 3px;
+  height: 18px;
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: var(--primary);
+}
+
+/* ---------- BUTTONS ---------- */
+
+.btn {
+  min-height: 36px;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 7px rgba(58, 58, 60, .06);
+  transition:
+    background .18s ease,
+    color .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    transform .12s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 17px rgba(58, 58, 60, .09);
+}
+
+.btn.secondary {
+  border-color: rgba(169, 123, 80, .18);
+}
+
+.btn.ghost {
+  box-shadow: none;
+}
+
+.btn.ghost:hover {
+  background: var(--surface-soft);
+  border-color: #DCCFBE;
+  color: var(--ink);
+}
+
+.btn.small {
+  min-height: 32px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(169, 123, 80, .18);
+  outline-offset: 2px;
+}
+
+/* ---------- FORM CONTROLS ---------- */
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=date],
+input[type=number],
+select {
+  min-height: 38px;
+  box-shadow: 0 1px 3px rgba(58, 58, 60, .025);
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
+}
+
+input[type=text]:hover,
+input[type=email]:hover,
+input[type=password]:hover,
+input[type=date]:hover,
+input[type=number]:hover,
+select:hover {
+  border-color: #D8C9B7;
+}
+
+/* ---------- SECTIONS & STATS ---------- */
+
+.section {
+  border: 1px solid rgba(232, 225, 214, .92);
+  box-shadow: var(--shadow-soft);
+  transition:
+    box-shadow .18s ease,
+    border-color .18s ease;
+}
+
+.section:hover {
+  border-color: #E2D8CA;
+  box-shadow: var(--shadow-card);
+}
+
+.stat {
+  border: 1px solid rgba(232, 225, 214, .88);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    border-color .16s ease;
+}
+
+.stat:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  border-color: #E0D4C4;
+}
+
+.section-head {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 252, 247, .72),
+    rgba(255, 255, 255, .96)
+  );
+}
+
+/* ---------- TABLES ---------- */
+
+th {
+  background: rgba(250, 247, 239, .62);
+}
+
+tbody tr {
+  transition: background .14s ease;
+}
+
+tbody tr:hover {
+  background: #FFFDF9;
+}
+
+td,
+th {
+  vertical-align: middle;
+}
+
+/* ---------- DASHBOARD ---------- */
+
+.dash-welcome-pro {
+  box-shadow: var(--shadow-card);
+  background:
+    radial-gradient(circle at 96% 10%, rgba(255, 218, 106, .22), transparent 25%),
+    linear-gradient(135deg, var(--primary-soft) 0%, #fff 72%);
+}
+
+.dash-mini {
+  border: 1px solid rgba(232, 225, 214, .92);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease;
+}
+
+.dash-mini:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.dash-mini-top > span {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--primary-soft);
+}
+
+.dash-quick-card {
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    border-color .16s ease;
+}
+
+.dash-quick-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+  border-color: #DCCFBE;
+}
+
+/* ---------- CARDS USED ACROSS MODULES ---------- */
+
+.guru-card,
+.perk-card,
+.spp-summary-card {
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    border-color .16s ease;
+}
+
+.guru-card:hover,
+.perk-card:hover,
+.spp-summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  border-color: #DFD2C2;
+}
+
+/* ---------- NOTIFICATIONS ---------- */
+
+.notif-button {
+  box-shadow: 0 4px 12px rgba(58, 58, 60, .055);
+}
+
+.notif-panel {
+  border-color: #E1D7C9;
+  box-shadow: 0 20px 48px rgba(58, 58, 60, .16);
+  backdrop-filter: blur(6px);
+}
+
+.notif-payment {
+  border-radius: 10px;
+}
+
+.notif-payment:hover {
+  transform: translateX(2px);
+}
+
+/* ---------- SPP ---------- */
+
+.spp-annual-summary {
+  gap: 12px;
+}
+
+.spp-summary-card {
+  border-color: rgba(232, 225, 214, .92);
+}
+
+.spp-table-wrap {
+  box-shadow: inset 0 1px 0 rgba(232, 225, 214, .4);
+}
+
+/* ---------- EMPTY / LOADING ---------- */
+
+.empty {
+  border-radius: 12px;
+}
+
+.app-toast {
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 42px rgba(58,58,60,.18);
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 760px) {
+  .view {
+    padding-top: 6px;
+    padding-bottom: 32px;
+  }
+
+  .topbar {
+    padding-top: 16px;
+    padding-bottom: 12px;
+  }
+
+  .section {
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+
+  .section-head {
+    padding: 14px 16px;
+  }
+
+  .section-body {
+    padding: 15px 16px;
+  }
+
+  .stat {
+    padding: 14px 15px;
+  }
+
+  .btn {
+    min-height: 38px;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .controls > input,
+  .controls > select {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .section-head h2 {
+    font-size: 15px;
+  }
+
+  .today-chip {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dash-welcome-pro .dash-welcome-mark {
+    font-size: 46px;
+  }
+}
+
+/* Respect users who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
