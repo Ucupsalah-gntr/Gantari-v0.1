@@ -384,10 +384,10 @@ th {
   z-index: 1;
   right: -28px;
   bottom: -42px;
-  width: 370px;
+  width: 390px;
   margin: 0;
   pointer-events: none;
-  opacity: .20;
+  opacity: .30;
 }
 
 .dash-welcome-illustration img {
@@ -403,7 +403,7 @@ th {
     right: -30px;
     bottom: -28px;
     width: 270px;
-    opacity: .16;
+    opacity: .23;
   }
 }
 
@@ -412,7 +412,7 @@ th {
     right: -46px;
     bottom: -22px;
     width: 230px;
-    opacity: .13;
+    opacity: .19;
   }
 }
 
