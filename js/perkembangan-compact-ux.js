@@ -212,7 +212,7 @@
             </select>
             <select id="perkembanganAdminTahun"><option value="${year}">${year}</option><option value="${year - 1}">${year - 1}</option></select>
             <button class="btn secondary" onclick="window.__app.loadPerkembanganAdmin()">Tampilkan</button>
-            <button class="btn secondary" onclick="window.__app.exportPerkembanganCsv()">↓ Export CSV</button>
+            <button class="btn secondary" onclick="window.__app.exportPerkembanganCsv()">↓ Export Excel</button>
           </div>
         </div>
         <div class="section-body">
