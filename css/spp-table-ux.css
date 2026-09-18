@@ -11,6 +11,8 @@
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   scrollbar-gutter: stable;
+  scrollbar-width: auto;
+  scrollbar-color: #B07A4F #F3ECE2;
 }
 
 /* Header tetap terlihat saat tabel digulir ke bawah. */
@@ -28,10 +30,30 @@
   z-index: 8 !important;
 }
 
-/* Beri sedikit ruang di bawah konten agar scroll tidak terasa mentok. */
+/* Scrollbar dibuat jelas tetapi tetap lembut mengikuti visual Gantariku. */
 .spp-table-wrap::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
+}
+
+.spp-table-wrap::-webkit-scrollbar-track {
+  background: #F3ECE2;
+  border-radius: 999px;
+}
+
+.spp-table-wrap::-webkit-scrollbar-thumb {
+  background: #B07A4F;
+  border: 2px solid #F3ECE2;
+  border-radius: 999px;
+  min-height: 42px;
+}
+
+.spp-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: #8C5E3B;
+}
+
+.spp-table-wrap::-webkit-scrollbar-corner {
+  background: #F3ECE2;
 }
 
 @media (max-width: 768px) {
