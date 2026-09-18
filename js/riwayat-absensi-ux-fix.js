@@ -139,7 +139,7 @@
     const today = todayString();
     const action = isAdmin ? "loadRekapAbsensi" : "loadRiwayatAbsensi";
     const exportButton = isAdmin
-      ? '<button class="btn secondary" onclick="window.__app.exportRekapAbsensiCsv()">⬇ Export CSV</button>'
+      ? '<button class="btn secondary" onclick="window.__app.exportRekapAbsensiCsv()">⬇ Export Excel</button>'
       : "";
 
     return `
