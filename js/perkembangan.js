@@ -2055,8 +2055,8 @@ async function exportPerkembanganCsv() {
       : String(tahun);
 
 
-  downloadCsv(
-    `gantariku-perkembangan-${periode}.csv`,
+  downloadXlsx(
+    `gantariku-perkembangan-${periode}.xlsx`,
     rows
   );
 
