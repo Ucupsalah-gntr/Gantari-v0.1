@@ -12,7 +12,7 @@
                 <input type="date" id="rekapDari" value="${todayStr}">
                 <input type="date" id="rekapSampai" value="${todayStr}">
                 <button class="btn secondary" onclick="window.__app.loadRekapAbsensi()">Tampilkan</button>
-                <button class="btn secondary" onclick="window.__app.exportRekapAbsensiCsv()">⬇ Export CSV</button>
+                <button class="btn secondary" onclick="window.__app.exportRekapAbsensiCsv()">⬇ Export Excel</button>
               </div>
             </div>
             <div class="section-body">
