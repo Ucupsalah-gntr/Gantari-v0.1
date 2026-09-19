@@ -16,7 +16,7 @@
         // a wider "desktop site" CSS viewport.
         const isTouchMobile =
           /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-          (navigator.maxTouchPoints > 0 && window.innerWidth <= 1200);
+          (navigator.maxTouchPoints > 0 && window.innerWidth <= 760);
 
         document.documentElement.classList.toggle("gantariku-mobile-device", isTouchMobile);
         document.body.classList.toggle("gantariku-mobile-device", isTouchMobile);
