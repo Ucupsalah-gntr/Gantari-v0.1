@@ -128,8 +128,20 @@
 
 /* ---------- DESKTOP SIDEBAR DECORATION ---------- */
 @media (min-width:761px){
+  .app{
+    align-items:stretch;
+  }
+
   .sidebar{
-    position:relative;
+    width:246px !important;
+    min-width:246px !important;
+    height:100vh !important;
+    min-height:100vh !important;
+    flex:0 0 246px !important;
+    box-sizing:border-box !important;
+    position:sticky !important;
+    top:0 !important;
+    align-self:flex-start !important;
     overflow:hidden;
   }
 
