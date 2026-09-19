@@ -116,7 +116,7 @@ async function loadPerkembanganAnak() {
       <div class="ortu-perk-header">
         <div class="ortu-perk-heading">
           <span class="ortu-perk-heading-icon" aria-hidden="true">
-            <svg><use href="assets/gantariku-icons.svg#icon-child"></use></svg>
+            <img src="assets/icon-perkembangan-anak.png" alt="" aria-hidden="true">
           </span>
           <div>
           <h3 class="ortu-perk-title">${escapeHtml(anak.nama)}</h3>
@@ -127,7 +127,7 @@ async function loadPerkembanganAnak() {
         </div>
         <div class="ortu-perk-average">
           <span class="ortu-perk-average-icon" aria-hidden="true">
-            <svg><use href="assets/gantariku-icons.svg#icon-chart"></use></svg>
+            <img src="assets/icon-perkembangan-rata-rata.png" alt="" aria-hidden="true">
           </span>
           <span>Rata-rata ${avg}${avg !== "-" ? " / 5" : ""}</span>
         </div>
@@ -136,7 +136,7 @@ async function loadPerkembanganAnak() {
       <div class="perk-parent-summary">
         ${PERKEMBANGAN_ASPEK.map((aspek, index) => `
           <div class="perk-parent-aspect">
-            <span class="perk-aspect-icon" aria-hidden="true"><svg><use href="assets/gantariku-icons.svg#${["icon-child","icon-card","icon-heart","icon-clock","icon-sunflower"][index] || "icon-leaf"}"></use></svg></span>
+            <span class="perk-aspect-icon" aria-hidden="true"><img src="assets/${["icon-perkembangan-teknik.png","icon-perkembangan-hafalan.png","icon-perkembangan-ekspresi.png","icon-perkembangan-disiplin.png","icon-perkembangan-kepercayaan-diri.png"][index] || "icon-perkembangan-anak.png"}" alt="" aria-hidden="true"></span>
             <div class="name">${escapeHtml(aspek)}</div>
             <div class="score">${latest[aspek]?.nilai ? `${latest[aspek].nilai}/5` : "—"}</div>
           </div>
@@ -145,7 +145,7 @@ async function loadPerkembanganAnak() {
 
       <div class="perk-note">
         <div class="perk-note-heading">
-          <span class="perk-note-icon" aria-hidden="true"><svg><use href="assets/gantariku-icons.svg#icon-heart"></use></svg></span>
+          <span class="perk-note-icon" aria-hidden="true"><img src="assets/icon-perkembangan-catatan.png" alt="" aria-hidden="true"></span>
           <strong>Catatan pelatih</strong>
         </div>
         <div class="ortu-perk-note-text">${escapeHtml(note || "Belum ada catatan perkembangan untuk bulan ini.")}</div>
