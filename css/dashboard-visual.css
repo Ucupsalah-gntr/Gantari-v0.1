@@ -159,14 +159,166 @@
 
 /* ============================================================
    MOBILE
-   Use both viewport media and the JS device class.
-   This avoids Chrome/mobile viewport quirks.
    ============================================================ */
 
-@media (max-width:900px),
-       (max-width:900px) and (pointer:coarse),
-       .gantariku-mobile-device{
+.gantariku-mobile-device .app,
+.gantariku-mobile-device .content{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
 
+.gantariku-mobile-device .app{
+  display:flex !important;
+  flex-direction:column !important;
+  min-height:100vh !important;
+}
+
+.gantariku-mobile-device .sidebar{
+  width:100% !important;
+  height:64px !important;
+  min-height:64px !important;
+  flex:0 0 64px !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  padding:6px 12px !important;
+  position:relative !important;
+  z-index:1000 !important;
+  overflow:visible !important;
+}
+
+.gantariku-mobile-device .sidebar::after{
+  display:none !important;
+}
+
+.gantariku-mobile-device .brand{
+  min-height:0 !important;
+  width:auto !important;
+  height:52px !important;
+  margin:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  flex:1 1 auto !important;
+}
+
+.gantariku-mobile-device .brand-logo{
+  width:110px !important;
+  max-width:110px !important;
+  height:auto !important;
+  padding:5px 6px !important;
+  border-radius:11px !important;
+}
+
+.gantariku-mobile-device .mobile-menu-btn{
+  display:flex !important;
+  width:40px !important;
+  height:40px !important;
+  min-width:40px !important;
+  flex:0 0 40px !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border-radius:11px !important;
+  font-size:20px !important;
+  line-height:1 !important;
+  background:rgba(255,255,255,.13) !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  color:#fff !important;
+}
+
+.gantariku-mobile-device .sidebar-menu{
+  display:none !important;
+  position:absolute !important;
+  top:64px !important;
+  left:0 !important;
+  right:0 !important;
+  width:100% !important;
+  max-height:calc(100vh - 64px) !important;
+  overflow-y:auto !important;
+  box-sizing:border-box !important;
+  padding:14px 16px 18px !important;
+  background:linear-gradient(180deg,#403A37 0%,#7B573B 100%) !important;
+  box-shadow:0 16px 34px rgba(40,30,24,.28) !important;
+}
+
+.gantariku-mobile-device .sidebar.mobile-open .sidebar-menu{
+  display:flex !important;
+}
+
+.gantariku-mobile-device .topbar,
+.gantariku-mobile-device .view{
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+}
+
+.gantariku-mobile-device .dash-welcome-pro{
+  min-height:230px !important;
+  padding:18px 18px 112px !important;
+  border-radius:18px !important;
+}
+
+.gantariku-mobile-device .dash-welcome-pro > div:first-child{
+  max-width:100% !important;
+}
+
+.gantariku-mobile-device .dash-welcome-pro h2{
+  font-size:19px !important;
+  line-height:1.22 !important;
+  max-width:290px !important;
+}
+
+.gantariku-mobile-device .dash-welcome-pro p{
+  font-size:12px !important;
+  line-height:1.5 !important;
+  max-width:310px !important;
+}
+
+.gantariku-mobile-device .dash-welcome-illustration{
+  width:100% !important;
+  right:0 !important;
+  bottom:0 !important;
+}
+
+.gantariku-mobile-device .dash-welcome-illustration img{
+  width:100% !important;
+  max-height:none !important;
+}
+
+.gantariku-mobile-device .dash-welcome-pro::after{
+  width:100% !important;
+  height:62% !important;
+  top:0 !important;
+  bottom:auto !important;
+  background:linear-gradient(180deg,
+    rgba(255,253,248,.97) 0%,
+    rgba(255,253,248,.86) 62%,
+    rgba(255,253,248,0) 100%) !important;
+}
+
+.gantariku-mobile-device .dash-summary-pro{
+  grid-template-columns:1fr !important;
+}
+
+.gantariku-mobile-device .dash-summary-pro .dash-mini{
+  min-height:auto !important;
+}
+
+.gantariku-mobile-device .dash-two-col-pro{
+  grid-template-columns:1fr !important;
+}
+
+.gantariku-mobile-device .stat-row-pro{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+}
+
+/* Same layout for browsers that expose a normal mobile viewport. */
+@media (max-width:900px){
   .app{
     display:flex !important;
     flex-direction:column !important;
@@ -184,33 +336,25 @@
     flex-direction:row !important;
     align-items:center !important;
     justify-content:space-between !important;
-    gap:10px !important;
     padding:6px 12px !important;
     position:relative !important;
     z-index:1000 !important;
     overflow:visible !important;
   }
 
-  .sidebar::after{
-    display:none !important;
-  }
+  .sidebar::after{display:none !important}
 
   .brand{
     min-height:0 !important;
-    width:auto !important;
     height:52px !important;
     margin:0 !important;
     padding:0 !important;
-    display:flex !important;
-    align-items:center !important;
-    justify-content:flex-start !important;
     flex:1 1 auto !important;
   }
 
   .brand-logo{
     width:110px !important;
     max-width:110px !important;
-    height:auto !important;
     padding:5px 6px !important;
     border-radius:11px !important;
   }
@@ -220,15 +364,8 @@
     width:40px !important;
     height:40px !important;
     min-width:40px !important;
-    flex:0 0 40px !important;
     align-items:center !important;
     justify-content:center !important;
-    border-radius:11px !important;
-    font-size:20px !important;
-    line-height:1 !important;
-    background:rgba(255,255,255,.13) !important;
-    border:1px solid rgba(255,255,255,.18) !important;
-    color:#fff !important;
   }
 
   .sidebar-menu{
@@ -243,23 +380,16 @@
     box-sizing:border-box !important;
     padding:14px 16px 18px !important;
     background:linear-gradient(180deg,#403A37 0%,#7B573B 100%) !important;
-    box-shadow:0 16px 34px rgba(40,30,24,.28) !important;
+    z-index:1100 !important;
   }
 
-  .sidebar.mobile-open .sidebar-menu{
-    display:flex !important;
-  }
+  .sidebar.mobile-open .sidebar-menu{display:flex !important}
 
-  .content{
-    width:100% !important;
-    min-width:0 !important;
-    max-width:none !important;
-    flex:1 1 auto !important;
-  }
-
+  .content,
   .topbar,
   .view{
     width:100% !important;
+    min-width:0 !important;
     max-width:none !important;
     box-sizing:border-box !important;
   }
@@ -267,24 +397,9 @@
   .dash-welcome-pro{
     min-height:230px !important;
     padding:18px 18px 112px !important;
-    border-radius:18px !important;
   }
 
-  .dash-welcome-pro > div:first-child{
-    max-width:100% !important;
-  }
-
-  .dash-welcome-pro h2{
-    font-size:19px !important;
-    line-height:1.22 !important;
-    max-width:290px !important;
-  }
-
-  .dash-welcome-pro p{
-    font-size:12px !important;
-    line-height:1.5 !important;
-    max-width:310px !important;
-  }
+  .dash-welcome-pro > div:first-child{max-width:100% !important}
 
   .dash-welcome-illustration{
     width:100% !important;
@@ -297,32 +412,9 @@
     max-height:none !important;
   }
 
-  .dash-welcome-pro::after{
-    width:100% !important;
-    height:62% !important;
-    top:0 !important;
-    bottom:auto !important;
-    background:linear-gradient(180deg,
-      rgba(255,253,248,.97) 0%,
-      rgba(255,253,248,.86) 62%,
-      rgba(255,253,248,0) 100%) !important;
-  }
-
-  .dash-summary-pro{
-    grid-template-columns:1fr !important;
-  }
-
-  .dash-summary-pro .dash-mini{
-    min-height:auto !important;
-  }
-
-  .dash-two-col-pro{
-    grid-template-columns:1fr !important;
-  }
-
-  .stat-row-pro{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-  }
+  .dash-summary-pro{grid-template-columns:1fr !important}
+  .dash-two-col-pro{grid-template-columns:1fr !important}
+  .stat-row-pro{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
 }
 
 /* Very narrow phones */
