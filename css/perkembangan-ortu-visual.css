@@ -56,42 +56,6 @@
     linear-gradient(135deg,#FFF9E9,#FFFDF9 72%,#F5F9F2);
 }
 
-.ortu-perk-header{
-  position:relative;
-  overflow:hidden;
-  min-height:118px;
-}
-.ortu-perk-header::after{
-  content:"";
-  position:absolute;
-  right:-18px;
-  bottom:-20px;
-  width:180px;
-  height:110px;
-  background:url("../assets/gantariku-decoration-elements.png") right bottom / contain no-repeat;
-  opacity:.34;
-  pointer-events:none;
-}
-.ortu-perk-header-art{
-  position:absolute;
-  right:112px;
-  bottom:-2px;
-  width:92px;
-  z-index:1;
-  pointer-events:none;
-}
-.ortu-perk-header-art img{
-  display:block;
-  width:100%;
-  height:auto;
-  object-fit:contain;
-}
-.ortu-perk-heading,
-.ortu-perk-average{
-  position:relative;
-  z-index:2;
-}
-
 .ortu-perk-title,
 .ortu-perk-history-title{
   margin:0;
@@ -250,19 +214,6 @@
 }
 
 @media (max-width:760px){
-  .ortu-perk-header-art{
-    width:68px;
-    right:8px;
-    bottom:-3px;
-    opacity:.92;
-  }
-  .ortu-perk-header::after{
-    width:135px;
-    height:85px;
-    right:-14px;
-    bottom:-18px;
-    opacity:.28;
-  }
 
   .ortu-perk-header{
     padding:14px;
