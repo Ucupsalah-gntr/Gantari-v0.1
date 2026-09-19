@@ -114,9 +114,6 @@ async function loadPerkembanganAnak() {
 
     body.innerHTML = `
       <div class="ortu-perk-header">
-        <div class="ortu-perk-header-art" aria-hidden="true">
-          <img src="assets/illustration-empty-state.png" alt="" aria-hidden="true" loading="lazy">
-        </div>
         <div class="ortu-perk-heading">
           <span class="ortu-perk-heading-icon" aria-hidden="true">
             <img src="assets/icon-perkembangan-anak.png" alt="" aria-hidden="true">
