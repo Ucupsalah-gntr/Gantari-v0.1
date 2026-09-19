@@ -134,9 +134,9 @@ async function loadPerkembanganAnak() {
       </div>
 
       <div class="perk-parent-summary">
-        ${PERKEMBANGAN_ASPEK.map((aspek) => `
+        ${PERKEMBANGAN_ASPEK.map((aspek, index) => `
           <div class="perk-parent-aspect">
-            <span class="perk-aspect-icon" aria-hidden="true"><svg><use href="assets/gantariku-icons.svg#icon-child"></use></svg></span>
+            <span class="perk-aspect-icon" aria-hidden="true"><svg><use href="assets/gantariku-icons.svg#${["icon-child","icon-card","icon-heart","icon-clock","icon-sunflower"][index] || "icon-leaf"}"></use></svg></span>
             <div class="name">${escapeHtml(aspek)}</div>
             <div class="score">${latest[aspek]?.nilai ? `${latest[aspek].nilai}/5` : "—"}</div>
           </div>
