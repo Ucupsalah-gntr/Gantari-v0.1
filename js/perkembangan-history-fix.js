@@ -114,18 +114,29 @@ async function loadPerkembanganAnak() {
 
     body.innerHTML = `
       <div class="ortu-perk-header">
-        <div>
+        <div class="ortu-perk-heading">
+          <span class="ortu-perk-heading-icon" aria-hidden="true">
+            <svg><use href="assets/gantariku-icons.svg#icon-child"></use></svg>
+          </span>
+          <div>
           <h3 class="ortu-perk-title">${escapeHtml(anak.nama)}</h3>
           <div class="form-help">
             ${escapeHtml(anak.kelas || "Tanpa kelas")} · ${escapeHtml(namaBulan(bulan))} ${tahun}
           </div>
         </div>
-        <div class="badge badge-good">Rata-rata ${avg}${avg !== "-" ? " / 5" : ""}</div>
+        </div>
+        <div class="ortu-perk-average">
+          <span class="ortu-perk-average-icon" aria-hidden="true">
+            <svg><use href="assets/gantariku-icons.svg#icon-chart"></use></svg>
+          </span>
+          <span>Rata-rata ${avg}${avg !== "-" ? " / 5" : ""}</span>
+        </div>
       </div>
 
       <div class="perk-parent-summary">
         ${PERKEMBANGAN_ASPEK.map((aspek) => `
           <div class="perk-parent-aspect">
+            <span class="perk-aspect-icon" aria-hidden="true"><svg><use href="assets/gantariku-icons.svg#icon-child"></use></svg></span>
             <div class="name">${escapeHtml(aspek)}</div>
             <div class="score">${latest[aspek]?.nilai ? `${latest[aspek].nilai}/5` : "—"}</div>
           </div>
@@ -133,7 +144,10 @@ async function loadPerkembanganAnak() {
       </div>
 
       <div class="perk-note">
-        <strong>Catatan pelatih</strong>
+        <div class="perk-note-heading">
+          <span class="perk-note-icon" aria-hidden="true"><svg><use href="assets/gantariku-icons.svg#icon-heart"></use></svg></span>
+          <strong>Catatan pelatih</strong>
+        </div>
         <div class="ortu-perk-note-text">${escapeHtml(note || "Belum ada catatan perkembangan untuk bulan ini.")}</div>
         ${date ? `<div class="perk-date">${escapeHtml(namaBulan(bulan))} ${tahun} · ${escapeHtml(guru)}</div>` : ""}
       </div>
