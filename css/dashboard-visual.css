@@ -1,39 +1,76 @@
 /* ============================================================
-   GANTARIKU — DASHBOARD VISUAL DIRECTION
-   Visual-only layer; no data or business logic changes.
+   GANTARIKU — DASHBOARD VISUAL LAYER
+   Visual-only. Uses the approved Gantari artwork assets.
+   Mobile-safe: artwork never controls page layout.
    ============================================================ */
 
 .dash-welcome-pro{
-  min-height:220px;
-  padding:24px 34px !important;
+  position:relative;
+  overflow:hidden;
+  min-height:236px;
+  padding:26px 34px !important;
   border:1px solid rgba(232,225,214,.92);
+  border-radius:22px !important;
   background:
-    url("../assets/dashboard-character.svg") no-repeat right -10px bottom -160px / 300px auto,
-    radial-gradient(circle at 78% 30%,rgba(255,205,43,.16),transparent 18%),
-    radial-gradient(circle at 92% 82%,rgba(168,215,177,.22),transparent 20%),
-    linear-gradient(135deg,#FFF5C9 0%,#FFFDF8 66%,#F4F8EF 100%) !important;
+    radial-gradient(circle at 88% 24%,rgba(255,205,43,.14),transparent 20%),
+    linear-gradient(135deg,#FFF5C9 0%,#FFFDF8 68%,#F4F8EF 100%) !important;
+  box-shadow:0 10px 28px rgba(58,58,60,.065);
 }
 
-.dash-welcome-pro > div:first-child{max-width:58%;z-index:3}
-.dash-welcome-pro h2{font-size:24px;line-height:1.2;color:#354A62}
-.dash-welcome-pro p{color:#64748B;max-width:560px;line-height:1.65}
+.dash-welcome-pro > div:first-child{
+  position:relative;
+  z-index:3;
+  max-width:55%;
+}
 
+.dash-welcome-pro h2{
+  font-size:24px;
+  line-height:1.2;
+  color:#354A62;
+}
+
+.dash-welcome-pro p{
+  color:#64748B;
+  max-width:520px;
+  line-height:1.65;
+}
+
+/* Approved dashboard artwork */
 .dash-welcome-illustration{
-  display:none !important;
+  position:absolute;
+  z-index:1;
+  right:-2px;
+  bottom:-2px;
+  width:min(68%,760px);
+  margin:0;
+  pointer-events:none;
+  opacity:1;
 }
 
+.dash-welcome-illustration img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:232px;
+  object-fit:contain;
+  object-position:right bottom;
+}
+
+/* soft veil keeps text readable without altering the artwork */
 .dash-welcome-pro::after{
   content:"";
   position:absolute;
-  width:170px;height:170px;
-  right:34%;bottom:-112px;
-  border-radius:50%;
-  background:rgba(255,255,255,.34);
-  z-index:1;
+  inset:0 auto 0 0;
+  width:58%;
+  z-index:2;
   pointer-events:none;
+  background:linear-gradient(90deg,
+    rgba(255,253,248,.94) 0%,
+    rgba(255,253,248,.72) 58%,
+    rgba(255,253,248,0) 100%);
 }
 
-/* warm visual rhythm for the summary cards */
+/* Summary cards */
 .dash-summary-pro .dash-mini{
   position:relative;
   overflow:hidden;
@@ -43,8 +80,10 @@
 .dash-summary-pro .dash-mini::after{
   content:"";
   position:absolute;
-  width:88px;height:88px;
-  right:-22px;bottom:-30px;
+  width:88px;
+  height:88px;
+  right:-22px;
+  bottom:-30px;
   border-radius:50%;
   background:rgba(168,215,177,.16);
   pointer-events:none;
@@ -54,25 +93,16 @@
   border:1px solid rgba(255,205,43,.20);
 }
 
-/* soft botanical visual language on the lower dashboard */
+/* Tables and lower dashboard */
 .dash-two-col-pro .section,
 .dash-class-table,
-#dashAktivitasBody{
-  position:relative;
-}
+#dashAktivitasBody{position:relative}
 
-/* dashboard table feels lighter like the reference */
-.dash-class-table .dash-table-scroll{
-  border-radius:14px;
-}
+.dash-class-table .dash-table-scroll{border-radius:14px}
 .dash-class-table table{background:rgba(255,255,255,.55)}
-.dash-class-table th{
-  background:#FAF7EF;
-  color:#9A8D7D;
-}
+.dash-class-table th{background:#FAF7EF;color:#9A8D7D}
 .dash-class-table td{color:#506176}
 
-/* quick actions */
 .dash-quick-card{
   border-radius:16px !important;
   background:#FFFDF9 !important;
@@ -81,45 +111,109 @@
   box-shadow:inset 0 0 0 1px rgba(169,123,80,.08);
 }
 
-/* sidebar becomes part of the illustration system */
-.sidebar{
-  position:relative;
-  overflow:hidden;
+/* Floral sidebar artwork — desktop only */
+@media (min-width:761px){
+  .sidebar{
+    position:relative;
+    overflow:hidden;
+  }
+  .sidebar::after{
+    content:"";
+    position:absolute;
+    left:-18px;
+    right:-18px;
+    bottom:-18px;
+    height:310px;
+    background:url("../assets/illustration-sidebar-floral.png") no-repeat left bottom / 205px auto;
+    opacity:.9;
+    pointer-events:none;
+    z-index:0;
+  }
+  .sidebar > *{position:relative;z-index:1}
+  .sidebar-menu{position:relative;z-index:2}
 }
-.sidebar::after{
-  content:"";
-  position:absolute;
-  left:-18px;
-  right:-18px;
-  bottom:-18px;
-  height:285px;
-  background:url("../assets/dashboard-sidebar-floral.svg") no-repeat left bottom / 210px auto;
-  opacity:.92;
-  pointer-events:none;
-  z-index:0;
-}
-.sidebar > *{position:relative;z-index:1}
-.sidebar-menu{position:relative;z-index:2}
 
-/* mobile: keep the artwork present but never over text */
-@media(max-width:760px){
+/* MOBILE — no permanent sidebar, no artwork over text */
+@media (max-width:760px){
   .dash-welcome-pro{
-    min-height:245px;
-    padding:18px 18px !important;
-    background-size:245px auto,auto,auto,auto;
-    background-position:right -16px bottom -125px,center,center,center;
+    min-height:255px;
+    padding:18px 18px 138px !important;
+    border-radius:18px !important;
   }
-  .dash-welcome-pro > div:first-child{max-width:72%}
-  .dash-welcome-pro h2{font-size:19px}
-  .dash-welcome-pro p{font-size:12px;max-width:430px}
-  .sidebar::after{height:180px;background-size:145px auto;opacity:.55}
+
+  .dash-welcome-pro > div:first-child{
+    max-width:100%;
+    position:relative;
+    z-index:4;
+  }
+
+  .dash-welcome-pro h2{
+    font-size:19px;
+    line-height:1.22;
+    max-width:280px;
+  }
+
+  .dash-welcome-pro p{
+    font-size:12px;
+    line-height:1.55;
+    max-width:310px;
+  }
+
+  .dash-welcome-illustration{
+    right:-12px;
+    bottom:-4px;
+    width:108%;
+    max-width:none;
+    z-index:1;
+  }
+
+  .dash-welcome-illustration img{
+    width:100%;
+    max-height:none;
+    object-position:center bottom;
+  }
+
+  .dash-welcome-pro::after{
+    width:100%;
+    height:58%;
+    top:0;
+    bottom:auto;
+    background:linear-gradient(180deg,
+      rgba(255,253,248,.97) 0%,
+      rgba(255,253,248,.88) 58%,
+      rgba(255,253,248,0) 100%);
+  }
+
+  /* The sidebar is already a mobile drawer in style.css.
+     Never add decorative artwork to that drawer. */
+  .sidebar::after{display:none !important}
+
+  .dash-summary-pro{
+    grid-template-columns:1fr !important;
+  }
+
+  .dash-summary-pro .dash-mini{
+    min-height:auto !important;
+  }
 }
-@media(max-width:520px){
+
+@media (max-width:520px){
   .dash-welcome-pro{
-    min-height:270px;
-    background-size:205px auto,auto,auto,auto;
-    background-position:right -28px bottom -98px,center,center,center;
+    min-height:250px;
+    padding:16px 16px 126px !important;
   }
-  .dash-welcome-pro > div:first-child{max-width:100%;padding-right:42px}
-  .dash-welcome-pro p{max-width:300px}
+
+  .dash-welcome-pro h2{
+    font-size:18px;
+    max-width:260px;
+  }
+
+  .dash-welcome-pro p{
+    max-width:285px;
+  }
+
+  .dash-welcome-illustration{
+    width:120%;
+    right:-32px;
+  }
 }
