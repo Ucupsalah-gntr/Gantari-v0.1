@@ -217,3 +217,142 @@
     right:-32px;
   }
 }
+
+
+/* ============================================================
+   GANTARIKU — PHONE/TABLET SAFETY OVERRIDE
+   The real Android viewport can report >760 CSS px.
+   Treat <=900px as compact navigation so the sidebar never
+   squeezes the dashboard into a narrow desktop column.
+   ============================================================ */
+
+@media (max-width:900px){
+  .app{
+    display:flex !important;
+    flex-direction:column !important;
+    min-height:100vh !important;
+    width:100% !important;
+  }
+
+  .sidebar{
+    width:100% !important;
+    height:72px !important;
+    min-height:72px !important;
+    flex:0 0 72px !important;
+    box-sizing:border-box !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:10px !important;
+    padding:10px 14px !important;
+    position:relative !important;
+    z-index:100 !important;
+    overflow:visible !important;
+  }
+
+  .brand{
+    min-height:0 !important;
+    height:52px !important;
+    margin:0 !important;
+    padding:0 !important;
+    justify-content:flex-start !important;
+    flex:1 1 auto !important;
+  }
+
+  .brand-logo{
+    width:142px !important;
+    max-width:142px !important;
+    padding:7px 9px !important;
+    border-radius:13px !important;
+  }
+
+  .mobile-menu-btn{
+    display:flex !important;
+    width:42px !important;
+    height:42px !important;
+    flex:0 0 42px !important;
+    border-radius:12px !important;
+    font-size:21px !important;
+    background:rgba(255,255,255,.14) !important;
+    border:1px solid rgba(255,255,255,.16) !important;
+  }
+
+  .sidebar-menu{
+    display:none !important;
+    position:absolute !important;
+    top:72px !important;
+    left:0 !important;
+    right:0 !important;
+    width:auto !important;
+    max-height:calc(100vh - 72px) !important;
+    overflow-y:auto !important;
+    padding:14px 16px 18px !important;
+    background:linear-gradient(180deg,#4A403A 0%,#7B573B 100%) !important;
+    box-shadow:0 16px 34px rgba(40,30,24,.28) !important;
+    z-index:110 !important;
+    box-sizing:border-box !important;
+  }
+
+  .sidebar.mobile-open .sidebar-menu{
+    display:flex !important;
+  }
+
+  .sidebar::after{
+    display:none !important;
+  }
+
+  .content{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    flex:1 1 auto !important;
+  }
+
+  .topbar,
+  .view{
+    width:100% !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+  }
+
+  .dash-welcome-pro{
+    min-height:270px !important;
+    padding:20px 20px 142px !important;
+  }
+
+  .dash-welcome-pro > div:first-child{
+    max-width:100% !important;
+  }
+
+  .dash-welcome-illustration{
+    width:108% !important;
+    right:-10px !important;
+    bottom:-3px !important;
+  }
+}
+
+@media (max-width:520px){
+  .sidebar{
+    height:68px !important;
+    min-height:68px !important;
+    flex-basis:68px !important;
+  }
+
+  .sidebar-menu{
+    top:68px !important;
+  }
+
+  .dash-welcome-pro{
+    min-height:258px !important;
+    padding:17px 17px 128px !important;
+  }
+
+  .dash-welcome-pro h2{
+    font-size:19px !important;
+  }
+
+  .dash-welcome-illustration{
+    width:118% !important;
+    right:-28px !important;
+  }
+}
