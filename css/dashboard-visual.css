@@ -796,3 +796,297 @@
     margin-top:9px;
   }
 }
+
+
+/* ============================================================
+   GANTARIKU — DASHBOARD FINISHING
+   Kondisi Kelas + Aktivitas Terbaru
+   Visual only — no data/logic changes.
+   ============================================================ */
+
+.dash-class-table{
+  overflow:hidden;
+  border-radius:16px;
+  border:1px solid #ECE3D8;
+  background:#FFFDF9;
+}
+
+.dash-class-table .dash-table-scroll{
+  border:0;
+  border-radius:16px;
+  background:transparent;
+}
+
+.dash-class-table table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  background:transparent;
+}
+
+.dash-class-table th{
+  padding:12px 14px;
+  border-bottom:1px solid #EDE4D9;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.dash-class-table td{
+  padding:12px 14px;
+  border-bottom:1px solid #F0E9E1;
+  font-size:11px;
+  vertical-align:middle;
+}
+
+.dash-class-table tbody tr:last-child td{
+  border-bottom:0;
+}
+
+.dash-class-table tbody tr{
+  transition:background .18s ease;
+}
+
+.dash-class-table tbody tr:hover{
+  background:#FFFAF1;
+}
+
+.dash-class-name{
+  color:#4E6073;
+  font-weight:800;
+  line-height:1.3;
+}
+
+.dash-class-sub{
+  margin-top:3px;
+  color:#A39A90;
+  font-size:9px;
+}
+
+.dash-class-table td.num{
+  color:#617184;
+  font-weight:700;
+  text-align:right;
+}
+
+.dash-score{
+  display:inline-flex;
+  min-width:43px;
+  justify-content:center;
+  align-items:center;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
+  line-height:1;
+}
+
+.dash-score-good{
+  background:#EDF7EE;
+  color:#5D8A64;
+  border:1px solid #D9EAD9;
+}
+
+.dash-score-warn{
+  background:#FFF7DF;
+  color:#A07A3E;
+  border:1px solid #F0DFB1;
+}
+
+.dash-score-bad{
+  background:#FFF0EA;
+  color:#A46B58;
+  border:1px solid #F0D8CC;
+}
+
+/* ---------- AKTIVITAS ---------- */
+
+#dashAktivitasBody{
+  border:1px solid #ECE3D8;
+  border-radius:16px;
+  background:#FFFDF9;
+  overflow:hidden;
+}
+
+#dashAktivitasBody > .empty{
+  margin:0;
+  padding:24px 16px;
+  border:0;
+  background:transparent;
+}
+
+.dash-activity-list{
+  display:flex;
+  flex-direction:column;
+}
+
+.dash-activity-item{
+  width:100%;
+  display:grid;
+  grid-template-columns:38px minmax(0,1fr) auto;
+  align-items:center;
+  gap:11px;
+  padding:12px 14px;
+  border:0;
+  border-bottom:1px solid #F0E9E1;
+  background:transparent;
+  text-align:left;
+  cursor:pointer;
+  transition:background .18s ease, transform .18s ease;
+}
+
+.dash-activity-item:last-child{
+  border-bottom:0;
+}
+
+.dash-activity-item:hover{
+  background:#FFFAF1;
+}
+
+.dash-activity-item:focus-visible{
+  outline:2px solid rgba(161,111,73,.28);
+  outline-offset:-2px;
+}
+
+.dash-activity-icon{
+  width:38px;
+  height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  background:#FFF4D5;
+  color:#9A704C;
+  border:1px solid rgba(255,205,43,.20);
+  font-size:15px;
+  font-weight:900;
+}
+
+.dash-activity-main{
+  min-width:0;
+}
+
+.dash-activity-main strong{
+  display:block;
+  overflow:hidden;
+  color:#536273;
+  font-size:11px;
+  font-weight:800;
+  line-height:1.35;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.dash-activity-main small{
+  display:block;
+  margin-top:3px;
+  overflow:hidden;
+  color:#9A9289;
+  font-size:9px;
+  line-height:1.4;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.dash-activity-side{
+  min-width:104px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
+}
+
+.dash-status-pill{
+  display:inline-flex;
+  max-width:130px;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:9px;
+  font-weight:800;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.dash-status-pill.good{
+  background:#EDF7EE;
+  color:#5D8A64;
+  border:1px solid #D9EAD9;
+}
+
+.dash-status-pill.warn{
+  background:#FFF7DF;
+  color:#A07A3E;
+  border:1px solid #F0DFB1;
+}
+
+.dash-status-pill.bad{
+  background:#FFF0EA;
+  color:#A46B58;
+  border:1px solid #F0D8CC;
+}
+
+.dash-activity-side small{
+  color:#A39A90;
+  font-size:8px;
+  white-space:nowrap;
+}
+
+@media (max-width:760px){
+  .dash-class-table{
+    border-radius:14px;
+  }
+
+  .dash-class-table .dash-table-scroll{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .dash-class-table table{
+    min-width:650px;
+  }
+
+  .dash-class-table th,
+  .dash-class-table td{
+    padding:10px 11px;
+  }
+
+  #dashAktivitasBody{
+    border-radius:14px;
+  }
+
+  .dash-activity-item{
+    grid-template-columns:36px minmax(0,1fr);
+    gap:10px;
+    padding:11px 12px;
+  }
+
+  .dash-activity-icon{
+    width:36px;
+    height:36px;
+  }
+
+  .dash-activity-side{
+    grid-column:2;
+    min-width:0;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+  }
+
+  .dash-status-pill{
+    max-width:170px;
+  }
+}
+
+@media (max-width:420px){
+  .dash-class-table table{
+    min-width:620px;
+  }
+
+  .dash-activity-main small{
+    font-size:8.5px;
+  }
+}
