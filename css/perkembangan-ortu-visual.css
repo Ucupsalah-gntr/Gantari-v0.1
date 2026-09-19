@@ -257,3 +257,46 @@
     margin-left:auto;
   }
 }
+
+
+/* ---------- APPROVED PNG ICONS ---------- */
+.ortu-perk-heading{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.ortu-perk-heading-icon,
+.ortu-perk-average-icon,
+.perk-aspect-icon,
+.perk-note-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+}
+.ortu-perk-heading-icon{
+  width:40px;height:40px;border-radius:13px;
+  background:#FFF2C9;border:1px solid #F0DFC0;
+}
+.ortu-perk-heading-icon img{width:28px;height:28px;object-fit:contain}
+.ortu-perk-average{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 10px;border-radius:12px;
+  background:#F4F8F0;border:1px solid #DCE8D8;
+  color:#6F805F;font-size:11px;font-weight:800;white-space:nowrap;
+}
+.ortu-perk-average-icon img{width:22px;height:22px;object-fit:contain}
+.perk-parent-aspect{position:relative;padding-left:12px}
+.perk-aspect-icon{
+  width:30px;height:30px;margin-bottom:6px;
+  border-radius:10px;background:#FFF5D8;
+}
+.perk-aspect-icon img{width:22px;height:22px;object-fit:contain}
+.perk-note-heading{
+  display:flex;align-items:center;gap:7px;
+}
+.perk-note-icon{
+  width:25px;height:25px;border-radius:8px;background:#FFF1C9;
+}
+.perk-note-icon img{width:18px;height:18px;object-fit:contain}
+.perk-note-heading strong{display:block}
