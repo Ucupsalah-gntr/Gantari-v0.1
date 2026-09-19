@@ -102,6 +102,80 @@
 }
 
 /* ---------- SUMMARY / CARDS ---------- */
+.dash-summary-pro{
+  gap:14px;
+}
+
+.dash-summary-pro .dash-mini{
+  min-height:148px;
+  padding:17px 18px;
+  border-radius:18px;
+}
+
+.dash-summary-pro .dash-mini-top{
+  min-height:34px;
+  align-items:center;
+}
+
+.dash-summary-pro .dash-mini-label{
+  color:#8B7968;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.01em;
+}
+
+.dash-summary-pro .dash-mini-num{
+  margin-top:12px;
+  color:#3E5268;
+  font-size:28px;
+  line-height:1.05;
+  font-weight:800;
+  letter-spacing:-.03em;
+}
+
+.dash-summary-pro .dash-mini-sub{
+  margin-top:6px;
+  color:#8A96A5;
+  font-size:11px;
+  line-height:1.4;
+}
+
+.dash-summary-pro .dash-link{
+  margin-top:10px;
+  color:#A16F49;
+  font-size:11px;
+  font-weight:700;
+}
+
+.dash-summary-pro .dash-mini-icon{
+  width:36px;
+  height:36px;
+  flex-basis:36px;
+  border-radius:12px;
+}
+
+.dash-summary-pro .dash-mini-icon svg{
+  width:25px;
+  height:25px;
+}
+
+.dash-summary-pro .dash-progress{
+  margin-top:10px;
+  height:6px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#F0E9DE;
+}
+
+.dash-summary-pro .dash-progress span{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#D8B45B,#A8D7B1);
+  transition:width .25s ease;
+}
+
+
 .dash-summary-pro .dash-mini{
   position:relative;
   overflow:hidden;
@@ -486,5 +560,17 @@
   .brand-logo,
   .dash-quick-icon{
     transition:none !important;
+  }
+}
+
+@media (max-width:760px){
+  .dash-summary-pro .dash-mini{
+    min-height:132px !important;
+    padding:15px 16px;
+  }
+
+  .dash-summary-pro .dash-mini-num{
+    font-size:25px;
+    margin-top:9px;
   }
 }
