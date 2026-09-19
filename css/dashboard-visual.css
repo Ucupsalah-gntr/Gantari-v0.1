@@ -1,9 +1,10 @@
 /* ============================================================
-   GANTARIKU — DASHBOARD VISUAL LAYER
-   Visual-only. Uses the approved Gantari artwork assets.
-   Mobile-safe: artwork never controls page layout.
+   GANTARIKU — DASHBOARD VISUAL
+   Clean responsive layer.
+   Desktop and phone use the same approved artwork.
    ============================================================ */
 
+/* ---------- HERO ---------- */
 .dash-welcome-pro{
   position:relative;
   overflow:hidden;
@@ -35,13 +36,12 @@
   line-height:1.65;
 }
 
-/* Approved dashboard artwork */
 .dash-welcome-illustration{
   position:absolute;
   z-index:1;
-  right:-2px;
-  bottom:-2px;
-  width:min(68%,760px);
+  right:0;
+  bottom:0;
+  width:100%;
   margin:0;
   pointer-events:none;
   opacity:1;
@@ -51,12 +51,11 @@
   display:block;
   width:100%;
   height:auto;
-  max-height:232px;
+  max-height:none;
   object-fit:contain;
   object-position:right bottom;
 }
 
-/* soft veil keeps text readable without altering the artwork */
 .dash-welcome-pro::after{
   content:"";
   position:absolute;
@@ -70,13 +69,14 @@
     rgba(255,253,248,0) 100%);
 }
 
-/* Summary cards */
+/* ---------- SUMMARY / CARDS ---------- */
 .dash-summary-pro .dash-mini{
   position:relative;
   overflow:hidden;
   background:rgba(255,255,255,.96);
   border-radius:18px;
 }
+
 .dash-summary-pro .dash-mini::after{
   content:"";
   position:absolute;
@@ -88,35 +88,51 @@
   background:rgba(168,215,177,.16);
   pointer-events:none;
 }
+
 .dash-summary-pro .dash-mini-icon{
   background:#FFF8E7;
   border:1px solid rgba(255,205,43,.20);
 }
 
-/* Tables and lower dashboard */
 .dash-two-col-pro .section,
 .dash-class-table,
-#dashAktivitasBody{position:relative}
+#dashAktivitasBody{
+  position:relative;
+}
 
-.dash-class-table .dash-table-scroll{border-radius:14px}
-.dash-class-table table{background:rgba(255,255,255,.55)}
-.dash-class-table th{background:#FAF7EF;color:#9A8D7D}
-.dash-class-table td{color:#506176}
+.dash-class-table .dash-table-scroll{
+  border-radius:14px;
+}
+
+.dash-class-table table{
+  background:rgba(255,255,255,.55);
+}
+
+.dash-class-table th{
+  background:#FAF7EF;
+  color:#9A8D7D;
+}
+
+.dash-class-table td{
+  color:#506176;
+}
 
 .dash-quick-card{
   border-radius:16px !important;
   background:#FFFDF9 !important;
 }
+
 .dash-quick-icon{
   box-shadow:inset 0 0 0 1px rgba(169,123,80,.08);
 }
 
-/* Floral sidebar artwork — desktop only */
-@media (min-width:761px){
+/* ---------- DESKTOP SIDEBAR DECORATION ---------- */
+@media (min-width:901px){
   .sidebar{
     position:relative;
     overflow:hidden;
   }
+
   .sidebar::after{
     content:"";
     position:absolute;
@@ -129,64 +145,168 @@
     pointer-events:none;
     z-index:0;
   }
-  .sidebar > *{position:relative;z-index:1}
-  .sidebar-menu{position:relative;z-index:2}
+
+  .sidebar > *{
+    position:relative;
+    z-index:1;
+  }
+
+  .sidebar-menu{
+    position:relative;
+    z-index:2;
+  }
 }
 
-/* MOBILE — no permanent sidebar, no artwork over text */
-@media (max-width:760px){
+/* ============================================================
+   MOBILE
+   Use both viewport media and the JS device class.
+   This avoids Chrome/mobile viewport quirks.
+   ============================================================ */
+
+@media (max-width:900px),
+       (max-width:900px) and (pointer:coarse),
+       .gantariku-mobile-device{
+
+  .app{
+    display:flex !important;
+    flex-direction:column !important;
+    width:100% !important;
+    min-height:100vh !important;
+  }
+
+  .sidebar{
+    width:100% !important;
+    height:64px !important;
+    min-height:64px !important;
+    flex:0 0 64px !important;
+    box-sizing:border-box !important;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:10px !important;
+    padding:6px 12px !important;
+    position:relative !important;
+    z-index:1000 !important;
+    overflow:visible !important;
+  }
+
+  .sidebar::after{
+    display:none !important;
+  }
+
+  .brand{
+    min-height:0 !important;
+    width:auto !important;
+    height:52px !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    flex:1 1 auto !important;
+  }
+
+  .brand-logo{
+    width:110px !important;
+    max-width:110px !important;
+    height:auto !important;
+    padding:5px 6px !important;
+    border-radius:11px !important;
+  }
+
+  .mobile-menu-btn{
+    display:flex !important;
+    width:40px !important;
+    height:40px !important;
+    min-width:40px !important;
+    flex:0 0 40px !important;
+    align-items:center !important;
+    justify-content:center !important;
+    border-radius:11px !important;
+    font-size:20px !important;
+    line-height:1 !important;
+    background:rgba(255,255,255,.13) !important;
+    border:1px solid rgba(255,255,255,.18) !important;
+    color:#fff !important;
+  }
+
+  .sidebar-menu{
+    display:none !important;
+    position:absolute !important;
+    top:64px !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    max-height:calc(100vh - 64px) !important;
+    overflow-y:auto !important;
+    box-sizing:border-box !important;
+    padding:14px 16px 18px !important;
+    background:linear-gradient(180deg,#403A37 0%,#7B573B 100%) !important;
+    box-shadow:0 16px 34px rgba(40,30,24,.28) !important;
+  }
+
+  .sidebar.mobile-open .sidebar-menu{
+    display:flex !important;
+  }
+
+  .content{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    flex:1 1 auto !important;
+  }
+
+  .topbar,
+  .view{
+    width:100% !important;
+    max-width:none !important;
+    box-sizing:border-box !important;
+  }
+
   .dash-welcome-pro{
-    min-height:255px;
-    padding:18px 18px 138px !important;
+    min-height:230px !important;
+    padding:18px 18px 112px !important;
     border-radius:18px !important;
   }
 
   .dash-welcome-pro > div:first-child{
-    max-width:100%;
-    position:relative;
-    z-index:4;
+    max-width:100% !important;
   }
 
   .dash-welcome-pro h2{
-    font-size:19px;
-    line-height:1.22;
-    max-width:280px;
+    font-size:19px !important;
+    line-height:1.22 !important;
+    max-width:290px !important;
   }
 
   .dash-welcome-pro p{
-    font-size:12px;
-    line-height:1.55;
-    max-width:310px;
+    font-size:12px !important;
+    line-height:1.5 !important;
+    max-width:310px !important;
   }
 
   .dash-welcome-illustration{
-    right:-12px;
-    bottom:-4px;
-    width:108%;
-    max-width:none;
-    z-index:1;
+    width:100% !important;
+    right:0 !important;
+    bottom:0 !important;
   }
 
   .dash-welcome-illustration img{
-    width:100%;
-    max-height:none;
-    object-position:center bottom;
+    width:100% !important;
+    max-height:none !important;
   }
 
   .dash-welcome-pro::after{
-    width:100%;
-    height:58%;
-    top:0;
-    bottom:auto;
+    width:100% !important;
+    height:62% !important;
+    top:0 !important;
+    bottom:auto !important;
     background:linear-gradient(180deg,
       rgba(255,253,248,.97) 0%,
-      rgba(255,253,248,.88) 58%,
-      rgba(255,253,248,0) 100%);
+      rgba(255,253,248,.86) 62%,
+      rgba(255,253,248,0) 100%) !important;
   }
-
-  /* The sidebar is already a mobile drawer in style.css.
-     Never add decorative artwork to that drawer. */
-  .sidebar::after{display:none !important}
 
   .dash-summary-pro{
     grid-template-columns:1fr !important;
@@ -195,294 +315,42 @@
   .dash-summary-pro .dash-mini{
     min-height:auto !important;
   }
+
+  .dash-two-col-pro{
+    grid-template-columns:1fr !important;
+  }
+
+  .stat-row-pro{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
 }
 
-@media (max-width:520px){
+/* Very narrow phones */
+@media (max-width:420px){
+  .brand-logo{
+    width:100px !important;
+    max-width:100px !important;
+  }
+
   .dash-welcome-pro{
-    min-height:250px;
-    padding:16px 16px 126px !important;
+    min-height:220px !important;
+    padding:16px 16px 104px !important;
   }
 
   .dash-welcome-pro h2{
-    font-size:18px;
-    max-width:260px;
+    font-size:18px !important;
+    max-width:270px !important;
   }
 
   .dash-welcome-pro p{
-    max-width:285px;
-  }
-
-  .dash-welcome-illustration{
-    width:120%;
-    right:-32px;
+    max-width:285px !important;
   }
 }
 
-
-/* ============================================================
-   GANTARIKU — PHONE/TABLET SAFETY OVERRIDE
-   The real Android viewport can report >760 CSS px.
-   Treat <=900px as compact navigation so the sidebar never
-   squeezes the dashboard into a narrow desktop column.
-   ============================================================ */
-
-@media (max-width:900px){
-  .app{
-    display:flex !important;
-    flex-direction:column !important;
-    min-height:100vh !important;
-    width:100% !important;
-  }
-
-  .sidebar{
-    width:100% !important;
-    height:72px !important;
-    min-height:72px !important;
-    flex:0 0 72px !important;
-    box-sizing:border-box !important;
-    flex-direction:row !important;
-    align-items:center !important;
-    justify-content:space-between !important;
-    gap:10px !important;
-    padding:10px 14px !important;
-    position:relative !important;
-    z-index:100 !important;
-    overflow:visible !important;
-  }
-
-  .brand{
-    min-height:0 !important;
-    height:52px !important;
-    margin:0 !important;
-    padding:0 !important;
-    justify-content:flex-start !important;
-    flex:1 1 auto !important;
-  }
-
-  .brand-logo{
-    width:142px !important;
-    max-width:142px !important;
-    padding:7px 9px !important;
-    border-radius:13px !important;
-  }
-
-  .mobile-menu-btn{
-    display:flex !important;
-    width:42px !important;
-    height:42px !important;
-    flex:0 0 42px !important;
-    border-radius:12px !important;
-    font-size:21px !important;
-    background:rgba(255,255,255,.14) !important;
-    border:1px solid rgba(255,255,255,.16) !important;
-  }
-
-  .sidebar-menu{
-    display:none !important;
-    position:absolute !important;
-    top:72px !important;
-    left:0 !important;
-    right:0 !important;
-    width:auto !important;
-    max-height:calc(100vh - 72px) !important;
-    overflow-y:auto !important;
-    padding:14px 16px 18px !important;
-    background:linear-gradient(180deg,#4A403A 0%,#7B573B 100%) !important;
-    box-shadow:0 16px 34px rgba(40,30,24,.28) !important;
-    z-index:110 !important;
-    box-sizing:border-box !important;
-  }
-
-  .sidebar.mobile-open .sidebar-menu{
-    display:flex !important;
-  }
-
-  .sidebar::after{
-    display:none !important;
-  }
-
-  .content{
-    width:100% !important;
-    min-width:0 !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-
-  .topbar,
-  .view{
-    width:100% !important;
-    max-width:100% !important;
-    box-sizing:border-box !important;
-  }
-
-  .dash-welcome-pro{
-    min-height:270px !important;
-    padding:20px 20px 142px !important;
-  }
-
-  .dash-welcome-pro > div:first-child{
-    max-width:100% !important;
-  }
-
-  .dash-welcome-illustration{
-    width:108% !important;
-    right:-10px !important;
-    bottom:-3px !important;
-  }
-}
-
-@media (max-width:520px){
-  .sidebar{
-    height:68px !important;
-    min-height:68px !important;
-    flex-basis:68px !important;
-  }
-
-  .sidebar-menu{
-    top:68px !important;
-  }
-
-  .dash-welcome-pro{
-    min-height:258px !important;
-    padding:17px 17px 128px !important;
-  }
-
-  .dash-welcome-pro h2{
-    font-size:19px !important;
-  }
-
-  .dash-welcome-illustration{
-    width:118% !important;
-    right:-28px !important;
-  }
-}
-
-
-/* ============================================================
-   DEVICE CLASS OVERRIDE
-   JS adds .gantariku-mobile-device on real Android/iOS devices.
-   This also works when Chrome is showing a wide/desktop viewport.
-   ============================================================ */
-
-.gantariku-mobile-device .app{
-  display:flex !important;
-  flex-direction:column !important;
-  width:100% !important;
-  min-height:100vh !important;
-}
-
-.gantariku-mobile-device .sidebar{
-  width:100% !important;
-  height:68px !important;
-  min-height:68px !important;
-  flex:0 0 68px !important;
-  box-sizing:border-box !important;
-  display:flex !important;
-  flex-direction:row !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  padding:8px 14px !important;
-  position:relative !important;
-  z-index:1000 !important;
-  overflow:visible !important;
-}
-
-.gantariku-mobile-device .brand{
-  height:52px !important;
-  min-height:0 !important;
-  margin:0 !important;
-  padding:0 !important;
-  justify-content:flex-start !important;
-  flex:1 1 auto !important;
-}
-
-.gantariku-mobile-device .brand-logo{
-  width:142px !important;
-  max-width:142px !important;
-  padding:6px 8px !important;
-  border-radius:13px !important;
-}
-
-.gantariku-mobile-device .mobile-menu-btn{
-  display:flex !important;
-  width:42px !important;
-  height:42px !important;
-  flex:0 0 42px !important;
-  align-items:center !important;
-  justify-content:center !important;
-  border-radius:12px !important;
-  font-size:21px !important;
-  background:rgba(255,255,255,.14) !important;
-  border:1px solid rgba(255,255,255,.16) !important;
-  color:#fff !important;
-}
-
-.gantariku-mobile-device .sidebar-menu{
-  display:none !important;
-  position:absolute !important;
-  top:68px !important;
-  left:0 !important;
-  right:0 !important;
-  width:auto !important;
-  max-height:calc(100vh - 68px) !important;
-  overflow-y:auto !important;
-  box-sizing:border-box !important;
-  padding:14px 16px 18px !important;
-  background:linear-gradient(180deg,#4A403A 0%,#7B573B 100%) !important;
-  box-shadow:0 16px 34px rgba(40,30,24,.28) !important;
-}
-
-.gantariku-mobile-device .sidebar.mobile-open .sidebar-menu{
-  display:flex !important;
-}
-
-.gantariku-mobile-device .sidebar::after{
-  display:none !important;
-}
-
-.gantariku-mobile-device .content{
-  width:100% !important;
-  min-width:0 !important;
-  max-width:none !important;
-  flex:1 1 auto !important;
-}
-
-.gantariku-mobile-device .view{
-  width:100% !important;
-  max-width:none !important;
-  box-sizing:border-box !important;
-}
-
-.gantariku-mobile-device .dash-welcome-pro{
-  min-height:258px !important;
-  padding:18px 18px 130px !important;
-}
-
-.gantariku-mobile-device .dash-welcome-pro > div:first-child{
-  max-width:100% !important;
-}
-
-.gantariku-mobile-device .dash-welcome-illustration{
-  width:118% !important;
-  right:-28px !important;
-  bottom:-3px !important;
-}
-
-.gantariku-mobile-device .dash-welcome-pro::after{
-  width:100% !important;
-  height:58% !important;
-  top:0 !important;
-  bottom:auto !important;
-  background:linear-gradient(180deg,rgba(255,253,248,.97) 0%,rgba(255,253,248,.86) 58%,rgba(255,253,248,0) 100%) !important;
-}
-
-.gantariku-mobile-device .dash-summary-pro{
-  grid-template-columns:1fr !important;
-}
-
-@media (min-width:521px) and (max-width:1200px){
-  .gantariku-mobile-device .dash-welcome-pro{
-    min-height:280px !important;
-    padding-bottom:145px !important;
+/* Accessibility */
+@media (prefers-reduced-motion:reduce){
+  .brand-logo,
+  .dash-quick-icon{
+    transition:none !important;
   }
 }
