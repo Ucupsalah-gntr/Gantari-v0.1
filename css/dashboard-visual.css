@@ -196,6 +196,75 @@
 }
 
 /* ============================================================
+   COMPACT DESKTOP / TABLET WIDTH
+   Keeps the sidebar full-height, but prevents the dashboard from
+   becoming cramped on narrow desktop-mode browser widths.
+   ============================================================ */
+@media (min-width:761px) and (max-width:1100px){
+  .sidebar{
+    width:210px !important;
+    min-width:210px !important;
+    flex-basis:210px !important;
+    padding:18px 14px !important;
+  }
+
+  .brand-logo{
+    width:170px !important;
+  }
+
+  .user-info{
+    margin-bottom:16px;
+  }
+
+  .nav-item{
+    padding:8px 9px;
+    font-size:12.5px;
+  }
+
+  .view{
+    max-width:none !important;
+    padding-left:24px !important;
+    padding-right:24px !important;
+  }
+
+  .topbar{
+    padding-left:24px !important;
+    padding-right:24px !important;
+  }
+
+  .dash-welcome-pro{
+    min-height:215px;
+    padding:22px 26px !important;
+  }
+
+  .dash-welcome-pro h2{
+    font-size:21px;
+  }
+
+  .dash-welcome-pro p{
+    font-size:12px;
+  }
+
+  .dash-summary-pro{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:10px !important;
+  }
+
+  .stat-row-pro{
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:10px !important;
+  }
+
+  .dash-two-col-pro{
+    grid-template-columns:1fr !important;
+  }
+
+  .dash-quick-card{
+    min-height:0 !important;
+  }
+}
+
+/* ============================================================
    MOBILE
    ============================================================ */
 
