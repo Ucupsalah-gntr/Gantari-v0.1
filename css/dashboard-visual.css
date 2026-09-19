@@ -127,7 +127,7 @@
 }
 
 /* ---------- DESKTOP SIDEBAR DECORATION ---------- */
-@media (min-width:901px){
+@media (min-width:761px){
   .sidebar{
     position:relative;
     overflow:hidden;
@@ -318,7 +318,7 @@
 }
 
 /* Same layout for browsers that expose a normal mobile viewport. */
-@media (max-width:900px){
+@media (max-width:760px){
   .app{
     display:flex !important;
     flex-direction:column !important;
