@@ -124,7 +124,7 @@
     right:-18px;
     bottom:-18px;
     height:310px;
-    background:url("../assets/illustration-sidebar-floral.png") no-repeat left bottom / 205px auto;
+    background:url("../assets/illustration-sidebar-floral-nobg.png") no-repeat left bottom / 205px auto;
     opacity:.9;
     pointer-events:none;
     z-index:0;
