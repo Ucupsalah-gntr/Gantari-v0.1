@@ -71,13 +71,13 @@
   font-size:11px;
 }
 
-.perk-parent-summary{
+#ringkasanPerkembangan .perk-parent-summary{
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
   gap:9px;
 }
 
-.perk-parent-aspect{
+#ringkasanPerkembangan .perk-parent-aspect{
   min-height:72px;
   display:flex;
   flex-direction:column;
@@ -88,19 +88,19 @@
   background:#FFFDF9;
 }
 
-.perk-parent-aspect .name{
+#ringkasanPerkembangan .perk-parent-aspect .name{
   color:#8A8178;
   font-size:10px;
   line-height:1.3;
 }
 
-.perk-parent-aspect .score{
+#ringkasanPerkembangan .perk-parent-aspect .score{
   color:#8F6847;
   font-size:17px;
   font-weight:800;
 }
 
-.perk-note{
+#ringkasanPerkembangan .perk-note{
   margin-top:13px;
   padding:13px 14px;
   border:1px solid #E8DFC7;
@@ -108,7 +108,7 @@
   background:linear-gradient(135deg,#FFF9E8,#FFFDF9);
 }
 
-.perk-note strong{
+#ringkasanPerkembangan .perk-note strong{
   display:block;
   color:#806341;
   font-size:10px;
@@ -123,19 +123,19 @@
   line-height:1.55;
 }
 
-.perk-date{
+#ringkasanPerkembangan .perk-date{
   margin-top:7px;
   color:#A09589;
   font-size:10px;
 }
 
-.perk-history{
+#ringkasanPerkembangan .perk-history{
   margin-top:15px;
   padding-top:15px;
   border-top:1px solid #EEE6DC;
 }
 
-.perk-history-title{
+#ringkasanPerkembangan .perk-history-title{
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -149,7 +149,7 @@
   font-size:10px;
 }
 
-.perk-history-select{
+#ringkasanPerkembangan .perk-history-select{
   min-width:145px;
   min-height:38px;
   border:1px solid #E6D8C7;
@@ -220,20 +220,20 @@
 
   .ortu-perk-title{ font-size:16px; }
 
-  .perk-parent-summary{
+  #ringkasanPerkembangan .perk-parent-summary{
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
 
-  .perk-parent-aspect{
+  #ringkasanPerkembangan .perk-parent-aspect{
     min-height:66px;
   }
 
-  .perk-history-title{
+  #ringkasanPerkembangan .perk-history-title{
     align-items:stretch;
     flex-direction:column;
   }
 
-  .perk-history-select{
+  #ringkasanPerkembangan .perk-history-select{
     width:100%;
   }
 
@@ -243,17 +243,17 @@
 }
 
 @media (max-width:390px){
-  .perk-parent-summary{
+  #ringkasanPerkembangan .perk-parent-summary{
     grid-template-columns:1fr;
   }
 
-  .perk-parent-aspect{
+  #ringkasanPerkembangan .perk-parent-aspect{
     min-height:58px;
     flex-direction:row;
     align-items:center;
   }
 
-  .perk-parent-aspect .score{
+  #ringkasanPerkembangan .perk-parent-aspect .score{
     margin-left:auto;
   }
 }
@@ -286,12 +286,12 @@
   color:#6F805F;font-size:11px;font-weight:800;white-space:nowrap;
 }
 .ortu-perk-average-icon img{width:22px;height:22px;object-fit:contain}
-.perk-parent-aspect{position:relative;padding-left:12px}
-.perk-aspect-icon{
+#ringkasanPerkembangan .perk-parent-aspect{position:relative;padding-left:12px}
+#ringkasanPerkembangan .perk-aspect-icon{
   width:30px;height:30px;margin-bottom:6px;
   border-radius:10px;background:#FFF5D8;
 }
-.perk-aspect-icon img{width:22px;height:22px;object-fit:contain}
+#ringkasanPerkembangan .perk-aspect-icon img{width:22px;height:22px;object-fit:contain}
 .perk-note-heading{
   display:flex;align-items:center;gap:7px;
 }
