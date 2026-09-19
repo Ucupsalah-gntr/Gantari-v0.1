@@ -1,0 +1,259 @@
+/* ============================================================
+   GANTARIKU — ORANG TUA / PERKEMBANGAN ANAK
+   Visual-only polish. Tidak mengubah data atau alur fungsi.
+   ============================================================ */
+
+#pilihAnakWrap{
+  margin-bottom:14px;
+}
+
+#pilihAnakWrap .ortu-child-selector{
+  padding:12px 14px;
+  border:1px solid #E9DFD2;
+  border-radius:16px;
+  background:linear-gradient(135deg,#FFF9E9,#FFFDF9);
+  box-shadow:0 5px 16px rgba(58,58,60,.035);
+}
+
+#pilihAnakWrap .ortu-child-selector-label{
+  color:#8F765F;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+#pilihAnakWrap .ortu-child-select{
+  max-width:none;
+  min-height:42px;
+  border-color:#E6D8C7;
+  background:#FFFFFF;
+  color:#4E6073;
+  font-weight:700;
+}
+
+#ringkasanPerkembangan{
+  position:relative;
+}
+
+#ringkasanPerkembangan > .empty{
+  padding:24px 16px;
+  border:1px dashed #E5DACC;
+  border-radius:15px;
+  background:#FFFDF9;
+}
+
+.ortu-perk-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  padding:16px 17px;
+  margin-bottom:13px;
+  border:1px solid #E9DFD2;
+  border-radius:17px;
+  background:
+    radial-gradient(circle at 92% 15%,rgba(255,205,43,.14),transparent 28%),
+    linear-gradient(135deg,#FFF9E9,#FFFDF9 72%,#F5F9F2);
+}
+
+.ortu-perk-title,
+.ortu-perk-history-title{
+  margin:0;
+  color:#40556B;
+  letter-spacing:-.015em;
+}
+
+.ortu-perk-title{ font-size:18px; }
+.ortu-perk-history-title{ font-size:14px; }
+
+.ortu-perk-header .form-help{
+  margin-top:4px;
+  font-size:11px;
+}
+
+.perk-parent-summary{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:9px;
+}
+
+.perk-parent-aspect{
+  min-height:72px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:11px 12px;
+  border:1px solid #ECE3D8;
+  border-radius:14px;
+  background:#FFFDF9;
+}
+
+.perk-parent-aspect .name{
+  color:#8A8178;
+  font-size:10px;
+  line-height:1.3;
+}
+
+.perk-parent-aspect .score{
+  color:#8F6847;
+  font-size:17px;
+  font-weight:800;
+}
+
+.perk-note{
+  margin-top:13px;
+  padding:13px 14px;
+  border:1px solid #E8DFC7;
+  border-radius:15px;
+  background:linear-gradient(135deg,#FFF9E8,#FFFDF9);
+}
+
+.perk-note strong{
+  display:block;
+  color:#806341;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.ortu-perk-note-text{
+  margin-top:5px;
+  color:#566678;
+  font-size:12px;
+  line-height:1.55;
+}
+
+.perk-date{
+  margin-top:7px;
+  color:#A09589;
+  font-size:10px;
+}
+
+.perk-history{
+  margin-top:15px;
+  padding-top:15px;
+  border-top:1px solid #EEE6DC;
+}
+
+.perk-history-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:11px;
+}
+
+.ortu-perk-history-help{
+  margin-top:3px;
+  color:#9A9289;
+  font-size:10px;
+}
+
+.perk-history-select{
+  min-width:145px;
+  min-height:38px;
+  border:1px solid #E6D8C7;
+  border-radius:11px;
+  background:#FFFDF9;
+  color:#596A7B;
+  font-size:11px;
+  font-weight:700;
+}
+
+#perkembanganRiwayatPanel{
+  padding:12px;
+  border:1px solid #ECE3D8;
+  border-radius:15px;
+  background:#FCFAF6;
+}
+
+#perkembanganRiwayatPanel .perk-history-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:8px;
+}
+
+#perkembanganRiwayatPanel .perk-history-cell{
+  padding:10px 11px;
+  border:1px solid #ECE3D8;
+  border-radius:11px;
+  background:#FFFDF9;
+}
+
+#perkembanganRiwayatPanel .perk-history-cell .name{
+  color:#8A8178;
+  font-size:10px;
+  line-height:1.3;
+}
+
+#perkembanganRiwayatPanel .perk-history-cell .score{
+  margin-top:5px;
+  color:#8F6847;
+  font-size:15px;
+  font-weight:800;
+}
+
+#perkembanganRiwayatPanel .perk-history-meta{
+  margin-top:10px;
+  color:#8F857A;
+  font-size:10px;
+}
+
+#perkembanganRiwayatPanel .perk-history-note{
+  margin-top:10px;
+  padding:10px 11px;
+  border-radius:11px;
+  background:#F8F4EA;
+  color:#5C6A76;
+  font-size:11px;
+  line-height:1.5;
+}
+
+#perkembanganRiwayatPanel .perk-history-note strong{
+  color:#806341;
+}
+
+@media (max-width:760px){
+  .ortu-perk-header{
+    padding:14px;
+  }
+
+  .ortu-perk-title{ font-size:16px; }
+
+  .perk-parent-summary{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .perk-parent-aspect{
+    min-height:66px;
+  }
+
+  .perk-history-title{
+    align-items:stretch;
+    flex-direction:column;
+  }
+
+  .perk-history-select{
+    width:100%;
+  }
+
+  #perkembanganRiwayatPanel{
+    padding:9px;
+  }
+}
+
+@media (max-width:390px){
+  .perk-parent-summary{
+    grid-template-columns:1fr;
+  }
+
+  .perk-parent-aspect{
+    min-height:58px;
+    flex-direction:row;
+    align-items:center;
+  }
+
+  .perk-parent-aspect .score{
+    margin-left:auto;
+  }
+}
