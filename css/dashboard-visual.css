@@ -196,72 +196,84 @@
 }
 
 /* ============================================================
-   COMPACT DESKTOP / TABLET WIDTH
-   Keeps the sidebar full-height, but prevents the dashboard from
-   becoming cramped on narrow desktop-mode browser widths.
+   FULL DESKTOP SIDEBAR
+   The desktop sidebar remains a true application sidebar on
+   desktop-mode/tablet-width browsers. Mobile starts at 760px.
    ============================================================ */
-@media (min-width:761px) and (max-width:1100px){
+@media (min-width:761px){
   .sidebar{
-    width:190px !important;
-    min-width:190px !important;
-    flex-basis:190px !important;
-    padding:16px 12px !important;
+    width:250px !important;
+    min-width:250px !important;
+    flex:0 0 250px !important;
+    min-height:100vh !important;
+    height:100vh !important;
+    padding:20px 16px !important;
+    box-sizing:border-box !important;
+    position:sticky !important;
+    top:0 !important;
+    align-self:flex-start !important;
   }
 
   .brand-logo{
-    width:155px !important;
-  }
-
-  .user-info{
-    margin-bottom:16px;
+    width:185px !important;
+    max-width:100% !important;
+    margin:0 auto 16px !important;
   }
 
   .nav-item{
-    padding:8px 8px;
-    font-size:12px;
-    gap:8px;
+    min-height:38px;
+    padding:9px 11px;
+    font-size:13px;
+    gap:9px;
   }
 
   .view{
     max-width:none !important;
-    padding-left:20px !important;
-    padding-right:20px !important;
+    padding-left:22px !important;
+    padding-right:22px !important;
   }
 
   .topbar{
-    padding-left:20px !important;
-    padding-right:20px !important;
+    padding-left:22px !important;
+    padding-right:22px !important;
+  }
+}
+
+@media (min-width:761px) and (max-width:1050px){
+  .sidebar{
+    width:230px !important;
+    min-width:230px !important;
+    flex-basis:230px !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
   }
 
-  .dash-welcome-pro{
-    min-height:215px;
-    padding:22px 26px !important;
+  .brand-logo{
+    width:175px !important;
   }
 
-  .dash-welcome-pro h2{
-    font-size:21px;
+  .nav-item{
+    padding-left:9px;
+    padding-right:9px;
+    font-size:12.5px;
   }
 
-  .dash-welcome-pro p{
-    font-size:12px;
+  .view,
+  .topbar{
+    padding-left:18px !important;
+    padding-right:18px !important;
   }
 
   .dash-summary-pro{
     grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-    gap:10px !important;
   }
 
   .stat-row-pro{
     grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-    gap:10px !important;
   }
 
   .dash-two-col-pro{
     grid-template-columns:1fr !important;
-  }
-
-  .dash-quick-card{
-    min-height:0 !important;
   }
 }
 
