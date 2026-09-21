@@ -301,3 +301,38 @@
 }
 .perk-note-icon img{width:18px;height:18px;object-fit:contain}
 .perk-note-heading strong{display:block}
+
+/* Parent illustration for development content */
+#ringkasanPerkembangan{
+  position:relative;
+  overflow:hidden;
+}
+.ortu-perk-illustration{
+  position:absolute;
+  right:18px;
+  top:10px;
+  width:118px;
+  height:88px;
+  pointer-events:none;
+  z-index:0;
+  opacity:.28;
+}
+.ortu-perk-illustration img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#ringkasanPerkembangan > *:not(.ortu-perk-illustration){
+  position:relative;
+  z-index:1;
+}
+@media(max-width:760px){
+  .ortu-perk-illustration{
+    right:10px;
+    top:8px;
+    width:82px;
+    height:64px;
+    opacity:.22;
+  }
+}
