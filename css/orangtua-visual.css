@@ -159,3 +159,51 @@ section:has(#daftarSppAnak) .section-body{
   }
 
 }
+
+/* ============================================================
+   Parent topbar illustration — decorative, never overlaps content
+   ============================================================ */
+.ortu-topbar-art{display:none}
+.gantariku-role-ortu .topbar{position:relative;overflow:hidden}
+.gantariku-role-ortu .ortu-topbar-art{
+  display:block;
+  position:absolute;
+  right:245px;
+  bottom:-18px;
+  width:118px;
+  height:94px;
+  pointer-events:none;
+  opacity:.92;
+  z-index:0;
+}
+.gantariku-role-ortu .ortu-topbar-art::before{
+  content:"";
+  position:absolute;
+  inset:0 -28px -8px -28px;
+  background:url("../assets/illustration-orangtua-floral.png") center/contain no-repeat;
+  opacity:.30;
+}
+.gantariku-role-ortu .ortu-topbar-art img{
+  position:relative;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.gantariku-role-ortu .topbar>div:first-child,
+.gantariku-role-ortu .topbar .topbar-actions{
+  position:relative;
+  z-index:2;
+}
+@media(max-width:760px){
+  .gantariku-role-ortu .ortu-topbar-art{
+    right:92px;
+    bottom:-13px;
+    width:76px;
+    height:66px;
+    opacity:.82;
+  }
+  .gantariku-role-ortu .ortu-topbar-art::before{
+    opacity:.22;
+  }
+}
