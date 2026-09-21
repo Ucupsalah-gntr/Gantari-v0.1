@@ -20,6 +20,7 @@
 
         document.documentElement.classList.toggle("gantariku-mobile-device", isTouchMobile);
         document.body.classList.toggle("gantariku-mobile-device", isTouchMobile);
+        document.body.classList.toggle("gantariku-role-orangtua", currentUserRole === "orangtua");
         const html = `
           <div class="app">
             <aside class="sidebar" id="sidebar">
@@ -106,6 +107,7 @@
           .map(
             (item) =>
               `<button class="nav-item ${currentNav === item.id ? "active" : ""}"
+                       data-nav-id="${item.id}"
                        onclick="window.__app.goTo('${item.id}')">
                 <span>${item.icon}</span>
                 <span>${item.label}</span>
