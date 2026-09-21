@@ -251,7 +251,7 @@
   if (window.__app && typeof window.__app.toggleNotifikasi === "function") {
     const originalToggle = window.__app.toggleNotifikasi;
 
-    window.__app.toggleNotifikasi = function () {
+    window.__app.toggleNotifikasi = async function () {
       if (getRole() !== "ortu") {
         return originalToggle.apply(this, arguments);
       }
@@ -262,12 +262,18 @@
 
       const showing = !panel.classList.contains("show");
       panel.classList.toggle("show", showing);
-      if (button) button.setAttribute("aria-expanded", showing ? "true" : "false");
+      if (button) {
+        button.setAttribute("aria-expanded", showing ? "true" : "false");
+      }
 
       if (showing) {
-        loadStableOrtuNotifications();
+        await loadStableOrtuNotifications();
       }
     };
+
+    // Pastikan seluruh pemanggil aplikasi menggunakan loader Orang Tua,
+    // bukan loader notifikasi Admin yang didefinisikan di export-notifikasi.js.
+    window.__app.loadNotifikasi = window.loadNotifikasi;
   }
 
   window.gantarikuLoadNotifikasiOrtuStable = loadStableOrtuNotifications;
