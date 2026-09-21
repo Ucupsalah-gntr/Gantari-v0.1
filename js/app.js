@@ -20,7 +20,7 @@
 
         document.documentElement.classList.toggle("gantariku-mobile-device", isTouchMobile);
         document.body.classList.toggle("gantariku-mobile-device", isTouchMobile);
-        document.body.classList.toggle("gantariku-role-orangtua", currentUserRole === "orangtua");
+        document.body.classList.toggle("gantariku-role-orangtua", currentUserRole === "ortu");
         const html = `
           <div class="app">
             <aside class="sidebar" id="sidebar">
