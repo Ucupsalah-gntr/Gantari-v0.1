@@ -164,8 +164,8 @@ section:has(#daftarSppAnak) .section-body{
    Parent topbar illustration — decorative, never overlaps content
    ============================================================ */
 .ortu-topbar-art{display:none}
-.gantariku-role-ortu .topbar{position:relative;overflow:hidden}
-.gantariku-role-ortu .ortu-topbar-art{
+.gantariku-role-ortu .topbar{position:relative;overflow:visible}
+.gantariku-role-ortu .ortu-topbar-art{\n  overflow:hidden;
   display:block;
   position:absolute;
   right:245px;
