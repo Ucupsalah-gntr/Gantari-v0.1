@@ -1,0 +1,123 @@
+/* ============================================================
+   GANTARIKU — ORANG TUA VISUAL SYSTEM
+   Asset PNG asli Gantariku. Visual-only, no data logic.
+   ============================================================ */
+
+.ortu-child-selector{
+  position:relative;
+  padding:12px 14px 12px 52px;
+  margin:0 0 16px;
+  border:1px solid rgba(169,120,78,.18);
+  border-radius:16px;
+  background:linear-gradient(135deg,#fffdf8,#fff7d8);
+  box-shadow:0 5px 18px rgba(120,88,58,.06);
+}
+.ortu-child-selector::before{
+  content:"";
+  position:absolute;
+  left:14px;
+  top:50%;
+  width:28px;
+  height:28px;
+  transform:translateY(-50%);
+  background:url("../assets/icon-orangtua-anak.png") center/contain no-repeat;
+}
+.ortu-child-selector-label{
+  font-size:10px;
+  font-weight:800;
+  color:#9a704c;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.ortu-child-select{
+  margin-top:4px;
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#4c3a35;
+  font-weight:750;
+  outline:none;
+}
+
+#ringkasanAnakBody .section,
+section:has(#daftarAbsenAnak),
+section:has(#daftarSppAnak){
+  position:relative;
+  overflow:hidden;
+}
+#ringkasanAnakBody .section::after,
+section:has(#daftarAbsenAnak)::after,
+section:has(#daftarSppAnak)::after{
+  content:"";
+  position:absolute;
+  right:-28px;
+  bottom:-30px;
+  width:130px;
+  height:100px;
+  background:url("../assets/icon-orangtua-sunflower.png") right bottom/contain no-repeat;
+  opacity:.075;
+  pointer-events:none;
+}
+#ringkasanAnakBody .section-head,
+section:has(#daftarAbsenAnak) .section-head,
+section:has(#daftarSppAnak) .section-head{
+  position:relative;
+  z-index:1;
+}
+#ringkasanAnakBody .section-head h2,
+section:has(#daftarAbsenAnak) .section-head h2,
+section:has(#daftarSppAnak) .section-head h2{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+#ringkasanAnakBody .section-head h2::before,
+section:has(#daftarAbsenAnak) .section-head h2::before,
+section:has(#daftarSppAnak) .section-head h2::before{
+  content:"";
+  flex:0 0 34px;
+  width:34px;
+  height:34px;
+  background:center/contain no-repeat;
+}
+#ringkasanAnakBody .section-head h2::before{
+  background-image:url("../assets/icon-orangtua-dashboard.png");
+}
+section:has(#daftarAbsenAnak) .section-head h2::before{
+  background-image:url("../assets/icon-orangtua-kehadiran.png");
+}
+section:has(#daftarSppAnak) .section-head h2::before{
+  background-image:url("../assets/icon-orangtua-spp.png");
+}
+
+#ringkasanAnakBody .section-body,
+section:has(#daftarAbsenAnak) .section-body,
+section:has(#daftarSppAnak) .section-body{
+  position:relative;
+  z-index:1;
+}
+
+@media(max-width:760px){
+  .ortu-child-selector{
+    margin-bottom:12px;
+  }
+  #ringkasanAnakBody .section-head h2,
+  section:has(#daftarAbsenAnak) .section-head h2,
+  section:has(#daftarSppAnak) .section-head h2{
+    gap:8px;
+  }
+  #ringkasanAnakBody .section-head h2::before,
+  section:has(#daftarAbsenAnak) .section-head h2::before,
+  section:has(#daftarSppAnak) .section-head h2::before{
+    flex-basis:30px;
+    width:30px;
+    height:30px;
+  }
+  #ringkasanAnakBody .section::after,
+  section:has(#daftarAbsenAnak)::after,
+  section:has(#daftarSppAnak)::after{
+    width:90px;
+    height:72px;
+    opacity:.055;
+  }
+}
