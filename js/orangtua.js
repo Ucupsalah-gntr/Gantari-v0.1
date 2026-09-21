@@ -461,6 +461,10 @@ async function loadRingkasanAnak() {
 
         <div class="section-body">
 
+          <div class="ortu-content-illustration ortu-summary-illustration" aria-hidden="true">
+            <img src="assets/illustration-orangtua-empty-state.png" alt="" loading="lazy">
+          </div>
+
           <div
             class="ortu-child-profile"
             style="
