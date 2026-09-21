@@ -202,3 +202,45 @@ section:has(#daftarSppAnak) .section-body{
     display:none !important;
   }
 }
+
+/* Content illustration: safe area for mobile */
+.ortu-content-illustration{
+  position:absolute;
+  right:14px;
+  top:12px;
+  width:96px;
+  height:72px;
+  z-index:0;
+  pointer-events:none;
+  opacity:.16;
+}
+.ortu-content-illustration img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+section:has(.ortu-content-illustration) .section-body{
+  position:relative;
+  overflow:hidden;
+}
+section:has(.ortu-content-illustration) .section-body > *:not(.ortu-content-illustration){
+  position:relative;
+  z-index:1;
+}
+@media(max-width:760px){
+  /* Keep the illustration visible, but inside the content area — never in the topbar/sidebar zone. */
+  .gantariku-role-ortu .ortu-topbar-art{
+    display:none !important;
+  }
+  .ortu-content-illustration{
+    top:8px;
+    right:10px;
+    width:78px;
+    height:60px;
+    opacity:.18;
+  }
+  section:has(.ortu-content-illustration) .section-body{
+    padding-top:58px;
+  }
+}
