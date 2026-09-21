@@ -812,6 +812,10 @@ function renderAbsenAnak() {
 
       <div class="section-body">
 
+        <div class="ortu-content-illustration" aria-hidden="true">
+          <img src="assets/illustration-orangtua-empty-state.png" alt="" loading="lazy">
+        </div>
+
 
         <!-- DESKTOP TABLE -->
 
@@ -1270,6 +1274,10 @@ function renderSppAnak() {
 
 
       <div class="section-body">
+
+        <div class="ortu-content-illustration" aria-hidden="true">
+          <img src="assets/illustration-orangtua-empty-state.png" alt="" loading="lazy">
+        </div>
 
 
         <!-- DESKTOP -->
