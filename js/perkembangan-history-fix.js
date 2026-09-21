@@ -113,6 +113,9 @@ async function loadPerkembanganAnak() {
       : `<span class="form-help">Belum ada riwayat</span>`;
 
     body.innerHTML = `
+      <div class="ortu-perk-illustration" aria-hidden="true">
+        <img src="assets/illustration-orangtua-empty-state.png" alt="" loading="lazy">
+      </div>
       <div class="ortu-perk-header">
         <div class="ortu-perk-heading">
           <span class="ortu-perk-heading-icon" aria-hidden="true">
