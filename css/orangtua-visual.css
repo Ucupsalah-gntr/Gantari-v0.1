@@ -244,3 +244,41 @@ section:has(.ortu-content-illustration) .section-body > *:not(.ortu-content-illu
     padding-top:58px;
   }
 }
+
+/* Parent notification control — use approved Gantariku PNG */
+.gantariku-role-ortu #notifButton{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+}
+.gantariku-role-ortu #notifButton::before{
+  content:"";
+  flex:0 0 22px;
+  width:22px;
+  height:22px;
+  background:url("../assets/icon-orangtua-notifikasi.png") center/contain no-repeat;
+}
+.gantariku-role-ortu #notifButton{
+  font-size:0;
+}
+.gantariku-role-ortu #notifButton #notifLabel{
+  font-size:12px;
+}
+.gantariku-role-ortu #notifButton #notifCount{
+  font-size:11px;
+}
+@media(max-width:760px){
+  .gantariku-role-ortu #notifButton{
+    width:42px;
+    min-width:42px;
+    padding:8px;
+    justify-content:center;
+    gap:0;
+  }
+  .gantariku-role-ortu #notifButton #notifLabel{
+    display:none;
+  }
+  .gantariku-role-ortu #notifButton::before{
+    flex-basis:22px;
+  }
+}
