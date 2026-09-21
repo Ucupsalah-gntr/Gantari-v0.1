@@ -123,7 +123,7 @@ section:has(#daftarSppAnak) .section-body{
 }
 
 /* Parent navigation + remaining pages */
-.gantariku-role-orangtua .nav-item[data-nav-id] > span:first-child{
+.gantariku-role-ortu .nav-item[data-nav-id] > span:first-child{
   display:inline-flex;
   width:28px;
   height:28px;
@@ -132,24 +132,16 @@ section:has(#daftarSppAnak) .section-body{
   font-size:0;
   background:center/contain no-repeat;
 }
-.gantariku-role-orangtua .nav-item[data-nav-id="ringkasan"] > span:first-child{background-image:url("../assets/icon-orangtua-dashboard.png")}
-.gantariku-role-orangtua .nav-item[data-nav-id="absen-anak"] > span:first-child{background-image:url("../assets/icon-orangtua-kehadiran.png")}
-.gantariku-role-orangtua .nav-item[data-nav-id="spp-anak"] > span:first-child{background-image:url("../assets/icon-orangtua-spp.png")}
-.gantariku-role-orangtua .nav-item[data-nav-id="perkembangan-anak"] > span:first-child{background-image:url("../assets/icon-orangtua-perkembangan.png")}
-.gantariku-role-orangtua .nav-item[data-nav-id="notifikasi"] > span:first-child{background-image:url("../assets/icon-orangtua-notifikasi.png")}
+.gantariku-role-ortu .nav-item[data-nav-id="ringkasan"] > span:first-child{background-image:url("../assets/icon-orangtua-dashboard.png")}
+.gantariku-role-ortu .nav-item[data-nav-id="absen-anak"] > span:first-child{background-image:url("../assets/icon-orangtua-kehadiran.png")}
+.gantariku-role-ortu .nav-item[data-nav-id="spp-anak"] > span:first-child{background-image:url("../assets/icon-orangtua-spp.png")}
+.gantariku-role-ortu .nav-item[data-nav-id="perkembangan-anak"] > span:first-child{background-image:url("../assets/icon-orangtua-perkembangan.png")}
+.gantariku-role-ortu .nav-item[data-nav-id="notifikasi"] > span:first-child{background-image:url("../assets/icon-orangtua-notifikasi.png")}
 
 #ringkasanPerkembangan{
   position:relative;
 }
-#ringkasanPerkembangan::before{
-  content:"";
-  display:block;
-  width:42px;
-  height:42px;
-  margin:0 0 10px 2px;
-  background:url("../assets/icon-orangtua-perkembangan.png") center/contain no-repeat;
-  opacity:.92;
-}
+
 #ringkasanPerkembangan .perk-history::before{
   content:"";
   display:block;
@@ -161,12 +153,9 @@ section:has(#daftarSppAnak) .section-body{
 }
 
 @media(max-width:760px){
-  .gantariku-role-orangtua .nav-item[data-nav-id] > span:first-child{
+  .gantariku-role-ortu .nav-item[data-nav-id] > span:first-child{
     width:26px;
     height:26px;
   }
-  #ringkasanPerkembangan::before{
-    width:34px;
-    height:34px;
-  }
+
 }
