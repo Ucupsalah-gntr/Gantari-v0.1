@@ -196,14 +196,9 @@ section:has(#daftarSppAnak) .section-body{
   z-index:2;
 }
 @media(max-width:760px){
+  /* Mobile: topbar already contains logo/menu + notification/date.
+     Hide the decorative artwork here so nothing is covered. */
   .gantariku-role-ortu .ortu-topbar-art{
-    right:92px;
-    bottom:-13px;
-    width:76px;
-    height:66px;
-    opacity:.82;
-  }
-  .gantariku-role-ortu .ortu-topbar-art::before{
-    opacity:.22;
+    display:none !important;
   }
 }
