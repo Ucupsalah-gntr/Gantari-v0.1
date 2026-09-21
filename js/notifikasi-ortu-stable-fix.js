@@ -123,7 +123,7 @@
     try {
       const { data: sppBelumBayar, error: sppError } = await supabase
         .from("spp")
-        .select("id,siswa_id,bulan,tahun,status,updated_at")
+        .select("id,siswa_id,bulan,tahun,status,catatan,updated_at")
         .in("siswa_id", ids)
         .eq("status", "Belum Bayar")
         .order("updated_at", { ascending: false })
@@ -132,6 +132,10 @@
       if (sppError) throw sppError;
 
       (sppBelumBayar || []).forEach((row) => {
+        // Bukti yang ditolak ditampilkan sebagai notifikasi khusus di bawah,
+        // jadi jangan tampilkan dua kali sebagai "belum lunas".
+        if (row.catatan === "Bukti pembayaran ditolak oleh admin.") return;
+
         const anak = anakOrangTuaList.find((x) => String(x.id) === String(row.siswa_id));
         if (!anak) return;
 
