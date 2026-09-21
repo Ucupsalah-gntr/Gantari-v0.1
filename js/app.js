@@ -105,6 +105,7 @@
       }
 
       function renderNav() {
+        document.body.classList.toggle("gantariku-role-ortu", currentUserRole === "ortu");
         const nav = NAV_CONFIG[currentUserRole] || [];
         const navEl = document.getElementById("nav");
         navEl.innerHTML = nav
