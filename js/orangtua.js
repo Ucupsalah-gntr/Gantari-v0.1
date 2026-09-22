@@ -65,6 +65,17 @@ async function getBuktiSignedUrlOrtu(
   const path =
     getBuktiPathOrtu(value);
 
+  // Storage bukti pembayaran bersifat private dan policy Orang Tua
+  // hanya mengizinkan objek yang berada di folder auth.uid() sendiri.
+  // Riwayat lama dapat berisi path dari akun Orang Tua sebelumnya;
+  // jangan mencoba sign URL tersebut karena akan memicu error 400.
+  const authUserId = String(currentUser?.user_id || "").trim();
+  const ownerFolder = String(path || "").split("/")[0];
+
+  if (!authUserId || !ownerFolder || ownerFolder !== authUserId) {
+    return null;
+  }
+
   const {
     data,
     error
