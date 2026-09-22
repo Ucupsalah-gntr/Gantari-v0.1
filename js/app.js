@@ -57,10 +57,6 @@
     <p id="pageSub">Ringkasan hari ini</p>
   </div>
 
-  <div class="ortu-topbar-art" aria-hidden="true">
-    <img src="assets/illustration-orangtua-empty-state.png" alt="" loading="lazy">
-  </div>
-
   <div
     class="topbar-actions"
   >
