@@ -403,6 +403,7 @@
   tutupFormSiswa,
   editSiswa,
   hapusSiswa,
+  urutkanDaftarSiswa,
   salinKodeAkses,
   salinKodeAksesDariForm,
   buatKodeAksesDariForm,
