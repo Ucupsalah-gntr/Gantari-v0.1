@@ -101,6 +101,30 @@
     rgba(255,253,248,0) 100%);
 }
 
+/* ---------- DESKTOP HERO ILLUSTRATION ---------- */
+@media (min-width:761px){
+  .dash-welcome-illustration{
+    top:0;
+    right:0;
+    bottom:0;
+    width:56%;
+    height:100%;
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-end;
+    overflow:hidden;
+  }
+
+  .dash-welcome-illustration img{
+    width:auto;
+    height:100%;
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    object-position:right bottom;
+  }
+}
+
 /* ---------- SUMMARY / CARDS ---------- */
 .dash-summary-pro{
   gap:14px;
