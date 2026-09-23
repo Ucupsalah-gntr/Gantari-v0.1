@@ -133,6 +133,16 @@ function injectAuthStyles() {
     }
 
 
+    .gtr-auth-page::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:url("assets/bg-dashboard-gantari.png.png") center / cover no-repeat;
+      opacity:.14;
+      pointer-events:none;
+      z-index:0;
+    }
+
     .gtr-auth-card {
 
       position: relative;
@@ -161,11 +171,11 @@ function injectAuthStyles() {
     .gtr-auth-page::after{
       content:"";
       position:absolute;
-      right:-40px;
-      bottom:-36px;
-      width:min(58vw,760px);
-      height:min(58vw,760px);
-      background:url("assets/illustration-gambang-semarang.svg") right bottom / contain no-repeat;
+      right:-34px;
+      bottom:-52px;
+      width:min(59vw,760px);
+      height:min(59vw,760px);
+      background:url("assets/gantari-dance-hero.png.png") right bottom / contain no-repeat;
       z-index:1;
       pointer-events:none;
       opacity:.98;
@@ -659,6 +669,20 @@ function injectAuthStyles() {
         width:520px;
         height:520px;
         opacity:.14;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .gtr-auth-page::before{
+        opacity:.07;
+      }
+
+      .gtr-auth-page::after{
+        right:-150px;
+        bottom:-82px;
+        width:540px;
+        height:540px;
+        opacity:.13;
       }
     }
 
