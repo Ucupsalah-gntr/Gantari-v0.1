@@ -72,7 +72,12 @@
     border:1px solid transparent !important;
     border-radius:13px !important;
     padding:10px 12px !important;
-    font-weight:600;
+    font-weight:650 !important;
+  }
+
+  .nav-item > span,
+  .nav-item > span:last-child{
+    color:#2B5965 !important;
   }
 
   .nav-item:hover{
@@ -81,11 +86,21 @@
     transform:translateX(2px);
   }
 
+  .nav-item:hover > span,
+  .nav-item:hover > span:last-child{
+    color:#1F4D5A !important;
+  }
+
   .nav-item.active{
     background:linear-gradient(135deg,#FFE99A 0%,#FFF6D5 100%) !important;
     color:#7B552E !important;
     border-color:#EFD681 !important;
     box-shadow:0 6px 16px rgba(213,178,77,.13);
+  }
+
+  .nav-item.active > span,
+  .nav-item.active > span:last-child{
+    color:#7B552E !important;
   }
 
   .sidebar-foot{
