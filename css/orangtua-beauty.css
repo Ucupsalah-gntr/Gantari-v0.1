@@ -1,0 +1,640 @@
+/* ============================================================
+   GANTARIKU — ORANG TUA BEAUTY REFRESH
+   Visual-only layer. Tidak mengubah data / alur fungsi.
+   ============================================================ */
+
+.gantariku-role-ortu{
+  --ortu-cream:#FFFDF7;
+  --ortu-cream-2:#FFF7DF;
+  --ortu-yellow:#FFD12F;
+  --ortu-yellow-soft:#FFF1B8;
+  --ortu-brown:#8A6245;
+  --ortu-brown-dark:#594236;
+  --ortu-ink:#435365;
+  --ortu-muted:#8D847B;
+  --ortu-green:#A8D7B1;
+  --ortu-green-soft:#EEF7EF;
+  --ortu-blue-soft:#EDF5FA;
+  --ortu-line:#E9DFD2;
+}
+
+/* ---------- PAGE ATMOSPHERE ---------- */
+
+body.gantariku-role-ortu{
+  background:
+    radial-gradient(circle at 92% 6%, rgba(255,209,47,.15), transparent 22%),
+    radial-gradient(circle at 8% 88%, rgba(168,215,177,.12), transparent 20%),
+    linear-gradient(180deg,#FFFDF8 0%,#FBF8F0 100%);
+}
+
+.gantariku-role-ortu .content{
+  position:relative;
+}
+
+.gantariku-role-ortu .view{
+  position:relative;
+}
+
+/* ---------- SIDEBAR ---------- */
+
+.gantariku-role-ortu .sidebar{
+  background:
+    radial-gradient(circle at 86% 14%,rgba(255,209,47,.26),transparent 26%),
+    radial-gradient(circle at 14% 78%,rgba(168,215,177,.20),transparent 28%),
+    linear-gradient(180deg,#FFFDF7 0%,#FFF7D8 48%,#F3F7EC 100%) !important;
+  border-right:1px solid rgba(169,120,78,.13);
+}
+
+.gantariku-role-ortu .user-info{
+  margin:10px 12px 16px;
+  padding:13px 14px;
+  border:1px solid rgba(169,120,78,.14);
+  border-radius:17px;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 9px 25px rgba(116,85,58,.06);
+}
+
+.gantariku-role-ortu .user-name{
+  color:var(--ortu-brown-dark) !important;
+  font-weight:800;
+}
+
+.gantariku-role-ortu .user-role{
+  color:#9A7658 !important;
+  font-weight:700;
+}
+
+.gantariku-role-ortu .nav{
+  gap:7px;
+}
+
+.gantariku-role-ortu .nav-item{
+  position:relative;
+  min-height:46px;
+  border:1px solid transparent !important;
+  border-radius:14px !important;
+  color:#6D6259 !important;
+  background:rgba(255,255,255,.34) !important;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+
+.gantariku-role-ortu .nav-item:hover{
+  transform:translateX(2px);
+  background:rgba(255,255,255,.72) !important;
+  box-shadow:0 5px 14px rgba(120,88,58,.06);
+}
+
+.gantariku-role-ortu .nav-item.active{
+  color:var(--ortu-brown-dark) !important;
+  background:linear-gradient(135deg,#FFF0A4 0%,#FFF8DC 100%) !important;
+  border-color:rgba(214,174,67,.26) !important;
+  box-shadow:0 7px 18px rgba(155,118,55,.09);
+}
+
+.gantariku-role-ortu .nav-item.active::after{
+  content:"";
+  position:absolute;
+  right:9px;
+  top:50%;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--ortu-brown);
+  transform:translateY(-50%);
+  opacity:.8;
+}
+
+.gantariku-role-ortu .sidebar-foot{
+  padding-top:12px;
+  border-top:1px solid rgba(169,120,78,.12);
+}
+
+.gantariku-role-ortu .logout-btn{
+  border-radius:12px !important;
+}
+
+/* ---------- TOPBAR ---------- */
+
+.gantariku-role-ortu .topbar{
+  position:relative;
+  overflow:visible;
+  border:1px solid rgba(169,120,78,.12);
+  background:rgba(255,255,255,.78) !important;
+  box-shadow:0 8px 24px rgba(116,85,58,.05);
+  backdrop-filter:blur(8px);
+}
+
+.gantariku-role-ortu #pageTitle{
+  color:var(--ortu-brown-dark) !important;
+  letter-spacing:-.025em;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) #pageTitle::before{
+  background-image:url("../assets/icon-orangtua-dashboard.png");
+}
+body.gantariku-role-ortu:has(#daftarAbsenAnak) #pageTitle::before{
+  background-image:url("../assets/icon-orangtua-kehadiran.png");
+}
+body.gantariku-role-ortu:has(#daftarSppAnak) #pageTitle::before{
+  background-image:url("../assets/icon-orangtua-spp.png");
+}
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #pageTitle::before{
+  background-image:url("../assets/icon-orangtua-perkembangan.png");
+}
+
+body.gantariku-role-ortu #pageTitle::before{
+  content:"";
+  display:inline-block;
+  flex:0 0 38px;
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background-color:#FFF2C9;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:25px 25px;
+  border:1px solid rgba(236,213,159,.7);
+}
+
+.gantariku-role-ortu #pageSub{
+  color:#9B8D80 !important;
+}
+
+.gantariku-role-ortu .today-chip{
+  border-color:rgba(169,120,78,.12) !important;
+  background:#FFF9E8 !important;
+  color:#83684F !important;
+}
+
+/* ---------- SHARED SECTIONS ---------- */
+
+.gantariku-role-ortu .section{
+  border:1px solid var(--ortu-line) !important;
+  border-radius:20px !important;
+  background:
+    radial-gradient(circle at 96% 0%,rgba(255,209,47,.08),transparent 21%),
+    linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,252,246,.98)) !important;
+  box-shadow:0 12px 30px rgba(116,85,58,.055) !important;
+}
+
+.gantariku-role-ortu .section-head{
+  padding:19px 20px 16px !important;
+  border-bottom:1px solid rgba(233,223,210,.75);
+}
+
+.gantariku-role-ortu .section-head h2{
+  color:var(--ortu-brown-dark);
+  letter-spacing:-.02em;
+}
+
+.gantariku-role-ortu .section-subtitle{
+  color:#9A8F85;
+}
+
+.gantariku-role-ortu .section-body{
+  padding:20px !important;
+}
+
+/* ---------- CHILD SELECTOR ---------- */
+
+.gantariku-role-ortu .ortu-child-selector{
+  position:relative;
+  isolation:isolate;
+  padding:14px 16px 14px 56px !important;
+  border:1px solid rgba(219,194,146,.68) !important;
+  border-radius:18px !important;
+  background:
+    radial-gradient(circle at 96% 15%,rgba(255,209,47,.18),transparent 25%),
+    linear-gradient(135deg,#FFF8E3 0%,#FFFDF8 70%,#F5FAF3 100%) !important;
+  box-shadow:0 10px 25px rgba(116,85,58,.055) !important;
+}
+
+.gantariku-role-ortu .ortu-child-selector::before{
+  left:15px;
+  width:31px;
+  height:31px;
+  filter:drop-shadow(0 4px 5px rgba(116,85,58,.10));
+}
+
+.gantariku-role-ortu .ortu-child-selector-label{
+  color:#997455 !important;
+}
+
+.gantariku-role-ortu .ortu-child-select{
+  margin-top:6px !important;
+  min-height:42px;
+  padding:6px 34px 6px 10px !important;
+  border:1px solid rgba(215,198,177,.75) !important;
+  border-radius:11px !important;
+  background:rgba(255,255,255,.78) !important;
+  box-shadow:0 2px 8px rgba(116,85,58,.03);
+}
+
+/* ---------- RINGKASAN ---------- */
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) #ringkasanAnakBody .section-head{
+  background:
+    radial-gradient(circle at 98% 0%,rgba(255,209,47,.15),transparent 28%),
+    linear-gradient(90deg,#FFFBEE,#FFFFFF);
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .ortu-child-profile{
+  padding:16px !important;
+  border:1px solid #EDE2D6 !important;
+  border-radius:17px !important;
+  background:
+    linear-gradient(135deg,#FFFDF8 0%,#FFF8DD 58%,#F6FAF4 100%) !important;
+  box-shadow:0 8px 20px rgba(116,85,58,.045);
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .ortu-child-profile::before{
+  content:"Profil Anak";
+  display:block;
+  margin-bottom:11px;
+  color:#977254;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .ortu-child-profile > div{
+  gap:9px !important;
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .ortu-child-profile > div > div{
+  padding:10px 11px;
+  border-radius:13px;
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(230,217,199,.7);
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat-row{
+  gap:10px;
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat{
+  position:relative;
+  min-height:92px;
+  padding:14px 13px;
+  border:1px solid rgba(225,217,207,.86);
+  border-radius:16px;
+  background:#FFFDF9;
+  box-shadow:0 7px 17px rgba(116,85,58,.04);
+  overflow:hidden;
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat::after{
+  content:"";
+  position:absolute;
+  right:-16px;
+  bottom:-18px;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:rgba(255,209,47,.08);
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat .num{
+  position:relative;
+  z-index:1;
+  font-size:26px;
+  line-height:1;
+  color:var(--ortu-brown-dark);
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat .lbl{
+  position:relative;
+  z-index:1;
+  margin-top:7px;
+  color:#8E8176;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat.c-teal{border-top:4px solid #8FCBB7;}
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat.c-warn{border-top:4px solid #EBCB6A;}
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat.c-sick{border-top:4px solid #AFC7DF;}
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat.c-bad{border-top:4px solid #E2A5A0;}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .ortu-spp-summary{
+  border:1px solid #EADFCF !important;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(168,215,177,.16),transparent 30%),
+    linear-gradient(135deg,#FFF9E8,#FFFFFF);
+  box-shadow:0 8px 20px rgba(116,85,58,.04);
+}
+
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .ortu-spp-summary .badge{
+  padding:7px 10px;
+}
+
+/* ---------- TABLES ---------- */
+
+.gantariku-role-ortu .ortu-desktop-table{
+  overflow:auto;
+  border:1px solid #EDE4DA;
+  border-radius:15px;
+  background:#FFFDFC;
+}
+
+.gantariku-role-ortu .ortu-desktop-table table{
+  min-width:660px;
+  border-collapse:separate;
+  border-spacing:0;
+  width:100%;
+}
+
+.gantariku-role-ortu .ortu-desktop-table thead th{
+  background:#FFF7DE !important;
+  color:#80644C !important;
+  border-bottom:1px solid #E9DFC9 !important;
+  font-size:10px;
+  letter-spacing:.045em;
+  text-transform:uppercase;
+}
+
+.gantariku-role-ortu .ortu-desktop-table tbody tr{
+  transition:background .15s ease;
+}
+
+.gantariku-role-ortu .ortu-desktop-table tbody tr:hover{
+  background:#FFFBF2;
+}
+
+.gantariku-role-ortu .ortu-desktop-table tbody td{
+  border-bottom:1px solid #F0E8DE !important;
+  color:#596978;
+  font-size:12px;
+}
+
+.gantariku-role-ortu .ortu-desktop-table tbody tr:last-child td{
+  border-bottom:0 !important;
+}
+
+/* ---------- FILTERS / CONTROLS ---------- */
+
+.gantariku-role-ortu .controls{
+  gap:8px;
+}
+
+.gantariku-role-ortu .ortu-date-field{
+  padding:8px 10px;
+  border:1px solid #E8DED2;
+  border-radius:12px;
+  background:#FFFDF9;
+}
+
+.gantariku-role-ortu .ortu-date-field label{
+  display:block;
+  margin-bottom:4px;
+  color:#9A8E84;
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.gantariku-role-ortu .controls select,
+.gantariku-role-ortu .controls input[type="date"]{
+  border-color:#E6D8C7 !important;
+  border-radius:11px !important;
+  background:#FFF !important;
+  color:#5B6A78 !important;
+}
+
+.gantariku-role-ortu .btn.secondary{
+  border:1px solid #DECDB7 !important;
+  background:linear-gradient(135deg,#FFF7DF,#FFFDF8) !important;
+  color:#7B604A !important;
+}
+
+/* ---------- MOBILE CARDS ---------- */
+
+.gantariku-role-ortu .ortu-mobile-list{
+  display:none;
+}
+
+.gantariku-role-ortu .ortu-data-card,
+.gantariku-role-ortu .ortu-spp-card{
+  position:relative;
+  padding:15px;
+  border:1px solid #ECE2D6;
+  border-radius:17px;
+  background:
+    linear-gradient(135deg,#FFFDF9,#FFF8E9 58%,#F7FBF5 100%);
+  box-shadow:0 8px 20px rgba(116,85,58,.045);
+}
+
+.gantariku-role-ortu .ortu-card-label{
+  color:#9B8F84;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+.gantariku-role-ortu .ortu-card-title{
+  color:#5A4639;
+  font-weight:800;
+}
+
+.gantariku-role-ortu .ortu-card-divider{
+  background:#EEE4D9 !important;
+}
+
+.gantariku-role-ortu .ortu-card-text{
+  color:#677684;
+  line-height:1.55;
+}
+
+.gantariku-role-ortu .ortu-spp-card{
+  border-top:4px solid #E9CB66;
+}
+
+.gantariku-role-ortu .ortu-spp-nominal{
+  margin-top:12px;
+  color:#684D39;
+  font-size:20px;
+  font-weight:850;
+  letter-spacing:-.02em;
+}
+
+.gantariku-role-ortu .ortu-spp-detail{
+  margin-top:10px;
+  padding:9px 10px;
+  border-radius:11px;
+  background:rgba(255,255,255,.68);
+}
+
+.gantariku-role-ortu .ortu-spp-detail span{
+  color:#A0968D;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.gantariku-role-ortu .ortu-spp-detail strong{
+  display:block;
+  margin-top:3px;
+  color:#61717E;
+  font-size:11px;
+}
+
+/* ---------- BADGES ---------- */
+
+.gantariku-role-ortu .badge{
+  border-radius:999px !important;
+  padding:5px 9px !important;
+  font-size:10px !important;
+  font-weight:800 !important;
+  border:1px solid transparent;
+}
+
+.gantariku-role-ortu .badge-good{
+  background:#EAF6EC !important;
+  border-color:#CFE8D2 !important;
+  color:#4C7958 !important;
+}
+
+.gantariku-role-ortu .badge-warn{
+  background:#FFF4D6 !important;
+  border-color:#F1DEAA !important;
+  color:#8A6A39 !important;
+}
+
+.gantariku-role-ortu .badge-bad{
+  background:#FBE9E8 !important;
+  border-color:#EFCAC7 !important;
+  color:#9B5F5A !important;
+}
+
+.gantariku-role-ortu .badge-muted{
+  background:#F2F0ED !important;
+  border-color:#E3DED8 !important;
+  color:#827A72 !important;
+}
+
+/* ---------- DEVELOPMENT PAGE ---------- */
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .section{
+  background:
+    radial-gradient(circle at 94% 0%,rgba(255,209,47,.11),transparent 23%),
+    linear-gradient(135deg,#FFFDF8,#FFFFFF 72%,#F7FBF5) !important;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #pilihAnakWrap .ortu-child-selector{
+  margin-bottom:14px;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .ortu-perk-header{
+  box-shadow:0 8px 21px rgba(116,85,58,.045);
+}
+
+/* ---------- EMPTY STATE ---------- */
+
+.gantariku-role-ortu .empty{
+  border:1px dashed #E3D5C5;
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 92% 0%,rgba(255,209,47,.10),transparent 25%),
+    #FFFDF8 !important;
+  color:#8E8379;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:760px){
+  body.gantariku-role-ortu{
+    background:#FBF8F1;
+  }
+
+  .gantariku-role-ortu .topbar{
+    border-radius:15px;
+  }
+
+  body.gantariku-role-ortu #pageTitle{
+    gap:8px;
+    font-size:18px;
+  }
+
+  body.gantariku-role-ortu #pageTitle::before{
+    flex-basis:32px;
+    width:32px;
+    height:32px;
+    background-size:22px 22px;
+    border-radius:10px;
+  }
+
+  .gantariku-role-ortu .section{
+    border-radius:17px !important;
+  }
+
+  .gantariku-role-ortu .section-head{
+    padding:15px 14px 13px !important;
+  }
+
+  .gantariku-role-ortu .section-body{
+    padding:14px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat-row{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat{
+    min-height:82px;
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanAnakBody) .ortu-child-profile > div{
+    grid-template-columns:1fr !important;
+  }
+
+  .gantariku-role-ortu .ortu-desktop-table{
+    display:none;
+  }
+
+  .gantariku-role-ortu .ortu-mobile-list{
+    display:grid;
+    gap:10px;
+  }
+
+  .gantariku-role-ortu .controls.ortu-mobile-controls{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .gantariku-role-ortu .controls.ortu-mobile-controls .btn{
+    width:100%;
+  }
+
+  .gantariku-role-ortu .ortu-date-field,
+  .gantariku-role-ortu .controls select{
+    width:100%;
+    box-sizing:border-box;
+  }
+
+  .gantariku-role-ortu .ortu-child-selector{
+    padding-left:52px !important;
+  }
+}
+
+@media(max-width:390px){
+  body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat-row{
+    gap:8px;
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat{
+    padding:12px 10px;
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanAnakBody) .stat .num{
+    font-size:22px;
+  }
+}
