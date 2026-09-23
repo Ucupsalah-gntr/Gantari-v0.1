@@ -293,6 +293,37 @@ function injectAuthStyles() {
        TITLE
        ======================================================== */
 
+    .gtr-login-art{
+      position:relative;
+      width:calc(100% + 28px);
+      height:128px;
+      margin:-2px -14px 18px;
+      overflow:hidden;
+      border-radius:18px;
+      background:linear-gradient(135deg,#FFF4C9 0%,#EAF7F0 100%);
+      border:1px solid rgba(226,216,174,.70);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);
+    }
+
+    .gtr-login-art::after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0;
+      height:42%;
+      background:linear-gradient(180deg,rgba(255,250,241,0),rgba(255,250,241,.68));
+      pointer-events:none;
+    }
+
+    .gtr-login-art img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:right center;
+      transform:scale(1.55);
+      transform-origin:82% 50%;
+    }
+
     .gtr-auth-title {
 
       margin: 0;
@@ -702,6 +733,17 @@ function injectAuthStyles() {
       }
 
 
+      .gtr-login-art{
+        height:154px;
+        margin:0 -6px 18px;
+        border-radius:16px;
+      }
+
+      .gtr-login-art img{
+        transform:scale(1.62);
+        transform-origin:82% 50%;
+      }
+
       .gtr-logo-icon {
 
         width: 48px;
@@ -817,6 +859,14 @@ function renderLoginPage() {
       <div class="gtr-auth-card">
 
         ${renderGantariBrand()}
+
+        <div class="gtr-login-art" aria-hidden="true">
+          <img
+            src="assets/gantari-dance-hero.png.png"
+            alt=""
+            loading="eager"
+          >
+        </div>
 
 
         <h1 class="gtr-auth-title">
