@@ -332,7 +332,7 @@ function injectAuthStyles() {
       top:0;
       right:-26px;
       bottom:0;
-      width:117%;
+      width:164%;
       background:url("assets/gantari-dance-hero.png.png") right center / contain no-repeat;
       opacity:.30;
       pointer-events:none;
@@ -679,7 +679,7 @@ function injectAuthStyles() {
 
       .gtr-auth-form::before{
         right:-12px;
-        width:141%;
+        width:197%;
         opacity:.30;
       }
     }
@@ -688,7 +688,7 @@ function injectAuthStyles() {
 
       .gtr-auth-form::before{
         right:-8px;
-        width:150%;
+        width:210%;
         opacity:.30;
       }
 
