@@ -121,6 +121,20 @@ function renderSiswa() {
             autocomplete="off"
           >
 
+          <select
+            id="urutkanSiswa"
+            aria-label="Urutkan data siswa"
+            onchange="window.__app.urutkanDaftarSiswa(this.value)"
+          >
+            <option value="nama-asc">Nama A–Z</option>
+            <option value="nama-desc">Nama Z–A</option>
+            <option value="kelas-asc">Kelas A–Z</option>
+            <option value="kelas-desc">Kelas Z–A</option>
+            <option value="nis-asc">NIS terkecil</option>
+            <option value="nis-desc">NIS terbesar</option>
+            <option value="aktif">Siswa aktif dulu</option>
+          </select>
+
           <button
             class="btn ghost"
             type="button"
@@ -531,20 +545,80 @@ function renderDaftarSiswa(data = []) {
 }
 
 // ============================================================
-// SEARCH
+// SEARCH + SORT
 // ============================================================
 
-function cariSiswa() {
+let urutanSiswaAktif = "nama-asc";
+
+function compareSiswaText(a, b, key, direction = 1) {
+  const av = String(a?.[key] ?? "").trim();
+  const bv = String(b?.[key] ?? "").trim();
+
+  if (!av && !bv) return 0;
+  if (!av) return 1;
+  if (!bv) return -1;
+
+  return av.localeCompare(bv, "id-ID", {
+    numeric: true,
+    sensitivity: "base",
+  }) * direction;
+}
+
+function sortSiswaData(data = [], sortKey = urutanSiswaAktif) {
+  const rows = Array.isArray(data) ? [...data] : [];
+
+  rows.sort((a, b) => {
+    switch (sortKey) {
+      case "nama-desc":
+        return compareSiswaText(a, b, "nama", -1);
+
+      case "kelas-asc":
+        return (
+          compareSiswaText(a, b, "kelas", 1) ||
+          compareSiswaText(a, b, "nama", 1)
+        );
+
+      case "kelas-desc":
+        return (
+          compareSiswaText(a, b, "kelas", -1) ||
+          compareSiswaText(a, b, "nama", 1)
+        );
+
+      case "nis-asc":
+        return (
+          compareSiswaText(a, b, "nis", 1) ||
+          compareSiswaText(a, b, "nama", 1)
+        );
+
+      case "nis-desc":
+        return (
+          compareSiswaText(a, b, "nis", -1) ||
+          compareSiswaText(a, b, "nama", 1)
+        );
+
+      case "aktif":
+        return (
+          (a?.tanggal_keluar ? 1 : 0) - (b?.tanggal_keluar ? 1 : 0) ||
+          compareSiswaText(a, b, "nama", 1)
+        );
+
+      case "nama-asc":
+      default:
+        return compareSiswaText(a, b, "nama", 1);
+    }
+  });
+
+  return rows;
+}
+
+function getSiswaTersaring() {
   const keyword = (document.getElementById("cariSiswa")?.value || "")
     .trim()
     .toLowerCase();
 
-  if (!keyword) {
-    renderDaftarSiswa(semuaSiswa || []);
-    return;
-  }
+  if (!keyword) return [...(semuaSiswa || [])];
 
-  const hasil = (semuaSiswa || []).filter((siswa) => {
+  return (semuaSiswa || []).filter((siswa) => {
     const ortu = (semuaOrangTua || []).find(
       (item) => String(item.id) === String(siswa.orang_tua_id)
     );
@@ -566,8 +640,19 @@ function cariSiswa() {
 
     return text.includes(keyword);
   });
+}
 
-  renderDaftarSiswa(hasil);
+function renderSiswaTersaring() {
+  renderDaftarSiswa(sortSiswaData(getSiswaTersaring()));
+}
+
+function urutkanDaftarSiswa(sortKey) {
+  urutanSiswaAktif = sortKey || "nama-asc";
+  renderSiswaTersaring();
+}
+
+function cariSiswa() {
+  renderSiswaTersaring();
 }
 
 // ============================================================
@@ -801,6 +886,7 @@ window.bukaImportSiswa = bukaImportSiswa;
 window.loadSiswa = loadSiswa;
 window.renderDaftarSiswa = renderDaftarSiswa;
 window.cariSiswa = cariSiswa;
+window.urutkanDaftarSiswa = urutkanDaftarSiswa;
 window.simpanSiswa = simpanSiswa;
 window.editSiswa = editSiswa;
 window.hapusSiswa = hapusSiswa;
