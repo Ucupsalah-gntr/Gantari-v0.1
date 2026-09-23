@@ -103,6 +103,7 @@ function normalizeTanggalInput(value) {
 // ============================================================
 
 function renderSiswa() {
+  urutanSiswaAktif = "nama-asc";
   return `
     <div class="section">
       <div class="section-head">
@@ -126,7 +127,7 @@ function renderSiswa() {
             aria-label="Urutkan data siswa"
             onchange="window.__app.urutkanDaftarSiswa(this.value)"
           >
-            <option value="nama-asc">Nama A–Z</option>
+            <option value="nama-asc">Urutkan: Nama A–Z</option>
             <option value="nama-desc">Nama Z–A</option>
             <option value="kelas-asc">Kelas A–Z</option>
             <option value="kelas-desc">Kelas Z–A</option>
