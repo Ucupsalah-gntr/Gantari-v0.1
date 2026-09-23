@@ -72,7 +72,7 @@ function renderDasbor() {
 
       <div class="dash-welcome-illustration" aria-hidden="true">
         <img
-          src="assets/illustration-dashboard-gantari-nobg.png"
+          src="assets/illustration-gambang-semarang.svg"
           alt=""
           loading="lazy"
         >
