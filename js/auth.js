@@ -122,30 +122,21 @@ function injectAuthStyles() {
       box-sizing: border-box;
       padding: 24px;
 
+      position: relative;
+      overflow: hidden;
+
       background:
-        radial-gradient(
-          circle at 10% 10%,
-          rgba(238, 184, 77, .18),
-          transparent 30%
-        ),
-
-        radial-gradient(
-          circle at 90% 90%,
-          rgba(101, 133, 81, .18),
-          transparent 30%
-        ),
-
-        linear-gradient(
-          135deg,
-          #413a37 0%,
-          #594941 50%,
-          #89684f 100%
-        );
+        radial-gradient(circle at 12% 14%, rgba(255, 209, 47, .28), transparent 27%),
+        radial-gradient(circle at 88% 86%, rgba(101, 169, 199, .22), transparent 30%),
+        radial-gradient(circle at 52% 8%, rgba(168, 215, 177, .20), transparent 24%),
+        linear-gradient(135deg, #FFF7D6 0%, #FFFDF8 52%, #EAF6F0 100%);
     }
 
 
     .gtr-auth-card {
 
+      position: relative;
+      z-index: 3;
       width: 100%;
       max-width: 470px;
 
@@ -166,6 +157,19 @@ function injectAuthStyles() {
     /* ========================================================
        LOGO
        ======================================================== */
+
+    .gtr-auth-page::after{
+      content:"";
+      position:absolute;
+      right:-40px;
+      bottom:-36px;
+      width:min(58vw,760px);
+      height:min(58vw,760px);
+      background:url("assets/illustration-gambang-semarang.svg") right bottom / contain no-repeat;
+      z-index:1;
+      pointer-events:none;
+      opacity:.98;
+    }
 
     .gtr-brand {
 
@@ -647,6 +651,16 @@ function injectAuthStyles() {
     /* ========================================================
        MOBILE
        ======================================================== */
+
+    @media (max-width: 760px) {
+      .gtr-auth-page::after{
+        right:-120px;
+        bottom:-50px;
+        width:520px;
+        height:520px;
+        opacity:.14;
+      }
+    }
 
     @media (max-width: 520px) {
 
