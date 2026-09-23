@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-label="Anak menari dengan nuansa Gambang Semarang">
+<defs>
+ <linearGradient id="bg" x1="0" x2="1"><stop stop-color="#FFF7D6"/><stop offset=".55" stop-color="#E9F6EE"/><stop offset="1" stop-color="#DCEFFF"/></linearGradient>
+ <linearGradient id="dress" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFD12F"/><stop offset=".5" stop-color="#F3B72E"/><stop offset="1" stop-color="#E88C45"/></linearGradient>
+ <linearGradient id="shawl" x1="0" x2="1"><stop stop-color="#E85C5C"/><stop offset="1" stop-color="#C73D52"/></linearGradient>
+ <linearGradient id="batik" x1="0" x2="1"><stop stop-color="#355D78"/><stop offset="1" stop-color="#6B4A39"/></linearGradient>
+ <filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-opacity=".12"/></filter>
+</defs>
+<rect width="1200" height="760" rx="42" fill="url(#bg)"/>
+<g opacity=".32" fill="#FFD12F">
+ <circle cx="1000" cy="130" r="74"/><circle cx="1080" cy="300" r="35"/><circle cx="870" cy="600" r="42"/>
+</g>
+<g opacity=".28" fill="none" stroke="#65A9C7" stroke-width="12">
+ <path d="M0 620 C180 530 310 700 480 610 S820 500 1200 610"/>
+ <path d="M0 680 C180 590 300 750 500 660 S850 560 1200 660"/>
+</g>
+<!-- Semarang-inspired tower/city silhouette -->
+<g opacity=".18" fill="#A9784E">
+ <path d="M730 490V300l42-42 42 42v190h-28V330h-28v160z"/>
+ <path d="M840 490V340l32-34 32 34v150h-22V365h-20v125z"/>
+ <path d="M935 490V320l38-40 38 40v170h-25V350h-26v140z"/>
+</g>
+<!-- sunflowers -->
+<g transform="translate(1020 105)">
+ <circle r="25" fill="#7A563B"/><g fill="#FFD12F">
+ <ellipse cy="-48" rx="18" ry="31"/><ellipse cy="48" rx="18" ry="31"/><ellipse cx="-48" rx="31" ry="18"/><ellipse cx="48" rx="31" ry="18"/>
+ <ellipse transform="rotate(45)" cy="-48" rx="18" ry="31"/><ellipse transform="rotate(45)" cy="48" rx="18" ry="31"/>
+ </g></g>
+<g transform="translate(150 610) scale(.72)">
+ <circle r="25" fill="#7A563B"/><g fill="#FFD12F">
+ <ellipse cy="-48" rx="18" ry="31"/><ellipse cy="48" rx="18" ry="31"/><ellipse cx="-48" rx="31" ry="18"/><ellipse cx="48" rx="31" ry="18"/>
+ <ellipse transform="rotate(45)" cy="-48" rx="18" ry="31"/><ellipse transform="rotate(45)" cy="48" rx="18" ry="31"/>
+ </g></g>
+<!-- dancer shadow -->
+<ellipse cx="735" cy="705" rx="230" ry="25" fill="#6A594F" opacity=".12"/>
+<!-- flowing shawl -->
+<path d="M615 300 C480 245 445 345 540 410 C610 458 520 540 420 475 C535 610 700 505 670 405 C650 350 700 325 760 340Z" fill="url(#shawl)" opacity=".95"/>
+<!-- rear arm -->
+<path d="M735 315 C830 255 875 205 900 155" fill="none" stroke="#B9825A" stroke-width="34" stroke-linecap="round"/>
+<path d="M890 160 q25 -32 45 -6 M890 160 q34 -20 51 4 M890 160 q22 0 39 20" fill="none" stroke="#B9825A" stroke-width="10" stroke-linecap="round"/>
+<!-- head -->
+<ellipse cx="735" cy="205" rx="74" ry="86" fill="#B9825A"/>
+<!-- hair -->
+<path d="M668 205 C650 120 715 90 778 120 C830 145 820 225 785 245 C790 175 755 150 705 158 C695 185 690 214 668 205Z" fill="#4C3A35"/>
+<!-- flower hairpiece -->
+<g transform="translate(680 150)"><circle r="13" fill="#7A563B"/><g fill="#FFFDF8"><ellipse cy="-22" rx="9" ry="16"/><ellipse cy="22" rx="9" ry="16"/><ellipse cx="-22" rx="16" ry="9"/><ellipse cx="22" rx="16" ry="9"/></g></g>
+<!-- face -->
+<circle cx="712" cy="204" r="8" fill="#4C3A35"/><circle cx="762" cy="204" r="8" fill="#4C3A35"/>
+<path d="M725 238 q18 14 34 0" fill="none" stroke="#8E4C45" stroke-width="7" stroke-linecap="round"/>
+<!-- torso / Gambang-inspired costume -->
+<path d="M682 278 Q735 250 790 278 L825 410 Q735 450 650 410Z" fill="url(#dress)" filter="url(#shadow)"/>
+<path d="M680 300 Q735 325 792 300" fill="none" stroke="#355D78" stroke-width="25"/>
+<circle cx="736" cy="306" r="17" fill="#D6A63C"/>
+<path d="M704 275 l30 42 30-42" fill="none" stroke="#FFF3B0" stroke-width="8"/>
+<!-- front batik skirt -->
+<path d="M660 400 Q735 430 815 400 L865 600 Q735 650 610 600Z" fill="url(#batik)" filter="url(#shadow)"/>
+<g fill="#F5D77B" opacity=".85">
+ <circle cx="680" cy="455" r="7"/><circle cx="720" cy="490" r="7"/><circle cx="765" cy="450" r="7"/><circle cx="810" cy="510" r="7"/>
+ <path d="M680 530l18-18 18 18-18 18zM760 560l18-18 18 18-18 18z"/>
+</g>
+<!-- left arm -->
+<path d="M690 305 C620 300 560 340 505 300" fill="none" stroke="#B9825A" stroke-width="34" stroke-linecap="round"/>
+<path d="M505 300 q-34 -15 -47 2 M505 300 q-38 4 -46 25 M505 300 q-30 18 -28 38" fill="none" stroke="#B9825A" stroke-width="10" stroke-linecap="round"/>
+<!-- legs -->
+<path d="M685 600 C680 650 650 675 610 700" fill="none" stroke="#B9825A" stroke-width="30" stroke-linecap="round"/>
+<path d="M785 600 C805 640 840 665 875 650" fill="none" stroke="#B9825A" stroke-width="30" stroke-linecap="round"/>
+<path d="M605 700 q-25 8 -40 24 q30 12 65-4" fill="#D6A63C"/>
+<path d="M870 650 q25 2 42 17 q-27 16-61 0" fill="#D6A63C"/>
+<!-- decorative ribbons -->
+<path d="M610 340 C480 190 360 245 300 165" fill="none" stroke="#65A9C7" stroke-width="14" stroke-linecap="round" opacity=".75"/>
+<path d="M830 355 C940 250 1040 260 1100 180" fill="none" stroke="#A8D7B1" stroke-width="14" stroke-linecap="round" opacity=".85"/>
+</svg>
