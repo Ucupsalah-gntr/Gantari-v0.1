@@ -152,7 +152,7 @@ function injectAuthStyles() {
 
       box-sizing: border-box;
 
-      background: #fffaf1;
+      background: rgba(255,250,241,.96);
 
       border-radius: 30px;
 
@@ -663,26 +663,20 @@ function injectAuthStyles() {
        ======================================================== */
 
     @media (max-width: 760px) {
+      .gtr-auth-page::before{
+        opacity:.10;
+        background-position:center top;
+      }
+
       .gtr-auth-page::after{
         right:-120px;
-        bottom:-50px;
-        width:520px;
-        height:520px;
-        opacity:.14;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .gtr-auth-page::before{
-        opacity:.07;
-      }
-
-      .gtr-auth-page::after{
-        right:-150px;
-        bottom:-82px;
-        width:540px;
-        height:540px;
-        opacity:.13;
+        bottom:-24px;
+        width:430px;
+        height:390px;
+        background-size:auto 390px;
+        background-position:right bottom;
+        background-repeat:no-repeat;
+        opacity:.27;
       }
     }
 
