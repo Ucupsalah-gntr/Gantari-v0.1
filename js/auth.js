@@ -329,10 +329,10 @@ function injectAuthStyles() {
     .gtr-auth-form::before{
       content:"";
       position:absolute;
-      top:0;
-      right:-26px;
-      bottom:0;
-      width:164%;
+      top:-92px;
+      right:-54px;
+      width:190%;
+      height:340px;
       background:url("assets/gantari-dance-hero.png.png") right center / contain no-repeat;
       opacity:.30;
       pointer-events:none;
@@ -678,8 +678,10 @@ function injectAuthStyles() {
       }
 
       .gtr-auth-form::before{
-        right:-12px;
-        width:197%;
+        top:-86px;
+        right:-26px;
+        width:220%;
+        height:310px;
         opacity:.30;
       }
     }
@@ -687,8 +689,10 @@ function injectAuthStyles() {
     @media (max-width: 520px) {
 
       .gtr-auth-form::before{
-        right:-8px;
-        width:210%;
+        top:-78px;
+        right:-24px;
+        width:235%;
+        height:300px;
         opacity:.30;
       }
 
@@ -711,17 +715,6 @@ function injectAuthStyles() {
         font-size: 24px;
       }
 
-
-      .gtr-login-art{
-        height:154px;
-        margin:0 -6px 18px;
-        border-radius:16px;
-      }
-
-      .gtr-login-art img{
-        transform:scale(1.62);
-        transform-origin:82% 50%;
-      }
 
       .gtr-logo-icon {
 
