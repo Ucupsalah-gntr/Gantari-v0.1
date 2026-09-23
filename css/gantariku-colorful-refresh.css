@@ -1,0 +1,324 @@
+/* ============================================================
+   GANTARIKU — COLORFUL VISUAL REFRESH
+   Uses user-uploaded PNG assets only.
+   Desktop visual enhancement; mobile layout remains protected.
+   ============================================================ */
+
+@media (min-width:761px){
+
+  body{
+    background:
+      radial-gradient(circle at 6% 12%, rgba(255,209,47,.14), transparent 24%),
+      radial-gradient(circle at 94% 88%, rgba(168,215,177,.16), transparent 28%),
+      #FFFDF8;
+  }
+
+  /* ---------------- SIDEBAR ---------------- */
+  .sidebar{
+    position:relative;
+    overflow:hidden !important;
+    background:
+      linear-gradient(180deg, rgba(255,253,248,.93) 0%, rgba(255,247,211,.93) 52%, rgba(231,246,234,.96) 100%) !important;
+    border-right:1px solid #DDE9DF !important;
+    box-shadow:8px 0 28px rgba(64,97,86,.07);
+  }
+
+  .sidebar::before{
+    content:"";
+    position:absolute;
+    inset:auto 0 0;
+    height:62%;
+    background:url("../assets/gantari-sidebar-floral.png.png") left bottom / cover no-repeat;
+    opacity:.42;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .sidebar > *{
+    position:relative;
+    z-index:1;
+  }
+
+  .brand{
+    margin-bottom:16px !important;
+  }
+
+  .brand-logo{
+    width:194px !important;
+    max-width:100% !important;
+    filter:drop-shadow(0 7px 14px rgba(63,91,78,.10));
+  }
+
+  .user-info{
+    background:rgba(255,255,255,.78) !important;
+    border:1px solid rgba(203,220,208,.84) !important;
+    box-shadow:0 6px 16px rgba(71,94,83,.05);
+  }
+
+  .user-name{
+    color:#214B5B !important;
+  }
+
+  .user-role{
+    color:#78908C !important;
+  }
+
+  .nav{
+    gap:6px !important;
+  }
+
+  .nav-item{
+    color:#2B5965 !important;
+    border:1px solid transparent !important;
+    border-radius:13px !important;
+    padding:10px 12px !important;
+    font-weight:600;
+  }
+
+  .nav-item:hover{
+    background:rgba(255,255,255,.68) !important;
+    border-color:rgba(219,199,117,.30) !important;
+    transform:translateX(2px);
+  }
+
+  .nav-item.active{
+    background:linear-gradient(135deg,#FFE99A 0%,#FFF6D5 100%) !important;
+    color:#7B552E !important;
+    border-color:#EFD681 !important;
+    box-shadow:0 6px 16px rgba(213,178,77,.13);
+  }
+
+  .sidebar-foot{
+    color:#78908C !important;
+  }
+
+  .logout-btn{
+    color:#69807A !important;
+    border-color:rgba(105,128,122,.24) !important;
+    background:rgba(255,255,255,.55);
+  }
+
+  /* ---------------- TOPBAR ---------------- */
+  .topbar h1{
+    color:#214B5B !important;
+  }
+
+  .topbar p{
+    color:#78908C !important;
+  }
+
+  .today-chip{
+    background:rgba(255,255,255,.90) !important;
+    border-color:#E3EADF !important;
+    color:#607A76 !important;
+  }
+
+  /* ---------------- HERO ---------------- */
+  .dash-welcome-pro{
+    min-height:254px !important;
+    background:
+      linear-gradient(90deg,
+        rgba(255,249,223,.98) 0%,
+        rgba(255,253,248,.94) 38%,
+        rgba(234,247,242,.88) 100%
+      ),
+      url("../assets/bg-dashboard-gantari.png.png") center / cover no-repeat !important;
+    border-color:#E4E8DA !important;
+    box-shadow:0 12px 30px rgba(70,97,88,.075);
+  }
+
+  .dash-welcome-pro::before{
+    width:180px;
+    height:180px;
+    background:rgba(255,209,47,.09);
+  }
+
+  .dash-welcome-illustration{
+    width:55% !important;
+    height:100% !important;
+    right:0 !important;
+    top:0 !important;
+    bottom:0 !important;
+    display:flex !important;
+    align-items:flex-end !important;
+    justify-content:flex-end !important;
+    overflow:hidden !important;
+    z-index:1 !important;
+  }
+
+  .dash-welcome-illustration img{
+    width:auto !important;
+    height:108% !important;
+    max-width:100% !important;
+    max-height:none !important;
+    object-fit:contain !important;
+    object-position:right bottom !important;
+    transform:translateY(3px);
+    filter:drop-shadow(0 12px 18px rgba(63,76,70,.10));
+  }
+
+  .dash-welcome-pro > div:first-child{
+    max-width:48% !important;
+    z-index:4 !important;
+  }
+
+  .dash-welcome-pro h2{
+    color:#214B5B !important;
+  }
+
+  .dash-welcome-pro p{
+    color:#607C78 !important;
+  }
+
+  .dash-welcome-pro .dash-eyebrow{
+    background:rgba(255,255,255,.78) !important;
+    border-color:#E7D89C !important;
+    color:#946534 !important;
+  }
+
+  .dash-welcome-pro::after{
+    width:56% !important;
+    background:linear-gradient(90deg,
+      rgba(255,253,248,.97) 0%,
+      rgba(255,253,248,.83) 52%,
+      rgba(255,253,248,0) 100%) !important;
+  }
+
+  /* ---------------- SUMMARY CARDS ---------------- */
+  .dash-summary-pro .dash-mini{
+    border-color:#E5EAE3 !important;
+    box-shadow:0 8px 22px rgba(75,95,87,.055);
+  }
+
+  .dash-summary-pro .dash-mini:nth-child(1) .dash-mini-icon{
+    background:#FFF0B7 !important;
+    border-color:#EFD680 !important;
+  }
+
+  .dash-summary-pro .dash-mini:nth-child(2) .dash-mini-icon{
+    background:#E8F6EB !important;
+    border-color:#C8E4CD !important;
+  }
+
+  .dash-summary-pro .dash-mini:nth-child(3) .dash-mini-icon{
+    background:#FFE7DB !important;
+    border-color:#F3C8B7 !important;
+  }
+
+  .dash-summary-pro .dash-mini-label{
+    color:#52716D !important;
+  }
+
+  .dash-summary-pro .dash-mini-num{
+    color:#214B5B !important;
+  }
+
+  .dash-summary-pro .dash-mini-sub{
+    color:#82938F !important;
+  }
+
+  .dash-summary-pro .dash-link{
+    color:#9B6533 !important;
+  }
+
+  .dash-summary-pro .dash-progress{
+    background:#EEF1EA !important;
+  }
+
+  .dash-summary-pro .dash-progress span{
+    background:linear-gradient(90deg,#FFD12F,#A8D7B1,#65A9C7) !important;
+  }
+
+  /* ---------------- FOUR STAT TILES ---------------- */
+  .stat-row-pro .stat{
+    border:1px solid #E6ECE7 !important;
+    border-left:1px solid #E6ECE7 !important;
+    min-height:88px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 7px 20px rgba(75,95,87,.045);
+  }
+
+  .stat-row-pro .stat::after{
+    content:"";
+    position:absolute;
+    width:72px;
+    height:72px;
+    right:-20px;
+    bottom:-26px;
+    border-radius:50%;
+    opacity:.62;
+    pointer-events:none;
+  }
+
+  .stat-row-pro .c-teal{
+    background:linear-gradient(135deg,#FFFFFF,#F1FAF3) !important;
+  }
+
+  .stat-row-pro .c-teal::after{background:#D8F1DE}
+
+  .stat-row-pro .c-good{
+    background:linear-gradient(135deg,#FFFFFF,#F6FAEE) !important;
+  }
+
+  .stat-row-pro .c-good::after{background:#E8F3C9}
+
+  .stat-row-pro .c-bad{
+    background:linear-gradient(135deg,#FFFFFF,#FFF1F2) !important;
+  }
+
+  .stat-row-pro .c-bad::after{background:#FFDCE1}
+
+  .stat-row-pro .c-pink{
+    background:linear-gradient(135deg,#FFFFFF,#F1F7FE) !important;
+  }
+
+  .stat-row-pro .c-pink::after{background:#DAEBFC}
+
+  .stat-row-pro .stat .num{
+    color:#214B5B !important;
+  }
+
+  .stat-row-pro .stat .lbl{
+    color:#75908B !important;
+  }
+
+  /* ---------------- LOWER PANELS ---------------- */
+  .dash-two-col-pro .section,
+  .section{
+    box-shadow:0 7px 22px rgba(75,95,87,.035);
+  }
+
+  .section-head h2{
+    color:#214B5B !important;
+  }
+
+  .section-head .section-hint{
+    color:#7C918D !important;
+  }
+
+  .dash-quick-card{
+    background:#FFFFFF !important;
+    border-color:#E5EBE5 !important;
+  }
+
+  .dash-quick-card:nth-child(1) .dash-quick-icon{background:#EAF7EE}
+  .dash-quick-card:nth-child(2) .dash-quick-icon{background:#FFF4C9}
+  .dash-quick-card:nth-child(3) .dash-quick-icon{background:#FFE7DD}
+  .dash-quick-card:nth-child(4) .dash-quick-icon{background:#E7F1FF}
+
+  .dash-quick-card strong{
+    color:#2B5965 !important;
+  }
+
+  .dash-quick-card small{
+    color:#839590 !important;
+  }
+}
+
+/* Keep mobile behaviour from the existing responsive system. */
+@media (max-width:760px){
+  .sidebar::before{
+    opacity:.18;
+  }
+}
