@@ -1,0 +1,752 @@
+/* ============================================================
+   GANTARIKU — GURU WARM PERSONAL UI
+   Personal touch for Bu Vika, while keeping work flow practical.
+   Visual-only except the new Beranda Guru page.
+   ============================================================ */
+
+body.gantariku-role-guru{
+  --guru-ink:#294B60;
+  --guru-teal:#2F8A83;
+  --guru-green:#72A879;
+  --guru-gold:#F2C557;
+  --guru-cream:#FFF9EA;
+  --guru-blue:#EAF5FB;
+  --guru-line:#E8E1D7;
+  background:#FBFAF6 !important;
+}
+
+body.gantariku-role-guru .sidebar{
+  background:
+    radial-gradient(circle at 86% 10%,rgba(255,209,47,.20),transparent 25%),
+    radial-gradient(circle at 16% 83%,rgba(168,215,177,.17),transparent 26%),
+    linear-gradient(180deg,#FFFDF8 0%,#FFF7DD 50%,#F0F7EF 100%) !important;
+  border-right:1px solid rgba(169,120,78,.12);
+}
+
+body.gantariku-role-guru .user-info{
+  border:1px solid rgba(169,120,78,.13);
+  border-radius:16px !important;
+  background:rgba(255,255,255,.72) !important;
+  box-shadow:0 7px 18px rgba(90,71,54,.045);
+}
+
+body.gantariku-role-guru .user-name{
+  color:var(--guru-ink) !important;
+  font-weight:800 !important;
+}
+
+body.gantariku-role-guru .user-role{
+  color:#8C7A68 !important;
+}
+
+body.gantariku-role-guru .nav-item{
+  border-radius:14px !important;
+  color:#5E6F79 !important;
+}
+
+body.gantariku-role-guru .nav-item:hover{
+  background:rgba(255,255,255,.70) !important;
+  transform:translateX(2px);
+}
+
+body.gantariku-role-guru .nav-item.active{
+  color:#76582F !important;
+  background:linear-gradient(135deg,#FFEAA1,#FFF6D6) !important;
+  border-color:#F0D27A !important;
+  box-shadow:0 7px 17px rgba(207,169,67,.10);
+}
+
+/* ---------- NEW GURU HOME ---------- */
+
+#guruHome{
+  display:grid;
+  gap:14px;
+}
+
+.guru-welcome-hero{
+  position:relative;
+  min-height:218px;
+  overflow:hidden;
+  border:1px solid #E6E3D7;
+  border-radius:20px;
+  background:
+    linear-gradient(90deg,#FFF9DE 0%,#FFFDF9 52%,#ECF7F4 100%);
+  box-shadow:0 10px 28px rgba(72,64,54,.055);
+}
+
+.guru-welcome-copy{
+  position:relative;
+  z-index:3;
+  width:57%;
+  padding:29px 30px;
+}
+
+.guru-eyebrow{
+  display:inline-flex;
+  padding:6px 9px;
+  border-radius:999px;
+  border:1px solid #EBDCA9;
+  background:rgba(255,255,255,.72);
+  color:#946A3E;
+  font-size:9px;
+  font-weight:850;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+.guru-welcome-copy h2{
+  margin:12px 0 0;
+  color:var(--guru-ink);
+  font-size:27px;
+  line-height:1.18;
+  letter-spacing:-.03em;
+}
+
+.guru-welcome-copy p{
+  max-width:470px;
+  margin:9px 0 0;
+  color:#6A7E86;
+  font-size:12px;
+  line-height:1.65;
+}
+
+.guru-date-chip{
+  display:inline-flex;
+  margin-top:13px;
+  padding:7px 10px;
+  border:1px solid #E3DDD1;
+  border-radius:10px;
+  background:rgba(255,255,255,.64);
+  color:#81796E;
+  font-size:9px;
+  font-weight:750;
+}
+
+.guru-welcome-art{
+  position:absolute;
+  right:2%;
+  bottom:-30px;
+  width:43%;
+  height:112%;
+}
+
+.guru-welcome-art img{
+  position:absolute;
+  right:4%;
+  bottom:0;
+  width:235px;
+  height:390px;
+  object-fit:contain;
+  object-position:bottom center;
+  filter:drop-shadow(0 10px 13px rgba(90,71,54,.10));
+  opacity:.83;
+}
+
+.guru-art-glow{
+  position:absolute;
+  width:250px;
+  height:250px;
+  right:5%;
+  top:20px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(168,215,177,.36),rgba(255,209,47,.08) 58%,transparent 70%);
+}
+
+.guru-teacher-emblem{
+  position:absolute;
+  z-index:4;
+  right:24%;
+  top:42px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px 7px 7px;
+  border:1px solid rgba(221,211,188,.78);
+  border-radius:999px;
+  background:rgba(255,255,255,.76);
+  box-shadow:0 5px 15px rgba(90,71,54,.05);
+  color:#6C5B4C;
+  font-size:9px;
+  font-weight:850;
+}
+
+.guru-teacher-emblem-icon{
+  width:29px;
+  height:29px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#EAF5FB;
+}
+
+.guru-teacher-emblem-icon svg{
+  width:21px;
+  height:21px;
+}
+
+/* ---------- HOME GRID ---------- */
+
+.guru-home-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,1.6fr) minmax(230px,.75fr);
+  gap:10px;
+}
+
+.guru-card{
+  position:relative;
+  overflow:hidden;
+  padding:16px;
+  border:1px solid var(--guru-line);
+  border-radius:17px;
+  background:#FFFDFC;
+  box-shadow:0 7px 20px rgba(72,64,54,.035);
+}
+
+.guru-card-head{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:13px;
+}
+
+.guru-card-icon{
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  border:1px solid #EEE4D1;
+  background:#FFF5D7;
+}
+
+.guru-card-icon img,
+.guru-card-icon svg{
+  width:23px;
+  height:23px;
+  object-fit:contain;
+}
+
+.guru-card-icon.teacher{background:#EAF5FB;border-color:#D7EAF5}
+.guru-card-icon.action{background:#FFF1C7}
+.guru-card-icon.growth{background:#EAF5EC}
+.guru-card-icon.agenda{background:#F3EEF9}
+
+.guru-card-title{
+  color:#355166;
+  font-size:12px;
+  font-weight:850;
+}
+
+.guru-card-sub{
+  margin-top:2px;
+  color:#989088;
+  font-size:9px;
+}
+
+.guru-today-card{
+  grid-column:1;
+}
+
+.guru-today-status{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:82px;
+  padding:12px;
+  border:1px solid #DCECDF;
+  border-radius:14px;
+  background:linear-gradient(135deg,#F0FAF2,#FFFDF8);
+}
+
+.guru-status-check{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#62A96F;
+  color:#fff;
+  font-size:25px;
+  font-weight:900;
+  box-shadow:0 6px 13px rgba(98,169,111,.18);
+}
+
+.guru-today-status strong{
+  display:block;
+  color:#3F6D4B;
+  font-size:12px;
+  line-height:1.35;
+}
+
+.guru-today-status span:not(.guru-status-check){
+  display:block;
+  margin-top:4px;
+  color:#8A938E;
+  font-size:9px;
+  line-height:1.45;
+}
+
+.guru-action-card{
+  grid-column:2;
+}
+
+.guru-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.guru-action{
+  display:grid;
+  grid-template-columns:36px minmax(0,1fr) auto;
+  align-items:center;
+  gap:9px;
+  min-height:76px;
+  padding:10px;
+  border:1px solid #E2E8E8;
+  border-radius:14px;
+  background:#FBFDFC;
+  color:#355166;
+  text-align:left;
+  cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+
+.guru-action:hover{
+  transform:translateY(-1px);
+  background:#FFFDF8;
+  box-shadow:0 6px 15px rgba(72,64,54,.06);
+}
+
+.guru-action-icon{
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+}
+
+.guru-action-icon img{width:24px;height:24px;object-fit:contain}
+.guru-action-icon.blue{background:#EAF5FB}
+.guru-action-icon.green{background:#EDF7EE}
+
+.guru-action strong{
+  display:block;
+  color:#34556A;
+  font-size:10px;
+}
+
+.guru-action small{
+  display:block;
+  margin-top:4px;
+  color:#8B9599;
+  font-size:8.5px;
+  line-height:1.35;
+}
+
+.guru-action b{
+  color:#6F918F;
+  font-size:15px;
+}
+
+.guru-message-card{
+  grid-column:3;
+  grid-row:1;
+  min-height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:linear-gradient(180deg,#FFF9E8,#FFFDF8);
+}
+
+.guru-message-card p{
+  position:relative;
+  z-index:2;
+  max-width:190px;
+  margin:0;
+  color:#665643;
+  font-family:Georgia,serif;
+  font-size:14px;
+  line-height:1.75;
+  font-style:italic;
+}
+
+.guru-message-card span{
+  position:absolute;
+  z-index:2;
+  left:16px;
+  right:16px;
+  bottom:12px;
+  color:#9B8C7C;
+  font-size:8.5px;
+  line-height:1.35;
+}
+
+.guru-message-flower{
+  position:absolute;
+  right:-16px;
+  bottom:-18px;
+  width:120px;
+  height:105px;
+  opacity:.17;
+}
+
+.guru-message-flower img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.guru-journey-card{
+  grid-column:1 / 3;
+  min-height:155px;
+  background:
+    linear-gradient(135deg,#FFF8E4 0%,#FFFDF9 70%,#EEF7EF 100%);
+}
+
+.guru-journey-card p{
+  max-width:570px;
+  margin:5px 0 12px;
+  color:#66757D;
+  font-size:10px;
+  line-height:1.65;
+}
+
+.guru-soft-link{
+  border:0;
+  padding:0;
+  background:transparent;
+  color:#2D7F78;
+  font-size:9.5px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.guru-agenda-card{
+  grid-column:3;
+  min-height:155px;
+}
+
+.guru-agenda-list{
+  display:grid;
+  gap:8px;
+}
+
+.guru-agenda-list > div{
+  display:grid;
+  grid-template-columns:25px minmax(0,1fr);
+  column-gap:8px;
+  padding-bottom:8px;
+  border-bottom:1px solid #F0EAE1;
+}
+
+.guru-agenda-list > div:last-child{border-bottom:0}
+
+.guru-agenda-list span{
+  width:25px;
+  height:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:#FFF2C9;
+  color:#8B6939;
+  font-size:8px;
+  font-weight:900;
+}
+
+.guru-agenda-list strong{
+  color:#536878;
+  font-size:9.5px;
+}
+
+.guru-agenda-list small{
+  grid-column:2;
+  margin-top:2px;
+  color:#9B958E;
+  font-size:8px;
+  line-height:1.3;
+}
+
+.guru-bottom-banner{
+  grid-column:1 / -1;
+  position:relative;
+  overflow:hidden;
+  min-height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:12px 18px;
+  border:1px solid #E2E6DD;
+  border-radius:15px;
+  background:linear-gradient(90deg,#EEF7F0,#FFF9DF,#FFFDF9);
+}
+
+.guru-bottom-banner strong{
+  display:block;
+  color:#3E624A;
+  font-size:11px;
+}
+
+.guru-bottom-banner span{
+  display:block;
+  margin-top:3px;
+  color:#8C9790;
+  font-size:8.5px;
+}
+
+.guru-bottom-banner img{
+  width:100px;
+  height:55px;
+  object-fit:contain;
+  opacity:.18;
+}
+
+/* ---------- EXISTING GURU WORK PAGES ---------- */
+
+body.gantariku-role-guru .section{
+  border-color:#E8E1D7 !important;
+  border-radius:19px !important;
+  background:#FFFDFC !important;
+  box-shadow:0 8px 22px rgba(72,64,54,.04) !important;
+}
+
+body.gantariku-role-guru .section-head{
+  padding:18px 20px 15px !important;
+  background:linear-gradient(90deg,#FFF9EA,#FFFDFC);
+  border-bottom:1px solid #EEE8DF;
+}
+
+body.gantariku-role-guru .section-head h2{
+  color:var(--guru-ink) !important;
+  letter-spacing:-.025em;
+}
+
+body.gantariku-role-guru .section-subtitle{
+  color:#958D84;
+}
+
+body.gantariku-role-guru .controls select,
+body.gantariku-role-guru .controls input[type="date"],
+body.gantariku-role-guru .form-group select,
+body.gantariku-role-guru .form-group input,
+body.gantariku-role-guru .form-group textarea{
+  border-color:#E4DBCE !important;
+  border-radius:11px !important;
+  background:#FFFEFC !important;
+}
+
+body.gantariku-role-guru .btn{
+  border-radius:11px !important;
+}
+
+body.gantariku-role-guru .btn:not(.secondary){
+  background:linear-gradient(135deg,#F0B93E,#FFD96A) !important;
+  color:#624C2F !important;
+  box-shadow:0 5px 13px rgba(240,185,62,.16);
+}
+
+body.gantariku-role-guru .btn.secondary{
+  background:#FFF7E6 !important;
+  border-color:#E7D6B2 !important;
+  color:#7A6144 !important;
+}
+
+/* Input attendance: make rows feel like a classroom roster. */
+body.gantariku-role-guru:has(#daftarInputAbsen) .section-body{
+  background:
+    radial-gradient(circle at 100% 0,rgba(168,215,177,.10),transparent 24%),
+    #FFFDFC;
+}
+
+body.gantariku-role-guru:has(#daftarInputAbsen) table{
+  border-collapse:separate;
+  border-spacing:0 5px;
+}
+
+body.gantariku-role-guru:has(#daftarInputAbsen) tbody tr{
+  background:#FFFEFC;
+  box-shadow:0 3px 10px rgba(72,64,54,.025);
+}
+
+body.gantariku-role-guru:has(#daftarInputAbsen) tbody td{
+  border-top:1px solid #F0E9DF !important;
+  border-bottom:1px solid #F0E9DF !important;
+}
+
+body.gantariku-role-guru:has(#daftarInputAbsen) tbody td:first-child{
+  border-left:1px solid #F0E9DF !important;
+  border-radius:11px 0 0 11px;
+  color:#425D6D;
+  font-weight:750;
+}
+
+body.gantariku-role-guru:has(#daftarInputAbsen) tbody td:last-child{
+  border-right:1px solid #F0E9DF !important;
+  border-radius:0 11px 11px 0;
+}
+
+body.gantariku-role-guru:has(#daftarInputAbsen) tbody select{
+  border-color:#E3DBD0 !important;
+  border-radius:9px !important;
+  background:#FFF !important;
+}
+
+/* Personal attendance */
+body.gantariku-role-guru:has(#formAbsensiSaya) .section:first-child .section-body{
+  background:linear-gradient(135deg,#F0FAF2,#FFFDF9);
+}
+
+body.gantariku-role-guru:has(#formAbsensiSaya) .section:first-child::after{
+  content:"";
+  position:absolute;
+  right:18px;
+  bottom:9px;
+  width:110px;
+  height:90px;
+  background:url("../assets/gantariku-decoration-elements.png") right bottom/contain no-repeat;
+  opacity:.10;
+  pointer-events:none;
+}
+
+body.gantariku-role-guru:has(#formAbsensiSaya) #btnSimpanAbsensiSaya{
+  min-height:38px;
+}
+
+/* Riwayat compact */
+body.gantariku-role-guru:has(.gtr-riwayat-section) .gtr-riwayat-section{
+  background:#FFFDFC !important;
+}
+
+body.gantariku-role-guru:has(.gtr-riwayat-section) .gtr-riwayat-head{
+  background:linear-gradient(90deg,#EEF7F0,#FFFDFC);
+}
+
+body.gantariku-role-guru .gtr-riwayat-day{
+  border-color:#E7DFD4 !important;
+  border-radius:15px !important;
+  background:#FFFDFC !important;
+}
+
+body.gantariku-role-guru .gtr-riwayat-day__head:hover{
+  background:#FFF9EA !important;
+}
+
+/* Development input */
+body.gantariku-role-guru:has(#formPerkembangan) .section:first-child .section-head{
+  background:linear-gradient(90deg,#EEF7F0,#FFF9EA,#FFFDFC);
+}
+
+body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-top,
+body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-score{
+  gap:10px;
+}
+
+body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-score .form-group{
+  padding:12px;
+  border:1px solid #E9E2D8;
+  border-radius:13px;
+  background:#FFFEFC;
+}
+
+body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-score .form-group:nth-child(1){border-top:3px solid #8CC4F5}
+body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-score .form-group:nth-child(2){border-top:3px solid #F2C557}
+body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-score .form-group:nth-child(3){border-top:3px solid #EEA9A1}
+body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-score .form-group:nth-child(4){border-top:3px solid #A8D7B1}
+body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-score .form-group:nth-child(5){border-top:3px solid #C7B4E5}
+
+/* Mobile */
+@media(max-width:760px){
+  body.gantariku-role-guru .nav-item[data-nav-id] > span:first-child{
+    width:30px;
+    height:30px;
+  }
+
+  #guruHome{
+    gap:10px;
+  }
+
+  .guru-welcome-hero{
+    min-height:280px;
+  }
+
+  .guru-welcome-copy{
+    width:100%;
+    padding:20px 18px 0;
+  }
+
+  .guru-welcome-copy h2{
+    max-width:62%;
+    font-size:21px;
+  }
+
+  .guru-welcome-copy p{
+    max-width:62%;
+    font-size:10px;
+  }
+
+  .guru-welcome-art{
+    right:-3%;
+    bottom:-24px;
+    width:62%;
+    height:68%;
+  }
+
+  .guru-welcome-art img{
+    right:0;
+    width:150px;
+    height:250px;
+  }
+
+  .guru-art-glow{
+    width:175px;
+    height:175px;
+    right:0;
+    top:15px;
+  }
+
+  .guru-teacher-emblem{
+    right:12%;
+    top:18px;
+    font-size:8px;
+  }
+
+  .guru-home-grid{
+    grid-template-columns:1fr;
+  }
+
+  .guru-today-card,
+  .guru-action-card,
+  .guru-message-card,
+  .guru-journey-card,
+  .guru-agenda-card,
+  .guru-bottom-banner{
+    grid-column:auto;
+    grid-row:auto;
+  }
+
+  .guru-actions{
+    grid-template-columns:1fr;
+  }
+
+  .guru-message-card{
+    min-height:135px;
+  }
+
+  .guru-bottom-banner{
+    align-items:flex-start;
+  }
+
+  .guru-bottom-banner img{
+    width:70px;
+    height:44px;
+  }
+}
