@@ -7,6 +7,8 @@
 (function () {
   "use strict";
 
+  const APP_START_YEAR = 2026;
+
   const ASPEK = [
     "Teknik",
     "Hafalan Koreografi",
@@ -210,7 +212,7 @@
               <option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option>
               <option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option>
             </select>
-            <select id="perkembanganAdminTahun"><option value="${year}">${year}</option><option value="${year - 1}">${year - 1}</option></select>
+            <select id="perkembanganAdminTahun">${Array.from({ length: Math.max(1, year - APP_START_YEAR + 1) }, (_, i) => APP_START_YEAR + i).map((yearOption) => `<option value="${yearOption}" ${yearOption === year ? "selected" : ""}>${yearOption}</option>`).join("")}</select>
             <button class="btn secondary" onclick="window.__app.loadPerkembanganAdmin()">Tampilkan</button>
             <button class="btn secondary" onclick="window.__app.exportPerkembanganCsv()">↓ Export Excel</button>
           </div>
