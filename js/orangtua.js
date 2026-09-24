@@ -1191,18 +1191,13 @@ function renderSppAnak() {
     getNowWIB()
       .getFullYear();
 
-  const tahunOptions =
-    `<option value="">
-      Semua tahun
-    </option>` +
-
-    [
-      tahunSekarang,
-      tahunSekarang - 1,
-      tahunSekarang - 2
-    ]
-      .map(
-        (t) => `
+  const APP_START_YEAR = 2026;
+  const tahunOptions = Array.from(
+    { length: Math.max(1, tahunSekarang - APP_START_YEAR + 1) },
+    (_, index) => APP_START_YEAR + index
+  )
+    .map(
+      (t) => `
 
           <option
             value="${t}"
@@ -1216,8 +1211,8 @@ function renderSppAnak() {
           </option>
 
         `
-      )
-      .join("");
+    )
+    .join("");
 
   return `
 
