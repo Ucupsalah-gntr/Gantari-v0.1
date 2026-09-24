@@ -53,7 +53,7 @@ function renderBerandaGuru() {
             <span>Bu Vika</span>
           </div>
           <img
-            src="assets/dashboard-character.svg"
+            src="assets/dashboard-character.png"
             alt=""
             loading="lazy"
           >
