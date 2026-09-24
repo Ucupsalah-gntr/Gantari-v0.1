@@ -1,0 +1,234 @@
+/* ============================================================
+   GANTARIKU — ORANG TUA PAGE BEAUTY LAYER
+   Visual-only. Mempercantik halaman selain Beranda.
+   Memakai asset PNG Gantariku yang sudah tersedia.
+   ============================================================ */
+
+body.gantariku-role-ortu{
+  --parent-deep:#304C61;
+  --parent-brown:#876247;
+  --parent-gold:#F0BE43;
+  --parent-green:#78AE7E;
+  --parent-teal:#2F8A83;
+  --parent-line:#E8E1D7;
+}
+
+/* ---------- ALL PARENT PAGES ---------- */
+
+body.gantariku-role-ortu .view{
+  max-width:1180px;
+  margin-inline:auto;
+}
+
+body.gantariku-role-ortu .section-head h2{
+  letter-spacing:-.025em;
+}
+
+body.gantariku-role-ortu .section-head h2::before{
+  filter:drop-shadow(0 3px 5px rgba(90,70,50,.10));
+}
+
+body.gantariku-role-ortu .section-body{
+  position:relative;
+}
+
+body.gantariku-role-ortu .table-state{
+  padding:30px 18px !important;
+  color:#8C857B;
+  background:
+    radial-gradient(circle at 94% 0,rgba(255,209,47,.08),transparent 26%),
+    #FFFDFC;
+}
+
+/* ---------- ATTENDANCE PAGE ---------- */
+
+body.gantariku-role-ortu:has(#daftarAbsenAnak) .section{
+  background:
+    linear-gradient(180deg,#FFFDFC 0%,#FCFBF7 100%) !important;
+}
+
+body.gantariku-role-ortu:has(#daftarAbsenAnak) .section-head{
+  background:
+    radial-gradient(circle at 97% 0,rgba(168,215,177,.18),transparent 24%),
+    linear-gradient(90deg,#FFF9EA,#FFFDFC);
+}
+
+body.gantariku-role-ortu:has(#daftarAbsenAnak) .section-body::after{
+  content:"";
+  position:absolute;
+  right:14px;
+  bottom:7px;
+  width:150px;
+  height:112px;
+  pointer-events:none;
+  background:
+    url("../assets/illustration-orangtua-keluarga-gantari.png") right bottom/contain no-repeat;
+  opacity:.075;
+}
+
+body.gantariku-role-ortu:has(#daftarAbsenAnak) .ortu-date-field{
+  box-shadow:0 4px 12px rgba(91,74,58,.035);
+}
+
+body.gantariku-role-ortu:has(#daftarAbsenAnak) .ortu-desktop-table{
+  box-shadow:0 7px 18px rgba(74,63,51,.035);
+}
+
+body.gantariku-role-ortu:has(#daftarAbsenAnak) .ortu-desktop-table tbody tr:hover{
+  background:#F7FBF7;
+}
+
+/* ---------- SPP PAGE ---------- */
+
+body.gantariku-role-ortu:has(#daftarSppAnak) .section-head{
+  background:
+    radial-gradient(circle at 97% 0,rgba(255,209,47,.16),transparent 25%),
+    linear-gradient(90deg,#FFF8E5,#FFFDFC);
+}
+
+body.gantariku-role-ortu:has(#daftarSppAnak) .section-body::after{
+  content:"";
+  position:absolute;
+  right:8px;
+  bottom:2px;
+  width:190px;
+  height:135px;
+  pointer-events:none;
+  background:
+    url("../assets/illustration-orangtua-keluarga-gantari.png") right bottom/contain no-repeat;
+  opacity:.065;
+}
+
+body.gantariku-role-ortu:has(#daftarSppAnak) .ortu-desktop-table thead th:first-child{
+  border-top-left-radius:14px;
+}
+
+body.gantariku-role-ortu:has(#daftarSppAnak) .ortu-desktop-table thead th:last-child{
+  border-top-right-radius:14px;
+}
+
+body.gantariku-role-ortu:has(#daftarSppAnak) .ortu-spp-card{
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 8px 19px rgba(74,63,51,.045);
+}
+
+body.gantariku-role-ortu:has(#daftarSppAnak) .ortu-spp-card::after{
+  content:"";
+  position:absolute;
+  right:-20px;
+  bottom:-24px;
+  width:82px;
+  height:82px;
+  background:url("../assets/icon-orangtua-sunflower.png") center/contain no-repeat;
+  opacity:.075;
+  pointer-events:none;
+}
+
+body.gantariku-role-ortu:has(#daftarSppAnak) .spp-proof-link{
+  color:var(--parent-teal);
+}
+
+/* ---------- DEVELOPMENT PAGE ---------- */
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .section{
+  background:
+    radial-gradient(circle at 96% 0,rgba(168,215,177,.12),transparent 25%),
+    linear-gradient(180deg,#FFFDFC 0%,#FCFBF7 100%) !important;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan{
+  border-radius:18px;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan::after{
+  content:"";
+  position:absolute;
+  right:12px;
+  bottom:10px;
+  width:170px;
+  height:120px;
+  background:
+    url("../assets/illustration-orangtua-keluarga-gantari.png") right bottom/contain no-repeat;
+  opacity:.065;
+  pointer-events:none;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .ortu-perk-header{
+  min-height:86px;
+  align-items:center;
+  background:
+    radial-gradient(circle at 94% 0,rgba(255,209,47,.16),transparent 23%),
+    linear-gradient(135deg,#FFF8E5 0%,#FFFDFC 68%,#F2F8F1 100%);
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-parent-aspect{
+  overflow:hidden;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-parent-aspect:nth-child(1){border-top:3px solid #A8D7B1;}
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-parent-aspect:nth-child(2){border-top:3px solid #FFD36A;}
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-parent-aspect:nth-child(3){border-top:3px solid #A9CBE2;}
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-parent-aspect:nth-child(4){border-top:3px solid #F0B8AE;}
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-parent-aspect:nth-child(5){border-top:3px solid #C8B6E7;}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .perk-history{
+  background:rgba(255,255,255,.52);
+  border-radius:15px;
+  padding:15px;
+}
+
+/* ---------- EMPTY STATES ---------- */
+
+body.gantariku-role-ortu .empty{
+  min-height:110px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+body.gantariku-role-ortu .empty::before{
+  content:"";
+  width:58px;
+  height:52px;
+  margin-bottom:8px;
+  background:url("../assets/illustration-orangtua-keluarga-gantari.png") center/contain no-repeat;
+  opacity:.20;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:760px){
+  body.gantariku-role-ortu .view{
+    max-width:none;
+  }
+
+  body.gantariku-role-ortu:has(#daftarAbsenAnak) .section-body::after,
+  body.gantariku-role-ortu:has(#daftarSppAnak) .section-body::after,
+  body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan::after{
+    width:92px;
+    height:72px;
+    opacity:.055;
+    right:7px;
+    bottom:7px;
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanPerkembangan) .ortu-perk-header{
+    min-height:74px;
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanPerkembangan) .perk-history{
+    padding:11px;
+  }
+
+  body.gantariku-role-ortu .empty{
+    min-height:96px;
+  }
+
+  body.gantariku-role-ortu .empty::before{
+    width:48px;
+    height:44px;
+  }
+}
