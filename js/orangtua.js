@@ -440,281 +440,211 @@ async function loadRingkasanAnak() {
         : "Belum ada tagihan";
 
     body.innerHTML = `
+      <div id="ortuDashboardHome">
 
-      <div class="section">
+        <section class="ortu-dashboard-hero">
 
-        <div class="section-head">
+          <div class="ortu-dashboard-hero-copy">
 
-          <div>
-
-            <h2 class="ortu-summary-title">
-              ${anak.nama}
-            </h2>
-
-            <div
-              style="
-                margin-top:5px;
-                font-size:12px;
-                color:var(--ink-soft);
-              "
-            >
-              Ringkasan
-              ${namaBulan(
-                bulanIni
-              )}
-              ${tahunIni}
+            <div class="ortu-dashboard-eyebrow">
+              Gantari · Rumah Belajar Inklusi
             </div>
 
+            <h2>
+              Selamat Datang,
+              ${String(currentUser?.nama || "Bunda")}
+            </h2>
+
+            <p>
+              Terima kasih telah menjadi bagian dari perjalanan
+              anak-anak kita menuju masa depan yang lebih baik.
+            </p>
+
+          </div>
+
+          <div class="ortu-dashboard-hero-art" aria-hidden="true">
+            <img
+              src="assets/illustration-orangtua-keluarga-gantari.png"
+              alt=""
+              loading="lazy"
+              onerror="this.onerror=null;this.src='assets/illustration-orangtua-empty-state.png';"
+            >
+          </div>
+
+        </section>
+
+        <div class="ortu-dashboard-child">
+
+          <div class="ortu-dashboard-child-profile">
+
+            <div class="ortu-dashboard-avatar">
+              <img
+                src="assets/icon-orangtua-anak.png"
+                alt=""
+                loading="lazy"
+              >
+            </div>
+
+            <div style="min-width:0;">
+
+              <div class="ortu-dashboard-child-name">
+                ${String(anak.nama)}
+              </div>
+
+              <div class="ortu-dashboard-child-meta">
+                ${String(anak.kelas || "-")} ·
+                Tahun Ajaran ${String(anak.tahun_ajaran || "-")}
+              </div>
+
+              <button
+                type="button"
+                class="ortu-dashboard-child-link"
+                onclick="window.__app.goTo('absen-anak')"
+              >
+                Lihat Detail Anak →
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="ortu-dashboard-stat hadir">
+            <div class="ortu-dashboard-stat-label">
+              <span class="ortu-dashboard-stat-icon">
+                <img src="assets/icon-orangtua-kehadiran.png" alt="">
+              </span>
+              Hadir
+            </div>
+            <div class="ortu-dashboard-stat-num">${hitung.H}</div>
+            <div class="ortu-dashboard-stat-caption">Hari</div>
+          </div>
+
+          <div class="ortu-dashboard-stat izin">
+            <div class="ortu-dashboard-stat-label">
+              <span class="ortu-dashboard-stat-icon">
+                <img src="assets/icon-orangtua-kehadiran.png" alt="">
+              </span>
+              Izin
+            </div>
+            <div class="ortu-dashboard-stat-num">${hitung.I}</div>
+            <div class="ortu-dashboard-stat-caption">Hari</div>
+          </div>
+
+          <div class="ortu-dashboard-stat sakit">
+            <div class="ortu-dashboard-stat-label">
+              <span class="ortu-dashboard-stat-icon">
+                <img src="assets/icon-orangtua-kehadiran.png" alt="">
+              </span>
+              Sakit
+            </div>
+            <div class="ortu-dashboard-stat-num">${hitung.S}</div>
+            <div class="ortu-dashboard-stat-caption">Hari</div>
+          </div>
+
+          <div class="ortu-dashboard-stat alpa">
+            <div class="ortu-dashboard-stat-label">
+              <span class="ortu-dashboard-stat-icon">
+                <img src="assets/icon-orangtua-kehadiran.png" alt="">
+              </span>
+              Alpa
+            </div>
+            <div class="ortu-dashboard-stat-num">${hitung.A}</div>
+            <div class="ortu-dashboard-stat-caption">Hari</div>
           </div>
 
         </div>
 
+        <div class="ortu-dashboard-lower">
 
-        <div class="section-body">
+          <section class="ortu-dashboard-card ortu-dashboard-spp">
 
-          <div class="ortu-content-illustration ortu-summary-illustration" aria-hidden="true">
-            <img src="assets/illustration-orangtua-empty-state.png" alt="" loading="lazy">
-          </div>
-
-          <div
-            class="ortu-child-profile"
-            style="
-              margin-bottom:20px;
-              padding:14px;
-              border:1px solid var(--line);
-              border-radius:16px;
-              background:
-                rgba(255,255,255,.45);
-            "
-          >
-
-            <div
-              style="
-                display:grid;
-                grid-template-columns:
-                  repeat(
-                    3,
-                    minmax(0,1fr)
-                  );
-                gap:12px;
-              "
-            >
-
-              <div>
-
-                <div
-                  style="
-                    font-size:10px;
-                    color:var(--ink-soft);
-                    text-transform:uppercase;
-                    font-weight:700;
-                  "
-                >
-                  NIS
-                </div>
-
-                <div
-                  style="
-                    margin-top:3px;
-                    font-weight:700;
-                  "
-                >
-                  ${anak.nis || "-"}
-                </div>
-
-              </div>
-
-
-              <div>
-
-                <div
-                  style="
-                    font-size:10px;
-                    color:var(--ink-soft);
-                    text-transform:uppercase;
-                    font-weight:700;
-                  "
-                >
-                  Kelas
-                </div>
-
-                <div
-                  style="
-                    margin-top:3px;
-                    font-weight:700;
-                  "
-                >
-                  ${anak.kelas || "-"}
-                </div>
-
-              </div>
-
-
-              <div>
-
-                <div
-                  style="
-                    font-size:10px;
-                    color:var(--ink-soft);
-                    text-transform:uppercase;
-                    font-weight:700;
-                  "
-                >
-                  Tahun Ajaran
-                </div>
-
-                <div
-                  style="
-                    margin-top:3px;
-                    font-weight:700;
-                  "
-                >
-                  ${anak.tahun_ajaran || "-"}
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="stat-row">
-
-            <div class="stat c-teal">
-
-              <div class="num">
-                ${hitung.H}
-              </div>
-
-              <div class="lbl">
-                Hadir
-              </div>
-
-            </div>
-
-
-            <div class="stat c-warn">
-
-              <div class="num">
-                ${hitung.I}
-              </div>
-
-              <div class="lbl">
-                Izin
-              </div>
-
-            </div>
-
-
-            <div class="stat c-sick">
-
-              <div class="num">
-                ${hitung.S}
-              </div>
-
-              <div class="lbl">
-                Sakit
-              </div>
-
-            </div>
-
-
-            <div class="stat c-bad">
-
-              <div class="num">
-                ${hitung.A}
-              </div>
-
-              <div class="lbl">
-                Alpa
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div
-            class="ortu-spp-summary"
-            style="
-              margin-top:20px;
-              padding:16px;
-              border:1px solid var(--line);
-              border-radius:16px;
-            "
-          >
-
-            <div
-              style="
-                display:flex;
-                justify-content:space-between;
-                gap:12px;
-                align-items:center;
-                flex-wrap:wrap;
-              "
-            >
-
-              <div>
-
-                <div
-                  style="
-                    font-size:11px;
-                    color:var(--ink-soft);
-                    margin-bottom:5px;
-                  "
-                >
-                  Status SPP
-                  ${namaBulan(
-                    bulanIni
-                  )}
-                  ${tahunIni}
-                </div>
-
-                <div
-                  style="
-                    font-size:15px;
-                    font-weight:800;
-                  "
-                >
-                  ${sppBulanIni
-                    ? formatRupiah(
-                        sppBulanIni.nominal
-                      )
-                    : "-"
-                  }
-                </div>
-
-              </div>
-
-
-              <span
-                class="badge ${
-                  sppBulanIni
-                    ? sppBulanIni.status ===
-                      "Lunas"
-                      ? "badge-good"
-                      : sppBulanIni.status ===
-                        "Menunggu Verifikasi"
-                      ? "badge-warn"
-                      : "badge-bad"
-                    : "badge-muted"
-                }"
-              >
-
-                ${sppStatus}
-
+            <div class="ortu-dashboard-card-head">
+              <span class="ortu-dashboard-card-icon">
+                <img src="assets/icon-orangtua-spp.png" alt="">
               </span>
+              <div>
+                <div class="ortu-dashboard-card-title">Informasi SPP</div>
+                <div class="ortu-dashboard-card-sub">
+                  ${namaBulan(bulanIni)} ${tahunIni}
+                </div>
+              </div>
+            </div>
+
+            <div class="ortu-dashboard-spp-month">
+              ${sppBulanIni ? `Status pembayaran ${namaBulan(bulanIni)}` : "Belum ada tagihan"}
+            </div>
+
+            <div class="ortu-dashboard-spp-amount">
+              ${sppBulanIni ? formatRupiah(sppBulanIni.nominal) : "-"}
+            </div>
+
+            <div class="ortu-dashboard-spp-due">
+              ${sppBulanIni?.tanggal_bayar ? `Dibayar ${sppBulanIni.tanggal_bayar}` : "Pantau status pembayaran SPP anak"}
+            </div>
+
+            <div class="ortu-dashboard-spp-status">
+              ${renderBadgeSppOrtu(sppStatus)}
+            </div>
+
+            <button
+              type="button"
+              class="ortu-dashboard-spp-btn"
+              onclick="window.__app.goTo('spp-anak')"
+            >
+              Lihat Detail →
+            </button>
+
+          </section>
+
+          <section class="ortu-dashboard-card">
+
+            <div class="ortu-dashboard-card-head">
+              <span class="ortu-dashboard-card-icon">
+                <img src="assets/icon-orangtua-notifikasi.png" alt="">
+              </span>
+              <div>
+                <div class="ortu-dashboard-card-title">Notifikasi Terbaru</div>
+                <div class="ortu-dashboard-card-sub">Pembaruan untuk anak Anda</div>
+              </div>
+            </div>
+
+            <div id="ortuDashboardNotifications" class="ortu-dashboard-notifs">
+              <div class="empty" style="padding:12px;">Memuat notifikasi...</div>
+            </div>
+
+            <button
+              type="button"
+              class="ortu-dashboard-notif-footer"
+              style="border:0;background:transparent;padding:0;"
+              onclick="window.__app.goTo('notifikasi')"
+            >
+              Lihat Semua Notifikasi →
+            </button>
+
+          </section>
+
+          <section class="ortu-dashboard-card ortu-dashboard-quote">
+
+            <div>
+
+              <p>
+                “Anak yang bahagia adalah anak yang
+                didukung oleh orang tuanya.”
+                <span>— Gantariku</span>
+              </p>
 
             </div>
 
-          </div>
+          </section>
 
         </div>
 
       </div>
+    `;
 
     `;
+
+    syncOrtuDashboardNotifications();
 
   } catch (error) {
 
@@ -736,6 +666,59 @@ async function loadRingkasanAnak() {
   }
 }
 
+
+
+async function syncOrtuDashboardNotifications() {
+  const target = document.getElementById("ortuDashboardNotifications");
+  const panel = document.getElementById("notifPanel");
+
+  if (!target || !panel) return;
+
+  try {
+    if (typeof window.gantarikuLoadNotifikasiOrtuStable === "function") {
+      await window.gantarikuLoadNotifikasiOrtuStable();
+    } else if (typeof window.loadNotifikasi === "function") {
+      await window.loadNotifikasi();
+    }
+
+    const sources = Array.from(
+      panel.querySelectorAll(".notif-item-action")
+    ).slice(0, 3);
+
+    if (!sources.length) {
+      target.innerHTML = `
+        <div class="notif-empty">
+          Semua aman. Tidak ada notifikasi baru.
+        </div>
+      `;
+      return;
+    }
+
+    target.innerHTML = sources.map((source, index) => `
+      <button type="button" class="ortu-dashboard-notif" data-dashboard-notif="${index}">
+        <span class="ortu-dashboard-notif-icon">
+          ${source.querySelector(".notif-icon")?.textContent || "🔔"}
+        </span>
+        <span class="ortu-dashboard-notif-text">
+          ${source.querySelector("span:last-child")?.textContent || source.textContent || "Notifikasi"}
+        </span>
+        <span class="ortu-dashboard-notif-arrow">›</span>
+      </button>
+    `).join("");
+
+    target.querySelectorAll("[data-dashboard-notif]").forEach((button, index) => {
+      button.addEventListener("click", () => {
+        const source = sources[index];
+        if (source) source.click();
+      });
+    });
+  } catch (error) {
+    console.error("Gantariku: gagal sinkron notifikasi dashboard Orang Tua:", error);
+    target.innerHTML = `
+      <div class="notif-empty">Notifikasi belum tersedia.</div>
+    `;
+  }
+}
 
 // ============================================================
 // KEHADIRAN ANAK
