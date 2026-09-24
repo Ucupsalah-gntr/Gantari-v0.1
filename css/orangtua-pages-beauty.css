@@ -232,3 +232,121 @@ body.gantariku-role-ortu .empty::before{
     height:44px;
   }
 }
+
+/* ============================================================
+   ICON SCALE PATCH — ORANG TUA
+   Lebih tegas, tetap proporsional terhadap card.
+   ============================================================ */
+
+/* Sidebar: icon menu */
+.gantariku-role-ortu .nav-item[data-nav-id] > span:first-child{
+  width:34px !important;
+  height:34px !important;
+  flex:0 0 34px;
+  background-size:34px 34px !important;
+}
+
+/* Child selector */
+.gantariku-role-ortu .ortu-child-selector::before{
+  width:34px !important;
+  height:34px !important;
+}
+
+/* Page title icon */
+body.gantariku-role-ortu #pageTitle::before{
+  width:40px !important;
+  height:40px !important;
+  flex-basis:40px !important;
+  background-size:28px 28px !important;
+}
+
+/* Development: aspect icons */
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-aspect-icon{
+  width:42px !important;
+  height:42px !important;
+  margin-bottom:8px !important;
+  border-radius:12px !important;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-aspect-icon img{
+  width:31px !important;
+  height:31px !important;
+}
+
+/* Development: header / average / note icons */
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .ortu-perk-heading-icon{
+  width:46px !important;
+  height:46px !important;
+  border-radius:14px !important;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .ortu-perk-heading-icon img{
+  width:32px !important;
+  height:32px !important;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .ortu-perk-average-icon img{
+  width:26px !important;
+  height:26px !important;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .perk-note-icon{
+  width:30px !important;
+  height:30px !important;
+}
+
+body.gantariku-role-ortu:has(#ringkasanPerkembangan) .perk-note-icon img{
+  width:21px !important;
+  height:21px !important;
+}
+
+/* Attendance / SPP section heading icon */
+body.gantariku-role-ortu:has(#daftarAbsenAnak) .section-head h2::before,
+body.gantariku-role-ortu:has(#daftarSppAnak) .section-head h2::before,
+body.gantariku-role-ortu:has(#ringkasanAnakBody) .section-head h2::before{
+  flex-basis:40px !important;
+  width:40px !important;
+  height:40px !important;
+  background-size:32px 32px !important;
+}
+
+@media(max-width:760px){
+  .gantariku-role-ortu .nav-item[data-nav-id] > span:first-child{
+    width:30px !important;
+    height:30px !important;
+    flex-basis:30px;
+    background-size:30px 30px !important;
+  }
+
+  .gantariku-role-ortu .ortu-child-selector::before{
+    width:31px !important;
+    height:31px !important;
+  }
+
+  body.gantariku-role-ortu #pageTitle::before{
+    width:34px !important;
+    height:34px !important;
+    flex-basis:34px !important;
+    background-size:24px 24px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-aspect-icon{
+    width:38px !important;
+    height:38px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ringkasanPerkembangan) #ringkasanPerkembangan .perk-aspect-icon img{
+    width:28px !important;
+    height:28px !important;
+  }
+
+  body.gantariku-role-ortu:has(#daftarAbsenAnak) .section-head h2::before,
+  body.gantariku-role-ortu:has(#daftarSppAnak) .section-head h2::before,
+  body.gantariku-role-ortu:has(#ringkasanAnakBody) .section-head h2::before{
+    flex-basis:34px !important;
+    width:34px !important;
+    height:34px !important;
+    background-size:27px 27px !important;
+  }
+}
+
