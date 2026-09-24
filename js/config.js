@@ -6,7 +6,6 @@
           { id: "dasbor", label: "Dasbor", icon: "📊" },
           { id: "siswa", label: "Data Siswa", icon: "👥" },
           { id: "spp", label: "Monitoring SPP", icon: "💰" },
-          { id: "guru", label: "Guru & Pelatih", icon: "🩰" },
           { id: "absen-guru", label: "Absensi Guru", icon: "👩‍🏫" },
           { id: "rekap", label: "Rekap Absensi", icon: "📋" },
           { id: "perkembangan", label: "Perkembangan Anak", icon: "🌱" },
