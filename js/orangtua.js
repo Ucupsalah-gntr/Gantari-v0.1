@@ -642,8 +642,6 @@ async function loadRingkasanAnak() {
       </div>
     `;
 
-    `;
-
     syncOrtuDashboardNotifications();
 
   } catch (error) {
