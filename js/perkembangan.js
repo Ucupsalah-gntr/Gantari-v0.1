@@ -2,6 +2,8 @@
 // PERKEMBANGAN ANAK
 // ============================================================
 
+const APP_START_YEAR = 2026;
+
 const PERKEMBANGAN_ASPEK = [
   "Teknik",
   "Hafalan Koreografi",
@@ -86,13 +88,13 @@ function renderPerkembanganAdmin() {
           </select>
 
           <select id="perkembanganAdminTahun">
-            <option value="${tahun}">
-              ${tahun}
-            </option>
-
-            <option value="${tahun - 1}">
-              ${tahun - 1}
-            </option>
+            ${Array.from({ length: Math.max(1, tahun - APP_START_YEAR + 1) }, (_, i) => APP_START_YEAR + i)
+              .map((yearOption) => `
+                <option value="${yearOption}" ${yearOption === tahun ? "selected" : ""}>
+                  ${yearOption}
+                </option>
+              `)
+              .join("")}
           </select>
 
           <button
