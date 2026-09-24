@@ -12,6 +12,7 @@
           { id: "perkembangan", label: "Perkembangan Anak", icon: "🌱" },
         ],
         guru: [
+          { id: "guru-home", label: "Beranda", icon: "☀" },
           { id: "input-absen", label: "Input Absensi", icon: "✓" },
           { id: "absen-saya", label: "Kehadiran Saya", icon: "🕘" },
           { id: "riwayat-absen", label: "Riwayat Absensi", icon: "📅" },
