@@ -36,10 +36,7 @@
             <option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option>
             <option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option>
           </select>
-          <select id="perkembanganGuruTahun">
-            <option value="${new Date().getFullYear()}">${new Date().getFullYear()}</option>
-            <option value="${new Date().getFullYear() - 1}">${new Date().getFullYear() - 1}</option>
-          </select>
+          <select id="perkembanganGuruTahun">${Array.from({ length: Math.max(1, new Date().getFullYear() - 2026 + 1) }, (_, i) => 2026 + i).map((yearOption) => `<option value="${yearOption}" ${yearOption === new Date().getFullYear() ? "selected" : ""}>${yearOption}</option>`).join("")}</select>
           <button class="btn secondary" type="button" id="gtrMuatPerkembanganGuru">Tampilkan</button>
         </div>
       </div>
