@@ -32,11 +32,11 @@ function sppStatusIcon(status) {
 function renderSpp() {
   const tahunSekarang = getNowWIB().getFullYear();
 
-  const tahunOptions = [
-    tahunSekarang - 1,
-    tahunSekarang,
-    tahunSekarang + 1
-  ]
+  const APP_START_YEAR = 2026;
+  const tahunOptions = Array.from(
+    { length: Math.max(1, tahunSekarang - APP_START_YEAR + 1) },
+    (_, index) => APP_START_YEAR + index
+  )
     .map(
       (tahun) => `
         <option value="${tahun}" ${
