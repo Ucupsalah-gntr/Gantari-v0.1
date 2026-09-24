@@ -21,6 +21,7 @@
         document.documentElement.classList.toggle("gantariku-mobile-device", isTouchMobile);
         document.body.classList.toggle("gantariku-mobile-device", isTouchMobile);
         document.body.classList.toggle("gantariku-role-orangtua", currentUserRole === "ortu");
+        document.body.classList.toggle("gantariku-role-guru", currentUserRole === "guru");
         const html = `
           <div class="app">
             <aside class="sidebar" id="sidebar">
@@ -192,6 +193,11 @@
             html = renderRekap();
             title = "Rekap Absensi";
             subtitle = "Laporan kehadiran";
+            break;
+          case "guru-home":
+            html = renderBerandaGuru();
+            title = "Beranda Guru";
+            subtitle = "Ruang kerja Bu Vika";
             break;
           case "input-absen":
             html = renderInputAbsen();
