@@ -493,15 +493,22 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
 /* ---------- MOBILE ---------- */
 
 @media(max-width:760px){
+  /* Mobile sudah menampilkan logo utama di header/sidebar.
+     Jangan tampilkan logo kedua dari pseudo-element topbar. */
   body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar{
-    grid-template-columns:1fr auto;
+    grid-template-columns:1fr;
     min-height:58px;
     padding:8px 10px !important;
   }
 
   body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar::before{
-    width:128px;
-    height:38px;
+    display:none !important;
+    content:none !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar-actions{
+    width:100%;
+    justify-content:flex-end !important;
   }
 
   #ortuDashboardHome{
