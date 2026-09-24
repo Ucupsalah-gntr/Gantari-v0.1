@@ -132,14 +132,15 @@ body.gantariku-role-guru .nav-item.active{
 
 .guru-welcome-art img{
   position:absolute;
-  right:4%;
-  bottom:0;
-  width:235px;
-  height:390px;
+  right:-2%;
+  bottom:-10px;
+  width:470px;
+  height:auto;
+  max-width:none;
   object-fit:contain;
-  object-position:bottom center;
+  object-position:center bottom;
   filter:drop-shadow(0 10px 13px rgba(90,71,54,.10));
-  opacity:.83;
+  opacity:.90;
 }
 
 .guru-art-glow{
@@ -694,16 +695,18 @@ body.gantariku-role-guru:has(#formPerkembangan) .perk-input-grid-score .form-gro
   }
 
   .guru-welcome-art{
-    right:-3%;
-    bottom:-24px;
-    width:62%;
-    height:68%;
+    right:-6%;
+    bottom:-20px;
+    width:68%;
+    height:72%;
   }
 
   .guru-welcome-art img{
     right:0;
-    width:150px;
-    height:250px;
+    bottom:0;
+    width:285px;
+    height:auto;
+    max-width:none;
   }
 
   .guru-art-glow{
