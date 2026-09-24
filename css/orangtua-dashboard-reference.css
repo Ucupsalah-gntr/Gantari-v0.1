@@ -1,0 +1,595 @@
+/* ============================================================
+   GANTARIKU — ORANG TUA DASHBOARD REFERENCE
+   Visual-only: dashboard "Beranda" inspired by supplied reference.
+   Data/action logic remains in orangtua.js.
+   ============================================================ */
+
+body.gantariku-role-ortu:has(#ortuDashboardHome){
+  background:#F6F7F2 !important;
+}
+
+body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar{
+  min-height:70px;
+  margin-bottom:14px;
+  padding:10px 16px !important;
+  border:1px solid #E6E2D9 !important;
+  border-radius:16px !important;
+  background:#FFFDFC !important;
+  box-shadow:0 7px 20px rgba(73,63,53,.045) !important;
+  display:grid !important;
+  grid-template-columns:minmax(170px,1fr) auto;
+  align-items:center;
+  gap:12px;
+}
+
+body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar > div:first-child{
+  display:none !important;
+}
+
+body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar::before{
+  content:"";
+  display:block;
+  width:158px;
+  height:44px;
+  background:url("../assets/logo-gantari.png") left center / contain no-repeat;
+}
+
+body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar-actions{
+  justify-content:flex-end;
+}
+
+body.gantariku-role-ortu:has(#ortuDashboardHome) #todayChip{
+  display:none !important;
+}
+
+body.gantariku-role-ortu:has(#ortuDashboardHome) #notifButton{
+  width:42px !important;
+  min-width:42px !important;
+  height:42px !important;
+  padding:7px !important;
+  border-radius:12px !important;
+  background:#FFF9EA !important;
+  border:1px solid #EFE0B8 !important;
+  box-shadow:none !important;
+}
+
+body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
+  display:none !important;
+}
+
+#ortuDashboardHome{
+  display:grid;
+  gap:14px;
+}
+
+/* ---------- HERO ---------- */
+
+.ortu-dashboard-hero{
+  position:relative;
+  min-height:164px;
+  overflow:hidden;
+  border:1px solid #E7E2D7;
+  border-radius:20px;
+  background:
+    linear-gradient(90deg,rgba(255,252,239,.98) 0%,rgba(255,252,239,.92) 43%,rgba(239,248,249,.78) 100%),
+    url("../assets/bg-dashboard-gantari.png.png") center/cover no-repeat;
+  box-shadow:0 10px 26px rgba(72,64,54,.05);
+}
+
+.ortu-dashboard-hero::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:26px;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.28));
+  pointer-events:none;
+}
+
+.ortu-dashboard-hero-copy{
+  position:relative;
+  z-index:2;
+  width:58%;
+  max-width:540px;
+  padding:25px 26px 24px;
+}
+
+.ortu-dashboard-eyebrow{
+  margin-bottom:6px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:#9D744F;
+}
+
+.ortu-dashboard-hero h2{
+  margin:0;
+  color:#28465D;
+  font-size:28px;
+  line-height:1.15;
+  letter-spacing:-.03em;
+}
+
+.ortu-dashboard-hero p{
+  max-width:450px;
+  margin:10px 0 0;
+  color:#6C7881;
+  font-size:12px;
+  line-height:1.65;
+}
+
+.ortu-dashboard-hero-art{
+  position:absolute;
+  z-index:1;
+  right:-2%;
+  bottom:-22px;
+  width:44%;
+  max-width:470px;
+  height:100%;
+  pointer-events:none;
+}
+
+.ortu-dashboard-hero-art img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:right bottom;
+}
+
+/* ---------- CHILD SUMMARY ---------- */
+
+.ortu-dashboard-child{
+  display:grid;
+  grid-template-columns:minmax(235px,1.2fr) repeat(4,minmax(0,.78fr));
+  gap:10px;
+  padding:12px;
+  border:1px solid #E8E3D9;
+  border-radius:18px;
+  background:#FFFDFC;
+  box-shadow:0 8px 22px rgba(72,64,54,.04);
+}
+
+.ortu-dashboard-child-profile{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+  padding:4px 5px;
+}
+
+.ortu-dashboard-avatar{
+  width:62px;
+  height:62px;
+  flex:0 0 62px;
+  border-radius:50%;
+  overflow:hidden;
+  border:3px solid #FFF1C7;
+  background:#FFF8E9;
+  box-shadow:0 4px 10px rgba(120,92,58,.08);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.ortu-dashboard-avatar img{
+  width:135%;
+  height:135%;
+  object-fit:contain;
+  transform:translateY(4px);
+}
+
+.ortu-dashboard-child-name{
+  color:#314B61;
+  font-size:14px;
+  font-weight:850;
+  line-height:1.25;
+}
+
+.ortu-dashboard-child-meta{
+  margin-top:5px;
+  color:#8D877F;
+  font-size:10px;
+  line-height:1.45;
+}
+
+.ortu-dashboard-child-link{
+  display:inline-flex;
+  margin-top:7px;
+  padding:6px 9px;
+  border-radius:9px;
+  border:1px solid #EED9A8;
+  background:#FFF8E2;
+  color:#836139;
+  font-size:9px;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.ortu-dashboard-stat{
+  min-height:78px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:11px 12px;
+  border:1px solid #ECE6DD;
+  border-radius:14px;
+  background:#FBFCFA;
+}
+
+.ortu-dashboard-stat-label{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  color:#7E7A74;
+  font-size:9px;
+  font-weight:800;
+}
+
+.ortu-dashboard-stat-icon{
+  width:23px;
+  height:23px;
+  flex:0 0 23px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:#F3F5EE;
+}
+
+.ortu-dashboard-stat-icon img{
+  width:17px;
+  height:17px;
+  object-fit:contain;
+}
+
+.ortu-dashboard-stat-num{
+  margin-top:6px;
+  color:#30576C;
+  font-size:21px;
+  line-height:1;
+  font-weight:850;
+}
+
+.ortu-dashboard-stat-caption{
+  margin-top:3px;
+  color:#9A948C;
+  font-size:8px;
+}
+
+.ortu-dashboard-stat.hadir{background:#EEF7EE;border-color:#DDEDDC}
+.ortu-dashboard-stat.hadir .ortu-dashboard-stat-icon{background:#DDF0DD}
+.ortu-dashboard-stat.hadir .ortu-dashboard-stat-num{color:#3D8658}
+
+.ortu-dashboard-stat.izin{background:#FFF8E8;border-color:#F1E5C7}
+.ortu-dashboard-stat.izin .ortu-dashboard-stat-icon{background:#FFF0C8}
+.ortu-dashboard-stat.izin .ortu-dashboard-stat-num{color:#B28325}
+
+.ortu-dashboard-stat.sakit{background:#FFF0EF;border-color:#F1DDDB}
+.ortu-dashboard-stat.sakit .ortu-dashboard-stat-icon{background:#FFE1DF}
+.ortu-dashboard-stat.sakit .ortu-dashboard-stat-num{color:#BC6258}
+
+.ortu-dashboard-stat.alpa{background:#F2F2F4;border-color:#E4E3E7}
+.ortu-dashboard-stat.alpa .ortu-dashboard-stat-icon{background:#E7E7EA}
+.ortu-dashboard-stat.alpa .ortu-dashboard-stat-num{color:#5C6871}
+
+/* ---------- LOWER GRID ---------- */
+
+.ortu-dashboard-lower{
+  display:grid;
+  grid-template-columns:1.05fr 1.55fr .82fr;
+  gap:10px;
+}
+
+.ortu-dashboard-card{
+  position:relative;
+  overflow:hidden;
+  min-height:190px;
+  padding:17px;
+  border:1px solid #E8E3D9;
+  border-radius:16px;
+  background:#FFFDFC;
+  box-shadow:0 7px 19px rgba(72,64,54,.035);
+}
+
+.ortu-dashboard-card-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:15px;
+}
+
+.ortu-dashboard-card-icon{
+  width:30px;
+  height:30px;
+  flex:0 0 30px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  background:#FFF0C9;
+  border:1px solid #F1E2BD;
+}
+
+.ortu-dashboard-card-icon img{
+  width:21px;
+  height:21px;
+  object-fit:contain;
+}
+
+.ortu-dashboard-card-title{
+  color:#324D61;
+  font-size:12px;
+  font-weight:850;
+}
+
+.ortu-dashboard-card-sub{
+  margin-top:2px;
+  color:#9B948B;
+  font-size:9px;
+}
+
+.ortu-dashboard-spp{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
+.ortu-dashboard-spp-month{
+  color:#887964;
+  font-size:9px;
+}
+
+.ortu-dashboard-spp-amount{
+  margin-top:5px;
+  color:#244861;
+  font-size:24px;
+  font-weight:850;
+  letter-spacing:-.03em;
+}
+
+.ortu-dashboard-spp-due{
+  margin-top:5px;
+  color:#8E8A84;
+  font-size:9px;
+}
+
+.ortu-dashboard-spp-status{
+  margin-top:12px;
+}
+
+.ortu-dashboard-spp-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:12px;
+  min-height:34px;
+  padding:8px 12px;
+  border-radius:10px;
+  background:#2F8B82;
+  color:#fff !important;
+  font-size:10px;
+  font-weight:800;
+  border:0;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.ortu-dashboard-notifs{
+  display:grid;
+  gap:7px;
+}
+
+.ortu-dashboard-notif{
+  width:100%;
+  display:grid;
+  grid-template-columns:28px minmax(0,1fr) auto;
+  align-items:center;
+  gap:8px;
+  padding:9px 8px;
+  text-align:left;
+  border:1px solid #F0EBE4;
+  border-radius:11px;
+  background:#FFFDFC;
+  color:#425565;
+  cursor:pointer;
+}
+
+.ortu-dashboard-notif:hover{
+  background:#FFFAF0;
+}
+
+.ortu-dashboard-notif-icon{
+  width:25px;
+  height:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:#F6F3ED;
+  font-size:12px;
+}
+
+.ortu-dashboard-notif-text{
+  min-width:0;
+  font-size:9px;
+  line-height:1.4;
+  font-weight:700;
+}
+
+.ortu-dashboard-notif-arrow{
+  color:#8C877F;
+  font-size:12px;
+}
+
+.ortu-dashboard-notif-footer{
+  margin-top:9px;
+  color:#2C7B76;
+  font-size:9px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.ortu-dashboard-quote{
+  min-height:190px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:22px;
+  background:
+    linear-gradient(180deg,rgba(255,248,229,.9),rgba(255,253,247,.98)),
+    url("../assets/gantariku-decoration-elements.png") right bottom/140px auto no-repeat;
+}
+
+.ortu-dashboard-quote::before{
+  content:"";
+  position:absolute;
+  top:-22px;
+  right:-18px;
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  background:#FFF2C9;
+  opacity:.48;
+}
+
+.ortu-dashboard-quote p{
+  position:relative;
+  z-index:1;
+  max-width:170px;
+  margin:0;
+  color:#655644;
+  font-size:13px;
+  line-height:1.75;
+  font-family:Georgia,serif;
+  font-style:italic;
+}
+
+.ortu-dashboard-quote span{
+  display:block;
+  margin-top:8px;
+  color:#9B8C7B;
+  font-family:inherit;
+  font-style:normal;
+  font-size:9px;
+  font-weight:700;
+}
+
+/* ---------- MULTI CHILD ---------- */
+
+#ortuDashboardHome #pilihAnakWrap{
+  margin:0;
+}
+
+#ortuDashboardHome #pilihAnakWrap:empty{
+  display:none;
+}
+
+#ortuDashboardHome .ortu-child-selector{
+  margin:0 0 2px;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:760px){
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar{
+    grid-template-columns:1fr auto;
+    min-height:58px;
+    padding:8px 10px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar::before{
+    width:128px;
+    height:38px;
+  }
+
+  #ortuDashboardHome{
+    gap:10px;
+  }
+
+  .ortu-dashboard-hero{
+    min-height:250px;
+  }
+
+  .ortu-dashboard-hero-copy{
+    width:100%;
+    padding:20px 18px 0;
+  }
+
+  .ortu-dashboard-hero h2{
+    max-width:62%;
+    font-size:22px;
+  }
+
+  .ortu-dashboard-hero p{
+    max-width:64%;
+    font-size:10px;
+  }
+
+  .ortu-dashboard-hero-art{
+    right:-9%;
+    bottom:-16px;
+    width:62%;
+    max-width:none;
+    height:64%;
+  }
+
+  .ortu-dashboard-child{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    padding:10px;
+  }
+
+  .ortu-dashboard-child-profile{
+    grid-column:1 / -1;
+    padding-bottom:4px;
+  }
+
+  .ortu-dashboard-stat{
+    min-height:72px;
+  }
+
+  .ortu-dashboard-lower{
+    grid-template-columns:1fr;
+  }
+
+  .ortu-dashboard-card,
+  .ortu-dashboard-quote{
+    min-height:0;
+  }
+
+  .ortu-dashboard-quote{
+    min-height:150px;
+  }
+}
+
+@media(max-width:390px){
+  .ortu-dashboard-hero{
+    min-height:235px;
+  }
+
+  .ortu-dashboard-hero h2{
+    max-width:68%;
+    font-size:20px;
+  }
+
+  .ortu-dashboard-hero p{
+    max-width:66%;
+  }
+
+  .ortu-dashboard-hero-art{
+    width:66%;
+    height:61%;
+  }
+
+  .ortu-dashboard-child{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .ortu-dashboard-avatar{
+    width:56px;
+    height:56px;
+    flex-basis:56px;
+  }
+}
