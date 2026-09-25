@@ -191,7 +191,7 @@ function anakYangDipilih() {
 function renderPilihAnakHtml() {
 
   if (
-    anakOrangTuaList.length === 0
+    anakOrangTuaList.length <= 1
   ) {
     return "";
   }
@@ -209,67 +209,30 @@ function renderPilihAnakHtml() {
                 : ""
             }
           >
-            ${escOrtu(a.nama)} — ${escOrtu(a.kelas || "-")}
+            ${a.nama} — ${a.kelas || "-"}
           </option>
         `
       )
       .join("");
 
-  const daftar =
-    anakOrangTuaList
-      .map(
-        (a) => `
-          <div class="ortu-child-chip">
-            <div class="ortu-child-chip-icon">🌻</div>
-            <div class="ortu-child-chip-info">
-              <strong>${escOrtu(a.nama)}</strong>
-              <span>Kelas ${escOrtu(a.kelas || "-")}</span>
-            </div>
-          </div>
-        `
-      )
-      .join("");
-
   return `
-    <div class="ortu-child-manager">
+    <div class="ortu-child-selector">
 
-      <div class="ortu-child-manager-head">
-        <div>
-          <div class="ortu-child-manager-kicker">Anak Saya</div>
-          <div class="ortu-child-manager-title">
-            ${anakOrangTuaList.length} anak terhubung
-          </div>
-        </div>
-
-        <button
-          type="button"
-          class="ortu-add-child-btn"
-          onclick="window.__app.tampilkanFormHubungkanAnak()"
-        >
-          + Hubungkan Anak
-        </button>
+      <div class="ortu-child-selector-label">
+        Pilih Anak
       </div>
 
-      <div class="ortu-child-list">
-        ${daftar}
-      </div>
+      <select
+        id="pilihAnak"
+        onchange="window.__app.gantiAnak(this.value)"
+        class="ortu-child-select"
+      >
+        ${opsi}
+      </select>
 
-      ${anakOrangTuaList.length > 1 ? `
-        <div class="ortu-child-switch">
-          <label for="pilihAnak">Sedang melihat</label>
-          <select
-            id="pilihAnak"
-            onchange="window.__app.gantiAnak(this.value)"
-            class="ortu-child-select"
-          >
-            ${opsi}
-          </select>
-        </div>
-      ` : ""}
     </div>
   `;
 }
-
 
 function gantiAnak(id) {
 
@@ -334,20 +297,13 @@ async function loadRingkasanAnak() {
   ) {
 
     body.innerHTML = `
-      <div class="ortu-no-child-card">
-        <div class="ortu-no-child-icon">🌻</div>
-        <h3>Belum ada anak terhubung</h3>
-        <p>
-          Masukkan kode akses yang diberikan sekolah
-          untuk menghubungkan anak ke akun Anda.
-        </p>
-        <button
-          type="button"
-          class="ortu-add-child-btn ortu-add-child-btn-primary"
-          onclick="window.__app.tampilkanFormHubungkanAnak()"
-        >
-          + Hubungkan Anak
-        </button>
+      <div class="empty">
+        Belum ada data siswa yang
+        terhubung dengan akun ini.
+        <br><br>
+        Hubungi admin sekolah atau
+        hubungkan anak menggunakan
+        kode akses yang diberikan.
       </div>
     `;
 
