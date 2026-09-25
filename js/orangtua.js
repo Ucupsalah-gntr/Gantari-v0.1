@@ -191,7 +191,7 @@ function anakYangDipilih() {
 function renderPilihAnakHtml() {
 
   if (
-    anakOrangTuaList.length <= 1
+    anakOrangTuaList.length === 0
   ) {
     return "";
   }
@@ -209,26 +209,67 @@ function renderPilihAnakHtml() {
                 : ""
             }
           >
-            ${a.nama} — ${a.kelas || "-"}
+            ${String(a.nama || "Tanpa Nama")} — ${String(a.kelas || "-")}
           </option>
         `
       )
       .join("");
 
-  return `
-    <div class="ortu-child-selector">
+  const daftar =
+    anakOrangTuaList
+      .map(
+        (a) => `
+          <div class="ortu-child-chip">
+            <div class="ortu-child-chip-icon">🌻</div>
+            <div class="ortu-child-chip-info">
+              <strong>${String(a.nama || "Tanpa Nama")}</strong>
+              <span>Kelas ${String(a.kelas || "-")}</span>
+            </div>
+          </div>
+        `
+      )
+      .join("");
 
-      <div class="ortu-child-selector-label">
-        Pilih Anak
+  return `
+    <div class="ortu-child-manager">
+
+      <div class="ortu-child-manager-head">
+        <div>
+          <div class="ortu-child-manager-kicker">Anak Saya</div>
+          <div class="ortu-child-manager-title">
+            ${anakOrangTuaList.length} anak terhubung
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="ortu-add-child-btn"
+          onclick="window.tampilkanFormHubungkanAnak()"
+        >
+          + Hubungkan Anak
+        </button>
       </div>
 
-      <select
-        id="pilihAnak"
-        onchange="window.__app.gantiAnak(this.value)"
-        class="ortu-child-select"
-      >
-        ${opsi}
-      </select>
+      <div class="ortu-child-list">
+        ${daftar}
+      </div>
+
+      ${
+        anakOrangTuaList.length > 1
+          ? `
+            <div class="ortu-child-switch">
+              <label for="pilihAnak">Sedang melihat</label>
+              <select
+                id="pilihAnak"
+                onchange="window.__app.gantiAnak(this.value)"
+                class="ortu-child-select"
+              >
+                ${opsi}
+              </select>
+            </div>
+          `
+          : ""
+      }
 
     </div>
   `;
