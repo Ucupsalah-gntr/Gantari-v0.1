@@ -463,7 +463,6 @@
   loadRiwayatAbsensi,
 
   gantiAnak,
-  tampilkanFormHubungkanAnak,
   loadAbsenAnak,
   loadSppAnak,
 
