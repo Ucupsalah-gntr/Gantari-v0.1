@@ -600,3 +600,188 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     flex-basis:56px;
   }
 }
+
+
+/* ============================================================
+   GANTARIKU — ORANG TUA MOBILE REFINEMENT
+   Visual-only: compact header, colored menu button, cleaner cards.
+   ============================================================ */
+@media (max-width:760px){
+  body.gantariku-role-ortu{
+    background:#FFFDF8 !important;
+    overflow-x:hidden !important;
+  }
+
+  body.gantariku-role-ortu .app{
+    width:100% !important;
+    overflow-x:hidden !important;
+  }
+
+  body.gantariku-role-ortu .sidebar{
+    height:74px !important;
+    min-height:74px !important;
+    flex:0 0 74px !important;
+    padding:9px 14px !important;
+    background:
+      radial-gradient(circle at 8% 20%,rgba(255,209,47,.20),transparent 30%),
+      linear-gradient(180deg,#FFFDF8 0%,#FFF8DE 100%) !important;
+    border-bottom:1px solid #EFE2BE !important;
+    box-shadow:0 5px 18px rgba(92,72,45,.08) !important;
+  }
+
+  body.gantariku-role-ortu .brand{
+    height:56px !important;
+    min-height:56px !important;
+    margin:0 !important;
+    flex:1 1 auto !important;
+  }
+
+  body.gantariku-role-ortu .brand-logo{
+    width:154px !important;
+    max-width:154px !important;
+    height:auto !important;
+    padding:4px 6px !important;
+    border-radius:14px !important;
+    filter:drop-shadow(0 5px 10px rgba(70,62,50,.10)) !important;
+  }
+
+  body.gantariku-role-ortu .mobile-menu-btn{
+    width:46px !important;
+    height:46px !important;
+    min-width:46px !important;
+    flex:0 0 46px !important;
+    border-radius:14px !important;
+    background:linear-gradient(135deg,#FFD12F 0%,#F3B93F 100%) !important;
+    border:1px solid #E4B52D !important;
+    color:#6F4D2C !important;
+    font-size:23px !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+    box-shadow:0 6px 14px rgba(210,164,45,.22) !important;
+  }
+
+  body.gantariku-role-ortu .mobile-menu-btn:hover,
+  body.gantariku-role-ortu .mobile-menu-btn:active{
+    background:linear-gradient(135deg,#F8C827 0%,#EBAF31 100%) !important;
+    color:#5E4126 !important;
+  }
+
+  body.gantariku-role-ortu .sidebar-menu{
+    top:74px !important;
+    padding:12px 14px 18px !important;
+    background:linear-gradient(180deg,#FFFDF8 0%,#FFF5D5 58%,#EDF7ED 100%) !important;
+    border-top:1px solid #F0E2BD !important;
+    box-shadow:0 16px 30px rgba(72,58,42,.16) !important;
+  }
+
+  body.gantariku-role-ortu .sidebar-menu .user-info{
+    color:#4C3A35 !important;
+    background:rgba(255,255,255,.82) !important;
+    border:1px solid #E8DDC8 !important;
+    border-radius:14px !important;
+  }
+
+  body.gantariku-role-ortu .sidebar-menu .user-name{
+    color:#4C3A35 !important;
+  }
+
+  body.gantariku-role-ortu .sidebar-menu .user-role{
+    color:#8A7565 !important;
+  }
+
+  body.gantariku-role-ortu .sidebar-menu .nav-item{
+    color:#5B5960 !important;
+    background:rgba(255,255,255,.58) !important;
+    border:1px solid rgba(226,213,188,.72) !important;
+    border-radius:13px !important;
+    margin-bottom:6px !important;
+    min-height:46px !important;
+  }
+
+  body.gantariku-role-ortu .sidebar-menu .nav-item.active{
+    color:#79542F !important;
+    background:linear-gradient(135deg,#FFE99A,#FFF5CE) !important;
+    border-color:#EBCB65 !important;
+    box-shadow:0 5px 12px rgba(204,166,62,.14) !important;
+  }
+
+  body.gantariku-role-ortu .content{
+    width:100% !important;
+    min-width:0 !important;
+    overflow-x:hidden !important;
+  }
+
+  body.gantariku-role-ortu .view{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:10px 12px 24px !important;
+    box-sizing:border-box !important;
+  }
+
+  body.gantariku-role-ortu .topbar{
+    min-height:48px !important;
+    margin:0 0 8px !important;
+    padding:4px 2px !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-role-ortu .topbar-actions{
+    min-height:42px !important;
+  }
+
+  body.gantariku-role-ortu #notifButton{
+    width:44px !important;
+    min-width:44px !important;
+    height:44px !important;
+    border-radius:13px !important;
+    background:#FFF4CE !important;
+    border:1px solid #EAD58F !important;
+    color:#805C32 !important;
+    box-shadow:0 4px 10px rgba(126,96,48,.08) !important;
+  }
+
+  body.gantariku-role-ortu .section{
+    border-radius:20px !important;
+    border-color:#E9E0D3 !important;
+    box-shadow:0 7px 20px rgba(75,64,52,.045) !important;
+    background:#FFFDFC !important;
+  }
+
+  body.gantariku-role-ortu .section-head{
+    padding:16px 16px 10px !important;
+  }
+
+  body.gantariku-role-ortu .section-head h2{
+    font-size:21px !important;
+    line-height:1.2 !important;
+    color:#4B4038 !important;
+  }
+
+  body.gantariku-role-ortu .section-head p,
+  body.gantariku-role-ortu .section-head .section-hint{
+    font-size:11px !important;
+    line-height:1.45 !important;
+  }
+
+  body.gantariku-role-ortu .section-body{
+    padding:12px 16px 18px !important;
+  }
+
+  #ringkasanAnakBody .section,
+  section:has(#daftarAbsenAnak),
+  section:has(#daftarSppAnak){
+    border-radius:20px !important;
+  }
+
+  #ringkasanAnakBody .section-head h2::before,
+  section:has(#daftarAbsenAnak) .section-head h2::before,
+  section:has(#daftarSppAnak) .section-head h2::before{
+    flex-basis:34px !important;
+    width:34px !important;
+    height:34px !important;
+  }
+}
