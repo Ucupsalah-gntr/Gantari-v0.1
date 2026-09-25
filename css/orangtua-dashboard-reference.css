@@ -925,3 +925,199 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     box-sizing:border-box !important;
   }
 }
+
+
+/* ============================================================
+   ORANG TUA — MULTI CHILD MANAGER
+   ============================================================ */
+.ortu-child-manager{
+  display:grid;
+  gap:12px;
+  margin:0 0 12px;
+  padding:12px 14px;
+  border:1px solid #E9E1D2;
+  border-radius:16px;
+  background:linear-gradient(135deg,#FFFDF7,#FFF8E5);
+  box-shadow:0 6px 18px rgba(90,70,45,.04);
+}
+.ortu-child-manager-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.ortu-child-manager-kicker{
+  color:#A47A4E;
+  font-size:9px;
+  font-weight:850;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.ortu-child-manager-title{
+  margin-top:2px;
+  color:#4C4037;
+  font-size:13px;
+  font-weight:850;
+}
+.ortu-add-child-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:8px 12px;
+  border:1px solid #E4C66D;
+  border-radius:10px;
+  background:#FFF1B9;
+  color:#77542F;
+  font-size:10px;
+  font-weight:850;
+  line-height:1;
+  white-space:nowrap;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(190,150,55,.10);
+}
+.ortu-add-child-btn:hover{
+  background:#FFE99A;
+}
+.ortu-add-child-btn-primary{
+  min-width:190px;
+  min-height:42px;
+  padding:11px 16px;
+  border-color:#A86F3E;
+  background:linear-gradient(180deg,#B98250,#A87346);
+  color:#FFFDF8;
+  font-size:12px;
+}
+.ortu-child-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:8px;
+}
+.ortu-child-chip{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+  padding:9px 10px;
+  border:1px solid #EEE5D5;
+  border-radius:12px;
+  background:#FFFDFC;
+}
+.ortu-child-chip-icon{
+  width:31px;
+  height:31px;
+  flex:0 0 31px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:#FFF1C8;
+  font-size:15px;
+}
+.ortu-child-chip-info{
+  min-width:0;
+  display:grid;
+  gap:2px;
+}
+.ortu-child-chip-info strong{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#43586A;
+  font-size:11px;
+}
+.ortu-child-chip-info span{
+  color:#978B7D;
+  font-size:9px;
+}
+.ortu-child-switch{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding-top:2px;
+}
+.ortu-child-switch label{
+  color:#887B6D;
+  font-size:9px;
+  font-weight:800;
+}
+.ortu-child-select{
+  min-width:210px;
+  height:36px;
+  padding:7px 30px 7px 10px;
+  border:1px solid #E4D8C4;
+  border-radius:10px;
+  background:#FFF;
+  color:#5A4B3D;
+  font-size:11px;
+  font-weight:700;
+}
+.ortu-no-child-card{
+  max-width:520px;
+  margin:8px auto;
+  padding:28px 20px;
+  text-align:center;
+  border:1px solid #E8DED0;
+  border-radius:20px;
+  background:linear-gradient(135deg,#FFF7DB,#FFFEFB);
+}
+.ortu-no-child-icon{
+  width:52px;
+  height:52px;
+  margin:0 auto 12px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  background:#FFF0C5;
+  font-size:24px;
+}
+.ortu-no-child-card h3{
+  margin:0 0 7px;
+  color:#453B34;
+  font-size:19px;
+}
+.ortu-no-child-card p{
+  max-width:400px;
+  margin:0 auto 16px;
+  color:#81776D;
+  font-size:11px;
+  line-height:1.6;
+}
+@media(max-width:760px){
+  .ortu-child-manager{
+    padding:11px;
+    border-radius:14px;
+  }
+  .ortu-child-manager-head{
+    align-items:flex-start;
+  }
+  .ortu-add-child-btn{
+    min-height:34px;
+    padding:8px 10px;
+    font-size:9px;
+  }
+  .ortu-child-list{
+    grid-template-columns:1fr;
+  }
+  .ortu-child-chip{
+    min-height:45px;
+  }
+  .ortu-child-switch{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:5px;
+  }
+  .ortu-child-select{
+    width:100%;
+    min-width:0;
+    height:42px;
+    font-size:12px;
+  }
+  .ortu-no-child-card{
+    margin:4px auto;
+    padding:24px 16px;
+  }
+  .ortu-add-child-btn-primary{
+    width:100%;
+    min-width:0;
+  }
+}
