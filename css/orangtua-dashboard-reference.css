@@ -785,3 +785,100 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     height:34px !important;
   }
 }
+
+
+/* ============================================================
+   ORANG TUA — MOBILE PROPORTION FIX
+   Header + Hubungkan Anak
+   ============================================================ */
+@media (max-width:760px){
+  body.gantariku-role-ortu .brand{
+    align-items:center !important;
+    justify-content:flex-start !important;
+    height:52px !important;
+    min-height:52px !important;
+    margin:0 !important;
+  }
+
+  body.gantariku-role-ortu .brand-logo{
+    width:126px !important;
+    max-width:126px !important;
+    height:auto !important;
+    padding:2px 4px !important;
+    border-radius:12px !important;
+  }
+
+  body.gantariku-role-ortu .mobile-menu-btn{
+    width:40px !important;
+    height:40px !important;
+    min-width:40px !important;
+    flex-basis:40px !important;
+    border-radius:12px !important;
+    font-size:21px !important;
+  }
+
+  /* Kartu Hubungkan Anak */
+  body.gantariku-role-ortu #formHubungkanAnak{
+    max-width:320px !important;
+  }
+
+  body.gantariku-role-ortu #formHubungkanAnak input#kodeAksesAnak{
+    height:48px !important;
+    padding:11px 12px !important;
+    font-size:14px !important;
+    border-radius:12px !important;
+  }
+
+  body.gantariku-role-ortu #btnHubungkanAnak{
+    height:48px !important;
+    min-height:48px !important;
+    margin-top:10px !important;
+    padding:10px 16px !important;
+    border-radius:12px !important;
+    font-size:14px !important;
+    font-weight:700 !important;
+  }
+
+  body.gantariku-role-ortu #formHubungkanAnak ~ div{
+    max-width:320px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+
+  body.gantariku-role-ortu #formHubungkanAnak:has(#btnHubungkanAnak){
+    width:100% !important;
+  }
+
+  body.gantariku-role-ortu #formHubungkanAnak
+    input#kodeAksesAnak::placeholder{
+    font-size:13px !important;
+  }
+
+  /* wrapper kartu yang berisi form Hubungkan Anak */
+  body.gantariku-role-ortu #formHubungkanAnak{
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+
+  body.gantariku-role-ortu #formHubungkanAnak{
+    box-sizing:border-box !important;
+  }
+
+  @media (max-width:390px){
+    body.gantariku-role-ortu .brand-logo{
+      width:118px !important;
+      max-width:118px !important;
+    }
+
+    body.gantariku-role-ortu .mobile-menu-btn{
+      width:38px !important;
+      height:38px !important;
+      min-width:38px !important;
+      flex-basis:38px !important;
+    }
+
+    body.gantariku-role-ortu #formHubungkanAnak{
+      max-width:300px !important;
+    }
+  }
+}
