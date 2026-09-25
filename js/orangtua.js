@@ -2732,6 +2732,12 @@ async function uploadBuktiSpp(
   // GLOBAL
   // ----------------------------------------------------------
 
+  // Kompatibilitas: app.js versi lama pernah mengekspos fungsi ini
+  // lewat window.__app. Jadikan fungsi tersedia global agar deployment
+  // atau cache browser yang masih memakai app.js lama tidak crash.
+  window.tampilkanFormHubungkanAnak =
+    tampilkanFormHubungkanAnak;
+
   window.hubungkanAnakDenganKode =
     hubungkanAnakDenganKode;
 
