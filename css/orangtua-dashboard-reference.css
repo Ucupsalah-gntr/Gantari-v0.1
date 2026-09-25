@@ -882,3 +882,46 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     }
   }
 }
+
+
+/* Final mobile button alignment — Hubungkan Anak */
+@media (max-width:760px){
+  body.gantariku-role-ortu #btnHubungkanAnak{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    box-sizing:border-box !important;
+    width:100% !important;
+    height:46px !important;
+    min-height:46px !important;
+    margin:12px 0 0 !important;
+    padding:0 18px !important;
+    border:1px solid #A86F3E !important;
+    border-radius:13px !important;
+    background:linear-gradient(180deg,#B98250 0%,#A87346 100%) !important;
+    color:#FFFDF8 !important;
+    font-size:14px !important;
+    line-height:1 !important;
+    font-weight:700 !important;
+    letter-spacing:.01em !important;
+    box-shadow:0 5px 10px rgba(139,98,61,.14) !important;
+    text-align:center !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+  }
+
+  body.gantariku-role-ortu #btnHubungkanAnak:hover{
+    background:linear-gradient(180deg,#B98250 0%,#A87346 100%) !important;
+  }
+
+  body.gantariku-role-ortu #btnHubungkanAnak:active{
+    transform:translateY(1px) !important;
+    box-shadow:0 3px 7px rgba(139,98,61,.12) !important;
+  }
+
+  body.gantariku-role-ortu #formHubungkanAnak input#kodeAksesAnak{
+    display:block !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+  }
+}
