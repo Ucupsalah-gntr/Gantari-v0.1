@@ -1624,3 +1624,79 @@
     filter:drop-shadow(0 7px 14px rgba(63,91,78,.10)) !important;
   }
 }
+
+
+/* ============================================================
+   MOBILE NAV COLLAPSE — smooth close/open
+   Tidak mengubah markup atau logic navigasi.
+   Tujuan: menu tidak "jleb" menghilang ketika pindah halaman.
+   ============================================================ */
+@media (max-width:760px){
+  body.gantariku-mobile-device .sidebar-menu{
+    /*
+     * Override display:none agar CSS dapat menganimasikan collapse.
+     * Ruang layout tetap 0 ketika tertutup.
+     */
+    display:flex !important;
+    flex-direction:column !important;
+    max-height:0 !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin-top:0 !important;
+    padding-top:0 !important;
+    padding-bottom:0 !important;
+    border-top-color:transparent !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    overflow:hidden !important;
+    pointer-events:none !important;
+    transform:translateY(-5px) !important;
+    transition:
+      max-height .24s ease,
+      opacity .18s ease,
+      transform .24s ease,
+      padding-top .24s ease,
+      padding-bottom .24s ease,
+      border-color .18s ease !important;
+  }
+
+  body.gantariku-mobile-device .sidebar.mobile-open .sidebar-menu{
+    display:flex !important;
+    flex-direction:column !important;
+    max-height:calc(100vh - 64px) !important;
+    min-height:0 !important;
+    margin-top:0 !important;
+    padding-top:14px !important;
+    padding-bottom:20px !important;
+    border-top-color:rgba(169,120,78,.12) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    pointer-events:auto !important;
+    transform:translateY(0) !important;
+  }
+
+  /*
+   * The menu items themselves do not animate, preventing the
+   * "stuttering" impression when content is being rerendered.
+   */
+  body.gantariku-mobile-device .sidebar-menu .nav-item,
+  body.gantariku-mobile-device .sidebar-menu .user-info,
+  body.gantariku-mobile-device .sidebar-menu .sidebar-foot{
+    transform:none !important;
+  }
+
+  /*
+   * Keep the burger geometry completely fixed while the dropdown
+   * collapses underneath it.
+   */
+  body.gantariku-mobile-device .mobile-menu-btn{
+    transform:none !important;
+    transition:
+      background-color .12s ease,
+      box-shadow .12s ease,
+      border-color .12s ease,
+      color .12s ease !important;
+  }
+}
