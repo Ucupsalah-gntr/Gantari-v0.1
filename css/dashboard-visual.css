@@ -1557,3 +1557,29 @@
     background:#FFFFFF !important;
   }
 }
+
+
+/* ============================================================
+   ORANG TUA — MOBILE LOGOUT VISIBILITY
+   Visual only. Memastikan tombol Logout terbaca jelas.
+   ============================================================ */
+@media (max-width:760px){
+
+  body.gantariku-mobile-device.gantariku-role-orangtua .sidebar-menu .logout-btn{
+    color:#76582F !important;
+    border:1px solid #D9C8A8 !important;
+    background:linear-gradient(135deg,#FFF0B7 0%,#FFE4A0 100%) !important;
+    box-shadow:0 4px 12px rgba(118,88,47,.10) !important;
+    font-weight:700 !important;
+    text-shadow:none !important;
+  }
+
+  body.gantariku-mobile-device.gantariku-role-orangtua .sidebar-menu .logout-btn:hover{
+    color:#5F4726 !important;
+    background:#FFE8A8 !important;
+  }
+
+  body.gantariku-mobile-device.gantariku-role-orangtua .sidebar-menu .logout-btn:active{
+    transform:scale(.98);
+  }
+}
