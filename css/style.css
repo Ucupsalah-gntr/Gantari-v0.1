@@ -585,39 +585,6 @@
       @media (max-width: 760px) {
         .app { flex-direction: column; }
 
-        .sidebar {
-          width: 100%;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-          padding: 12px 16px;
-        }
-
-        .brand { margin-bottom: 0; }
-        .brand-logo { width: 150px; }
-
-        .mobile-menu-btn { display: flex; }
-
-        /* Collapsed by default on mobile: shown as a dropdown panel
-           when the sidebar has the .mobile-open class (toggled by the
-           hamburger button). */
-        .sidebar-menu {
-          display: none;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: var(--primary-dark);
-          padding: 14px 16px 18px;
-          box-shadow: 0 14px 30px rgba(58, 58, 60, .28);
-          z-index: 30;
-          max-height: calc(100vh - 60px);
-          overflow-y: auto;
-        }
-
-        .sidebar.mobile-open .sidebar-menu { display: flex; }
-
         .user-info { margin-bottom: 14px; }
 
         .sidebar-foot { padding-top: 10px; }
@@ -1587,24 +1554,8 @@ table tbody tr:hover {
    MOBILE
    ============================================================ */
 
-@media (max-width: 768px) {
-
-  .brand {
-    min-height: 115px !important;
-    padding: 14px 12px 8px !important;
-  }
-
-  .brand-logo {
-    width: 170px !important;
-    max-width: 170px !important;
-    border-radius: 15px !important;
-    padding: 8px 10px !important;
-  }
-
-  .user-info {
-    margin-bottom: 8px !important;
-  }
-
+@media (max-width:768px){
+  .user-info { margin-bottom:8px !important; }
 }
 
 /* ============================================================
