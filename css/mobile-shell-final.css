@@ -1686,15 +1686,10 @@ body.gantariku-mobile-device.gantariku-role-ortu #pageTitle::before,
   }
 }
 
-
 /* ============================================================
-   MOBILE SCROLL SYNC + ORTU NOTIFICATION SINGLE GLYPH
+   MOBILE SCROLL SYNC
    ============================================================ */
 @media (max-width:760px){
-  /*
-   * Reserve scrollbar space so opening/closing the menu does not
-   * make the page content jump sideways.
-   */
   html.gantariku-mobile-device,
   body.gantariku-mobile-device{
     scrollbar-gutter:stable !important;
@@ -1706,56 +1701,11 @@ body.gantariku-mobile-device.gantariku-role-ortu #pageTitle::before,
     overscroll-behavior:contain !important;
     -webkit-overflow-scrolling:touch !important;
   }
-
-  /*
-   * The bell emoji is kept for Admin/Guru. Ortu uses its approved
-   * PNG pseudo-icon, so the emoji must be hidden there.
-   */
-  body.gantariku-mobile-device.gantariku-role-ortu #notifButton .notif-glyph,
-  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton .notif-glyph{
-    display:none !important;
-  }
-
-}
-
-/* Same single-icon rule on desktop for the Orang Tua role. */
-@media (min-width:761px){
-  body.gantariku-role-ortu #notifButton .notif-glyph,
-  body.gantariku-role-orangtua #notifButton .notif-glyph{
-    display:none !important;
-  }
-
-}
-
-
-/* ============================================================
-   ORANG TUA NOTIFICATION — SINGLE ICON FINAL
-   Satu sumber ikon saja: background-image pada tombol.
-   Pseudo-element dan glyph emoji dimatikan total.
-   ============================================================ */
-body.gantariku-role-ortu #notifButton .notif-glyph,
-body.gantariku-role-orangtua #notifButton .notif-glyph{
-  display:none !important;
-}
-
-@media (max-width:760px){
-}
-
-@media (max-width:390px){
-  body.gantariku-mobile-device.gantariku-role-ortu #notifButton,
-  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton{
-    width:40px !important;
-    min-width:40px !important;
-    height:40px !important;
-    border-radius:11px !important;
-    background-size:19px 19px !important;
-  }
 }
 
 /* ============================================================
-   ORANG TUA NOTIFICATION — SELF CONTAINED ICON
-   Tidak mengambil file PNG eksternal.
-   Satu-satunya ikon berasal dari pseudo-element inline SVG.
+   ORANG TUA NOTIFICATION — ONE ICON, NO EXTERNAL ASSET
+   Ikon hanya berasal dari ::before.
    ============================================================ */
 body.gantariku-role-ortu #notifButton,
 body.gantariku-role-orangtua #notifButton{
@@ -1771,16 +1721,21 @@ body.gantariku-role-orangtua #notifButton .notif-glyph{
 
 body.gantariku-role-ortu #notifButton::before,
 body.gantariku-role-orangtua #notifButton::before{
-  content:"" !important;
-  display:block !important;
+  content:"🔔" !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
   width:20px !important;
+  min-width:20px !important;
   height:20px !important;
   flex:0 0 20px !important;
   margin:0 !important;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9' fill='none' stroke='%23875C38' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 21h4' fill='none' stroke='%23875C38' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") !important;
-  background-repeat:no-repeat !important;
-  background-position:center !important;
-  background-size:contain !important;
+  padding:0 !important;
+  font-family:"Segoe UI Symbol","Segoe UI Emoji","Noto Sans Symbols 2",sans-serif !important;
+  font-size:18px !important;
+  line-height:1 !important;
+  background:none !important;
+  background-image:none !important;
 }
 
 body.gantariku-role-ortu #notifButton::after,
@@ -1811,8 +1766,10 @@ body.gantariku-role-orangtua #notifButton::after{
   body.gantariku-mobile-device.gantariku-role-ortu #notifButton::before,
   body.gantariku-mobile-device.gantariku-role-orangtua #notifButton::before{
     width:20px !important;
+    min-width:20px !important;
     height:20px !important;
     flex-basis:20px !important;
+    font-size:18px !important;
   }
 }
 
@@ -1828,7 +1785,9 @@ body.gantariku-role-orangtua #notifButton::after{
   body.gantariku-mobile-device.gantariku-role-ortu #notifButton::before,
   body.gantariku-mobile-device.gantariku-role-orangtua #notifButton::before{
     width:19px !important;
+    min-width:19px !important;
     height:19px !important;
     flex-basis:19px !important;
+    font-size:17px !important;
   }
 }
