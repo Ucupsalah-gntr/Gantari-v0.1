@@ -44,7 +44,7 @@
   }
 
   .brand-logo{
-    width:194px !important;
+    width:46px !important;
     max-width:100% !important;
     filter:drop-shadow(0 7px 14px rgba(63,91,78,.10));
   }
@@ -382,4 +382,30 @@
     padding: 0 !important;
     margin: 0 !important;
   }
+}
+
+
+/* FINAL: parent mobile header logo must match the menu button size.
+   app.js uses gantariku-role-orangtua (not gantariku-role-ortu). */
+body.gantariku-role-orangtua.gantariku-mobile-device .brand-logo,
+body.gantariku-role-orangtua .brand-logo {
+  width:46px !important;
+  max-width:46px !important;
+  height:46px !important;
+  min-width:46px !important;
+  padding:2px !important;
+  object-fit:contain !important;
+  border-radius:10px !important;
+  box-sizing:border-box !important;
+}
+
+body.gantariku-role-orangtua.gantariku-mobile-device .brand,
+body.gantariku-role-orangtua .brand {
+  width:46px !important;
+  min-width:46px !important;
+  max-width:46px !important;
+  height:52px !important;
+  min-height:52px !important;
+  margin:0 !important;
+  padding:0 !important;
 }
