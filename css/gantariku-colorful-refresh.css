@@ -387,25 +387,26 @@
 
 /* FINAL: parent mobile header logo must match the menu button size.
    app.js uses gantariku-role-orangtua (not gantariku-role-ortu). */
+/* Parent mobile header: use the same logo/header proportions as Admin. */
 body.gantariku-role-orangtua.gantariku-mobile-device .brand-logo,
 body.gantariku-role-orangtua .brand-logo {
-  width:120px !important;
-  max-width:120px !important;
-  height:56px !important;
-  min-width:120px !important;
-  padding:2px !important;
+  width:194px !important;
+  max-width:194px !important;
+  height:auto !important;
+  min-width:0 !important;
+  padding:0 !important;
   object-fit:contain !important;
-  border-radius:12px !important;
+  border-radius:14px !important;
   box-sizing:border-box !important;
 }
 
 body.gantariku-role-orangtua.gantariku-mobile-device .brand,
 body.gantariku-role-orangtua .brand {
-  width:120px !important;
-  min-width:120px !important;
-  max-width:120px !important;
-  height:56px !important;
-  min-height:56px !important;
+  width:auto !important;
+  min-width:0 !important;
+  max-width:none !important;
+  height:auto !important;
+  min-height:0 !important;
   margin:0 !important;
   padding:0 !important;
 }
