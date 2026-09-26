@@ -4015,22 +4015,23 @@ button.is-busy {
     overflow:visible;
   }
   .gantariku-mobile-device .brand{
-    height:52px;
-    min-height:52px;
-    margin:0;
-    padding:0;
-    flex:1 1 auto;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
+    height:52px !important;
+    min-height:52px !important;
+    margin:0 !important;
+    padding:0 !important;
+    flex:1 1 auto !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
   }
   .gantariku-mobile-device .brand-logo{
-    width:110px;
-    max-width:110px;
-    height:auto;
-    padding:5px 6px;
-    border-radius:11px;
-    object-fit:contain;
+    width:110px !important;
+    max-width:110px !important;
+    height:auto !important;
+    padding:5px 6px !important;
+    margin:0 !important;
+    border-radius:11px !important;
+    object-fit:contain !important;
   }
   .gantariku-mobile-device .mobile-menu-btn{
     display:flex;
@@ -4062,5 +4063,5 @@ button.is-busy {
   .gantariku-mobile-device .sidebar.mobile-open .sidebar-menu{display:flex;}
 }
 @media (max-width:420px){
-  .gantariku-mobile-device .brand-logo{width:110px;max-width:110px;}
+  .gantariku-mobile-device .brand-logo{width:110px !important;max-width:110px !important;}
 }
