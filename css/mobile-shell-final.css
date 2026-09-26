@@ -1733,37 +1733,12 @@ body.gantariku-mobile-device.gantariku-role-ortu #pageTitle::before,
    Satu sumber ikon saja: background-image pada tombol.
    Pseudo-element dan glyph emoji dimatikan total.
    ============================================================ */
-body.gantariku-role-ortu #notifButton,
-body.gantariku-role-orangtua #notifButton{
-  position:relative !important;
-  font-size:0 !important;
-  background-color:#FFF4CE !important;
-  background-image:url("../assets/icon-orangtua-notifikasi.png") !important;
-  background-repeat:no-repeat !important;
-  background-position:center !important;
-  background-size:20px 20px !important;
-  color:transparent !important;
-}
-
 body.gantariku-role-ortu #notifButton .notif-glyph,
 body.gantariku-role-orangtua #notifButton .notif-glyph{
   display:none !important;
 }
 
 @media (max-width:760px){
-  body.gantariku-mobile-device.gantariku-role-ortu #notifButton,
-  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton{
-    width:42px !important;
-    min-width:42px !important;
-    height:42px !important;
-    padding:0 !important;
-    border-radius:12px !important;
-    background-color:#FFF4CE !important;
-    background-image:url("../assets/icon-orangtua-notifikasi.png") !important;
-    background-repeat:no-repeat !important;
-    background-position:center !important;
-    background-size:20px 20px !important;
-  }
 }
 
 @media (max-width:390px){
@@ -1778,16 +1753,14 @@ body.gantariku-role-orangtua #notifButton .notif-glyph{
 }
 
 /* ============================================================
-   ORANG TUA NOTIFICATION — REAL IMAGE ONLY
-   Tidak memakai background-image / pseudo-element.
-   Satu-satunya ikon adalah <img class="notif-image">.
+   ORANG TUA NOTIFICATION — SINGLE PSEUDO ICON
+   Struktur tombol tetap stabil; hanya satu sumber ikon.
    ============================================================ */
 body.gantariku-role-ortu #notifButton,
 body.gantariku-role-orangtua #notifButton{
   position:relative !important;
   background-image:none !important;
   color:#875C38 !important;
-  font-size:12px !important;
 }
 
 body.gantariku-role-ortu #notifButton .notif-glyph,
@@ -1795,17 +1768,21 @@ body.gantariku-role-orangtua #notifButton .notif-glyph{
   display:none !important;
 }
 
-body.gantariku-role-ortu #notifButton .notif-image,
-body.gantariku-role-orangtua #notifButton .notif-image{
+body.gantariku-role-ortu #notifButton::before,
+body.gantariku-role-orangtua #notifButton::before{
+  content:"" !important;
   display:block !important;
   width:20px !important;
-  min-width:20px !important;
   height:20px !important;
-  min-height:20px !important;
   flex:0 0 20px !important;
-  object-fit:contain !important;
   margin:0 !important;
-  padding:0 !important;
+  background:url("../assets/icon-orangtua-notifikasi.png") center / contain no-repeat !important;
+}
+
+body.gantariku-role-ortu #notifButton::after,
+body.gantariku-role-orangtua #notifButton::after{
+  content:none !important;
+  display:none !important;
 }
 
 @media (max-width:760px){
@@ -1827,13 +1804,11 @@ body.gantariku-role-orangtua #notifButton .notif-image{
     display:none !important;
   }
 
-  body.gantariku-mobile-device.gantariku-role-ortu #notifButton .notif-image,
-  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton .notif-image{
+  body.gantariku-mobile-device.gantariku-role-ortu #notifButton::before,
+  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton::before{
     width:20px !important;
-    min-width:20px !important;
     height:20px !important;
-    min-height:20px !important;
-    flex:0 0 20px !important;
+    flex-basis:20px !important;
   }
 }
 
@@ -1846,12 +1821,10 @@ body.gantariku-role-orangtua #notifButton .notif-image{
     border-radius:11px !important;
   }
 
-  body.gantariku-mobile-device.gantariku-role-ortu #notifButton .notif-image,
-  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton .notif-image{
+  body.gantariku-mobile-device.gantariku-role-ortu #notifButton::before,
+  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton::before{
     width:19px !important;
-    min-width:19px !important;
     height:19px !important;
-    min-height:19px !important;
     flex-basis:19px !important;
   }
 }
