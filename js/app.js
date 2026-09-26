@@ -70,7 +70,7 @@
       onclick="window.__app.toggleNotifikasi()"
       type="button"
     >
-      🔔
+      <span class="notif-glyph" aria-hidden="true">🔔</span>
       <span id="notifLabel">Notifikasi</span>
       <span
         id="notifCount" class="notif-count is-hidden"
