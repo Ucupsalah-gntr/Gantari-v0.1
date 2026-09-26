@@ -1652,12 +1652,12 @@
     pointer-events:none !important;
     transform:translateY(-5px) !important;
     transition:
-      max-height .24s ease,
-      opacity .18s ease,
-      transform .24s ease,
-      padding-top .24s ease,
-      padding-bottom .24s ease,
-      border-color .18s ease !important;
+      max-height .42s cubic-bezier(.22,.61,.36,1),
+      opacity .34s ease,
+      transform .38s cubic-bezier(.22,.61,.36,1),
+      padding-top .42s cubic-bezier(.22,.61,.36,1),
+      padding-bottom .42s cubic-bezier(.22,.61,.36,1),
+      border-color .32s ease !important;
   }
 
   body.gantariku-mobile-device .sidebar.mobile-open .sidebar-menu{
