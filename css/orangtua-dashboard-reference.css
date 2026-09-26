@@ -1234,17 +1234,6 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
 }
 
 @media (max-width:390px){
-  body.gantariku-role-orangtua .brand-logo{
-    width:142px !important;
-    max-width:142px !important;
-  }
-
-  body.gantariku-role-orangtua .mobile-menu-btn{
-    width:42px !important;
-    height:42px !important;
-    min-width:42px !important;
-    flex-basis:42px !important;
-  }
 
   body.gantariku-role-orangtua:has(#ortuDashboardHome) #notifButton{
     width:48px !important;
@@ -1364,23 +1353,6 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
 }
 
 @media (max-width:390px){
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .sidebar{
-    height:74px !important;
-    min-height:74px !important;
-    flex-basis:74px !important;
-  }
-
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand-logo{
-    width:118px !important;
-    max-width:118px !important;
-  }
-
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .mobile-menu-btn{
-    width:40px !important;
-    height:40px !important;
-    min-width:40px !important;
-    flex-basis:40px !important;
-  }
 
   body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar{
     height:48px !important;
@@ -1581,25 +1553,6 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
 }
 
 @media (max-width:390px){
-  body.gantariku-role-ortu .sidebar{
-    height:124px !important;
-    min-height:124px !important;
-    flex-basis:124px !important;
-    padding:16px 22px !important;
-  }
-
-  body.gantariku-role-ortu .brand-logo{
-    width:205px !important;
-    max-width:66vw !important;
-  }
-
-  body.gantariku-role-ortu .mobile-menu-btn{
-    width:54px !important;
-    height:54px !important;
-    min-width:54px !important;
-    flex-basis:54px !important;
-    font-size:27px !important;
-  }
 
   body.gantariku-role-ortu .topbar{
     min-height:132px !important;
@@ -1845,24 +1798,6 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
 }
 
 @media (max-width:390px){
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .sidebar{
-    height:108px !important;
-    min-height:108px !important;
-    flex-basis:108px !important;
-    padding:13px 20px !important;
-  }
-
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand-logo{
-    width:205px !important;
-    max-width:66vw !important;
-  }
-
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .mobile-menu-btn{
-    width:50px !important;
-    height:50px !important;
-    min-width:50px !important;
-    flex-basis:50px !important;
-  }
 
   body.gantariku-role-ortu #pageTitle{
     font-size:21px !important;
