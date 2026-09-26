@@ -632,32 +632,7 @@ async function loadRingkasanAnak() {
 
           </section>
 
-          <section class="ortu-dashboard-card">
-
-            <div class="ortu-dashboard-card-head">
-              <span class="ortu-dashboard-card-icon">
-                <img src="assets/icon-orangtua-notifikasi.png" alt="">
-              </span>
-              <div>
-                <div class="ortu-dashboard-card-title">Notifikasi Terbaru</div>
-                <div class="ortu-dashboard-card-sub">Pembaruan untuk anak Anda</div>
-              </div>
-            </div>
-
-            <div id="ortuDashboardNotifications" class="ortu-dashboard-notifs">
-              <div class="empty" style="padding:12px;">Memuat notifikasi...</div>
-            </div>
-
-            <button
-              type="button"
-              class="ortu-dashboard-notif-footer"
-              style="border:0;background:transparent;padding:0;"
-              onclick="window.__app.goTo('notifikasi')"
-            >
-              Lihat Semua Notifikasi →
-            </button>
-
-          </section>
+          
 
           <section class="ortu-dashboard-card ortu-dashboard-quote">
 
@@ -677,10 +652,7 @@ async function loadRingkasanAnak() {
 
       </div>
     `;
-
-    syncOrtuDashboardNotifications();
-
-  } catch (error) {
+} catch (error) {
 
     console.error(
       "Error load ringkasan anak:",
