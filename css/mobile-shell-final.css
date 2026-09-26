@@ -1602,3 +1602,25 @@
     transform:none !important;
   }
 }
+
+
+/* ============================================================
+   DESKTOP LOGO POLISH — rounded + 5% smaller
+   Hanya logo desktop; mobile tetap memakai ukuran mobile yang sudah dikunci.
+   ============================================================ */
+@media (min-width:761px){
+  body.gantariku-role-admin .brand-logo,
+  body.gantariku-role-guru .brand-logo,
+  body.gantariku-role-ortu .brand-logo,
+  body.gantariku-role-orangtua .brand-logo{
+    width:184px !important;
+    max-width:184px !important;
+    height:auto !important;
+    padding:0 !important;
+    margin:0 !important;
+    border-radius:12px !important;
+    clip-path:inset(0 round 12px) !important;
+    background:transparent !important;
+    filter:drop-shadow(0 7px 14px rgba(63,91,78,.10)) !important;
+  }
+}
