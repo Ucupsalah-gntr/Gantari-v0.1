@@ -621,6 +621,14 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
 
 
 
+  /* Burger Orang Tua — selalu kontras, bukan hanya saat hover */
+  body.gantariku-role-ortu .mobile-menu-btn{
+    background:linear-gradient(135deg,#F8C827 0%,#EBAF31 100%) !important;
+    color:#5E4126 !important;
+    border:1px solid rgba(94,65,38,.18) !important;
+    box-shadow:0 4px 10px rgba(94,65,38,.14) !important;
+  }
+
   body.gantariku-role-ortu .mobile-menu-btn:hover,
   body.gantariku-role-ortu .mobile-menu-btn:active{
     background:linear-gradient(135deg,#F8C827 0%,#EBAF31 100%) !important;
