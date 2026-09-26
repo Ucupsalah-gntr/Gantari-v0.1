@@ -617,48 +617,9 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     overflow-x:hidden !important;
   }
 
-  body.gantariku-role-ortu .sidebar{
-    height:74px !important;
-    min-height:74px !important;
-    flex:0 0 74px !important;
-    padding:9px 14px !important;
-    background:
-      radial-gradient(circle at 8% 20%,rgba(255,209,47,.20),transparent 30%),
-      linear-gradient(180deg,#FFFDF8 0%,#FFF8DE 100%) !important;
-    border-bottom:1px solid #EFE2BE !important;
-    box-shadow:0 5px 18px rgba(92,72,45,.08) !important;
-  }
 
-  body.gantariku-role-ortu .brand{
-    height:56px !important;
-    min-height:56px !important;
-    margin:0 !important;
-    flex:1 1 auto !important;
-  }
 
-  body.gantariku-role-ortu .brand-logo{
-    width:125px !important;
-    max-width:125px !important;
-    height:auto !important;
-    padding:4px 6px !important;
-    border-radius:14px !important;
-    filter:drop-shadow(0 5px 10px rgba(70,62,50,.10)) !important;
-  }
 
-  body.gantariku-role-ortu .mobile-menu-btn{
-    width:46px !important;
-    height:46px !important;
-    min-width:46px !important;
-    flex:0 0 46px !important;
-    border-radius:14px !important;
-    background:linear-gradient(135deg,#FFD12F 0%,#F3B93F 100%) !important;
-    border:1px solid #E4B52D !important;
-    color:#6F4D2C !important;
-    font-size:21px !important;
-    font-weight:800 !important;
-    line-height:1 !important;
-    box-shadow:0 6px 14px rgba(210,164,45,.22) !important;
-  }
 
   body.gantariku-role-ortu .mobile-menu-btn:hover,
   body.gantariku-role-ortu .mobile-menu-btn:active{
@@ -666,13 +627,6 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     color:#5E4126 !important;
   }
 
-  body.gantariku-role-ortu .sidebar-menu{
-    top:74px !important;
-    padding:12px 14px 18px !important;
-    background:linear-gradient(180deg,#FFFDF8 0%,#FFF5D5 58%,#EDF7ED 100%) !important;
-    border-top:1px solid #F0E2BD !important;
-    box-shadow:0 16px 30px rgba(72,58,42,.16) !important;
-  }
 
   body.gantariku-role-ortu .sidebar-menu .user-info{
     color:#4C3A35 !important;
@@ -792,30 +746,9 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
    Header + Hubungkan Anak
    ============================================================ */
 @media (max-width:760px){
-  body.gantariku-role-ortu .brand{
-    align-items:center !important;
-    justify-content:flex-start !important;
-    height:52px !important;
-    min-height:52px !important;
-    margin:0 !important;
-  }
 
-  body.gantariku-role-ortu .brand-logo{
-    width:126px !important;
-    max-width:126px !important;
-    height:auto !important;
-    padding:2px 4px !important;
-    border-radius:12px !important;
-  }
 
-  body.gantariku-role-ortu .mobile-menu-btn{
-    width:40px !important;
-    height:40px !important;
-    min-width:40px !important;
-    flex-basis:40px !important;
-    border-radius:12px !important;
-    font-size:21px !important;
-  }
+
 
   /* Kartu Hubungkan Anak */
   body.gantariku-role-ortu #formHubungkanAnak{
@@ -865,17 +798,8 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
   }
 
   @media (max-width:390px){
-    body.gantariku-role-ortu .brand-logo{
-      width:118px !important;
-      max-width:118px !important;
-    }
 
-    body.gantariku-role-ortu .mobile-menu-btn{
-      width:38px !important;
-      height:38px !important;
-      min-width:38px !important;
-      flex-basis:38px !important;
-    }
+
 
     body.gantariku-role-ortu #formHubungkanAnak{
       max-width:300px !important;
@@ -1129,54 +1053,10 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
    Tidak mengubah dashboard / multi-child.
    ============================================================ */
 @media (max-width:760px){
-  body.gantariku-role-orangtua .sidebar{
-    width:100% !important;
-    height:74px !important;
-    min-height:74px !important;
-    flex:0 0 74px !important;
-    display:flex !important;
-    flex-direction:row !important;
-    align-items:center !important;
-    justify-content:space-between !important;
-    padding:9px 14px !important;
-    box-sizing:border-box !important;
-    position:relative !important;
-  }
 
-  body.gantariku-role-orangtua .brand{
-    height:56px !important;
-    min-height:56px !important;
-    flex:1 1 auto !important;
-    display:flex !important;
-    align-items:center !important;
-    justify-content:flex-start !important;
-    margin:0 !important;
-  }
 
-  body.gantariku-role-orangtua .brand-logo{
-    width:110px !important;
-    max-width:110px !important;
-    height:auto !important;
-    padding:4px 6px !important;
-    border-radius:14px !important;
-  }
 
-  body.gantariku-role-orangtua .mobile-menu-btn{
-    display:flex !important;
-    width:46px !important;
-    height:46px !important;
-    min-width:46px !important;
-    flex:0 0 46px !important;
-    align-items:center !important;
-    justify-content:center !important;
-    border-radius:14px !important;
-    background:linear-gradient(135deg,#FFD12F 0%,#F3B93F 100%) !important;
-    border:1px solid #E4B52D !important;
-    color:#6F4D2C !important;
-    font-size:23px !important;
-    font-weight:800 !important;
-    line-height:1 !important;
-  }
+
 
   /* Topbar hanya menjadi area notifikasi.
      Logo kedua tidak ditampilkan. */
@@ -1251,45 +1131,10 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
    no oversized empty space
    ============================================================ */
 @media (max-width:760px){
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .sidebar{
-    width:100% !important;
-    height:78px !important;
-    min-height:78px !important;
-    flex:0 0 78px !important;
-    padding:8px 14px !important;
-    margin:0 !important;
-    border-right:0 !important;
-    border-bottom:1px solid #EADFBF !important;
-    box-shadow:0 4px 12px rgba(92,72,45,.07) !important;
-    overflow:visible !important;
-  }
 
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand{
-    height:62px !important;
-    min-height:62px !important;
-    margin:0 !important;
-    flex:1 1 auto !important;
-    align-items:center !important;
-    justify-content:flex-start !important;
-  }
 
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand-logo{
-    width:128px !important;
-    max-width:128px !important;
-    height:auto !important;
-    padding:2px 4px !important;
-    border-radius:12px !important;
-  }
 
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .mobile-menu-btn{
-    width:42px !important;
-    height:42px !important;
-    min-width:42px !important;
-    flex:0 0 42px !important;
-    border-radius:12px !important;
-    font-size:21px !important;
-    box-shadow:0 4px 10px rgba(210,164,45,.16) !important;
-  }
+
 
   body.gantariku-role-ortu:has(#ortuDashboardHome) .content{
     width:100% !important;
@@ -1373,70 +1218,9 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     background:var(--bg) !important;
   }
 
-  body.gantariku-role-ortu .sidebar{
-    position:relative !important;
-    top:auto !important;
-    left:auto !important;
-    width:100% !important;
-    height:145px !important;
-    min-height:145px !important;
-    flex:0 0 145px !important;
-    box-sizing:border-box !important;
-    display:flex !important;
-    flex-direction:row !important;
-    align-items:center !important;
-    justify-content:space-between !important;
-    gap:16px !important;
-    padding:20px 28px !important;
-    margin:0 !important;
-    overflow:visible !important;
-    background:var(--primary-dark) !important;
-    border:0 !important;
-    border-radius:0 !important;
-    box-shadow:0 10px 22px rgba(74,55,38,.16) !important;
-    z-index:40 !important;
-  }
 
-  body.gantariku-role-ortu .brand{
-    display:flex !important;
-    align-items:center !important;
-    justify-content:flex-start !important;
-    height:auto !important;
-    min-height:0 !important;
-    margin:0 !important;
-    flex:1 1 auto !important;
-  }
 
-  body.gantariku-role-ortu .brand-logo{
-    display:block !important;
-    width:250px !important;
-    max-width:72vw !important;
-    height:auto !important;
-    padding:0 !important;
-    margin:0 !important;
-    border-radius:16px !important;
-    background:#fff !important;
-    box-shadow:0 5px 14px rgba(48,38,28,.12) !important;
-  }
 
-  body.gantariku-role-ortu .mobile-menu-btn{
-    display:flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    width:62px !important;
-    height:62px !important;
-    min-width:62px !important;
-    flex:0 0 62px !important;
-    margin:0 !important;
-    padding:0 !important;
-    border-radius:17px !important;
-    background:rgba(255,255,255,.10) !important;
-    border:1px solid rgba(255,255,255,.28) !important;
-    color:#FFF !important;
-    font-size:30px !important;
-    line-height:1 !important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.10) !important;
-  }
 
   body.gantariku-role-ortu .mobile-menu-btn:active{
     transform:scale(.97) !important;
@@ -1712,37 +1496,9 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
 @media (max-width:760px){
   /* Header mobile: kembali proporsional seperti tampilan sebelumnya.
      Logo tidak mendominasi layar; burger tetap mudah disentuh. */
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .sidebar{
-    height:66px !important;
-    min-height:66px !important;
-    flex:0 0 66px !important;
-    padding:6px 16px !important;
-    background:#9A7048 !important;
-    border-bottom:1px solid rgba(255,255,255,.16) !important;
-    box-shadow:0 6px 16px rgba(72,52,36,.12) !important;
-  }
 
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand-logo{
-    width:154px !important;
-    max-width:154px !important;
-    margin:0 !important;
-    padding:2px 4px !important;
-    border-radius:9px !important;
-    box-shadow:0 4px 10px rgba(48,38,28,.10) !important;
-  }
 
-  body.gantariku-role-ortu:has(#ortuDashboardHome) .mobile-menu-btn{
-    width:40px !important;
-    height:40px !important;
-    min-width:40px !important;
-    flex-basis:40px !important;
-    border-radius:11px !important;
-    background:#F4BE28 !important;
-    border:1px solid #DFAE20 !important;
-    color:#6B4A20 !important;
-    font-size:20px !important;
-    box-shadow:0 4px 10px rgba(170,125,35,.14) !important;
-  }
+
 
   /* Page title: icon tidak boleh lebih besar dari teks. */
   body.gantariku-role-ortu #pageTitle{
