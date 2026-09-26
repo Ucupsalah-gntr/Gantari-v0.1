@@ -4146,3 +4146,43 @@ button.is-busy {
     max-width: 96px !important;
   }
 }
+
+
+/* ============================================================
+   GANTARIKU — MOBILE LOGO = BURGER BUTTON
+   ============================================================ */
+@media (max-width: 900px) {
+  .brand {
+    min-height: 60px !important;
+    height: 60px !important;
+    padding: 4px 10px !important;
+  }
+
+  .brand-logo {
+    width: 38px !important;
+    max-width: 38px !important;
+    height: 38px !important;
+    padding: 2px !important;
+    border-radius: 8px !important;
+    object-fit: contain !important;
+    box-shadow: 0 3px 8px rgba(20,16,14,.12) !important;
+  }
+
+  .mobile-menu-btn {
+    width: 38px !important;
+    height: 38px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand {
+    min-height: 60px !important;
+    height: 60px !important;
+  }
+
+  .brand-logo {
+    width: 38px !important;
+    max-width: 38px !important;
+    height: 38px !important;
+  }
+}
