@@ -1700,3 +1700,62 @@
       color .12s ease !important;
   }
 }
+
+
+/* ============================================================
+   MOBILE SCROLL SYNC + ORTU NOTIFICATION SINGLE GLYPH
+   ============================================================ */
+@media (max-width:760px){
+  /*
+   * Reserve scrollbar space so opening/closing the menu does not
+   * make the page content jump sideways.
+   */
+  html.gantariku-mobile-device,
+  body.gantariku-mobile-device{
+    scrollbar-gutter:stable !important;
+    overflow-x:hidden !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu{
+    scrollbar-gutter:stable !important;
+    overscroll-behavior:contain !important;
+    -webkit-overflow-scrolling:touch !important;
+  }
+
+  /*
+   * The bell emoji is kept for Admin/Guru. Ortu uses its approved
+   * PNG pseudo-icon, so the emoji must be hidden there.
+   */
+  body.gantariku-mobile-device.gantariku-role-ortu #notifButton .notif-glyph,
+  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton .notif-glyph{
+    display:none !important;
+  }
+
+  body.gantariku-mobile-device.gantariku-role-ortu #notifButton::before,
+  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton::before{
+    content:"" !important;
+    display:block !important;
+    width:20px !important;
+    height:20px !important;
+    flex:0 0 20px !important;
+    background:url("../assets/icon-orangtua-notifikasi.png") center / contain no-repeat !important;
+  }
+}
+
+/* Same single-icon rule on desktop for the Orang Tua role. */
+@media (min-width:761px){
+  body.gantariku-role-ortu #notifButton .notif-glyph,
+  body.gantariku-role-orangtua #notifButton .notif-glyph{
+    display:none !important;
+  }
+
+  body.gantariku-role-ortu #notifButton::before,
+  body.gantariku-role-orangtua #notifButton::before{
+    content:"" !important;
+    display:block !important;
+    width:20px !important;
+    height:20px !important;
+    flex:0 0 20px !important;
+    background:url("../assets/icon-orangtua-notifikasi.png") center / contain no-repeat !important;
+  }
+}
