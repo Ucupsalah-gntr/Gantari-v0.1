@@ -224,13 +224,6 @@ section:has(.ortu-content-illustration) .section-body > *:not(.ortu-content-illu
   align-items:center;
   gap:7px;
 }
-.gantariku-role-ortu #notifButton::before{
-  content:"";
-  flex:0 0 22px;
-  width:22px;
-  height:22px;
-  background:url("../assets/icon-orangtua-notifikasi.png") center/contain no-repeat;
-}
 .gantariku-role-ortu #notifButton{
   font-size:0;
 }
@@ -250,8 +243,5 @@ section:has(.ortu-content-illustration) .section-body > *:not(.ortu-content-illu
   }
   .gantariku-role-ortu #notifButton #notifLabel{
     display:none;
-  }
-  .gantariku-role-ortu #notifButton::before{
-    flex-basis:22px;
   }
 }
