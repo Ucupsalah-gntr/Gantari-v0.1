@@ -1,0 +1,377 @@
+/* ============================================================
+   GANTARIKU — FINAL MOBILE SHELL
+   Baseline: mobile Admin yang sudah terasa paling rapi.
+   Berlaku sama untuk Admin, Guru, dan Orang Tua.
+   Menu mobile mengalir di layout sehingga header tidak tertinggal/
+   menumpuk ketika navigasi dibuka.
+   ============================================================ */
+
+@media (max-width:760px) {
+  body.gantariku-mobile-device {
+    overflow-x:hidden;
+  }
+
+  body.gantariku-mobile-device .app {
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+    width:100%;
+  }
+
+  /* ---------- MOBILE SIDEBAR HEADER ---------- */
+  body.gantariku-mobile-device .sidebar {
+    position:relative;
+    width:100%;
+    min-height:64px;
+    height:auto;
+    flex:0 0 auto;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:0;
+    padding:6px 12px;
+    background:
+      linear-gradient(180deg,#3A3A3C 0%,#504B45 58%,#8E653F 100%) !important;
+    color:#fff !important;
+    border:0 !important;
+    border-bottom:1px solid rgba(255,255,255,.08) !important;
+    border-radius:0 !important;
+    box-shadow:0 4px 14px rgba(35,30,27,.12);
+    overflow:visible;
+    z-index:100;
+  }
+
+  body.gantariku-mobile-device .brand {
+    min-width:0;
+    width:auto;
+    height:52px;
+    min-height:52px;
+    margin:0 !important;
+    padding:0 !important;
+    flex:1 1 auto;
+    display:flex !important;
+    align-items:center;
+    justify-content:flex-start;
+  }
+
+  body.gantariku-mobile-device .brand-logo {
+    display:block;
+    width:138px;
+    max-width:138px;
+    height:auto;
+    padding:5px 7px;
+    margin:0;
+    background:rgba(255,255,255,.96);
+    border-radius:11px;
+    object-fit:contain;
+    filter:drop-shadow(0 5px 10px rgba(0,0,0,.14));
+  }
+
+  /* ---------- BURGER ---------- */
+  body.gantariku-mobile-device .mobile-menu-btn {
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    min-width:40px;
+    min-height:40px;
+    flex:0 0 40px;
+    padding:0 !important;
+    margin:0 !important;
+    border:1px solid rgba(255,255,255,.22) !important;
+    border-radius:11px !important;
+    background:rgba(255,255,255,.15) !important;
+    color:#fff !important;
+    font-size:20px;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-mobile-device .mobile-menu-btn:hover,
+  body.gantariku-mobile-device .mobile-menu-btn:active {
+    background:rgba(255,255,255,.24) !important;
+    color:#fff !important;
+  }
+
+  /* Role-specific burger colors are intentionally neutralized on mobile. */
+  body.gantariku-mobile-device.gantariku-role-guru .mobile-menu-btn,
+  body.gantariku-mobile-device.gantariku-role-ortu .mobile-menu-btn,
+  body.gantariku-mobile-device.gantariku-role-orangtua .mobile-menu-btn {
+    background:rgba(255,255,255,.15) !important;
+    color:#fff !important;
+    border-color:rgba(255,255,255,.22) !important;
+  }
+
+  /* ---------- MOBILE NAV DROPDOWN ---------- */
+  body.gantariku-mobile-device .sidebar-menu {
+    display:none !important;
+    position:static !important;
+    order:3;
+    width:100%;
+    max-width:none;
+    flex:0 0 100%;
+    min-height:0;
+    max-height:calc(100vh - 64px);
+    margin:6px 0 0 !important;
+    padding:12px 0 14px !important;
+    background:transparent !important;
+    border-top:1px solid rgba(255,255,255,.12) !important;
+    box-shadow:none !important;
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+
+  body.gantariku-mobile-device .sidebar.mobile-open .sidebar-menu {
+    display:flex !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .user-info {
+    width:100%;
+    margin:0 0 10px !important;
+    padding:10px 11px !important;
+    color:#fff !important;
+    background:rgba(255,255,255,.10) !important;
+    border:1px solid rgba(255,255,255,.12) !important;
+    border-radius:12px !important;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .user-name {
+    color:#fff !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .user-role {
+    color:rgba(255,255,255,.68) !important;
+  }
+
+  body.gantariku-mobile-device .nav {
+    width:100%;
+    gap:3px !important;
+  }
+
+  body.gantariku-mobile-device .nav-item {
+    all:unset;
+    box-sizing:border-box;
+    width:100%;
+    min-height:42px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 11px;
+    border:1px solid transparent !important;
+    border-radius:10px !important;
+    color:rgba(255,255,255,.86) !important;
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    line-height:1.25;
+    cursor:pointer;
+  }
+
+  body.gantariku-mobile-device .nav-item:hover {
+    background:rgba(255,255,255,.09) !important;
+    color:#fff !important;
+    transform:none !important;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-mobile-device .nav-item.active {
+    background:#FFF9EA !important;
+    color:#875C38 !important;
+    border-color:transparent !important;
+    box-shadow:0 4px 13px rgba(30,24,20,.10) !important;
+    font-weight:700;
+  }
+
+  body.gantariku-mobile-device .nav-item.active:hover {
+    background:#FFF9EA !important;
+    color:#875C38 !important;
+  }
+
+  body.gantariku-mobile-device .nav-item > span:first-child {
+    width:22px !important;
+    min-width:22px !important;
+    height:22px;
+    flex:0 0 22px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+    line-height:1;
+    background:none;
+  }
+
+  /* Keep parent-specific pictograms, but fit them to the unified shell. */
+  body.gantariku-mobile-device.gantariku-role-ortu .nav-item[data-nav-id] > span:first-child,
+  body.gantariku-mobile-device.gantariku-role-orangtua .nav-item[data-nav-id] > span:first-child {
+    width:24px !important;
+    min-width:24px !important;
+    height:24px !important;
+    flex-basis:24px !important;
+    background-size:24px 24px !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-foot {
+    width:100%;
+    margin-top:10px !important;
+    padding-top:10px !important;
+    border-top:1px solid rgba(255,255,255,.13) !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-foot > div {
+    color:rgba(255,255,255,.82) !important;
+  }
+
+  body.gantariku-mobile-device .logout-btn {
+    color:rgba(255,255,255,.86) !important;
+    background:rgba(255,255,255,.035) !important;
+    border-color:rgba(255,255,255,.30) !important;
+    border-radius:9px !important;
+  }
+
+  /* ---------- CONTENT / HEADER ---------- */
+  body.gantariku-mobile-device .content {
+    width:100%;
+    min-width:0;
+    flex:1 1 auto;
+  }
+
+  body.gantariku-mobile-device .topbar {
+    position:relative;
+    z-index:40;
+    width:100%;
+    min-height:64px;
+    padding:11px 16px 9px !important;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:9px;
+    flex-wrap:nowrap !important;
+    background:rgba(250,247,239,.97) !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:0 2px 10px rgba(70,55,40,.045);
+    overflow:visible;
+  }
+
+  body.gantariku-mobile-device .topbar > div:first-child {
+    min-width:0;
+    flex:1 1 auto;
+  }
+
+  body.gantariku-mobile-device .topbar h1 {
+    min-width:0;
+    max-width:100%;
+    margin:0 0 2px !important;
+    font-size:19px !important;
+    line-height:1.18;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  body.gantariku-mobile-device .topbar p {
+    min-width:0;
+    max-width:100%;
+    font-size:11px !important;
+    line-height:1.25;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  body.gantariku-mobile-device .topbar-actions {
+    position:relative;
+    z-index:200;
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  body.gantariku-mobile-device .notif-button {
+    min-width:38px;
+    width:auto;
+    height:38px;
+    padding:7px 9px !important;
+    border-radius:10px;
+  }
+
+  body.gantariku-mobile-device #notifLabel {
+    display:none !important;
+  }
+
+  body.gantariku-mobile-device .today-chip {
+    max-width:112px;
+    padding:6px 8px;
+    font-size:10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  body.gantariku-mobile-device .notif-panel {
+    position:fixed !important;
+    top:68px !important;
+    left:12px !important;
+    right:12px !important;
+    width:auto !important;
+    max-height:calc(100vh - 84px);
+    z-index:1000 !important;
+  }
+
+  /* ---------- PAGE CONTENT ---------- */
+  body.gantariku-mobile-device .view {
+    width:100%;
+    max-width:none !important;
+    padding:5px 16px 40px !important;
+  }
+
+  body.gantariku-mobile-device .section {
+    width:100%;
+    max-width:100%;
+    border-radius:16px;
+  }
+
+  body.gantariku-mobile-device .section-head {
+    gap:10px;
+    align-items:flex-start;
+  }
+
+  body.gantariku-mobile-device .section-head .controls {
+    width:100%;
+    min-width:0;
+  }
+}
+
+@media (max-width:420px) {
+  body.gantariku-mobile-device .sidebar {
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  body.gantariku-mobile-device .brand-logo {
+    width:128px;
+    max-width:128px;
+  }
+
+  body.gantariku-mobile-device .topbar {
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+
+  body.gantariku-mobile-device .topbar h1 {
+    font-size:18px !important;
+  }
+
+  body.gantariku-mobile-device .today-chip {
+    display:none;
+  }
+
+  body.gantariku-mobile-device .view {
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+}
