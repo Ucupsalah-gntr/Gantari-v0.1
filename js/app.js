@@ -70,9 +70,7 @@
       onclick="window.__app.toggleNotifikasi()"
       type="button"
     >
-      ${currentUserRole === "ortu"
-        ? '<img class="notif-image" src="assets/icon-orangtua-notifikasi.png" alt="" aria-hidden="true">'
-        : '<span class="notif-glyph" aria-hidden="true">🔔</span>'}
+      <span class="notif-glyph" aria-hidden="true">🔔</span>
       <span id="notifLabel">Notifikasi</span>
       <span
         id="notifCount" class="notif-count is-hidden"
