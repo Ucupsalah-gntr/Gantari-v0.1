@@ -1590,20 +1590,18 @@ p::selection {
     ) !important;
 }
 
-/* Logo tidak terlalu mendominasi sidebar */
+/* Logo desktop — proporsional dan konsisten dengan header utama */
 
 .brand {
   margin-bottom: 12px !important;
   padding: 0 4px !important;
-
-  min-height: 0 !important;
+  min-height: 150px !important;
 }
 
 .brand-logo {
-  width: 168px !important;
-  max-width: 92% !important;
-
-  border-radius: 15px !important;
+  width: 205px !important;
+  max-width: 205px !important;
+  border-radius: 18px !important;
 
   box-shadow:
     0 8px 22px rgba(20,16,14,.16) !important;
