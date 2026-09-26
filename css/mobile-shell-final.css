@@ -1759,3 +1759,65 @@
     background:url("../assets/icon-orangtua-notifikasi.png") center / contain no-repeat !important;
   }
 }
+
+
+/* ============================================================
+   ORANG TUA NOTIFICATION — SINGLE ICON FINAL
+   Satu sumber ikon saja: background-image pada tombol.
+   Pseudo-element dan glyph emoji dimatikan total.
+   ============================================================ */
+body.gantariku-role-ortu #notifButton,
+body.gantariku-role-orangtua #notifButton{
+  position:relative !important;
+  font-size:0 !important;
+  background-color:#FFF4CE !important;
+  background-image:url("../assets/icon-orangtua-notifikasi.png") !important;
+  background-repeat:no-repeat !important;
+  background-position:center !important;
+  background-size:20px 20px !important;
+  color:transparent !important;
+}
+
+body.gantariku-role-ortu #notifButton::before,
+body.gantariku-role-ortu #notifButton::after,
+body.gantariku-role-orangtua #notifButton::before,
+body.gantariku-role-orangtua #notifButton::after{
+  content:none !important;
+  display:none !important;
+  background:none !important;
+  width:0 !important;
+  height:0 !important;
+  flex:0 0 0 !important;
+}
+
+body.gantariku-role-ortu #notifButton .notif-glyph,
+body.gantariku-role-orangtua #notifButton .notif-glyph{
+  display:none !important;
+}
+
+@media (max-width:760px){
+  body.gantariku-mobile-device.gantariku-role-ortu #notifButton,
+  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton{
+    width:42px !important;
+    min-width:42px !important;
+    height:42px !important;
+    padding:0 !important;
+    border-radius:12px !important;
+    background-color:#FFF4CE !important;
+    background-image:url("../assets/icon-orangtua-notifikasi.png") !important;
+    background-repeat:no-repeat !important;
+    background-position:center !important;
+    background-size:20px 20px !important;
+  }
+}
+
+@media (max-width:390px){
+  body.gantariku-mobile-device.gantariku-role-ortu #notifButton,
+  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton{
+    width:40px !important;
+    min-width:40px !important;
+    height:40px !important;
+    border-radius:11px !important;
+    background-size:19px 19px !important;
+  }
+}
