@@ -830,3 +830,339 @@
     padding-right:12px !important;
   }
 }
+
+
+/* ============================================================
+   GANTARIKU — SHELL V2
+   Baseline: DESKTOP = Admin | MOBILE = Guru
+   Semua role memakai shell yang sama; ikon/ilustrasi role tetap.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   DESKTOP: ADMIN BASELINE
+   ------------------------------------------------------------ */
+@media (min-width:761px){
+  body.gantariku-role-admin .sidebar,
+  body.gantariku-role-guru .sidebar,
+  body.gantariku-role-ortu .sidebar,
+  body.gantariku-role-orangtua .sidebar{
+    background:linear-gradient(180deg,#3A3A3C 0%,#504B45 55%,#8E653F 100%) !important;
+    color:#fff !important;
+    width:246px !important;
+    min-width:246px !important;
+    flex-basis:246px !important;
+    padding:24px 18px !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:6px 0 20px rgba(35,30,27,.08) !important;
+  }
+
+  body.gantariku-role-admin .brand,
+  body.gantariku-role-guru .brand,
+  body.gantariku-role-ortu .brand,
+  body.gantariku-role-orangtua .brand{
+    margin:0 0 22px !important;
+    min-height:52px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+  }
+
+  /*
+   * Logo asset tetap asli.
+   * Plate krem terang membuat tulisan/logo tidak tenggelam
+   * di sidebar gelap tanpa mengganti atau me-redesign aset.
+   */
+  body.gantariku-role-admin .brand-logo,
+  body.gantariku-role-guru .brand-logo,
+  body.gantariku-role-ortu .brand-logo,
+  body.gantariku-role-orangtua .brand-logo{
+    width:188px !important;
+    max-width:188px !important;
+    height:auto !important;
+    padding:7px 9px !important;
+    box-sizing:border-box !important;
+    border-radius:11px !important;
+    background:#FFFDF8 !important;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.13)) !important;
+  }
+
+  /* Typography: kembali ke baseline Admin yang sederhana dan terbaca. */
+  body.gantariku-role-admin .nav-item,
+  body.gantariku-role-guru .nav-item,
+  body.gantariku-role-ortu .nav-item,
+  body.gantariku-role-orangtua .nav-item{
+    font-family:'Inter',sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:500 !important;
+    line-height:1.25 !important;
+    letter-spacing:0 !important;
+    color:rgba(255,255,255,.84) !important;
+  }
+
+  body.gantariku-role-admin .nav-item.active,
+  body.gantariku-role-guru .nav-item.active,
+  body.gantariku-role-ortu .nav-item.active,
+  body.gantariku-role-orangtua .nav-item.active{
+    color:#875C38 !important;
+    background:#FFF9EA !important;
+    font-weight:700 !important;
+  }
+
+  body.gantariku-role-admin .user-info,
+  body.gantariku-role-guru .user-info,
+  body.gantariku-role-ortu .user-info,
+  body.gantariku-role-orangtua .user-info{
+    color:#fff !important;
+    background:rgba(255,255,255,.12) !important;
+  }
+
+  body.gantariku-role-admin .topbar,
+  body.gantariku-role-guru .topbar,
+  body.gantariku-role-ortu .topbar,
+  body.gantariku-role-orangtua .topbar{
+    background:transparent !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    padding:26px 34px 16px !important;
+  }
+
+  body.gantariku-role-admin .topbar h1,
+  body.gantariku-role-guru .topbar h1,
+  body.gantariku-role-ortu .topbar h1,
+  body.gantariku-role-orangtua .topbar h1{
+    font-family:'Space Grotesk',sans-serif !important;
+    color:#3A3A3C !important;
+    font-size:23px !important;
+    font-weight:700 !important;
+    letter-spacing:0 !important;
+  }
+
+  body.gantariku-role-admin .topbar p,
+  body.gantariku-role-guru .topbar p,
+  body.gantariku-role-ortu .topbar p,
+  body.gantariku-role-orangtua .topbar p{
+    font-family:'Inter',sans-serif !important;
+    color:#716C64 !important;
+    font-size:13px !important;
+  }
+
+  /* Ortu page-title icons: one measured size on every desktop page. */
+  body.gantariku-role-ortu #pageTitle::before,
+  body.gantariku-role-orangtua #pageTitle::before{
+    width:34px !important;
+    height:34px !important;
+    flex:0 0 34px !important;
+    background-size:24px 24px !important;
+    border-radius:10px !important;
+  }
+
+  body.gantariku-role-ortu #pageTitle,
+  body.gantariku-role-orangtua #pageTitle{
+    gap:9px !important;
+    font-size:23px !important;
+    line-height:1.18 !important;
+  }
+
+  /* Notification icon itself follows the common header geometry. */
+  body.gantariku-role-ortu #notifButton::before,
+  body.gantariku-role-orangtua #notifButton::before{
+    width:20px !important;
+    height:20px !important;
+    flex:0 0 20px !important;
+    background-size:20px 20px !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   MOBILE: GURU BASELINE
+   ------------------------------------------------------------ */
+@media (max-width:760px){
+  /* Compact brand row. Logo is 10% smaller than the previous 138px. */
+  body.gantariku-mobile-device .brand-logo{
+    width:124px !important;
+    max-width:124px !important;
+    padding:5px 7px !important;
+    border-radius:11px !important;
+    background:rgba(255,255,255,.96) !important;
+    filter:drop-shadow(0 5px 10px rgba(0,0,0,.14)) !important;
+  }
+
+  /* Guru-style burger: warm yellow, dark brown icon. */
+  body.gantariku-mobile-device .mobile-menu-btn{
+    width:40px !important;
+    min-width:40px !important;
+    height:40px !important;
+    min-height:40px !important;
+    flex-basis:40px !important;
+    border:1px solid #E6CF86 !important;
+    border-radius:11px !important;
+    background:linear-gradient(135deg,#FFF0B7,#FFE6A0) !important;
+    color:#76582F !important;
+    box-shadow:0 4px 12px rgba(118,88,47,.12) !important;
+  }
+
+  body.gantariku-mobile-device .mobile-menu-btn:hover,
+  body.gantariku-mobile-device .mobile-menu-btn:active{
+    background:linear-gradient(135deg,#FFF0B7,#FFE6A0) !important;
+    color:#76582F !important;
+  }
+
+  /* Guru baseline dropdown: cream/green, not the desktop-dark sidebar. */
+  body.gantariku-mobile-device .sidebar-menu{
+    margin-top:0 !important;
+    padding:14px 16px 20px !important;
+    border-top:1px solid rgba(169,120,78,.12) !important;
+    background:linear-gradient(180deg,#FFFDF8 0%,#FFF7DD 55%,#F2F8F0 100%) !important;
+    box-shadow:0 18px 34px rgba(72,64,54,.16) !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .user-info{
+    margin-bottom:10px !important;
+    padding:10px 11px !important;
+    background:rgba(255,255,255,.88) !important;
+    border:1px solid #E8E0D4 !important;
+    border-radius:14px !important;
+    box-shadow:0 5px 14px rgba(90,71,54,.06) !important;
+    color:#4C3A35 !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .user-name{
+    color:#4C3A35 !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .user-role{
+    color:#8A7565 !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .nav{
+    gap:6px !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .nav-item{
+    min-height:46px !important;
+    padding:10px 12px !important;
+    border:1px solid transparent !important;
+    border-radius:13px !important;
+    background:transparent !important;
+    color:#4B5E68 !important;
+    font-family:'Inter',sans-serif !important;
+    font-size:13px !important;
+    font-weight:650 !important;
+    line-height:1.25 !important;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .nav-item:hover{
+    background:rgba(255,255,255,.72) !important;
+    border-color:#E9DFC7 !important;
+    color:#4B5E68 !important;
+    transform:none !important;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .nav-item.active{
+    color:#76582F !important;
+    background:linear-gradient(135deg,#FFEAA1 0%,#FFF5D2 100%) !important;
+    border-color:#F0D27A !important;
+    box-shadow:0 5px 14px rgba(207,169,67,.10) !important;
+  }
+
+  /* Parent pictograms remain, but share Guru's icon box geometry. */
+  body.gantariku-mobile-device.gantariku-role-ortu .sidebar-menu .nav-item > span:first-child,
+  body.gantariku-mobile-device.gantariku-role-orangtua .sidebar-menu .nav-item > span:first-child{
+    width:26px !important;
+    min-width:26px !important;
+    height:26px !important;
+    flex:0 0 26px !important;
+    background-size:26px 26px !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .sidebar-foot{
+    margin-top:10px !important;
+    padding-top:12px !important;
+    border-top:1px solid rgba(169,120,78,.14) !important;
+    color:#72817D !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .logout-btn{
+    color:#6D6258 !important;
+    border:1px solid #D8CEC0 !important;
+    background:rgba(255,255,255,.62) !important;
+    border-radius:9px !important;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-mobile-device .sidebar-menu .logout-btn:hover{
+    background:#fff !important;
+  }
+
+  /*
+   * Mobile topbar follows the same clean geometry for all roles.
+   * Ortu's special title icons stay out of the shell.
+   */
+  body.gantariku-mobile-device .topbar{
+    min-height:64px !important;
+    padding:11px 16px 9px !important;
+    background:rgba(250,247,239,.97) !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:0 2px 10px rgba(70,55,40,.045) !important;
+  }
+
+  body.gantariku-mobile-device .topbar h1{
+    font-family:'Space Grotesk',sans-serif !important;
+    font-size:19px !important;
+    font-weight:700 !important;
+    color:#3A3A3C !important;
+  }
+
+  body.gantariku-mobile-device .topbar p{
+    font-family:'Inter',sans-serif !important;
+    font-size:11px !important;
+    color:#716C64 !important;
+  }
+
+  body.gantariku-mobile-device .topbar-actions{
+    gap:6px !important;
+  }
+
+  body.gantariku-mobile-device #notifButton{
+    min-width:38px !important;
+    width:auto !important;
+    height:38px !important;
+    padding:7px 9px !important;
+    border-radius:10px !important;
+  }
+
+  body.gantariku-mobile-device.gantariku-role-ortu #notifButton::before,
+  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton::before{
+    width:20px !important;
+    height:20px !important;
+    flex:0 0 20px !important;
+    background-size:20px 20px !important;
+  }
+
+  body.gantariku-mobile-device.gantariku-role-ortu #pageTitle::before,
+  body.gantariku-mobile-device.gantariku-role-orangtua #pageTitle::before{
+    display:none !important;
+    content:none !important;
+    width:0 !important;
+    height:0 !important;
+    flex:0 0 0 !important;
+  }
+}
+
+@media (max-width:420px){
+  /* Keep the requested ~10% reduction at narrow widths too. */
+  body.gantariku-mobile-device .brand-logo{
+    width:115px !important;
+    max-width:115px !important;
+  }
+
+  body.gantariku-mobile-device .topbar{
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+}
