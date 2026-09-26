@@ -1403,3 +1403,202 @@
     max-width:115px !important;
   }
 }
+
+
+/* ============================================================
+   SHELL V4 — DESKTOP LOCK + MOBILE BURGER SMOOTHNESS
+   Desktop visual is now frozen to the approved Admin baseline.
+   Mobile burger uses stable geometry; no transform snap on navigation.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   DESKTOP LOCK
+   ------------------------------------------------------------ */
+@media (min-width:761px){
+  body.gantariku-role-admin .sidebar,
+  body.gantariku-role-guru .sidebar,
+  body.gantariku-role-ortu .sidebar,
+  body.gantariku-role-orangtua .sidebar{
+    width:274px !important;
+    min-width:274px !important;
+    flex:0 0 274px !important;
+    height:auto !important;
+    min-height:100vh !important;
+    align-self:stretch !important;
+    padding:18px 16px 20px !important;
+    overflow:hidden !important;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255,253,248,.93) 0%,
+        rgba(255,247,211,.93) 52%,
+        rgba(231,246,234,.96) 100%
+      ) !important;
+    border-right:1px solid #DDE9DF !important;
+    border-top:0 !important;
+    border-bottom:0 !important;
+    border-left:0 !important;
+    border-radius:0 !important;
+    box-shadow:8px 0 28px rgba(64,97,86,.07) !important;
+  }
+
+  body.gantariku-role-admin .sidebar::before,
+  body.gantariku-role-guru .sidebar::before,
+  body.gantariku-role-ortu .sidebar::before,
+  body.gantariku-role-orangtua .sidebar::before{
+    content:"" !important;
+    position:absolute !important;
+    inset:auto 0 0 !important;
+    height:62% !important;
+    background:url("../assets/gantari-sidebar-floral.png.png") left bottom / cover no-repeat !important;
+    opacity:.42 !important;
+    pointer-events:none !important;
+    display:block !important;
+    z-index:0 !important;
+  }
+
+  body.gantariku-role-admin .brand-logo,
+  body.gantariku-role-guru .brand-logo,
+  body.gantariku-role-ortu .brand-logo,
+  body.gantariku-role-orangtua .brand-logo{
+    width:194px !important;
+    max-width:100% !important;
+    height:auto !important;
+    padding:0 !important;
+    margin:0 !important;
+    background:transparent !important;
+    border-radius:0 !important;
+    filter:drop-shadow(0 7px 14px rgba(63,91,78,.10)) !important;
+  }
+
+  body.gantariku-role-admin .sidebar-menu .nav-item,
+  body.gantariku-role-guru .sidebar-menu .nav-item,
+  body.gantariku-role-ortu .sidebar-menu .nav-item,
+  body.gantariku-role-orangtua .sidebar-menu .nav-item{
+    color:#2B5965 !important;
+    background:transparent !important;
+    border-color:transparent !important;
+    border-radius:13px !important;
+    padding:10px 12px !important;
+    font-family:'Inter',sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:650 !important;
+    transform:none !important;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-role-admin .sidebar-menu .nav-item.active,
+  body.gantariku-role-guru .sidebar-menu .nav-item.active,
+  body.gantariku-role-ortu .sidebar-menu .nav-item.active,
+  body.gantariku-role-orangtua .sidebar-menu .nav-item.active{
+    background:linear-gradient(135deg,#FFE99A 0%,#FFF6D5 100%) !important;
+    color:#7B552E !important;
+    border-color:#EFD681 !important;
+    box-shadow:0 6px 16px rgba(213,178,77,.13) !important;
+  }
+
+  body.gantariku-role-admin .topbar,
+  body.gantariku-role-guru .topbar,
+  body.gantariku-role-ortu .topbar,
+  body.gantariku-role-orangtua .topbar{
+    padding:26px 34px 18px !important;
+    background:transparent !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+  }
+
+  body.gantariku-role-admin .topbar h1,
+  body.gantariku-role-guru .topbar h1,
+  body.gantariku-role-ortu .topbar h1,
+  body.gantariku-role-orangtua .topbar h1{
+    color:#214B5B !important;
+    font-family:'Space Grotesk',sans-serif !important;
+    font-size:24px !important;
+    font-weight:700 !important;
+    letter-spacing:-.03em !important;
+  }
+
+  body.gantariku-role-admin .topbar p,
+  body.gantariku-role-guru .topbar p,
+  body.gantariku-role-ortu .topbar p,
+  body.gantariku-role-orangtua .topbar p{
+    color:#78908D !important;
+    font-family:'Inter',sans-serif !important;
+    font-size:13px !important;
+  }
+
+  body.gantariku-role-admin .content,
+  body.gantariku-role-guru .content,
+  body.gantariku-role-ortu .content,
+  body.gantariku-role-orangtua .content{
+    min-height:100vh !important;
+    background:linear-gradient(180deg,rgba(255,253,248,.96) 0%,rgba(250,252,245,.88) 100%) !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   MOBILE BURGER — stable, soft, no snap
+   ------------------------------------------------------------ */
+@media (max-width:760px){
+  body.gantariku-mobile-device .mobile-menu-btn{
+    position:relative !important;
+    width:40px !important;
+    min-width:40px !important;
+    height:40px !important;
+    min-height:40px !important;
+    flex:0 0 40px !important;
+    flex-shrink:0 !important;
+    padding:0 !important;
+    margin:0 !important;
+    border:1px solid #E6CF86 !important;
+    border-radius:11px !important;
+    background:linear-gradient(135deg,#FFF0B7,#FFE6A0) !important;
+    color:#76582F !important;
+    box-shadow:0 4px 12px rgba(118,88,47,.12) !important;
+    transform:none !important;
+    outline:none !important;
+    transition:
+      background-color .12s ease,
+      box-shadow .12s ease,
+      border-color .12s ease,
+      color .12s ease !important;
+    will-change:background-color,box-shadow !important;
+  }
+
+  body.gantariku-mobile-device .mobile-menu-btn:hover{
+    background:linear-gradient(135deg,#FFF0B7,#FFE6A0) !important;
+    color:#76582F !important;
+    border-color:#E6CF86 !important;
+    transform:none !important;
+  }
+
+  body.gantariku-mobile-device .mobile-menu-btn:active,
+  body.gantariku-mobile-device .mobile-menu-btn:focus{
+    background:linear-gradient(135deg,#FFF0B7,#FFE6A0) !important;
+    color:#76582F !important;
+    border-color:#E6CF86 !important;
+    transform:none !important;
+    outline:none !important;
+  }
+
+  body.gantariku-mobile-device .mobile-menu-btn:focus-visible{
+    outline:2px solid rgba(118,88,47,.24) !important;
+    outline-offset:2px !important;
+  }
+
+  /* Keep the brand row's geometry identical before/after navigation. */
+  body.gantariku-mobile-device .brand{
+    min-width:0 !important;
+    flex:1 1 auto !important;
+  }
+
+  body.gantariku-mobile-device .sidebar{
+    min-height:64px !important;
+  }
+
+  /* Menu close/open should not animate the button itself. */
+  body.gantariku-mobile-device .sidebar.mobile-open .mobile-menu-btn{
+    transform:none !important;
+  }
+}
