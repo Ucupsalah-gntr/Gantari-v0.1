@@ -4054,6 +4054,10 @@ button.is-busy {
     max-height:calc(100vh - 64px);
     overflow-y:auto;
     box-sizing:border-box;
+    padding:14px 16px 18px;
+    background:var(--primary-dark);
+    box-shadow:0 14px 30px rgba(58,58,60,.28);
+    z-index:30;
   }
   .gantariku-mobile-device .sidebar.mobile-open .sidebar-menu{display:flex;}
 }
