@@ -536,77 +536,11 @@
   min-height:100vh !important;
 }
 
-.gantariku-mobile-device .sidebar{
-  width:100% !important;
-  height:64px !important;
-  min-height:64px !important;
-  flex:0 0 64px !important;
-  box-sizing:border-box !important;
-  display:flex !important;
-  flex-direction:row !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  gap:10px !important;
-  padding:6px 12px !important;
-  position:relative !important;
-  z-index:1000 !important;
-  overflow:visible !important;
-}
 
-.gantariku-mobile-device .sidebar::after{
-  display:none !important;
-}
 
-.gantariku-mobile-device .brand{
-  min-height:0 !important;
-  width:auto !important;
-  height:52px !important;
-  margin:0 !important;
-  padding:0 !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:flex-start !important;
-  flex:1 1 auto !important;
-}
 
-.gantariku-mobile-device .brand-logo{
-  width:110px !important;
-  max-width:110px !important;
-  height:auto !important;
-  padding:5px 6px !important;
-  border-radius:11px !important;
-}
 
-.gantariku-mobile-device .mobile-menu-btn{
-  display:flex !important;
-  width:40px !important;
-  height:40px !important;
-  min-width:40px !important;
-  flex:0 0 40px !important;
-  align-items:center !important;
-  justify-content:center !important;
-  border-radius:11px !important;
-  font-size:20px !important;
-  line-height:1 !important;
-  background:rgba(255,255,255,.13) !important;
-  border:1px solid rgba(255,255,255,.18) !important;
-  color:#fff !important;
-}
 
-.gantariku-mobile-device .sidebar-menu{
-  display:none !important;
-  position:absolute !important;
-  top:64px !important;
-  left:0 !important;
-  right:0 !important;
-  width:100% !important;
-  max-height:calc(100vh - 64px) !important;
-  overflow-y:auto !important;
-  box-sizing:border-box !important;
-  padding:14px 16px 18px !important;
-  background:linear-gradient(180deg,#403A37 0%,#7B573B 100%) !important;
-  box-shadow:0 16px 34px rgba(40,30,24,.28) !important;
-}
 
 .gantariku-mobile-device .sidebar.mobile-open .sidebar-menu{
   display:flex !important;
@@ -688,62 +622,11 @@
     min-height:100vh !important;
   }
 
-  .sidebar{
-    width:100% !important;
-    height:64px !important;
-    min-height:64px !important;
-    flex:0 0 64px !important;
-    box-sizing:border-box !important;
-    display:flex !important;
-    flex-direction:row !important;
-    align-items:center !important;
-    justify-content:space-between !important;
-    padding:6px 12px !important;
-    position:relative !important;
-    z-index:1000 !important;
-    overflow:visible !important;
-  }
 
-  .sidebar::after{display:none !important}
 
-  .brand{
-    min-height:0 !important;
-    height:52px !important;
-    margin:0 !important;
-    padding:0 !important;
-    flex:1 1 auto !important;
-  }
 
-  .brand-logo{
-    width:110px !important;
-    max-width:110px !important;
-    padding:5px 6px !important;
-    border-radius:11px !important;
-  }
 
-  .mobile-menu-btn{
-    display:flex !important;
-    width:40px !important;
-    height:40px !important;
-    min-width:40px !important;
-    align-items:center !important;
-    justify-content:center !important;
-  }
 
-  .sidebar-menu{
-    display:none !important;
-    position:absolute !important;
-    top:64px !important;
-    left:0 !important;
-    right:0 !important;
-    width:100% !important;
-    max-height:calc(100vh - 64px) !important;
-    overflow-y:auto !important;
-    box-sizing:border-box !important;
-    padding:14px 16px 18px !important;
-    background:linear-gradient(180deg,#403A37 0%,#7B573B 100%) !important;
-    z-index:1100 !important;
-  }
 
   .sidebar.mobile-open .sidebar-menu{display:flex !important}
 
