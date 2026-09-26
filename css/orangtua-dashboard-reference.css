@@ -1252,3 +1252,138 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     height:48px !important;
   }
 }
+
+
+/* ============================================================
+   ORANG TUA — COMPACT MOBILE HEADER
+   Final visual correction:
+   header = logo + burger
+   utility row = notification
+   no oversized empty space
+   ============================================================ */
+@media (max-width:760px){
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .sidebar{
+    width:100% !important;
+    height:78px !important;
+    min-height:78px !important;
+    flex:0 0 78px !important;
+    padding:8px 14px !important;
+    margin:0 !important;
+    border-right:0 !important;
+    border-bottom:1px solid #EADFBF !important;
+    box-shadow:0 4px 12px rgba(92,72,45,.07) !important;
+    overflow:visible !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand{
+    height:62px !important;
+    min-height:62px !important;
+    margin:0 !important;
+    flex:1 1 auto !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand-logo{
+    width:128px !important;
+    max-width:128px !important;
+    height:auto !important;
+    padding:2px 4px !important;
+    border-radius:12px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .mobile-menu-btn{
+    width:42px !important;
+    height:42px !important;
+    min-width:42px !important;
+    flex:0 0 42px !important;
+    border-radius:12px !important;
+    font-size:21px !important;
+    box-shadow:0 4px 10px rgba(210,164,45,.16) !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .content{
+    width:100% !important;
+    min-width:0 !important;
+  }
+
+  /* Notification gets its own compact row immediately below header. */
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar{
+    width:100% !important;
+    min-height:50px !important;
+    height:50px !important;
+    margin:0 !important;
+    padding:4px 12px !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:#FFFDF8 !important;
+    box-shadow:none !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar > div:first-child,
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar::before{
+    display:none !important;
+    content:none !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar-actions{
+    width:auto !important;
+    min-height:42px !important;
+    margin:0 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) #notifButton{
+    width:44px !important;
+    min-width:44px !important;
+    height:44px !important;
+    padding:8px !important;
+    margin:0 !important;
+    border-radius:13px !important;
+    background:#FFF7DD !important;
+    border:1px solid #E9D79A !important;
+    box-shadow:0 3px 8px rgba(126,96,48,.07) !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .view{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:4px 12px 24px !important;
+    margin:0 !important;
+  }
+
+  #ortuDashboardHome{
+    gap:10px !important;
+  }
+}
+
+@media (max-width:390px){
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .sidebar{
+    height:74px !important;
+    min-height:74px !important;
+    flex-basis:74px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand-logo{
+    width:118px !important;
+    max-width:118px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .mobile-menu-btn{
+    width:40px !important;
+    height:40px !important;
+    min-width:40px !important;
+    flex-basis:40px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar{
+    height:48px !important;
+    min-height:48px !important;
+  }
+}
