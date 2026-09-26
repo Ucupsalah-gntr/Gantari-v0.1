@@ -1753,8 +1753,9 @@ body.gantariku-role-orangtua #notifButton .notif-glyph{
 }
 
 /* ============================================================
-   ORANG TUA NOTIFICATION — SINGLE PSEUDO ICON
-   Struktur tombol tetap stabil; hanya satu sumber ikon.
+   ORANG TUA NOTIFICATION — SELF CONTAINED ICON
+   Tidak mengambil file PNG eksternal.
+   Satu-satunya ikon berasal dari pseudo-element inline SVG.
    ============================================================ */
 body.gantariku-role-ortu #notifButton,
 body.gantariku-role-orangtua #notifButton{
@@ -1776,7 +1777,10 @@ body.gantariku-role-orangtua #notifButton::before{
   height:20px !important;
   flex:0 0 20px !important;
   margin:0 !important;
-  background:url("../assets/icon-orangtua-notifikasi.png") center / contain no-repeat !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9' fill='none' stroke='%23875C38' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 21h4' fill='none' stroke='%23875C38' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+  background-repeat:no-repeat !important;
+  background-position:center !important;
+  background-size:contain !important;
 }
 
 body.gantariku-role-ortu #notifButton::after,
