@@ -1749,3 +1749,139 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     font-size:12px !important;
   }
 }
+
+
+/* ============================================================
+   ORANG TUA — FINAL MOBILE HEADER PROPORTIONS
+   Kembali ke header Gantari krem + tombol burger kuning.
+   Ikon halaman dan notifikasi dibuat seimbang.
+   ============================================================ */
+@media (max-width:760px){
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .sidebar{
+    height:124px !important;
+    min-height:124px !important;
+    flex:0 0 124px !important;
+    padding:16px 28px !important;
+    background:#FFF9E8 !important;
+    border-bottom:2px solid #EADDAE !important;
+    box-shadow:0 8px 18px rgba(126,96,48,.08) !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand-logo{
+    width:250px !important;
+    max-width:72vw !important;
+    margin:0 !important;
+    border-radius:16px !important;
+    box-shadow:0 4px 12px rgba(48,38,28,.10) !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .mobile-menu-btn{
+    width:56px !important;
+    height:56px !important;
+    min-width:56px !important;
+    flex-basis:56px !important;
+    border-radius:16px !important;
+    background:#F4BE28 !important;
+    border:1px solid #DFAE20 !important;
+    color:#6B4A20 !important;
+    font-size:27px !important;
+    box-shadow:0 4px 10px rgba(170,125,35,.14) !important;
+  }
+
+  /* Page title: icon tidak boleh lebih besar dari teks. */
+  body.gantariku-role-ortu #pageTitle{
+    display:flex !important;
+    align-items:center !important;
+    gap:9px !important;
+    font-size:24px !important;
+    line-height:1.15 !important;
+  }
+
+  body.gantariku-role-ortu #pageTitle::before{
+    flex:0 0 44px !important;
+    width:44px !important;
+    height:44px !important;
+    border-radius:13px !important;
+    background-size:25px 25px !important;
+  }
+
+  /* Notification: satu tombol kecil, bukan kartu besar. */
+  body.gantariku-role-ortu:has(#ortuDashboardHome) #notifButton{
+    width:48px !important;
+    min-width:48px !important;
+    height:48px !important;
+    padding:0 !important;
+    border-radius:14px !important;
+    background:#FFF4CE !important;
+    border:1px solid #E8D28A !important;
+    box-shadow:0 3px 9px rgba(126,96,48,.08) !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) #notifButton::before{
+    width:23px !important;
+    height:23px !important;
+    flex:0 0 23px !important;
+    background-size:contain !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) #notifCount{
+    transform:scale(.82) !important;
+    transform-origin:top right !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .topbar{
+    min-height:96px !important;
+    height:auto !important;
+    padding:17px 22px 15px !important;
+    margin:0 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:#FFFDF8 !important;
+    box-shadow:none !important;
+  }
+}
+
+@media (max-width:390px){
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .sidebar{
+    height:108px !important;
+    min-height:108px !important;
+    flex-basis:108px !important;
+    padding:13px 20px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .brand-logo{
+    width:205px !important;
+    max-width:66vw !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) .mobile-menu-btn{
+    width:50px !important;
+    height:50px !important;
+    min-width:50px !important;
+    flex-basis:50px !important;
+  }
+
+  body.gantariku-role-ortu #pageTitle{
+    font-size:21px !important;
+    gap:8px !important;
+  }
+
+  body.gantariku-role-ortu #pageTitle::before{
+    flex-basis:40px !important;
+    width:40px !important;
+    height:40px !important;
+    background-size:23px 23px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) #notifButton{
+    width:44px !important;
+    min-width:44px !important;
+    height:44px !important;
+  }
+
+  body.gantariku-role-ortu:has(#ortuDashboardHome) #notifButton::before{
+    width:21px !important;
+    height:21px !important;
+    flex-basis:21px !important;
+  }
+}
