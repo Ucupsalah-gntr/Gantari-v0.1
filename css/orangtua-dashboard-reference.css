@@ -1121,3 +1121,134 @@ body.gantariku-role-ortu:has(#ortuDashboardHome) #notifLabel{
     min-width:0;
   }
 }
+
+
+/* ============================================================
+   ORANG TUA — FINAL MOBILE HEADER ALIGNMENT
+   Hanya memisahkan Burger dan Notifikasi.
+   Tidak mengubah dashboard / multi-child.
+   ============================================================ */
+@media (max-width:760px){
+  body.gantariku-role-orangtua .sidebar{
+    width:100% !important;
+    height:74px !important;
+    min-height:74px !important;
+    flex:0 0 74px !important;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    padding:9px 14px !important;
+    box-sizing:border-box !important;
+    position:relative !important;
+  }
+
+  body.gantariku-role-orangtua .brand{
+    height:56px !important;
+    min-height:56px !important;
+    flex:1 1 auto !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    margin:0 !important;
+  }
+
+  body.gantariku-role-orangtua .brand-logo{
+    width:154px !important;
+    max-width:154px !important;
+    height:auto !important;
+    padding:4px 6px !important;
+    border-radius:14px !important;
+  }
+
+  body.gantariku-role-orangtua .mobile-menu-btn{
+    display:flex !important;
+    width:46px !important;
+    height:46px !important;
+    min-width:46px !important;
+    flex:0 0 46px !important;
+    align-items:center !important;
+    justify-content:center !important;
+    border-radius:14px !important;
+    background:linear-gradient(135deg,#FFD12F 0%,#F3B93F 100%) !important;
+    border:1px solid #E4B52D !important;
+    color:#6F4D2C !important;
+    font-size:23px !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+  }
+
+  /* Topbar hanya menjadi area notifikasi.
+     Logo kedua tidak ditampilkan. */
+  body.gantariku-role-orangtua:has(#ortuDashboardHome) .topbar{
+    min-height:58px !important;
+    margin:0 0 8px !important;
+    padding:8px 4px !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+  }
+
+  body.gantariku-role-orangtua:has(#ortuDashboardHome) .topbar::before{
+    display:none !important;
+    content:none !important;
+  }
+
+  body.gantariku-role-orangtua:has(#ortuDashboardHome) .topbar > div:first-child{
+    display:none !important;
+  }
+
+  body.gantariku-role-orangtua:has(#ortuDashboardHome) .topbar-actions{
+    width:auto !important;
+    min-height:48px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+  }
+
+  body.gantariku-role-orangtua:has(#ortuDashboardHome) #notifButton{
+    width:52px !important;
+    min-width:52px !important;
+    height:52px !important;
+    padding:10px !important;
+    margin:0 !important;
+    border-radius:16px !important;
+    background:#FFF9EA !important;
+    border:1px solid #EAD8A8 !important;
+    box-shadow:0 4px 10px rgba(126,96,48,.08) !important;
+  }
+
+  body.gantariku-role-orangtua:has(#ortuDashboardHome) #notifLabel{
+    display:none !important;
+  }
+
+  body.gantariku-role-orangtua:has(#ortuDashboardHome) #notifButton::before{
+    width:24px !important;
+    height:24px !important;
+    flex-basis:24px !important;
+  }
+}
+
+@media (max-width:390px){
+  body.gantariku-role-orangtua .brand-logo{
+    width:142px !important;
+    max-width:142px !important;
+  }
+
+  body.gantariku-role-orangtua .mobile-menu-btn{
+    width:42px !important;
+    height:42px !important;
+    min-width:42px !important;
+    flex-basis:42px !important;
+  }
+
+  body.gantariku-role-orangtua:has(#ortuDashboardHome) #notifButton{
+    width:48px !important;
+    min-width:48px !important;
+    height:48px !important;
+  }
+}
