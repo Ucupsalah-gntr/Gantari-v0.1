@@ -25,6 +25,48 @@ function sppStatusIcon(status) {
   return "—";
 }
 
+
+// ============================================================
+// TARIF SPP BERDASARKAN TAHUN MASUK DARI NIS
+// ============================================================
+
+function getTahunMasukDariNis(siswa) {
+  const nisDigits = String(siswa?.nis || "").replace(/\D/g, "");
+  if (nisDigits.length < 2) return null;
+
+  const suffix = Number(nisDigits.slice(-2));
+  if (!Number.isInteger(suffix)) return null;
+
+  return 2000 + suffix;
+}
+
+function getTahunMulaiSiswa(siswa) {
+  const dariNis = getTahunMasukDariNis(siswa);
+  if (dariNis !== null) return dariNis;
+
+  const mulai = Number(siswa?.mulai_tahun);
+  if (Number.isInteger(mulai) && mulai >= 2000 && mulai <= 2100) {
+    return mulai;
+  }
+
+  const tahunAjaran = String(siswa?.tahun_ajaran || "");
+  const match = tahunAjaran.match(/20\d{2}/);
+  return match ? Number(match[0]) : null;
+}
+
+function getSppNominalSiswa(siswa) {
+  const tahunMasuk = getTahunMulaiSiswa(siswa);
+  return tahunMasuk !== null && tahunMasuk >= 2026 ? 60000 : 50000;
+}
+
+function getSppTarifLabel(siswa) {
+  const tahunMasuk = getTahunMulaiSiswa(siswa);
+  const nominal = getSppNominalSiswa(siswa);
+  return tahunMasuk
+    ? `Tahun masuk ${tahunMasuk} · ${formatRupiah(nominal)}`
+    : formatRupiah(nominal);
+}
+
 // ============================================================
 // VIEW
 // ============================================================
@@ -160,9 +202,10 @@ function renderSpp() {
               <input
                 type="number"
                 id="sppNominal"
-                placeholder="Contoh: 150000"
+                placeholder="Otomatis berdasarkan NIS"
                 min="0"
                 required
+                readonly
               >
             </div>
 
@@ -289,9 +332,19 @@ async function loadSiswaSppTahunan() {
       sppTahunanSiswa
         .map(
           (s) =>
-            `<option value="${s.id}">${s.nama} — ${s.kelas || "-"}</option>`
+            `<option value="${s.id}">${s.nama} — ${s.kelas || "-"} · ${getSppTarifLabel(s)}</option>`
         )
         .join("");
+
+    selectForm.onchange = () => {
+      const siswa = sppTahunanSiswa.find(
+        (item) => String(item.id) === String(selectForm.value)
+      );
+      const nominalEl = document.getElementById("sppNominal");
+      if (nominalEl) {
+        nominalEl.value = siswa ? getSppNominalSiswa(siswa) : "";
+      }
+    };
   }
 
   const selectKelas = document.getElementById("filterKelasSpp");
@@ -670,11 +723,14 @@ async function simpanSpp(event) {
   const siswaId = document.getElementById("sppSiswaId")?.value;
   const bulan = Number(document.getElementById("sppBulan")?.value);
   const tahun = Number(document.getElementById("sppTahun")?.value);
-  const nominal = Number(document.getElementById("sppNominal")?.value);
+  const siswa = sppTahunanSiswa.find(
+    (item) => String(item.id) === String(siswaId)
+  );
+  const nominal = siswa ? getSppNominalSiswa(siswa) : 0;
   const status = document.getElementById("sppStatus")?.value;
 
-  if (!siswaId || !nominal || nominal <= 0) {
-    appNotify("Siswa dan nominal wajib diisi dengan benar.");
+  if (!siswa || !nominal || nominal <= 0) {
+    appNotify("Siswa wajib dipilih dengan benar.");
     return;
   }
 
@@ -757,27 +813,11 @@ async function buatTagihanBulanan() {
     return;
   }
 
-  const inputNominal = prompt(
-    `Nominal SPP ${namaBulan(bulanPilihan)} ${tahun}:`,
-    "150000"
-  );
-
-  if (inputNominal === null) return;
-
-  const nominal = Number(
-    String(inputNominal).replace(/[^0-9]/g, "")
-  );
-
-  if (!nominal || nominal <= 0) {
-    appNotify("Nominal tidak valid.");
-    return;
-  }
-
   if (
     !confirmSpp(
-      `Buat tagihan ${namaBulan(bulanPilihan)} ${tahun} ` +
-        `sebesar ${formatRupiah(nominal)} untuk semua siswa ` +
-        `yang belum memiliki tagihan pada periode tersebut?`
+      `Buat/sinkronkan tagihan ${namaBulan(bulanPilihan)} ${tahun} berdasarkan tahun masuk dari NIS siswa?\n\n` +
+        `NIS berakhiran 25 atau sebelumnya → Rp50.000\n` +
+        `NIS berakhiran 26 atau sesudahnya → Rp60.000`
     )
   ) {
     return;
@@ -791,50 +831,86 @@ async function buatTagihanBulanan() {
       tahun
     );
 
-    const sudahAda = new Set(
-      existing.map((x) => String(x.siswa_id))
+    const existingMap = new Map(
+      existing.map((item) => [String(item.siswa_id), item])
     );
 
     const belumAda = sppTahunanSiswa.filter(
-      (s) => !sudahAda.has(String(s.id))
+      (s) => !existingMap.has(String(s.id))
     );
 
-    if (belumAda.length === 0) {
-      appNotify(
-        `Semua siswa sudah memiliki tagihan ${namaBulan(
-          bulanPilihan
-        )} ${tahun}.`
-      );
-      return;
-    }
+    const perlu50 = sppTahunanSiswa.filter(
+      (s) =>
+        existingMap.has(String(s.id)) &&
+        Number(existingMap.get(String(s.id))?.nominal) !== getSppNominalSiswa(s) &&
+        getSppNominalSiswa(s) === 50000
+    );
+
+    const perlu60 = sppTahunanSiswa.filter(
+      (s) =>
+        existingMap.has(String(s.id)) &&
+        Number(existingMap.get(String(s.id))?.nominal) !== getSppNominalSiswa(s) &&
+        getSppNominalSiswa(s) === 60000
+    );
 
     const payload = belumAda.map((s) => ({
       siswa_id: s.id,
       bulan: bulanPilihan,
       tahun,
-      nominal,
+      nominal: getSppNominalSiswa(s),
       status: "Belum Bayar",
       tanggal_bayar: null,
       dicatat_oleh: currentUser?.id || null
     }));
 
-    const { error } = await supabase
-      .from("spp")
-      .insert(payload);
+    if (payload.length > 0) {
+      const { error } = await supabase
+        .from("spp")
+        .insert(payload);
 
-    if (error) throw error;
+      if (error) throw error;
+    }
 
-    appNotify(
-      `Berhasil membuat ${payload.length} tagihan SPP ${namaBulan(
-        bulanPilihan
-      )} ${tahun}.`
-    );
+    if (perlu50.length > 0) {
+      const { error } = await supabase
+        .from("spp")
+        .update({ nominal: 50000 })
+        .eq("bulan", bulanPilihan)
+        .eq("tahun", tahun)
+        .in("siswa_id", perlu50.map((s) => s.id));
+
+      if (error) throw error;
+    }
+
+    if (perlu60.length > 0) {
+      const { error } = await supabase
+        .from("spp")
+        .update({ nominal: 60000 })
+        .eq("bulan", bulanPilihan)
+        .eq("tahun", tahun)
+        .in("siswa_id", perlu60.map((s) => s.id));
+
+      if (error) throw error;
+    }
+
+    const totalDibuat = payload.length;
+    const totalDiperbaiki = perlu50.length + perlu60.length;
+
+    if (totalDibuat === 0 && totalDiperbaiki === 0) {
+      appNotify(
+        `Semua tagihan ${namaBulan(bulanPilihan)} ${tahun} sudah sesuai tarif NIS.`
+      );
+    } else {
+      appNotify(
+        `Selesai. ${totalDibuat} tagihan dibuat dan ${totalDiperbaiki} tagihan disesuaikan tarifnya.`
+      );
+    }
 
     await loadSpp();
   } catch (error) {
-    console.error("Error buat tagihan bulanan:", error);
+    console.error("Error sinkronisasi tagihan bulanan:", error);
     appNotify(
-      "Gagal membuat tagihan bulanan:\n\n" +
+      "Gagal membuat/sinkronkan tagihan bulanan:\n\n" +
         (error?.message || "Terjadi kesalahan.")
     );
   }
