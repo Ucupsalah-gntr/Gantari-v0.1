@@ -966,13 +966,6 @@
   }
 
   /* Notification icon itself follows the common header geometry. */
-  body.gantariku-role-ortu #notifButton::before,
-  body.gantariku-role-orangtua #notifButton::before{
-    width:20px !important;
-    height:20px !important;
-    flex:0 0 20px !important;
-    background-size:20px 20px !important;
-  }
 }
 
 /* ------------------------------------------------------------
@@ -1136,15 +1129,7 @@
     border-radius:10px !important;
   }
 
-  body.gantariku-mobile-device.gantariku-role-ortu #notifButton::before,
-  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton::before{
-    width:20px !important;
-    height:20px !important;
-    flex:0 0 20px !important;
-    background-size:20px 20px !important;
-  }
-
-  body.gantariku-mobile-device.gantariku-role-ortu #pageTitle::before,
+body.gantariku-mobile-device.gantariku-role-ortu #pageTitle::before,
   body.gantariku-mobile-device.gantariku-role-orangtua #pageTitle::before{
     display:none !important;
     content:none !important;
@@ -1731,15 +1716,6 @@
     display:none !important;
   }
 
-  body.gantariku-mobile-device.gantariku-role-ortu #notifButton::before,
-  body.gantariku-mobile-device.gantariku-role-orangtua #notifButton::before{
-    content:"" !important;
-    display:block !important;
-    width:20px !important;
-    height:20px !important;
-    flex:0 0 20px !important;
-    background:url("../assets/icon-orangtua-notifikasi.png") center / contain no-repeat !important;
-  }
 }
 
 /* Same single-icon rule on desktop for the Orang Tua role. */
@@ -1749,15 +1725,6 @@
     display:none !important;
   }
 
-  body.gantariku-role-ortu #notifButton::before,
-  body.gantariku-role-orangtua #notifButton::before{
-    content:"" !important;
-    display:block !important;
-    width:20px !important;
-    height:20px !important;
-    flex:0 0 20px !important;
-    background:url("../assets/icon-orangtua-notifikasi.png") center / contain no-repeat !important;
-  }
 }
 
 
@@ -1776,18 +1743,6 @@ body.gantariku-role-orangtua #notifButton{
   background-position:center !important;
   background-size:20px 20px !important;
   color:transparent !important;
-}
-
-body.gantariku-role-ortu #notifButton::before,
-body.gantariku-role-ortu #notifButton::after,
-body.gantariku-role-orangtua #notifButton::before,
-body.gantariku-role-orangtua #notifButton::after{
-  content:none !important;
-  display:none !important;
-  background:none !important;
-  width:0 !important;
-  height:0 !important;
-  flex:0 0 0 !important;
 }
 
 body.gantariku-role-ortu #notifButton .notif-glyph,
@@ -1833,19 +1788,6 @@ body.gantariku-role-orangtua #notifButton{
   background-image:none !important;
   color:#875C38 !important;
   font-size:12px !important;
-}
-
-body.gantariku-role-ortu #notifButton::before,
-body.gantariku-role-ortu #notifButton::after,
-body.gantariku-role-orangtua #notifButton::before,
-body.gantariku-role-orangtua #notifButton::after{
-  content:none !important;
-  display:none !important;
-  background:none !important;
-  background-image:none !important;
-  width:0 !important;
-  height:0 !important;
-  flex:0 0 0 !important;
 }
 
 body.gantariku-role-ortu #notifButton .notif-glyph,
