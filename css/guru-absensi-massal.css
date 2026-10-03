@@ -564,3 +564,49 @@
     padding-right:12px;
   }
 }
+
+
+.gtr-massal-session.is-holiday{
+  border-color:#EAD8CC;
+  background:#FBF2ED;
+}
+
+.gtr-massal-session.is-holiday .gtr-massal-session-count{
+  background:#F1DED3;
+  color:#8A5E4D;
+}
+
+.gtr-massal-holiday-badge{
+  border-color:#E8D3C7;
+  background:#FBEEE8;
+  color:#8A5E4D;
+}
+
+.gtr-massal-holiday-btn{
+  border-color:#E6D0C4 !important;
+  background:#FFF6F1 !important;
+  color:#8A5E4D !important;
+}
+
+.gtr-massal-holiday-panel{
+  margin:16px;
+  padding:22px;
+  border:1px dashed #E7D4C8;
+  border-radius:14px;
+  background:linear-gradient(135deg,#FFF8F4,#FFFEFC);
+  color:#7F7067;
+  text-align:center;
+}
+
+.gtr-massal-holiday-panel strong{
+  display:block;
+  color:#7D5A4B;
+  font-size:12px;
+}
+
+.gtr-massal-holiday-panel span{
+  display:block;
+  margin-top:5px;
+  color:#A08E85;
+  font-size:9px;
+}
