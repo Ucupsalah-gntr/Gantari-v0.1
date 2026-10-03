@@ -172,7 +172,7 @@
         (active ? "is-active " : "") +
         (complete ? "is-complete " : "") +
         (holiday ? "is-holiday " : "") +
-        "' onclick='window.__app.gtrMassalPilihPertemuan(" + JSON.stringify(tanggal) + ")'>" +
+        "' onclick='window.gtrMassalPilihPertemuan(" + JSON.stringify(tanggal) + ")'>" +
         "<span class='gtr-massal-session-main'><strong>Pertemuan " + (index + 1) + "</strong><small>" +
         escape(formatMeetingDate(tanggal)) + "</small></span>" +
         "<span class='gtr-massal-session-count'>" + countLabel + "</span>" +
@@ -198,7 +198,7 @@
           "<div class='gtr-massal-session-progress gtr-massal-holiday-badge'>LIBUR</div>" +
         "</div>" +
         "<div class='gtr-massal-toolbar'>" +
-          "<button type='button' class='btn secondary' onclick='window.__app.gtrMassalToggleLibur()'>Batalkan status Libur</button>" +
+          "<button type='button' class='btn secondary' onclick='window.gtrMassalToggleLibur()'>Batalkan status Libur</button>" +
         "</div>" +
         "<div class='gtr-massal-holiday-panel'><strong>Absensi tidak dihitung untuk pertemuan ini.</strong><span>Batalkan status Libur untuk kembali mengisi absensi siswa.</span></div>";
       return;
@@ -214,7 +214,7 @@
           "<td>" + escape(siswa.nis || "-") + "</td>" +
           "<td>" +
             "<select class='gtr-massal-status' aria-label='Status " + escape(siswa.nama || "-") + "' " +
-              "onchange='window.__app.gtrMassalSetStatus(" + JSON.stringify(siswa.id) + ", this.value)'>" +
+              "onchange='window.gtrMassalSetStatus(" + JSON.stringify(siswa.id) + ", this.value)'>" +
               "<option value='' " + (!selected ? "selected" : "") + ">— Belum diisi</option>" +
               "<option value='H' " + (selected === "H" ? "selected" : "") + ">Hadir</option>" +
               "<option value='I' " + (selected === "I" ? "selected" : "") + ">Izin</option>" +
@@ -223,7 +223,7 @@
             "</select>" +
           "</td>" +
           "<td><input class='gtr-massal-note' type='text' value='" + escape(entry.keterangan || "") + "' " +
-            "placeholder='Opsional' onchange='window.__app.gtrMassalSetKeterangan(" + JSON.stringify(siswa.id) + ", this.value)'></td>" +
+            "placeholder='Opsional' onchange='window.gtrMassalSetKeterangan(" + JSON.stringify(siswa.id) + ", this.value)'></td>" +
         "</tr>"
       );
     }).join("");
@@ -235,9 +235,9 @@
         "<div class='gtr-massal-session-progress' id='gtrMassalSessionCount'>" + filled + "/" + total + " siswa terisi</div>" +
       "</div>" +
       "<div class='gtr-massal-toolbar'>" +
-        "<button type='button' class='btn' onclick='window.__app.gtrMassalMarkAll()'>✓ Hadir semua</button>" +
-        "<button type='button' class='btn secondary' onclick='window.__app.gtrMassalClearAll()'>Kosongkan pertemuan</button>" +
-        "<button type='button' class='btn secondary gtr-massal-holiday-btn' onclick='window.__app.gtrMassalToggleLibur()'>Tandai Libur</button>" +
+        "<button type='button' class='btn' onclick='window.gtrMassalMarkAll()'>✓ Hadir semua</button>" +
+        "<button type='button' class='btn secondary' onclick='window.gtrMassalClearAll()'>Kosongkan pertemuan</button>" +
+        "<button type='button' class='btn secondary gtr-massal-holiday-btn' onclick='window.gtrMassalToggleLibur()'>Tandai Libur</button>" +
       "</div>" +
       "<div class='gtr-massal-table-wrap'><table class='gtr-massal-table'>" +
         "<thead><tr><th>Nama</th><th>NIS</th><th>Status</th><th>Keterangan</th></tr></thead>" +
@@ -299,8 +299,8 @@
           "<tbody>" + rows + "</tbody>" +
         "</table></div>" +
         "<div class='gtr-massal-review-actions'>" +
-          "<button type='button' class='btn secondary' onclick='window.__app.gtrMassalCloseReview()'>Kembali ke pengisian</button>" +
-          "<button type='button' class='btn' id='gtrMassalSaveBtn' onclick='window.__app.simpanAbsensiMassalGuruReview()'>Simpan semua perubahan</button>" +
+          "<button type='button' class='btn secondary' onclick='window.gtrMassalCloseReview()'>Kembali ke pengisian</button>" +
+          "<button type='button' class='btn' id='gtrMassalSaveBtn' onclick='window.simpanAbsensiMassalGuruReview()'>Simpan semua perubahan</button>" +
         "</div>" +
       "</div>";
 
@@ -479,7 +479,7 @@
             "</div>" +
             "<div class='gtr-massal-hint'>Maksimal 12 bulan per sekali pengisian. Data yang belum diisi tetap kosong sampai guru memilih status.</div>" +
             "<div id='gtrMassalHost'><div class='gtr-massal-empty'>Pilih kelas dan periode, lalu klik “Muat pertemuan”.</div></div>" +
-            "<div class='gtr-massal-bottom-actions'><span>Belum tersimpan sampai guru meninjau perubahan.</span><button type='button' class='btn' id='gtrMassalReviewButton' onclick='window.__app.gtrMassalOpenReview()' disabled>Review perubahan</button></div>" +
+            "<div class='gtr-massal-bottom-actions'><span>Belum tersimpan sampai guru meninjau perubahan.</span><button type='button' class='btn' id='gtrMassalReviewButton' onclick='window.gtrMassalOpenReview()' disabled>Review perubahan</button></div>" +
           "</div>" +
         "</div>" +
       "</div>"
