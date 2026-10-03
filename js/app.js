@@ -310,6 +310,7 @@
 
         if (currentNav === "input-absen") {
           loadKelasOptions("inputAbsenKelas");
+          loadKelasOptions("inputAbsenMassalKelas");
         }
 
         if (currentNav === "rekap") {
@@ -460,6 +461,16 @@
 
   loadFormInputAbsen,
   simpanAbsensiMassal,
+  tampilkanModeAbsensi,
+  loadAbsensiMassalGuru,
+  gtrMassalPilihPertemuan,
+  gtrMassalSetStatus,
+  gtrMassalSetKeterangan,
+  gtrMassalMarkAll,
+  gtrMassalClearAll,
+  gtrMassalOpenReview,
+  gtrMassalCloseReview,
+  simpanAbsensiMassalGuruReview,
 
   loadRekapAbsensi,
   loadRiwayatAbsensi,
