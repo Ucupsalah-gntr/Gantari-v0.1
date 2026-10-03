@@ -385,8 +385,8 @@
           "<div><h2>Input Absensi</h2><p class='section-subtitle'>Catat kehadiran siswa, harian atau beberapa pertemuan sekaligus.</p></div>" +
         "</div>" +
         "<div class='gtr-absen-mode-switch'>" +
-          "<button type='button' class='gtr-absen-mode-btn is-active' id='gtrModeHarian' onclick='window.__app.tampilkanModeAbsensi("harian")'>Input satu pertemuan</button>" +
-          "<button type='button' class='gtr-absen-mode-btn' id='gtrModeMassal' onclick='window.__app.tampilkanModeAbsensi("massal")'>Input beberapa pertemuan</button>" +
+          "<button type='button' class='gtr-absen-mode-btn is-active' id='gtrModeHarian' onclick="window.__app.tampilkanModeAbsensi('harian')">Input satu pertemuan</button>" +
+          "<button type='button' class='gtr-absen-mode-btn' id='gtrModeMassal' onclick="window.__app.tampilkanModeAbsensi('massal')">Input beberapa pertemuan</button>" +
         "</div>" +
         "<div id='gtrAbsensiModeHarian'>" +
           "<div class='section-body'>" +
