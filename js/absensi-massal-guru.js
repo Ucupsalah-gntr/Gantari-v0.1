@@ -416,6 +416,7 @@
             "</div>" +
             "<div class='gtr-massal-hint'>Maksimal 12 bulan per sekali pengisian. Data yang belum diisi tetap kosong sampai guru memilih status.</div>" +
             "<div id='gtrMassalHost'><div class='gtr-massal-empty'>Pilih kelas dan periode, lalu klik “Muat pertemuan”.</div></div>" +
+            "<div class='gtr-massal-bottom-actions'><span>Belum tersimpan sampai guru meninjau perubahan.</span><button type='button' class='btn' id='gtrMassalReviewButton' onclick='window.__app.gtrMassalOpenReview()' disabled>Review perubahan</button></div>" +
           "</div>" +
         "</div>" +
       "</div>"
@@ -462,6 +463,7 @@
     if (!entry) return;
     entry.keterangan = String(value || "").trim();
     refreshMassalProgress();
+    refreshReviewButtonState();
   }
 
   function gtrMassalMarkAll() {
