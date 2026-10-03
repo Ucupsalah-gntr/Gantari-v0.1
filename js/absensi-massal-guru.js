@@ -94,11 +94,24 @@
     return entry.status !== entry.originalStatus || currentNote !== originalNote;
   }
 
+  function isHoliday(tanggal) {
+    return !!(massalState && massalState.holidays && massalState.holidays[tanggal]);
+  }
+
   function getChanges() {
     if (!massalState) return [];
     const changes = [];
 
     massalState.dates.forEach(function (tanggal) {
+      const holiday = massalState.holidays[tanggal];
+      if (holiday && !massalState.holidayOriginal[tanggal]) {
+        changes.push({ type: "holiday_insert", tanggal: tanggal, holiday: holiday });
+      } else if (!holiday && massalState.holidayOriginal[tanggal]) {
+        changes.push({ type: "holiday_delete", tanggal: tanggal, holiday: massalState.holidayOriginal[tanggal] });
+      }
+
+      if (holiday) return;
+
       massalState.students.forEach(function (siswa) {
         const entry = getEntry(tanggal, siswa.id);
         if (!isEntryChanged(entry)) return;
@@ -150,14 +163,19 @@
     list.innerHTML = massalState.dates.map(function (tanggal, index) {
       const filled = countFilledForDate(tanggal);
       const total = massalState.students.length;
-      const complete = total > 0 && filled === total;
+      const holiday = isHoliday(tanggal);
+      const complete = !holiday && total > 0 && filled === total;
       const active = tanggal === massalState.currentDate;
+      const countLabel = holiday ? "LIBUR" : (filled + "/" + total);
       return (
-        "<button type='button' class='gtr-massal-session " + (active ? "is-active " : "") + (complete ? "is-complete" : "") + "' " +
-        "onclick='window.__app.gtrMassalPilihPertemuan(" + JSON.stringify(tanggal) + ")'>" +
+        "<button type='button' class='gtr-massal-session " +
+        (active ? "is-active " : "") +
+        (complete ? "is-complete " : "") +
+        (holiday ? "is-holiday " : "") +
+        "' onclick='window.__app.gtrMassalPilihPertemuan(" + JSON.stringify(tanggal) + ")'>" +
         "<span class='gtr-massal-session-main'><strong>Pertemuan " + (index + 1) + "</strong><small>" +
         escape(formatMeetingDate(tanggal)) + "</small></span>" +
-        "<span class='gtr-massal-session-count'>" + filled + "/" + total + "</span>" +
+        "<span class='gtr-massal-session-count'>" + countLabel + "</span>" +
         "</button>"
       );
     }).join("");
@@ -170,6 +188,21 @@
     const tanggal = massalState.currentDate;
     const filled = countFilledForDate(tanggal);
     const total = massalState.students.length;
+    const holiday = isHoliday(tanggal);
+
+    if (holiday) {
+      workspace.innerHTML =
+        "<div class='gtr-massal-workspace-head'>" +
+          "<div><span class='gtr-massal-eyebrow'>Pertemuan diliburkan</span><h3>" + escape(formatMeetingDate(tanggal)) + "</h3>" +
+          "<p>Hari ini ditandai <strong>Libur</strong>. Tidak ada absensi siswa yang perlu diisi.</p></div>" +
+          "<div class='gtr-massal-session-progress gtr-massal-holiday-badge'>LIBUR</div>" +
+        "</div>" +
+        "<div class='gtr-massal-toolbar'>" +
+          "<button type='button' class='btn secondary' onclick='window.__app.gtrMassalToggleLibur()'>Batalkan status Libur</button>" +
+        "</div>" +
+        "<div class='gtr-massal-holiday-panel'><strong>Absensi tidak dihitung untuk pertemuan ini.</strong><span>Kembali ke pengisian biasa untuk menghapus tanda Libur.</span></div>";
+      return;
+    }
 
     const rows = massalState.students.map(function (siswa) {
       const entry = getEntry(tanggal, siswa.id);
@@ -204,6 +237,7 @@
       "<div class='gtr-massal-toolbar'>" +
         "<button type='button' class='btn' onclick='window.__app.gtrMassalMarkAll()'>✓ Hadir semua</button>" +
         "<button type='button' class='btn secondary' onclick='window.__app.gtrMassalClearAll()'>Kosongkan pertemuan</button>" +
+        "<button type='button' class='btn secondary gtr-massal-holiday-btn' onclick='window.__app.gtrMassalToggleLibur()'>Tandai Libur</button>" +
       "</div>" +
       "<div class='gtr-massal-table-wrap'><table class='gtr-massal-table'>" +
         "<thead><tr><th>Nama</th><th>NIS</th><th>Status</th><th>Keterangan</th></tr></thead>" +
@@ -222,7 +256,13 @@
       return;
     }
 
-    const summary = { insert: 0, update: 0, delete: 0 };
+    const summary = {
+      insert: 0,
+      update: 0,
+      delete: 0,
+      holiday_insert: 0,
+      holiday_delete: 0
+    };
     changes.forEach(function (change) { summary[change.type] += 1; });
 
     const byDate = {};
@@ -251,6 +291,7 @@
           "<div><strong>" + summary.insert + "</strong><span>Tambah</span></div>" +
           "<div><strong>" + summary.update + "</strong><span>Ubah</span></div>" +
           "<div><strong>" + summary.delete + "</strong><span>Hapus</span></div>" +
+          "<div><strong>" + (summary.holiday_insert + summary.holiday_delete) + "</strong><span>Libur</span></div>" +
         "</div>" +
         "<div class='gtr-massal-table-wrap'><table class='gtr-massal-table gtr-massal-review-table'>" +
           "<thead><tr><th>Pertemuan</th><th>Tambah</th><th>Ubah</th><th>Hapus</th></tr></thead>" +
@@ -318,6 +359,20 @@
 
       if (absensiResult.error) throw absensiResult.error;
 
+      const holidayResult = await supabase
+        .from("absensi_libur")
+        .select("id, kelas, tanggal, keterangan")
+        .eq("kelas", kelas)
+        .gte("tanggal", dates[0])
+        .lte("tanggal", dates[dates.length - 1]);
+
+      if (holidayResult.error) throw holidayResult.error;
+
+      const holidayMap = {};
+      (holidayResult.data || []).forEach(function (row) {
+        holidayMap[row.tanggal] = row;
+      });
+
       const existingMap = {};
       (absensiResult.data || []).forEach(function (row) {
         existingMap[row.siswa_id + "|" + row.tanggal] = row;
@@ -339,6 +394,11 @@
         });
       });
 
+      const holidayOriginal = {};
+      dates.forEach(function (tanggal) {
+        holidayOriginal[tanggal] = holidayMap[tanggal] || null;
+      });
+
       massalState = {
         kelas: kelas,
         dari: dari,
@@ -346,6 +406,8 @@
         students: students,
         dates: dates,
         entries: entries,
+        holidays: { ...holidayMap },
+        holidayOriginal: holidayOriginal,
         currentDate: dates[0]
       };
 
@@ -488,6 +550,33 @@
     refreshReviewButtonState();
   }
 
+  function gtrMassalToggleLibur() {
+    if (!massalState) return;
+
+    const tanggal = massalState.currentDate;
+    const currentlyHoliday = isHoliday(tanggal);
+
+    if (!currentlyHoliday && countFilledForDate(tanggal) > 0) {
+      appNotify("Pertemuan ini sudah memiliki absensi siswa. Kosongkan dulu data absensinya sebelum menandai Libur.", "warning");
+      return;
+    }
+
+    if (currentlyHoliday) {
+      delete massalState.holidays[tanggal];
+    } else {
+      massalState.holidays[tanggal] = {
+        id: null,
+        kelas: massalState.kelas,
+        tanggal: tanggal,
+        keterangan: "Libur"
+      };
+    }
+
+    renderSessionList();
+    renderSessionWorkspace();
+    refreshReviewButtonState();
+  }
+
   function refreshReviewButtonState() {
     const changes = getChanges();
     const btn = document.getElementById("gtrMassalReviewButton");
@@ -536,7 +625,18 @@
 
     try {
       for (const change of changes) {
-        if (change.type === "insert") {
+        if (change.type === "holiday_insert") {
+          const result = await supabase.from("absensi_libur").insert({
+            kelas: massalState.kelas,
+            tanggal: change.tanggal,
+            keterangan: "Libur",
+            input_oleh: currentUser ? currentUser.id : null
+          });
+          if (result.error) throw result.error;
+        } else if (change.type === "holiday_delete") {
+          const result = await supabase.from("absensi_libur").delete().eq("id", change.holiday.id);
+          if (result.error) throw result.error;
+        } else if (change.type === "insert") {
           const payload = {
             siswa_id: change.siswa.id,
             tanggal: change.tanggal,
@@ -561,9 +661,15 @@
           if (result.error) throw result.error;
         }
 
-        change.entry.originalId = change.type === "delete" ? null : (change.entry.id || change.entry.originalId);
-        change.entry.originalStatus = change.type === "delete" ? "" : change.entry.status;
-        change.entry.originalKeterangan = change.type === "delete" ? "" : String(change.entry.keterangan || "").trim();
+        if (change.type === "holiday_insert") {
+          massalState.holidayOriginal[change.tanggal] = massalState.holidays[change.tanggal];
+        } else if (change.type === "holiday_delete") {
+          massalState.holidayOriginal[change.tanggal] = null;
+        } else {
+          change.entry.originalId = change.type === "delete" ? null : (change.entry.id || change.entry.originalId);
+          change.entry.originalStatus = change.type === "delete" ? "" : change.entry.status;
+          change.entry.originalKeterangan = change.type === "delete" ? "" : String(change.entry.keterangan || "").trim();
+        }
         completed += 1;
       }
 
@@ -591,6 +697,7 @@
   window.gtrMassalSetKeterangan = gtrMassalSetKeterangan;
   window.gtrMassalMarkAll = gtrMassalMarkAll;
   window.gtrMassalClearAll = gtrMassalClearAll;
+  window.gtrMassalToggleLibur = gtrMassalToggleLibur;
   window.gtrMassalOpenReview = gtrMassalOpenReview;
   window.gtrMassalCloseReview = gtrMassalCloseReview;
   window.simpanAbsensiMassalGuruReview = simpanAbsensiMassalGuruReview;
