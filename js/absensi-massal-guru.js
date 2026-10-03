@@ -200,7 +200,7 @@
         "<div class='gtr-massal-toolbar'>" +
           "<button type='button' class='btn secondary' onclick='window.__app.gtrMassalToggleLibur()'>Batalkan status Libur</button>" +
         "</div>" +
-        "<div class='gtr-massal-holiday-panel'><strong>Absensi tidak dihitung untuk pertemuan ini.</strong><span>Kembali ke pengisian biasa untuk menghapus tanda Libur.</span></div>";
+        "<div class='gtr-massal-holiday-panel'><strong>Absensi tidak dihitung untuk pertemuan ini.</strong><span>Batalkan status Libur untuk kembali mengisi absensi siswa.</span></div>";
       return;
     }
 
@@ -276,7 +276,8 @@
       const tambah = items.filter(function (x) { return x.type === "insert"; }).length;
       const ubah = items.filter(function (x) { return x.type === "update"; }).length;
       const hapus = items.filter(function (x) { return x.type === "delete"; }).length;
-      return "<tr><td>" + escape(formatMeetingDate(tanggal)) + "</td><td>" + tambah + "</td><td>" + ubah + "</td><td>" + hapus + "</td></tr>";
+      const libur = items.filter(function (x) { return x.type === "holiday_insert" || x.type === "holiday_delete"; }).length;
+      return "<tr><td>" + escape(formatMeetingDate(tanggal)) + "</td><td>" + tambah + "</td><td>" + ubah + "</td><td>" + hapus + "</td><td>" + (libur ? "Ya" : "-") + "</td></tr>";
     }).join("");
 
     wrap.classList.remove("is-hidden");
